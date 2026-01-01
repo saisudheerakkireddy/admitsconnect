@@ -1,0 +1,223 @@
+// Recent Academics Info Screen Component
+// Refactored with separate CSS file
+
+import { useState } from 'react';
+import './RecentAcademicsInfo.css';
+import { GradientBackgroundTailwind } from '../GradientBackgroundTailwind';
+import { useFormStore } from '../../store/formStore';
+import { useFormNavigation } from '../../hooks/useFormNavigation';
+
+const StarLogo = () => (
+  <svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M17 0L20.8 11H32.5L23 18L26.8 29L17 22L7.2 29L11 18L1.5 11H13.2L17 0Z" fill="#1E417C"/>
+    <path d="M17 6L19.2 12.5H26L20.4 16.5L22.6 23L17 19L11.4 23L13.6 16.5L8 12.5H14.8L17 6Z" fill="#EE1113"/>
+  </svg>
+);
+
+const ProfileIcon = () => (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="12" cy="8" r="4" stroke="#1E417C" strokeWidth="1.5" fill="none"/>
+    <path d="M6 20c0-3.3 2.7-6 6-6s6 2.7 6 6" stroke="#1E417C" strokeWidth="1.5" fill="none"/>
+  </svg>
+);
+
+const MenuIcon = () => (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M4 6h16M4 12h16M4 18h16" stroke="#1E417C" strokeWidth="2" strokeLinecap="round"/>
+  </svg>
+);
+
+const LeftArrow = () => (
+  <svg width="5" height="9" viewBox="0 0 5 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M4 1L1 4.5L4 8" stroke="#1E417C" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+  </svg>
+);
+
+const RightArrow = () => (
+  <svg width="5" height="9" viewBox="0 0 5 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M1 1L4 4.5L1 8" stroke="#1E417C" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+  </svg>
+);
+
+const ChevronDown = () => (
+  <svg width="7" height="4" viewBox="0 0 7 4" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M1 1L3.5 3L6 1" stroke="#000000" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+  </svg>
+);
+
+const ChevronUp = () => (
+  <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M3 7L6 4L9 7" stroke="#505050" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+  </svg>
+);
+
+const mediumOptions = ["English", "Hindi", "Regional"];
+
+export default function RecentAcademicsInfo() {
+  const { academics, setSecondaryAcademics, setHigherSecondaryAcademics, setUndergradAcademics, setPostgradAcademics } = useFormStore();
+  const { goToNext, goToPrevious, canProceed } = useFormNavigation();
+  
+  const [undergradExpanded, setUndergradExpanded] = useState(false);
+  const [postgradExpanded, setPostgradExpanded] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+
+  const handleNext = () => {
+    if (canProceed) goToNext();
+  };
+
+  const renderDropdown = (id: string, value: string, onChange: (val: string) => void) => (
+    <div className="academics-dropdown">
+      <button
+        className="glass-pill glass-input--small"
+        style={{ width: '150px', position: 'relative' }}
+        onClick={() => setOpenDropdown(openDropdown === id ? null : id)}
+      >
+        <span className="glass-pill__text">{value || 'Medium'}</span>
+        <div style={{ position: 'absolute', right: '20px', top: '50%', transform: 'translateY(-50%)' }}>
+          <ChevronDown />
+        </div>
+      </button>
+      {openDropdown === id && (
+        <div className="academics-dropdown__menu">
+          {mediumOptions.map((option) => (
+            <button
+              key={option}
+              className="academics-dropdown__option"
+              onClick={() => { onChange(option); setOpenDropdown(null); }}
+            >
+              <span className="glass-pill__text">{option}</span>
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+
+  return (
+    <GradientBackgroundTailwind variant="pastel" className="page-container">
+      <header className="page-header page-header--alt">
+        <div className="page-header__logo page-header__logo--alt">
+          <StarLogo />
+          <span className="page-header__logo-text page-header__logo-text--small">One</span>
+        </div>
+        <div className="page-header__actions page-header__actions--alt">
+          <button className="page-header__action-btn"><ProfileIcon /></button>
+          <button className="page-header__action-btn"><MenuIcon /></button>
+        </div>
+      </header>
+
+      <main className="page-main--alt" style={{ paddingTop: '24px' }}>
+        <div className="academics-nav">
+          <button className="page-nav-arrow" onClick={goToPrevious}>
+            <LeftArrow /><LeftArrow /><LeftArrow />
+          </button>
+          <h2 className="page-title">Help us to Understand better</h2>
+          <button className="page-nav-arrow" onClick={handleNext} disabled={!canProceed}>
+            <RightArrow /><RightArrow /><RightArrow />
+          </button>
+        </div>
+
+        <div className="academics-form">
+          {/* Secondary School */}
+          <div className="academics-section">
+            <p className="academics-section__title">Secondary school Certificate / 10th</p>
+            <div className="academics-section__fields">
+              <input
+                type="text"
+                placeholder="Enter Year of Completion"
+                value={academics?.secondary?.year || ''}
+                onChange={(e) => setSecondaryAcademics({ year: e.target.value })}
+                className="glass-input glass-input--full"
+              />
+              <input
+                type="text"
+                placeholder="Enter the Achieved Grade"
+                value={academics?.secondary?.grade || ''}
+                onChange={(e) => setSecondaryAcademics({ grade: e.target.value })}
+                className="glass-input glass-input--full"
+              />
+              {renderDropdown('secondary-medium', academics?.secondary?.medium || '', (val) => setSecondaryAcademics({ medium: val }))}
+            </div>
+          </div>
+
+          {/* Higher Secondary */}
+          <div className="academics-section">
+            <p className="academics-section__title">Higher Secondary school Certificate / 12th</p>
+            <div className="academics-section__fields">
+              <input
+                type="text"
+                placeholder="Enter Year of Completion"
+                value={academics?.higherSecondary?.year || ''}
+                onChange={(e) => setHigherSecondaryAcademics({ year: e.target.value })}
+                className="glass-input glass-input--full"
+              />
+              <input
+                type="text"
+                placeholder="Enter the Achieved Grade"
+                value={academics?.higherSecondary?.grade || ''}
+                onChange={(e) => setHigherSecondaryAcademics({ grade: e.target.value })}
+                className="glass-input glass-input--full"
+              />
+              {renderDropdown('higher-secondary-medium', academics?.higherSecondary?.medium || '', (val) => setHigherSecondaryAcademics({ medium: val }))}
+            </div>
+          </div>
+
+          {/* Under Graduation */}
+          <div className="academics-section">
+            <button 
+              className="academics-section__toggle"
+              onClick={() => {
+                setUndergradExpanded(!undergradExpanded);
+                if (!undergradExpanded && !academics?.undergrad) setUndergradAcademics({});
+              }}
+            >
+              <p className="academics-section__title" style={{ marginBottom: 0 }}>Under Graduation</p>
+              <div className={`academics-section__toggle-icon ${undergradExpanded ? 'academics-section__toggle-icon--open' : ''}`}>
+                <ChevronUp />
+              </div>
+            </button>
+            {undergradExpanded && (
+              <div className="academics-section__fields">
+                <input type="text" placeholder="Choose the Type of Degree" value={academics?.undergrad?.degreeType || ''} onChange={(e) => setUndergradAcademics({ degreeType: e.target.value })} className="glass-input glass-input--medium" />
+                <input type="text" placeholder="Enter the Start Year" value={academics?.undergrad?.startYear || ''} onChange={(e) => setUndergradAcademics({ startYear: e.target.value })} className="glass-input" style={{ width: '116px' }} />
+                <input type="text" placeholder="Enter the End Year" value={academics?.undergrad?.endYear || ''} onChange={(e) => setUndergradAcademics({ endYear: e.target.value })} className="glass-input" style={{ width: '112px' }} />
+                <input type="text" placeholder="Enter the Achieved Grade" value={academics?.undergrad?.grade || ''} onChange={(e) => setUndergradAcademics({ grade: e.target.value })} className="glass-input" style={{ width: '140px' }} />
+                <input type="number" placeholder="Enter Total Backlogs" value={academics?.undergrad?.backlogs || ''} onChange={(e) => setUndergradAcademics({ backlogs: parseInt(e.target.value) || 0 })} className="glass-input" style={{ width: '119px' }} />
+                {renderDropdown('undergrad-medium', academics?.undergrad?.medium || '', (val) => setUndergradAcademics({ medium: val }))}
+              </div>
+            )}
+          </div>
+
+          {/* Post Graduation */}
+          <div className="academics-section">
+            <button 
+              className="academics-section__toggle"
+              onClick={() => {
+                setPostgradExpanded(!postgradExpanded);
+                if (!postgradExpanded && !academics?.postgrad) setPostgradAcademics({});
+              }}
+            >
+              <p className="academics-section__title" style={{ marginBottom: 0 }}>Post Graduation</p>
+              <div className={`academics-section__toggle-icon ${postgradExpanded ? 'academics-section__toggle-icon--open' : ''}`}>
+                <ChevronUp />
+              </div>
+            </button>
+            {postgradExpanded && (
+              <div className="academics-section__fields">
+                <input type="text" placeholder="Choose the Type of Degree" value={academics?.postgrad?.degreeType || ''} onChange={(e) => setPostgradAcademics({ degreeType: e.target.value })} className="glass-input glass-input--medium" />
+                <input type="text" placeholder="Enter the Start Year" value={academics?.postgrad?.startYear || ''} onChange={(e) => setPostgradAcademics({ startYear: e.target.value })} className="glass-input" style={{ width: '116px' }} />
+                <input type="text" placeholder="Enter the End Year" value={academics?.postgrad?.endYear || ''} onChange={(e) => setPostgradAcademics({ endYear: e.target.value })} className="glass-input" style={{ width: '112px' }} />
+                <input type="text" placeholder="Enter the Achieved Grade" value={academics?.postgrad?.grade || ''} onChange={(e) => setPostgradAcademics({ grade: e.target.value })} className="glass-input" style={{ width: '140px' }} />
+                <input type="number" placeholder="Enter Total Backlogs" value={academics?.postgrad?.backlogs || ''} onChange={(e) => setPostgradAcademics({ backlogs: parseInt(e.target.value) || 0 })} className="glass-input" style={{ width: '119px' }} />
+                {renderDropdown('postgrad-medium', academics?.postgrad?.medium || '', (val) => setPostgradAcademics({ medium: val }))}
+              </div>
+            )}
+          </div>
+        </div>
+
+        <div className="academics-divider" />
+      </main>
+    </GradientBackgroundTailwind>
+  );
+}
+

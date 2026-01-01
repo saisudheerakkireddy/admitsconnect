@@ -1,0 +1,103 @@
+/* ============================================
+   RecentAcademicsInfo Component Styles
+   ============================================ */
+
+.academics-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 50px;
+}
+
+.academics-form {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  max-width: 313px;
+  margin: 0 auto;
+}
+
+.academics-section {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+}
+
+.academics-section__title {
+  font-family: var(--font-primary);
+  font-size: var(--text-base);
+  color: var(--color-text-secondary);
+  text-align: center;
+  width: 100%;
+}
+
+.academics-section__fields {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  width: 100%;
+}
+
+.academics-section__toggle {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: opacity var(--transition-fast);
+}
+
+.academics-section__toggle:hover {
+  opacity: 0.7;
+}
+
+.academics-section__toggle-icon {
+  transition: transform var(--transition-normal);
+}
+
+.academics-section__toggle-icon--open {
+  transform: rotate(180deg);
+}
+
+.academics-dropdown {
+  position: relative;
+}
+
+.academics-dropdown__menu {
+  position: absolute;
+  top: 32px;
+  left: 0;
+  width: 100%;
+  background: var(--color-white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  border: 1px solid rgba(238, 17, 19, 0.2);
+  z-index: var(--z-dropdown);
+  overflow: hidden;
+}
+
+.academics-dropdown__option {
+  width: 100%;
+  padding: var(--space-sm) var(--space-lg);
+  text-align: left;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: background var(--transition-fast);
+}
+
+.academics-dropdown__option:hover {
+  background: var(--color-bg-selected);
+}
+
+.academics-divider {
+  width: 300px;
+  height: 1px;
+  background: #D0D0D0;
+  margin: 50px auto 32px;
+}
+

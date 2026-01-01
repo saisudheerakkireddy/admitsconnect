@@ -1,0 +1,70 @@
+/* ============================================
+   ThankYou Component Styles
+   ============================================ */
+
+.thankyou-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 30px;
+}
+
+.thankyou-content {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  align-items: center;
+  width: 390px;
+  margin: 0 auto;
+  padding: 0 20px 50px;
+  border-radius: 7px;
+  overflow: hidden;
+}
+
+.thankyou-text {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  font-family: var(--font-primary);
+}
+
+.thankyou-text__title {
+  color: var(--color-primary);
+  font-size: var(--text-xl);
+  line-height: normal;
+  width: 100%;
+}
+
+.thankyou-text__body {
+  color: var(--color-secondary);
+  font-size: var(--text-base);
+  line-height: 1.5;
+  width: 100%;
+}
+
+.thankyou-text__body p {
+  margin-bottom: 0;
+}
+
+.thankyou-home-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: opacity var(--transition-fast);
+}
+
+.thankyou-home-btn:hover {
+  opacity: 0.7;
+}
+
+.thankyou-divider {
+  width: 300px;
+  height: 1px;
+  background: #D0D0D0;
+  margin: 168px auto 32px;
+}
+

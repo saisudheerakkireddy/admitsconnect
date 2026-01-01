@@ -1,0 +1,433 @@
+/* ============================================
+   Common Page Component Styles
+   ============================================
+   Shared styles for all form pages
+   ============================================ */
+
+/* ============================================
+   COMMON HEADER
+   ============================================ */
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--header-padding-top) var(--content-padding) var(--header-padding-bottom);
+}
+
+.page-header--alt {
+  padding: 37px 16px 16px;
+}
+
+.page-header__logo {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.page-header__logo--alt {
+  gap: 8px;
+}
+
+.page-header__logo-text {
+  font-family: var(--font-accent);
+  font-size: var(--text-xl);
+  color: var(--color-secondary);
+  line-height: normal;
+}
+
+.page-header__logo-text--small {
+  font-size: 14px;
+}
+
+.page-header__actions {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.page-header__actions--alt {
+  gap: 16px;
+}
+
+.page-header__action-btn {
+  padding: 4px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: opacity var(--transition-fast);
+}
+
+.page-header__action-btn:hover {
+  opacity: 0.7;
+}
+
+/* ============================================
+   COMMON NAVIGATION ROW
+   ============================================ */
+.page-nav-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 27px;
+  margin-bottom: 59px;
+}
+
+.page-nav-row--centered {
+  justify-content: center;
+  gap: 16px;
+}
+
+.page-nav-row--compact {
+  margin-bottom: 45px;
+}
+
+.page-nav-arrow {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  padding: var(--space-sm);
+  transition: opacity var(--transition-fast);
+}
+
+.page-nav-arrow:hover:not(:disabled) {
+  opacity: 0.7;
+}
+
+.page-nav-arrow:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.page-title {
+  font-family: var(--font-primary);
+  font-size: var(--text-base);
+  color: var(--color-text-secondary);
+  text-align: center;
+  line-height: normal;
+}
+
+.page-title--highlight {
+  color: var(--color-primary);
+  font-size: var(--text-xl);
+}
+
+/* ============================================
+   COMMON MAIN CONTENT
+   ============================================ */
+.page-main {
+  padding: 0 18px;
+  padding-top: var(--space-xl);
+}
+
+.page-main--alt {
+  padding: 0 16px;
+  padding-top: 32px;
+}
+
+/* ============================================
+   SECTION STYLES
+   ============================================ */
+.page-section {
+  margin-bottom: 55px;
+}
+
+.page-section--large {
+  margin-bottom: 68px;
+}
+
+.page-section__title {
+  font-family: var(--font-primary);
+  font-size: var(--text-base);
+  color: var(--color-text-secondary);
+  text-align: center;
+  line-height: normal;
+  margin-bottom: 40px;
+}
+
+.page-section__title--small {
+  font-size: var(--text-sm);
+  margin-bottom: 20px;
+}
+
+/* ============================================
+   COMMON DIVIDER
+   ============================================ */
+.page-divider-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: var(--space-3xl);
+}
+
+.page-divider {
+  width: 300px;
+  height: 1px;
+  background: var(--gradient-divider);
+}
+
+.page-divider--alt {
+  background: #D0D0D0;
+}
+
+/* ============================================
+   GLASSMORPHISM PILL BUTTON
+   ============================================ */
+.glass-pill {
+  padding: var(--space-sm) var(--space-lg);
+  border-radius: var(--radius-2xl);
+  background: rgba(255, 255, 255, 0.01);
+  border: 0.5px solid var(--color-primary-light);
+  backdrop-filter: blur(2.5px);
+  box-shadow: 
+    inset 0px 0px 10px 0px rgba(194, 32, 50, 0.3),
+    inset -1px -2px 3px 0px rgba(194, 32, 50, 0.1),
+    inset 1px 1px 2px 0px rgba(194, 32, 50, 0.3);
+  transition: all var(--transition-normal);
+  cursor: pointer;
+}
+
+.glass-pill:hover {
+  background: #C22032;
+}
+
+.glass-pill:hover .glass-pill__text {
+  color: #FFFFFF;
+}
+
+.glass-pill:active {
+  transform: scale(0.95);
+}
+
+.glass-pill--selected {
+  background: #C22032;
+  box-shadow: 0 0 0 2px #C22032;
+}
+
+.glass-pill--selected:hover {
+  background: #C22032;
+}
+
+.glass-pill__text {
+  font-family: var(--font-display);
+  font-size: 8px;
+  font-weight: var(--font-bold);
+  color: var(--color-black);
+  white-space: nowrap;
+}
+
+.glass-pill--selected .glass-pill__text {
+  color: #FFFFFF;
+}
+
+/* ============================================
+   GLASSMORPHISM INPUT
+   ============================================ */
+.glass-input {
+  height: 28px;
+  padding: var(--space-sm) var(--space-lg);
+  border-radius: var(--radius-2xl);
+  background: rgba(255, 255, 255, 0.01);
+  border: 0.5px solid var(--color-primary-light);
+  backdrop-filter: blur(2.5px);
+  box-shadow: 
+    inset 0px 0px 10px 0px rgba(194, 32, 50, 0.3),
+    inset -1px -2px 3px 0px rgba(194, 32, 50, 0.1),
+    inset 1px 1px 2px 0px rgba(194, 32, 50, 0.3);
+  font-family: var(--font-display);
+  font-size: 8px;
+  font-weight: var(--font-bold);
+  color: var(--color-black);
+  outline: none;
+  transition: all var(--transition-fast);
+}
+
+.glass-input::placeholder {
+  color: var(--color-black);
+}
+
+.glass-input:hover,
+.glass-input:focus {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.glass-input--full {
+  width: 312px;
+}
+
+.glass-input--medium {
+  width: 237px;
+}
+
+.glass-input--small {
+  width: 150px;
+}
+
+/* ============================================
+   SEARCH BAR
+   ============================================ */
+.search-bar {
+  width: 316px;
+  height: 44px;
+  margin: 0 auto;
+  position: relative;
+  display: flex;
+  align-items: center;
+  border-radius: var(--radius-2xl);
+  background: rgba(255, 255, 255, 0.01);
+  border: 0.5px solid var(--color-primary-light);
+  backdrop-filter: blur(10px);
+  box-shadow: 
+    inset 0px 0px 10px 0px rgba(194, 32, 50, 0.3),
+    inset -1px -2px 3px 0px rgba(194, 32, 50, 0.1),
+    inset 1px 1px 2px 0px rgba(194, 32, 50, 0.3);
+  transition: all var(--transition-normal);
+}
+
+.search-bar:hover {
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.search-bar__icon {
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.search-bar__divider {
+  position: absolute;
+  left: 50px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1px;
+  height: 28px;
+  background: #ddd;
+}
+
+.search-bar__input {
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  padding-left: 66px;
+  padding-right: 16px;
+  font-family: var(--font-display);
+  font-size: 8px;
+  font-weight: var(--font-normal);
+  color: var(--color-black);
+}
+
+.search-bar__input::placeholder {
+  color: rgba(0, 0, 0, 0.5);
+}
+
+/* ============================================
+   FORM CONTENT WRAPPER
+   ============================================ */
+.form-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 313px;
+  margin: 0 auto;
+}
+
+.form-content--centered {
+  align-items: center;
+}
+
+/* ============================================
+   PILLS CONTAINER
+   ============================================ */
+.pills-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px 10px;
+  justify-content: center;
+  padding: 0 16px;
+}
+
+.pills-container--compact {
+  gap: 15px 10px;
+}
+
+/* ============================================
+   CHECKBOX STYLES
+   ============================================ */
+.custom-checkbox {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+.custom-checkbox__box {
+  width: 11px;
+  height: 11px;
+  margin-top: 3px;
+  border: 1px solid var(--color-black);
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  flex-shrink: 0;
+}
+
+.custom-checkbox__box:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.custom-checkbox__box--checked {
+  background: var(--color-bg-selected);
+}
+
+.custom-checkbox__label {
+  font-family: var(--font-primary);
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+}
+
+/* ============================================
+   SUBMIT BUTTON
+   ============================================ */
+.submit-btn {
+  height: 33px;
+  width: 156px;
+  margin: 0 auto;
+  padding: 14.5px 20px;
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.01);
+  border: 0.5px solid var(--color-primary-light);
+  backdrop-filter: blur(2.5px);
+  box-shadow: 
+    inset 0px 0px 10px 0px rgba(194, 32, 50, 0.3),
+    inset -1px -2px 3px 0px rgba(194, 32, 50, 0.1),
+    inset 1px 1px 2px 0px rgba(194, 32, 50, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--transition-normal);
+}
+
+.submit-btn:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.submit-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.submit-btn__text {
+  font-family: var(--font-primary);
+  font-size: var(--text-base);
+  color: var(--color-black);
+}
+

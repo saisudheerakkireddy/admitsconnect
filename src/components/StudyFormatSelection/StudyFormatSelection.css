@@ -1,0 +1,60 @@
+/* ============================================
+   StudyFormatSelection Component Styles
+   ============================================ */
+
+.format-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 45px;
+}
+
+.format-sections {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 314px;
+  margin: 0 auto;
+}
+
+.format-section {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+}
+
+.format-section__title {
+  font-family: var(--font-primary);
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  text-align: center;
+  width: 100%;
+}
+
+.format-options {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  justify-content: center;
+}
+
+.format-options--wrap {
+  flex-wrap: wrap;
+  gap: 10px 16px;
+  width: 100%;
+}
+
+.format-options--narrow {
+  width: 262px;
+  gap: 10px 20px;
+}
+
+.format-divider {
+  width: 300px;
+  height: 1px;
+  background: #D0D0D0;
+  margin: 56px auto 0;
+}
+

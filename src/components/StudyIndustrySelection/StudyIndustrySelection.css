@@ -1,0 +1,77 @@
+/* ============================================
+   StudyIndustrySelection Component Styles
+   ============================================ */
+
+.industry-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 63px;
+  padding: 0 27px;
+}
+
+.industry-search {
+  padding: 0 20px;
+  margin-bottom: 20px;
+}
+
+.industry-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px 10px;
+  justify-content: center;
+  padding: 0 20px;
+  margin-bottom: 84px;
+}
+
+.industry-card {
+  width: 95px;
+  height: 101px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.01);
+  border: 1px solid var(--color-primary-light);
+  backdrop-filter: blur(2.5px);
+  box-shadow: 
+    inset 0px 0px 10px 0px rgba(194, 32, 50, 0.3),
+    inset -1px -2px 3px 0px rgba(194, 32, 50, 0.1),
+    inset 1px 1px 2px 0px rgba(194, 32, 50, 0.2);
+  cursor: pointer;
+  transition: all var(--transition-normal);
+}
+
+.industry-card:hover {
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.industry-card:active {
+  transform: scale(0.95);
+}
+
+.industry-card--selected {
+  background: var(--color-bg-selected);
+  box-shadow: 0 0 0 2px var(--color-primary-light);
+}
+
+.industry-card__icon {
+  margin-bottom: 8px;
+}
+
+.industry-card__name {
+  font-family: var(--font-display);
+  font-size: 8px;
+  font-weight: var(--font-normal);
+  text-align: center;
+  line-height: 1.2;
+  white-space: pre-line;
+  padding: 0 9px;
+  color: var(--color-black);
+}
+
+.industry-card--selected .industry-card__name {
+  color: var(--color-primary-light);
+}
+
