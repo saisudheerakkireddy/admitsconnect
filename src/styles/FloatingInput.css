@@ -1,0 +1,200 @@
+/* ============================================
+   AdmitsConnect - Floating Label Input
+   ============================================
+   Uses existing design tokens from variables.css
+   ============================================ */
+
+/* Container - matches your existing glass-input height with room for label */
+.floating-container {
+  position: relative;
+  width: 100%;
+  height: 36px; /* Slightly taller than 28px to accommodate floating label */
+}
+
+.floating-container--full {
+  width: min(520px, 100%);
+}
+
+.floating-container--medium {
+  width: min(420px, 100%);
+}
+
+.floating-container--small {
+  width: min(240px, 100%);
+}
+
+/* Floating Label - positioned inside input initially */
+.floating-label {
+  position: absolute;
+  left: var(--space-lg);
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: var(--font-display);
+  font-size: 8px;
+  font-weight: var(--font-bold);
+  color: var(--color-text-secondary);
+  pointer-events: none;
+  transition: all var(--transition-normal);
+  transform-origin: left center;
+  z-index: 1;
+  /* Subtle glass effect for label background when floated */
+  padding: 0 4px;
+  border-radius: 4px;
+}
+
+/* Label floats up when input is focused or has value */
+.floating-label--active {
+  top: -2px;
+  transform: translateY(0) scale(0.9);
+  color: var(--color-primary);
+  /* Semi-transparent background that works on pastel backgrounds */
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(4px);
+}
+
+/* Input field - extends your existing glass-input */
+.floating-input {
+  width: 100%;
+  height: 100%;
+  padding: 12px var(--space-lg) 4px var(--space-lg);
+  border-radius: var(--radius-2xl);
+  background: rgba(255, 255, 255, 0.01);
+  border: 0.5px solid var(--color-primary-light);
+  backdrop-filter: blur(2.5px);
+  box-shadow: 
+    inset 0px 0px 10px 0px rgba(194, 32, 50, 0.3),
+    inset -1px -2px 3px 0px rgba(194, 32, 50, 0.1),
+    inset 1px 1px 2px 0px rgba(194, 32, 50, 0.3);
+  font-family: var(--font-display);
+  font-size: 8px;
+  font-weight: var(--font-bold);
+  color: var(--color-black);
+  outline: none;
+  transition: all var(--transition-fast);
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.floating-input:hover,
+.floating-input:focus {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: var(--color-primary);
+}
+
+.floating-input:focus {
+  box-shadow: 
+    inset 0px 0px 10px 0px rgba(194, 32, 50, 0.3),
+    0px 0px 6px 0px rgba(194, 32, 50, 0.25);
+}
+
+/* Hide placeholder when label is in placeholder position */
+.floating-input::placeholder {
+  color: transparent;
+}
+
+.floating-input:focus::placeholder {
+  color: rgba(0, 0, 0, 0.3);
+  transition: color var(--transition-normal) 100ms;
+}
+
+/* Disabled state */
+.floating-input:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Select variant */
+.floating-select {
+  cursor: pointer;
+  padding-right: 32px;
+  text-align: left;
+}
+
+/* Dropdown arrow */
+.floating-container .floating-arrow {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 10px;
+  height: 10px;
+  pointer-events: none;
+  transition: transform var(--transition-normal);
+}
+
+.floating-container .floating-arrow--open {
+  transform: translateY(-50%) rotate(180deg);
+}
+
+/* Dropdown menu */
+.floating-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  padding: var(--space-sm) 0;
+  border-radius: var(--radius-lg);
+  background: var(--color-white);
+  border: 1px solid rgba(238, 17, 19, 0.2);
+  box-shadow: var(--shadow-lg);
+  z-index: var(--z-dropdown);
+  max-height: 160px;
+  overflow-y: auto;
+}
+
+.floating-dropdown-option {
+  width: 100%;
+  padding: var(--space-sm) var(--space-lg);
+  text-align: left;
+  font-family: var(--font-display);
+  font-size: 8px;
+  font-weight: var(--font-bold);
+  color: var(--color-black);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: background var(--transition-fast);
+}
+
+.floating-dropdown-option:hover {
+  background: var(--color-bg-selected);
+}
+
+.floating-dropdown-option--selected {
+  color: var(--color-primary);
+  background: rgba(238, 17, 19, 0.08);
+}
+
+/* Error state */
+.floating-input--error {
+  border-color: var(--color-primary) !important;
+}
+
+.floating-error {
+  position: absolute;
+  bottom: -14px;
+  left: var(--space-lg);
+  font-family: var(--font-primary);
+  font-size: 7px;
+  color: var(--color-primary);
+}
+
+/* Required asterisk */
+.floating-required {
+  color: var(--color-primary);
+  margin-left: 2px;
+}
+
+/* Screen reader only utility */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+

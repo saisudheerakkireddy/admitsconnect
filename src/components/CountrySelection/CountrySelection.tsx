@@ -15,36 +15,29 @@ interface Country {
 }
 
 const countries: Country[] = [
-  { name: "Australia", flagUrl: "/AdmitsConnect_Vishal_Icons/Country Flags/Australia.svg" },
-  { name: "Canada", flagUrl: "/AdmitsConnect_Vishal_Icons/Country Flags/Canada.svg" },
-  { name: "UK", flagUrl: "/AdmitsConnect_Vishal_Icons/Country Flags/UK.svg" },
-  { name: "USA", flagUrl: "/AdmitsConnect_Vishal_Icons/Country Flags/USA.svg" },
-  { name: "Ireland", flagUrl: "/AdmitsConnect_Vishal_Icons/Country Flags/Ireland.svg" },
-  { name: "Germany", flagUrl: "/AdmitsConnect_Vishal_Icons/Country Flags/Germany.svg" },
-  { name: "Switzerland", flagUrl: "/AdmitsConnect_Vishal_Icons/Country Flags/Switzerland.svg" },
-  { name: "Sweden", flagUrl: "/AdmitsConnect_Vishal_Icons/Country Flags/Sweden.svg" },
-  { name: "Netherlands", flagUrl: "/AdmitsConnect_Vishal_Icons/Country Flags/Netherlands.svg" },
-  { name: "New Zealand", flagUrl: "/AdmitsConnect_Vishal_Icons/Country Flags/Australia.svg" },
-  { name: "Cyprus", flagUrl: "/AdmitsConnect_Vishal_Icons/Country Flags/Cyprus.svg" },
-  { name: "Denmark", flagUrl: "/AdmitsConnect_Vishal_Icons/Country Flags/Denmark.svg" },
-  { name: "France", flagUrl: "/AdmitsConnect_Vishal_Icons/Country Flags/France.svg" },
-  { name: "Italy", flagUrl: "/AdmitsConnect_Vishal_Icons/Country Flags/Italy.svg" },
-  { name: "Finland", flagUrl: "/AdmitsConnect_Vishal_Icons/Country Flags/Finland.svg" },
-  { name: "Latvia", flagUrl: "/AdmitsConnect_Vishal_Icons/Country Flags/Latvia.svg" },
-  { name: "Malta", flagUrl: "/AdmitsConnect_Vishal_Icons/Country Flags/Malta.svg" },
-  { name: "Norway", flagUrl: "/AdmitsConnect_Vishal_Icons/Country Flags/Norway.svg" },
-  { name: "Poland", flagUrl: "/AdmitsConnect_Vishal_Icons/Country Flags/Poland.svg" },
-  { name: "Singapore", flagUrl: "/AdmitsConnect_Vishal_Icons/Country Flags/Singapore.svg" },
-  { name: "Spain", flagUrl: "/AdmitsConnect_Vishal_Icons/Country Flags/Spain.svg" },
+  { name: "Australia", flagUrl: "/assets/icons/flags/Australia.svg" },
+  { name: "Canada", flagUrl: "/assets/icons/flags/Canada.svg" },
+  { name: "UK", flagUrl: "/assets/icons/flags/UK.svg" },
+  { name: "USA", flagUrl: "/assets/icons/flags/USA.svg" },
+  { name: "Ireland", flagUrl: "/assets/icons/flags/Ireland.svg" },
+  { name: "Germany", flagUrl: "/assets/icons/flags/Germany.svg" },
+  { name: "Switzerland", flagUrl: "/assets/icons/flags/Switzerland.svg" },
+  { name: "Sweden", flagUrl: "/assets/icons/flags/Sweden.svg" },
+  { name: "Netherlands", flagUrl: "/assets/icons/flags/Netherlands.svg" },
+  { name: "New Zealand", flagUrl: "/assets/icons/flags/NewZealand.svg" },
+  { name: "Cyprus", flagUrl: "/assets/icons/flags/Cyprus.svg" },
+  { name: "Denmark", flagUrl: "/assets/icons/flags/Denmark.svg" },
+  { name: "France", flagUrl: "/assets/icons/flags/France.svg" },
+  { name: "Italy", flagUrl: "/assets/icons/flags/Italy.svg" },
+  { name: "Finland", flagUrl: "/assets/icons/flags/Finland.svg" },
+  { name: "Latvia", flagUrl: "/assets/icons/flags/Latvia.svg" },
+  { name: "Malta", flagUrl: "/assets/icons/flags/Malta.svg" },
+  { name: "Norway", flagUrl: "/assets/icons/flags/Norway.svg" },
+  { name: "Poland", flagUrl: "/assets/icons/flags/Poland.svg" },
+  { name: "Singapore", flagUrl: "/assets/icons/flags/Singapore.svg" },
+  { name: "Spain", flagUrl: "/assets/icons/flags/Spain.svg" },
 ];
 
-// Star Logo SVG
-const StarLogo = () => (
-  <svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M17 0L20.8 11H32.5L23 18L26.8 29L17 22L7.2 29L11 18L1.5 11H13.2L17 0Z" fill="#1E417C"/>
-    <path d="M17 6L19.2 12.5H26L20.4 16.5L22.6 23L17 19L11.4 23L13.6 16.5L8 12.5H14.8L17 6Z" fill="#EE1113"/>
-  </svg>
-);
 
 // Profile Icon
 const ProfileIcon = () => (
@@ -129,8 +122,7 @@ export default function CountrySelection() {
       {/* Header */}
       <header className="country-header">
         <div className="country-header__logo">
-          <StarLogo />
-          <span className="country-header__logo-text">One</span>
+          <img src="/assets/logo.png" alt="AUN Logo" style={{ height: '34px' }} />
         </div>
         <div className="country-header__actions">
           <ProfileIcon />

@@ -1,11 +1,13 @@
 // Zustand Store for Multi-Step Form State Management
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
+import { STEP_ORDER } from '../api/types';
 import type {
   FormState,
   StudentApplication,
   AcademicsData,
   ContactData,
+  AssessmentData,
   AcademicRecord,
   AdvancedAcademicRecord,
 } from '../api/types';
@@ -44,6 +46,11 @@ const initialContact: ContactData = {
   termsConsent: false,
 };
 
+const initialAssessment: AssessmentData = {
+  adaptiveTest: '',
+  englishLanguageTest: '',
+};
+
 const initialState: FormState = {
   currentStep: 0,
   isSubmitting: false,
@@ -62,6 +69,7 @@ const initialState: FormState = {
   studyArea: '',
   studyFormat: '',
   academics: initialAcademics,
+  assessment: initialAssessment,
   contact: initialContact,
 };
 
@@ -104,6 +112,9 @@ interface FormActions {
   
   // Step 9: Contact
   setContact: (data: Partial<ContactData>) => void;
+
+  // Step 9.5: Optional Assessment
+  setAssessment: (data: Partial<AssessmentData>) => void;
   
   // Submission
   setSubmitting: (isSubmitting: boolean) => void;
@@ -130,7 +141,7 @@ export const useFormStore = create<FormState & FormActions>()(
       setCurrentStep: (step) => set({ currentStep: step }),
       
       nextStep: () => set((state) => ({ 
-        currentStep: Math.min(state.currentStep + 1, 9) 
+        currentStep: Math.min(state.currentStep + 1, STEP_ORDER.length - 1) 
       })),
       
       prevStep: () => set((state) => ({ 
@@ -204,6 +215,11 @@ export const useFormStore = create<FormState & FormActions>()(
       setContact: (data) => set((state) => ({
         contact: { ...state.contact!, ...data }
       })),
+
+      // Step 9.5: Optional Assessment
+      setAssessment: (data) => set((state) => ({
+        assessment: { ...(state.assessment || initialAssessment), ...data }
+      })),
       
       // Submission
       setSubmitting: (isSubmitting) => set({ isSubmitting }),
@@ -225,6 +241,7 @@ export const useFormStore = create<FormState & FormActions>()(
           studyArea: state.studyArea || '',
           studyFormat: state.studyFormat || '',
           academics: state.academics || initialAcademics,
+          assessment: state.assessment || initialAssessment,
           contact: state.contact || initialContact,
         };
       },
@@ -260,7 +277,9 @@ export const useFormStore = create<FormState & FormActions>()(
               state.academics?.higherSecondary?.year &&
               state.academics?.higherSecondary?.grade
             );
-          case 8: // Contact - all fields required
+          case 8: // Assessment - optional
+            return true;
+          case 9: // Contact - all fields required
             return !!(
               state.contact?.firstName &&
               state.contact?.lastName &&
@@ -301,6 +320,7 @@ export const useFormStore = create<FormState & FormActions>()(
         studyArea: state.studyArea,
         studyFormat: state.studyFormat,
         academics: state.academics,
+        assessment: state.assessment,
         contact: state.contact,
         currentStep: state.currentStep,
       }),

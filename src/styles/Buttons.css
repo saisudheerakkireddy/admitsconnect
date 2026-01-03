@@ -11,7 +11,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-family: var(--font-primary);
+  font-family: var(--font-button);
   font-weight: var(--font-medium);
   border-radius: var(--radius-full);
   cursor: pointer;
@@ -26,33 +26,38 @@
 }
 
 /* ============================================
-   PRIMARY BUTTON
+   PRIMARY BUTTON (Updated with Figma inset shadow)
    ============================================ */
 .btn-primary {
   min-width: 138px;
   padding: var(--space-sm) var(--space-xl);
+  font-family: var(--font-button);
   font-size: 11px;
   color: var(--color-white);
   background: var(--gradient-primary);
   border: none;
+  /* Figma spec: Multi-layer inset shadow */
+  box-shadow: var(--shadow-button-inset);
 }
 
 .btn-primary:hover:not(:disabled) {
   opacity: 0.9;
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(var(--color-primary-rgb), 0.35);
+  box-shadow: var(--shadow-button-inset), 0 4px 12px rgba(var(--color-primary-rgb), 0.35);
 }
 
 .btn-primary:active:not(:disabled) {
   transform: translateY(0);
+  box-shadow: var(--shadow-button-inset);
 }
 
 .btn-primary:focus-visible {
-  box-shadow: var(--shadow-focus);
+  box-shadow: var(--shadow-button-inset), var(--shadow-focus);
 }
 
 .btn-primary:disabled {
   background: var(--color-gray-300);
+  box-shadow: none;
 }
 
 /* ============================================
@@ -171,12 +176,13 @@
 }
 
 /* ============================================
-   SUBMIT BUTTON
+   SUBMIT BUTTON (Updated with Figma inset shadow)
    ============================================ */
 .btn-submit {
   width: 100%;
   max-width: 280px;
   padding: var(--space-md) var(--space-xl);
+  font-family: var(--font-button);
   font-size: var(--text-base);
   font-weight: var(--font-semibold);
   color: var(--color-white);
@@ -185,16 +191,19 @@
   border-radius: var(--radius-full);
   cursor: pointer;
   transition: all var(--transition-normal);
+  /* Figma spec: Multi-layer inset shadow */
+  box-shadow: var(--shadow-button-inset);
 }
 
 .btn-submit:hover:not(:disabled) {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(var(--color-primary-rgb), 0.35);
+  box-shadow: var(--shadow-button-inset), 0 6px 20px rgba(var(--color-primary-rgb), 0.35);
 }
 
 .btn-submit:disabled {
   background: var(--color-gray-300);
   cursor: not-allowed;
   transform: none;
+  box-shadow: none;
 }
 

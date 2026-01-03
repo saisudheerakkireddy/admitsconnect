@@ -33,6 +33,11 @@ export interface ContactData {
   termsConsent: boolean;
 }
 
+export interface AssessmentData {
+  adaptiveTest: string;
+  englishLanguageTest: string;
+}
+
 // ============================================
 // Complete Application Payload
 // ============================================
@@ -65,7 +70,10 @@ export interface StudentApplication {
   // Step 8: Academic Information
   academics: AcademicsData;
   
-  // Step 9: Contact Information
+  // Step 9: Optional Assessment Information
+  assessment?: AssessmentData;
+
+  // Step 10: Contact Information
   contact: ContactData;
 }
 
@@ -182,6 +190,7 @@ export const ROUTES = {
   STUDY_AREA: '/study-area',
   FORMAT: '/format',
   ACADEMICS: '/academics',
+  ASSESSMENT: '/assessment',
   CONTACT: '/contact',
   THANK_YOU: '/thank-you',
 } as const;
@@ -198,6 +207,7 @@ export const STEP_ORDER: RoutePath[] = [
   ROUTES.STUDY_AREA,
   ROUTES.FORMAT,
   ROUTES.ACADEMICS,
+  ROUTES.ASSESSMENT,
   ROUTES.CONTACT,
   ROUTES.THANK_YOU,
 ];

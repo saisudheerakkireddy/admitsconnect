@@ -1,50 +1,60 @@
 /* ============================================
    StudyIndustrySelection Component Styles
+   ============================================
+   Consistent with CountrySelection styling
    ============================================ */
 
 .industry-nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 63px;
-  padding: 0 27px;
+  margin-bottom: clamp(28px, 4vw, 50px);
+  padding: 0;
 }
 
 .industry-search {
-  padding: 0 20px;
-  margin-bottom: 20px;
+  padding: 0;
+  margin-bottom: clamp(18px, 3vw, 30px);
 }
 
 .industry-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px 10px;
-  justify-content: center;
-  padding: 0 20px;
-  margin-bottom: 84px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: clamp(12px, 2.5vw, 20px) clamp(10px, 2vw, 16px);
+  width: 100%;
+  padding: 0;
+  margin-bottom: clamp(32px, 6vw, 60px);
 }
 
+/* ============================================
+   INDUSTRY CARD - Matching CountrySelection
+   ============================================ */
 .industry-card {
-  width: 95px;
-  height: 101px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  border-radius: 10px;
-  background: rgba(255, 255, 255, 0.01);
-  border: 1px solid var(--color-primary-light);
-  backdrop-filter: blur(2.5px);
-  box-shadow: 
-    inset 0px 0px 10px 0px rgba(194, 32, 50, 0.3),
-    inset -1px -2px 3px 0px rgba(194, 32, 50, 0.1),
-    inset 1px 1px 2px 0px rgba(194, 32, 50, 0.2);
+  gap: var(--space-sm);
+  padding: var(--space-md) var(--space-sm);
+  border-radius: var(--radius-md);
   cursor: pointer;
   transition: all var(--transition-normal);
+  background: transparent;
+  border: none;
+  min-width: 80px;
 }
 
 .industry-card:hover {
-  background: rgba(255, 255, 255, 0.9);
+  background: #C22032;
+  box-shadow: var(--shadow-md);
+}
+
+.industry-card:hover .industry-card__name {
+  color: #FFFFFF;
+}
+
+.industry-card:hover .industry-card__icon svg path {
+  fill: #FFFFFF;
+  stroke: #FFFFFF;
 }
 
 .industry-card:active {
@@ -52,26 +62,44 @@
 }
 
 .industry-card--selected {
-  background: var(--color-bg-selected);
-  box-shadow: 0 0 0 2px var(--color-primary-light);
+  background: #C22032;
+  box-shadow: 0 0 0 2px #C22032;
+}
+
+.industry-card--selected .industry-card__name {
+  color: #FFFFFF;
+}
+
+.industry-card--selected .industry-card__icon svg path {
+  fill: #FFFFFF;
+  stroke: #FFFFFF;
 }
 
 .industry-card__icon {
-  margin-bottom: 8px;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.industry-card__icon img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
 }
 
 .industry-card__name {
-  font-family: var(--font-display);
-  font-size: 8px;
-  font-weight: var(--font-normal);
+  font-family: 'Comfortaa', cursive;
+  font-size: var(--text-sm);
+  font-weight: var(--font-bold);
   text-align: center;
-  line-height: 1.2;
+  line-height: normal;
   white-space: pre-line;
-  padding: 0 9px;
   color: var(--color-black);
 }
 
 .industry-card--selected .industry-card__name {
-  color: var(--color-primary-light);
+  color: #FFFFFF;
 }
 

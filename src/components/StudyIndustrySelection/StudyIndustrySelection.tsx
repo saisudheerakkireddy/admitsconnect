@@ -1,5 +1,5 @@
 // Study Industry Selection Screen Component
-// Refactored with separate CSS file
+// Styled to match CountrySelection for UI consistency
 
 import { useState } from 'react';
 import './StudyIndustrySelection.css';
@@ -10,42 +10,104 @@ import { useFormNavigation } from '../../hooks/useFormNavigation';
 interface Industry {
   id: string;
   name: string;
+  icon: React.ReactNode;
 }
 
-const MicroscopeIcon = () => (
-  <svg width="22" height="30" viewBox="0 0 22 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M19 22H17.5C17.5 19.5 16.5 17.5 14.5 16L16.5 14C19.5 16 20.5 19 20.5 22H19Z" stroke="#333" strokeWidth="1.5" fill="none"/>
-    <circle cx="9" cy="9" r="4" stroke="#333" strokeWidth="1.5" fill="none"/>
-    <path d="M9 13L9 18" stroke="#333" strokeWidth="1.5"/>
-    <path d="M6 18H12" stroke="#333" strokeWidth="1.5"/>
-    <path d="M13 4L15 6" stroke="#333" strokeWidth="1.5"/>
-    <circle cx="9" cy="9" r="2" fill="#333"/>
-    <path d="M3 28H21" stroke="#333" strokeWidth="2" strokeLinecap="round"/>
+// Industry Icons - Red color (#C22032) to match brand
+const AppliedScienceIcon = () => (
+  <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M20 8C22.2091 8 24 6.20914 24 4C24 1.79086 22.2091 0 20 0C17.7909 0 16 1.79086 16 4C16 6.20914 17.7909 8 20 8Z" stroke="#C22032" strokeWidth="1.5" fill="none"/>
+    <path d="M16 12H24V28H28V32H12V28H16V12Z" stroke="#C22032" strokeWidth="1.5" fill="none"/>
+    <path d="M8 36H32" stroke="#C22032" strokeWidth="2" strokeLinecap="round"/>
+    <circle cx="20" cy="20" r="3" fill="#C22032"/>
   </svg>
 );
+
+const BusinessIcon = () => (
+  <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect x="4" y="12" width="32" height="24" rx="2" stroke="#C22032" strokeWidth="1.5" fill="none"/>
+    <path d="M14 12V8C14 6.89543 14.8954 6 16 6H24C25.1046 6 26 6.89543 26 8V12" stroke="#C22032" strokeWidth="1.5" fill="none"/>
+    <path d="M4 20H36" stroke="#C22032" strokeWidth="1.5"/>
+    <rect x="16" y="16" width="8" height="8" rx="1" fill="#C22032"/>
+  </svg>
+);
+
+const EngineeringIcon = () => (
+  <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="20" cy="20" r="16" stroke="#C22032" strokeWidth="1.5" fill="none"/>
+    <circle cx="20" cy="20" r="8" stroke="#C22032" strokeWidth="1.5" fill="none"/>
+    <circle cx="20" cy="20" r="3" fill="#C22032"/>
+    <path d="M20 4V10" stroke="#C22032" strokeWidth="1.5"/>
+    <path d="M20 30V36" stroke="#C22032" strokeWidth="1.5"/>
+    <path d="M4 20H10" stroke="#C22032" strokeWidth="1.5"/>
+    <path d="M30 20H36" stroke="#C22032" strokeWidth="1.5"/>
+  </svg>
+);
+
+const HealthIcon = () => (
+  <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M20 36C20 36 34 26 34 16C34 10 29.5228 6 24 6C21.5 6 20 8 20 8C20 8 18.5 6 16 6C10.4772 6 6 10 6 16C6 26 20 36 20 36Z" stroke="#C22032" strokeWidth="1.5" fill="none"/>
+    <path d="M16 18H24" stroke="#C22032" strokeWidth="2" strokeLinecap="round"/>
+    <path d="M20 14V22" stroke="#C22032" strokeWidth="2" strokeLinecap="round"/>
+  </svg>
+);
+
+const ArtsIcon = () => (
+  <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="20" cy="20" r="16" stroke="#C22032" strokeWidth="1.5" fill="none"/>
+    <circle cx="14" cy="14" r="3" fill="#C22032"/>
+    <circle cx="26" cy="14" r="3" fill="#C22032"/>
+    <circle cx="14" cy="26" r="3" fill="#C22032"/>
+    <circle cx="26" cy="26" r="3" fill="#C22032"/>
+    <path d="M8 20L32 20" stroke="#C22032" strokeWidth="1.5" strokeDasharray="2 2"/>
+  </svg>
+);
+
+const ComputerIcon = () => (
+  <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect x="4" y="6" width="32" height="22" rx="2" stroke="#C22032" strokeWidth="1.5" fill="none"/>
+    <path d="M12 34H28" stroke="#C22032" strokeWidth="2" strokeLinecap="round"/>
+    <path d="M16 28V34" stroke="#C22032" strokeWidth="1.5"/>
+    <path d="M24 28V34" stroke="#C22032" strokeWidth="1.5"/>
+    <path d="M12 14L16 18L12 22" stroke="#C22032" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M20 22H28" stroke="#C22032" strokeWidth="1.5" strokeLinecap="round"/>
+  </svg>
+);
+
+const SocialIcon = () => (
+  <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="20" cy="12" r="6" stroke="#C22032" strokeWidth="1.5" fill="none"/>
+    <path d="M8 36C8 28 13.3726 22 20 22C26.6274 22 32 28 32 36" stroke="#C22032" strokeWidth="1.5" fill="none"/>
+    <circle cx="8" cy="16" r="4" stroke="#C22032" strokeWidth="1.5" fill="none"/>
+    <circle cx="32" cy="16" r="4" stroke="#C22032" strokeWidth="1.5" fill="none"/>
+  </svg>
+);
+
+const LawIcon = () => (
+  <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M20 4V36" stroke="#C22032" strokeWidth="1.5"/>
+    <path d="M8 10H32" stroke="#C22032" strokeWidth="2" strokeLinecap="round"/>
+    <path d="M4 18L12 10L12 18L4 18Z" stroke="#C22032" strokeWidth="1.5" fill="none"/>
+    <path d="M36 18L28 10L28 18L36 18Z" stroke="#C22032" strokeWidth="1.5" fill="none"/>
+    <rect x="12" y="32" width="16" height="4" rx="1" fill="#C22032"/>
+  </svg>
+);
+
+const industries: Industry[] = [
+  { id: "applied-sciences", name: "Applied Sciences &\nProfessionals", icon: <AppliedScienceIcon /> },
+  { id: "business", name: "Business &\nManagement", icon: <BusinessIcon /> },
+  { id: "engineering", name: "Engineering &\nTechnology", icon: <EngineeringIcon /> },
+  { id: "health", name: "Health &\nMedicine", icon: <HealthIcon /> },
+  { id: "arts", name: "Arts &\nHumanities", icon: <ArtsIcon /> },
+  { id: "computer", name: "Computer Science\n& IT", icon: <ComputerIcon /> },
+  { id: "social", name: "Social\nSciences", icon: <SocialIcon /> },
+  { id: "law", name: "Law &\nLegal Studies", icon: <LawIcon /> },
+];
 
 const SearchIcon = () => (
   <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
     <circle cx="7" cy="7" r="5" stroke="#333" strokeWidth="1.5"/>
     <path d="M11 11L14 14" stroke="#333" strokeWidth="1.5" strokeLinecap="round"/>
-  </svg>
-);
-
-const industries: Industry[] = [
-  { id: "applied-sciences", name: "Applied Sciences and\nProfessionals" },
-  { id: "business", name: "Business &\nManagement" },
-  { id: "engineering", name: "Engineering &\nTechnology" },
-  { id: "health", name: "Health &\nMedicine" },
-  { id: "arts", name: "Arts &\nHumanities" },
-  { id: "computer", name: "Computer Science\n& IT" },
-  { id: "social", name: "Social\nSciences" },
-  { id: "law", name: "Law &\nLegal Studies" },
-];
-
-const StarLogo = () => (
-  <svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M17 0L20.8 11H32.5L23 18L26.8 29L17 22L7.2 29L11 18L1.5 11H13.2L17 0Z" fill="#1E417C"/>
-    <path d="M17 6L19.2 12.5H26L20.4 16.5L22.6 23L17 19L11.4 23L13.6 16.5L8 12.5H14.8L17 6Z" fill="#EE1113"/>
   </svg>
 );
 
@@ -77,6 +139,25 @@ const RightArrows = () => (
   </svg>
 );
 
+// Industry Card Component - matching CountryCard pattern
+interface IndustryCardProps {
+  industry: Industry;
+  isSelected: boolean;
+  onSelect: () => void;
+}
+
+const IndustryCard = ({ industry, isSelected, onSelect }: IndustryCardProps) => (
+  <button 
+    className={`industry-card ${isSelected ? 'industry-card--selected' : ''}`}
+    onClick={onSelect}
+  >
+    <div className="industry-card__icon">
+      {industry.icon}
+    </div>
+    <p className="industry-card__name">{industry.name}</p>
+  </button>
+);
+
 export default function StudyIndustrySelection() {
   const { industry, setIndustry } = useFormStore();
   const { goToNext, goToPrevious, canProceed } = useFormNavigation();
@@ -94,8 +175,7 @@ export default function StudyIndustrySelection() {
     <GradientBackgroundTailwind variant="white" className="page-container">
       <header className="page-header">
         <div className="page-header__logo">
-          <StarLogo />
-          <span className="page-header__logo-text">One</span>
+          <img src="/assets/logo.png" alt="AUN Logo" style={{ height: '34px' }} />
         </div>
         <div className="page-header__actions">
           <ProfileIcon />
@@ -133,14 +213,12 @@ export default function StudyIndustrySelection() {
         <section>
           <div className="industry-grid">
             {filteredIndustries.map((ind) => (
-              <button 
+              <IndustryCard 
                 key={ind.id}
-                className={`industry-card ${industry === ind.id ? 'industry-card--selected' : ''}`}
-                onClick={() => setIndustry(ind.id)}
-              >
-                <div className="industry-card__icon"><MicroscopeIcon /></div>
-                <p className="industry-card__name">{ind.name}</p>
-              </button>
+                industry={ind}
+                isSelected={industry === ind.id}
+                onSelect={() => setIndustry(ind.id)}
+              />
             ))}
           </div>
         </section>
@@ -152,4 +230,3 @@ export default function StudyIndustrySelection() {
     </GradientBackgroundTailwind>
   );
 }
-

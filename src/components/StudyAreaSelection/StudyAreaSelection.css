@@ -11,7 +11,7 @@
   align-items: center;
   justify-content: space-between;
   margin-bottom: 65px;
-  padding: 0 27px;
+  padding: 0;
 }
 
 .degree-section {
@@ -32,6 +32,6 @@
   flex-wrap: wrap;
   gap: 16px 10px;
   justify-content: center;
-  padding: 0 16px;
+  padding: 0;
 }
 

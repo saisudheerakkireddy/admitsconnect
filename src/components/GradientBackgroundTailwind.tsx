@@ -4,6 +4,7 @@
  * This version uses Tailwind classes where possible for better consistency
  * with Tailwind-based projects. Uses inline styles only for dynamic values.
  * 
+ * Updated to match Figma spec with animated pastel blobs.
  * Compatible with Tailwind CSS v4.x
  */
 
@@ -22,157 +23,118 @@ export interface GradientBackgroundTailwindProps {
 }
 
 // ============================================================================
-// VARIANT: PASTEL (Form screens, Thank You page)
+// BLOB CONFIGURATION (from Figma spec)
 // ============================================================================
 
-const PastelGradientBackground: React.FC<{ children: React.ReactNode; className?: string }> = ({
-  children,
-  className = '',
-}) => {
-  return (
-    <div
-      className={`relative min-h-screen overflow-hidden ${className}`}
-      style={{
-        background: 'linear-gradient(to bottom, #E8D5E8 0%, #D5E8E8 50%, #C5F0E8 100%)',
-      }}
-    >
-      {/* Blob Container */}
-      <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
-        {/* Purple blob - top right */}
-        <div
-          className="absolute rounded-full opacity-60"
-          style={{
-            width: 250,
-            height: 250,
-            top: 75,
-            right: -50,
-            background: 'radial-gradient(circle, rgba(200, 162, 200, 0.5) 0%, transparent 70%)',
-            filter: 'blur(80px)',
-          }}
-        />
-        
-        {/* Cyan blob - center left */}
-        <div
-          className="absolute rounded-full opacity-60"
-          style={{
-            width: 250,
-            height: 250,
-            top: 488,
-            left: -50,
-            background: 'radial-gradient(circle, rgba(150, 220, 220, 0.5) 0%, transparent 70%)',
-            filter: 'blur(80px)',
-          }}
-        />
-        
-        {/* Pink small blob - top left */}
-        <div
-          className="absolute rounded-full opacity-50"
-          style={{
-            width: 130,
-            height: 130,
-            top: 70,
-            left: 14,
-            background: 'radial-gradient(circle, rgba(255, 182, 193, 0.4) 0%, transparent 70%)',
-            filter: 'blur(64px)',
-          }}
-        />
-      </div>
+interface BlobConfig {
+  id: string;
+  color: string;
+  width: number;
+  height: number;
+  top?: string;
+  left?: string;
+  bottom?: string;
+  blur: number;
+  opacity: number;
+  animationDelay: string;
+}
 
-      {/* Content */}
-      <div className="relative z-10">{children}</div>
-    </div>
-  );
-};
+const BLOBS: BlobConfig[] = [
+  {
+    id: 'blob-1-purple-top',
+    color: '#E8D6F0', // pastel-purple-base
+    width: 246,
+    height: 246,
+    top: '13%',
+    left: '26%',
+    blur: 100,
+    opacity: 0.8,
+    animationDelay: '0s',
+  },
+  {
+    id: 'blob-2-cyan-left',
+    color: '#D6F0F5', // pastel-cyan-base
+    width: 376,
+    height: 376,
+    bottom: '16%',
+    left: '0',
+    blur: 100,
+    opacity: 0.8,
+    animationDelay: '-5s',
+  },
+  {
+    id: 'blob-3-cyan-center',
+    color: '#C8EBF2', // pastel-cyan-medium
+    width: 172,
+    height: 172,
+    bottom: '7%',
+    left: '69%',
+    blur: 90,
+    opacity: 0.7,
+    animationDelay: '-10s',
+  },
+  {
+    id: 'blob-4-purple-top-right',
+    color: '#DBC9E8', // pastel-purple-medium
+    width: 376,
+    height: 376,
+    top: '-8%',
+    left: '65%',
+    blur: 100,
+    opacity: 0.8,
+    animationDelay: '-15s',
+  },
+];
 
 // ============================================================================
-// VARIANT: WHITE (Country Selection, Study Area screens)
+// ANIMATION KEYFRAMES
 // ============================================================================
 
-const WhiteGradientBackground: React.FC<{ children: React.ReactNode; className?: string }> = ({
-  children,
-  className = '',
-}) => {
-  return (
-    <div 
-      className={`relative min-h-screen overflow-hidden ${className}`}
-      style={{
-        // Soft pink-lavender to light blue gradient as base (matching Figma)
-        background: 'linear-gradient(135deg, rgba(255, 230, 240, 0.6) 0%, rgba(240, 248, 255, 0.8) 50%, rgba(230, 250, 255, 0.7) 100%)',
-      }}
-    >
-      {/* Blob Container - matching Figma's #38D3F0 cyan and soft pink */}
-      <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
-        {/* Cyan blob - top right (Figma: #38D3F0) */}
-        <div
-          className="absolute rounded-full"
-          style={{
-            width: 280,
-            height: 280,
-            top: -80,
-            right: -60,
-            background: 'radial-gradient(circle, rgba(56, 211, 240, 0.5) 0%, transparent 70%)',
-            filter: 'blur(65px)',
-          }}
-        />
-        
-        {/* Pink blob - left side (larger, elliptical) */}
-        <div
-          className="absolute rounded-full"
-          style={{
-            width: 320,
-            height: 450,
-            top: '15%',
-            left: -100,
-            background: 'radial-gradient(circle, rgba(255, 180, 210, 0.45) 0%, transparent 70%)',
-            filter: 'blur(80px)',
-          }}
-        />
-        
-        {/* Cyan blob - middle right (subtle) - Figma: #38D3F0 */}
-        <div
-          className="absolute rounded-full"
-          style={{
-            width: 180,
-            height: 180,
-            top: '45%',
-            right: -40,
-            background: 'radial-gradient(circle, rgba(56, 211, 240, 0.3) 0%, transparent 70%)',
-            filter: 'blur(60px)',
-          }}
-        />
-        
-        {/* Cyan blob - bottom right (Figma: #38D3F0 with heavy blur) */}
-        <div
-          className="absolute rounded-full"
-          style={{
-            width: 350,
-            height: 350,
-            bottom: -120,
-            right: -40,
-            background: 'radial-gradient(circle, rgba(56, 211, 240, 0.45) 0%, transparent 70%)',
-            filter: 'blur(100px)',
-          }}
-        />
-        
-        {/* Pink blob - bottom left */}
-        <div
-          className="absolute rounded-full"
-          style={{
-            width: 200,
-            height: 200,
-            bottom: -50,
-            left: -30,
-            background: 'radial-gradient(circle, rgba(255, 180, 210, 0.4) 0%, transparent 70%)',
-            filter: 'blur(70px)',
-          }}
-        />
-      </div>
+const blobAnimationStyles = `
+@keyframes blobFloat {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  25% {
+    transform: translate(10px, -15px) scale(1.02);
+  }
+  50% {
+    transform: translate(-5px, 10px) scale(0.98);
+  }
+  75% {
+    transform: translate(-10px, -5px) scale(1.01);
+  }
+}
 
-      {/* Content */}
-      <div className="relative z-10">{children}</div>
-    </div>
-  );
-};
+@media (prefers-reduced-motion: reduce) {
+  .gradient-blob-tw {
+    animation: none !important;
+  }
+}
+`;
+
+// ============================================================================
+// BLOB COMPONENT
+// ============================================================================
+
+const AnimatedBlob: React.FC<{ config: BlobConfig }> = ({ config }) => (
+  <div
+    className="absolute rounded-full gradient-blob-tw"
+    style={{
+      width: config.width,
+      height: config.height,
+      top: config.top,
+      left: config.left,
+      bottom: config.bottom,
+      background: `radial-gradient(circle, ${config.color} 0%, transparent 70%)`,
+      filter: `blur(${config.blur}px)`,
+      opacity: config.opacity,
+      animation: 'blobFloat 20s ease-in-out infinite',
+      animationDelay: config.animationDelay,
+      willChange: 'transform',
+    }}
+  />
+);
 
 // ============================================================================
 // MAIN COMPONENT
@@ -183,12 +145,30 @@ export const GradientBackgroundTailwind: React.FC<GradientBackgroundTailwindProp
   children,
   className = '',
 }) => {
-  if (variant === 'pastel') {
-    return <PastelGradientBackground className={className}>{children}</PastelGradientBackground>;
-  }
-  
-  return <WhiteGradientBackground className={className}>{children}</WhiteGradientBackground>;
+  // Variant is kept for forward-compatibility (future spec differences).
+  // Read it to satisfy `noUnusedLocals` without changing behavior.
+  void variant;
+
+  return (
+    <>
+      {/* Inject animation keyframes */}
+      <style>{blobAnimationStyles}</style>
+      
+      <div
+        className={`relative min-h-screen overflow-hidden bg-white ${className}`}
+      >
+        {/* Blob Container */}
+        <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+          {BLOBS.map((blob) => (
+            <AnimatedBlob key={blob.id} config={blob} />
+          ))}
+        </div>
+
+        {/* Content */}
+        <div className="relative z-10">{children}</div>
+      </div>
+    </>
+  );
 };
 
 export default GradientBackgroundTailwind;
-

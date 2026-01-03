@@ -115,7 +115,7 @@ export default function MobileHomePage() {
   };
 
   return (
-    <GradientBackgroundTailwind variant="white" className="page-container">
+    <GradientBackgroundTailwind variant="white" className="page-container page-container--wide">
       {/* Header */}
       <header className="home-header">
         <div className="home-header__logo">

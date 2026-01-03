@@ -1,49 +1,55 @@
 /* ============================================
    StudyAreaList Component Styles
+   ============================================
+   Consistent with CountrySelection styling
    ============================================ */
 
 .area-nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 63px;
-  padding: 0 27px;
+  margin-bottom: clamp(28px, 4vw, 50px);
+  padding: 0;
 }
 
 .area-search {
-  padding: 0 4px;
-  margin-bottom: 20px;
+  padding: 0;
+  margin-bottom: clamp(18px, 3vw, 30px);
 }
 
 .area-list {
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  padding: 0 4px;
-  max-width: 350px;
-  margin: 0 auto 62px;
+  gap: 12px;
+  padding: 0;
+  width: 100%;
+  max-width: 520px;
+  margin: 0 auto clamp(32px, 6vw, 60px);
 }
 
+/* ============================================
+   AREA LIST ITEM - Matching consistent style
+   ============================================ */
 .area-list-item {
   width: 100%;
-  height: 28px;
+  min-height: 44px;
   display: flex;
   align-items: center;
-  padding: 0 19px;
-  border-radius: 30px;
-  background: rgba(255, 255, 255, 0.01);
+  padding: 12px 20px;
+  border-radius: var(--radius-full);
+  background: transparent;
   border: 1px solid var(--color-primary-light);
-  backdrop-filter: blur(2.5px);
-  box-shadow: 
-    inset 0px 0px 10px 0px rgba(194, 32, 50, 0.3),
-    inset -1px -2px 3px 0px rgba(194, 32, 50, 0.1),
-    inset 1px 1px 2px 0px rgba(194, 32, 50, 0.2);
   cursor: pointer;
   transition: all var(--transition-normal);
 }
 
 .area-list-item:hover {
-  background: rgba(255, 255, 255, 0.9);
+  background: #C22032;
+  border-color: #C22032;
+}
+
+.area-list-item:hover .area-list-item__text {
+  color: #FFFFFF;
 }
 
 .area-list-item:active {
@@ -51,19 +57,20 @@
 }
 
 .area-list-item--selected {
-  background: var(--color-bg-selected);
-  box-shadow: 0 0 0 2px var(--color-primary-light);
-}
-
-.area-list-item__text {
-  font-family: var(--font-display);
-  font-size: 8px;
-  font-weight: var(--font-normal);
-  text-align: left;
-  color: var(--color-black);
+  background: #C22032;
+  border-color: #C22032;
+  box-shadow: 0 0 0 2px #C22032;
 }
 
 .area-list-item--selected .area-list-item__text {
-  color: var(--color-primary-light);
+  color: #FFFFFF;
+}
+
+.area-list-item__text {
+  font-family: 'Comfortaa', cursive;
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  text-align: left;
+  color: var(--color-black);
 }
 

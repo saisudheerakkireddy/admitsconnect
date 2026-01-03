@@ -1,18 +1,11 @@
-// Test Preferences / Contact Form Screen Component
+// Test Preferences (Assessment) Screen Component
 // Refactored with separate CSS file
 
+import { useState } from 'react';
 import './TestPreferences.css';
 import { GradientBackgroundTailwind } from '../GradientBackgroundTailwind';
 import { useFormStore } from '../../store/formStore';
 import { useFormNavigation } from '../../hooks/useFormNavigation';
-import { submitApplication } from '../../api/services';
-
-const StarLogo = () => (
-  <svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M17 0L20.8 11H32.5L23 18L26.8 29L17 22L7.2 29L11 18L1.5 11H13.2L17 0Z" fill="#1E417C"/>
-    <path d="M17 6L19.2 12.5H26L20.4 16.5L22.6 23L17 19L11.4 23L13.6 16.5L8 12.5H14.8L17 6Z" fill="#EE1113"/>
-  </svg>
-);
 
 const ProfileIcon = () => (
   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -39,53 +32,88 @@ const RightArrow = () => (
   </svg>
 );
 
-const CheckIcon = () => (
-  <svg width="8" height="6" viewBox="0 0 8 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M1 3L3 5L7 1" stroke="black" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+const ChevronDown = () => (
+  <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M1 1L5 5L9 1" stroke="#333" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
   </svg>
 );
 
+type Option = { value: string; label: string };
+
+const adaptiveTestOptions: Option[] = [
+  { value: 'psat', label: 'Per SAT - Pre Scholastic Assessment Test' },
+  { value: 'sat', label: 'SAT - Scholastic Assessment Test' },
+  { value: 'act', label: 'ACT - American College Test' },
+  { value: 'gre', label: 'GRE - Graduate Record Examinations' },
+  { value: 'gmat', label: 'GMAT - Graduate Management Admission Test' },
+  { value: 'consider-later', label: 'I wish to consider the tests but later!' },
+  { value: 'not-consider', label: 'I do not wish to consider the test for making applications**!' },
+];
+
+const englishLanguageTestOptions: Option[] = [
+  { value: 'ielts', label: 'IELTS - International English Language Testing Systems' },
+  { value: 'toefl', label: 'TOEFL - Test of English as a Foreign Language' },
+  { value: 'pte', label: 'PTE - Pearson Test of English' },
+  { value: 'det', label: 'DET - Duolingo English Test' },
+  { value: 'consider-later', label: 'I wish to consider the tests but later!' },
+  { value: 'not-consider', label: 'I do not wish to consider the test for making applications**!' },
+];
+
+function getLabel(options: Option[], value: string) {
+  return options.find((o) => o.value === value)?.label || '';
+}
+
+interface DropdownProps {
+  label: string;
+  value: string;
+  options: Option[];
+  isOpen: boolean;
+  onToggle: () => void;
+  onSelect: (value: string) => void;
+}
+
+const Dropdown = ({ label, value, options, isOpen, onToggle, onSelect }: DropdownProps) => (
+  <div className="assessment-dropdown">
+    <button className="glass-pill assessment-dropdown__button" onClick={onToggle}>
+      <span className="glass-pill__text">{getLabel(options, value) || label}</span>
+      <div className={`assessment-dropdown__chevron ${isOpen ? 'assessment-dropdown__chevron--open' : ''}`}>
+        <ChevronDown />
+      </div>
+    </button>
+    {isOpen && (
+      <div className="assessment-dropdown__menu">
+        {options.map((option) => (
+          <button
+            key={option.value}
+            className="assessment-dropdown__option"
+            onClick={() => {
+              onSelect(option.value);
+              onToggle();
+            }}
+          >
+            <span className="assessment-dropdown__option-text">{option.label}</span>
+          </button>
+        ))}
+      </div>
+    )}
+  </div>
+);
+
 export default function TestPreferences() {
-  const { contact, setContact, getApplicationData, setSubmitting, setSubmitted, setError, isSubmitting } = useFormStore();
-  const { goToPrevious, goToNext } = useFormNavigation();
+  const { assessment, setAssessment } = useFormStore();
+  const { goToPrevious, goToNext, canProceed } = useFormNavigation();
+  const [adaptiveOpen, setAdaptiveOpen] = useState(false);
+  const [englishOpen, setEnglishOpen] = useState(false);
 
-  const handleSubmit = async () => {
-    if (!contact?.termsConsent) {
-      setError('Please accept the terms and conditions');
-      return;
-    }
-
-    if (!contact?.firstName || !contact?.lastName || !contact?.phone || !contact?.email) {
-      setError('Please fill in all required fields');
-      return;
-    }
-
-    setSubmitting(true);
-    setError(null);
-
-    try {
-      const applicationData = getApplicationData();
-      const response = await submitApplication(applicationData);
-      
-      if (response.success) {
-        setSubmitted(true);
-        goToNext();
-      } else {
-        setError(response.data.message || 'Submission failed. Please try again.');
-      }
-    } catch {
-      setError('An error occurred. Please try again.');
-    } finally {
-      setSubmitting(false);
-    }
+  const handleNext = () => {
+    if (canProceed) goToNext();
   };
 
   return (
     <GradientBackgroundTailwind variant="pastel" className="page-container">
       <header className="page-header page-header--alt">
         <div className="page-header__logo page-header__logo--alt">
-          <StarLogo />
-          <span className="page-header__logo-text page-header__logo-text--small">One</span>
+          <img src="/assets/logo.png" alt="AUN Logo" style={{ height: '34px' }} />
         </div>
         <div className="page-header__actions page-header__actions--alt">
           <button className="page-header__action-btn"><ProfileIcon /></button>
@@ -94,68 +122,59 @@ export default function TestPreferences() {
       </header>
 
       <main className="page-main--alt">
-        <div className="contact-nav">
+        <div className="assessment-nav">
           <button className="page-nav-arrow" onClick={goToPrevious}>
             <LeftArrow /><LeftArrow /><LeftArrow />
           </button>
-          <h2 className="page-title page-title--highlight">Almost there..!</h2>
-          <button className="page-nav-arrow" disabled>
+          <h2 className="page-title">Assessment</h2>
+          <button className="page-nav-arrow" onClick={handleNext} disabled={!canProceed}>
             <RightArrow /><RightArrow /><RightArrow />
           </button>
         </div>
 
-        <div className="contact-form">
-          <p className="contact-form__description">
-            We enable you to explore all the study options in one place and to find the best study programme that matches your needs, goals, and preferences.
+        <div className="assessment-card">
+          <p className="assessment-description">
+            Help us with your Additional Assessment that might be helpful for mapping your requirements on the best school for your chosen destination.
           </p>
 
-          <div className="contact-form__fields">
-            <input type="text" placeholder="First Name" value={contact?.firstName || ''} onChange={(e) => setContact({ firstName: e.target.value })} className="glass-input glass-input--full" />
-            <input type="text" placeholder="Last Name" value={contact?.lastName || ''} onChange={(e) => setContact({ lastName: e.target.value })} className="glass-input glass-input--full" />
-            <input type="tel" placeholder="Phone Number" value={contact?.phone || ''} onChange={(e) => setContact({ phone: e.target.value })} className="glass-input glass-input--full" />
-            <input type="email" placeholder="Email ID" value={contact?.email || ''} onChange={(e) => setContact({ email: e.target.value })} className="glass-input glass-input--full" />
-          </div>
-
-          <div className="contact-form__divider" />
-
-          <div className="contact-form__consents">
-            <div className="contact-consent">
-              <div className="contact-consent__checkbox">
-                <button
-                  onClick={() => setContact({ emailConsent: !contact?.emailConsent })}
-                  className={`contact-consent__box ${contact?.emailConsent ? 'contact-consent__box--checked' : ''}`}
-                >
-                  {contact?.emailConsent && <CheckIcon />}
-                </button>
-              </div>
-              <p className="contact-consent__label">
-                Receive monthly emails right to your inbox with programmes that match your individual profile as well as useful information to plan your study abroad journey.
-              </p>
+          <div className="assessment-fields">
+            <div className="assessment-field">
+              <p className="assessment-field__title">Choose Adaptive Test</p>
+              <Dropdown
+                label="Select"
+                value={assessment?.adaptiveTest || ''}
+                options={adaptiveTestOptions}
+                isOpen={adaptiveOpen}
+                onToggle={() => {
+                  setAdaptiveOpen(!adaptiveOpen);
+                  setEnglishOpen(false);
+                }}
+                onSelect={(val) => setAssessment({ adaptiveTest: val })}
+              />
             </div>
 
-            <div className="contact-consent">
-              <div className="contact-consent__checkbox">
-                <button
-                  onClick={() => setContact({ termsConsent: !contact?.termsConsent })}
-                  className={`contact-consent__box ${contact?.termsConsent ? 'contact-consent__box--checked' : ''}`}
-                >
-                  {contact?.termsConsent && <CheckIcon />}
-                </button>
-              </div>
-              <p className="contact-consent__label">
-                By registering, you agree to our Privacy Statement and Terms and Conditions.
-              </p>
+            <div className="assessment-field">
+              <p className="assessment-field__title">Choose English Language Test</p>
+              <Dropdown
+                label="Select"
+                value={assessment?.englishLanguageTest || ''}
+                options={englishLanguageTestOptions}
+                isOpen={englishOpen}
+                onToggle={() => {
+                  setEnglishOpen(!englishOpen);
+                  setAdaptiveOpen(false);
+                }}
+                onSelect={(val) => setAssessment({ englishLanguageTest: val })}
+              />
             </div>
           </div>
 
-          <button onClick={handleSubmit} disabled={isSubmitting} className="contact-submit">
-            <span className="contact-submit__text">
-              {isSubmitting ? 'Submitting...' : 'Submit'}
-            </span>
+          <button className="assessment-next" onClick={handleNext} disabled={!canProceed}>
+            Next
           </button>
         </div>
 
-        <div className="contact-divider" />
+        <div className="assessment-divider" />
       </main>
     </GradientBackgroundTailwind>
   );

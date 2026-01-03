@@ -11,6 +11,7 @@ import StudyAreaList from './components/StudyAreaList';
 import StudyFormatSelection from './components/StudyFormatSelection';
 import RecentAcademicsInfo from './components/RecentAcademicsInfo';
 import TestPreferences from './components/TestPreferences';
+import ContactInfo from './components/ContactInfo/ContactInfo';
 import ThankYou from './components/ThankYou';
 
 function App() {
@@ -26,7 +27,9 @@ function App() {
           <Route path={ROUTES.STUDY_AREA} element={<StudyAreaList />} />
           <Route path={ROUTES.FORMAT} element={<StudyFormatSelection />} />
           <Route path={ROUTES.ACADEMICS} element={<RecentAcademicsInfo />} />
-          <Route path={ROUTES.CONTACT} element={<TestPreferences />} />
+          {/* Temporary: assessment step uses existing TestPreferences until ContactInfo is split out */}
+          <Route path={ROUTES.ASSESSMENT} element={<TestPreferences />} />
+          <Route path={ROUTES.CONTACT} element={<ContactInfo />} />
           <Route path={ROUTES.THANK_YOU} element={<ThankYou />} />
         </Routes>
       </div>

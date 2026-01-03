@@ -37,14 +37,12 @@
 .country-main {
   display: flex;
   width: 100%;
-  max-width: 652px;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 50px;
+  gap: clamp(28px, 4vw, 50px);
   margin: 0 auto;
-  padding-top: var(--space-xl);
-  padding-bottom: var(--space-2xl);
+  padding: var(--space-xl) var(--content-padding) var(--space-2xl);
 }
 
 /* ============================================
@@ -55,7 +53,7 @@
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  padding: 0 27px;
+  padding: 0;
 }
 
 .country-nav-arrow {
@@ -88,10 +86,10 @@
    ============================================ */
 .country-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px 10px;
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+  gap: clamp(12px, 2.5vw, 20px) clamp(10px, 2vw, 16px);
   width: 100%;
-  padding: 0 var(--space-sm);
+  padding: 0;
 }
 
 /* ============================================
@@ -170,7 +168,7 @@
 }
 
 .country-divider {
-  width: 300px;
+  width: clamp(280px, 45vw, 520px);
   height: 1px;
   background: var(--gradient-divider);
 }

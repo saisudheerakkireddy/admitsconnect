@@ -4,15 +4,10 @@
 import { useState } from 'react';
 import './RecentAcademicsInfo.css';
 import { GradientBackgroundTailwind } from '../GradientBackgroundTailwind';
+import { FloatingInput } from '../FloatingInput';
 import { useFormStore } from '../../store/formStore';
 import { useFormNavigation } from '../../hooks/useFormNavigation';
 
-const StarLogo = () => (
-  <svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M17 0L20.8 11H32.5L23 18L26.8 29L17 22L7.2 29L11 18L1.5 11H13.2L17 0Z" fill="#1E417C"/>
-    <path d="M17 6L19.2 12.5H26L20.4 16.5L22.6 23L17 19L11.4 23L13.6 16.5L8 12.5H14.8L17 6Z" fill="#EE1113"/>
-  </svg>
-);
 
 const ProfileIcon = () => (
   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -97,8 +92,7 @@ export default function RecentAcademicsInfo() {
     <GradientBackgroundTailwind variant="pastel" className="page-container">
       <header className="page-header page-header--alt">
         <div className="page-header__logo page-header__logo--alt">
-          <StarLogo />
-          <span className="page-header__logo-text page-header__logo-text--small">One</span>
+          <img src="/assets/logo.png" alt="AUN Logo" style={{ height: '34px' }} />
         </div>
         <div className="page-header__actions page-header__actions--alt">
           <button className="page-header__action-btn"><ProfileIcon /></button>
@@ -122,21 +116,28 @@ export default function RecentAcademicsInfo() {
           <div className="academics-section">
             <p className="academics-section__title">Secondary school Certificate / 10th</p>
             <div className="academics-section__fields">
-              <input
-                type="text"
-                placeholder="Enter Year of Completion"
+              <FloatingInput
+                variant="text"
+                label="Year of Completion"
                 value={academics?.secondary?.year || ''}
-                onChange={(e) => setSecondaryAcademics({ year: e.target.value })}
-                className="glass-input glass-input--full"
+                onChange={(val) => setSecondaryAcademics({ year: val })}
+                containerClassName="floating-container--full"
               />
-              <input
-                type="text"
-                placeholder="Enter the Achieved Grade"
+              <FloatingInput
+                variant="text"
+                label="Achieved Grade"
                 value={academics?.secondary?.grade || ''}
-                onChange={(e) => setSecondaryAcademics({ grade: e.target.value })}
-                className="glass-input glass-input--full"
+                onChange={(val) => setSecondaryAcademics({ grade: val })}
+                containerClassName="floating-container--full"
               />
-              {renderDropdown('secondary-medium', academics?.secondary?.medium || '', (val) => setSecondaryAcademics({ medium: val }))}
+              <FloatingInput
+                variant="select"
+                label="Medium"
+                value={academics?.secondary?.medium || ''}
+                onChange={(val) => setSecondaryAcademics({ medium: val })}
+                options={mediumOptions.map(opt => ({ value: opt, label: opt }))}
+                containerClassName="floating-container--small"
+              />
             </div>
           </div>
 

@@ -23,19 +23,36 @@
   --color-secondary-rgb: 30, 65, 124;
 
   /* ============================================
-     PASTEL COLORS (From Figma Design)
+     PASTEL COLORS - Purple Variants
      ============================================ */
-  --color-pastel-pink: #FFE6F0;
-  --color-pastel-pink-rgb: 255, 230, 240;
-  --color-pastel-lavender: #E8D5E8;
-  --color-pastel-lavender-rgb: 232, 213, 232;
-  --color-pastel-cyan: #38D3F0;
-  --color-pastel-cyan-rgb: 56, 211, 240;
-  --color-pastel-cyan-light: #E6FAFF;
-  --color-pastel-mint: #C5F0E8;
-  --color-pastel-mint-rgb: 197, 240, 232;
-  --color-pastel-blush: #FFB4D2;
-  --color-pastel-blush-rgb: 255, 180, 210;
+  --color-pastel-purple-light: #F0E8F5;
+  --color-pastel-purple-base: #E8D6F0;
+  --color-pastel-purple-medium: #DBC9E8;
+  --color-pastel-purple-dark: #D4BBE0;
+
+  /* ============================================
+     PASTEL COLORS - Cyan Variants
+     ============================================ */
+  --color-pastel-cyan-light: #E6F5F8;
+  --color-pastel-cyan-base: #D6F0F5;
+  --color-pastel-cyan-medium: #C8EBF2;
+  --color-pastel-cyan-dark: #BFDFEA;
+
+  /* ============================================
+     PASTEL COLORS - Lavender Variants
+     ============================================ */
+  --color-pastel-lavender-light: #F5F0FA;
+  --color-pastel-lavender-base: #E8DDF5;
+  --color-pastel-lavender-medium: #DDD0F0;
+  --color-pastel-lavender-dark: #D0C0E8;
+
+  /* ============================================
+     BRAND COLORS
+     ============================================ */
+  --color-brand-navy: #1E417C;
+  --color-brand-navy-light: rgba(30, 65, 124, 0.01);
+  --color-brand-red: #EE1113;
+  --color-brand-purple: #7403FA;
 
   /* ============================================
      NEUTRAL COLORS
@@ -70,19 +87,30 @@
   --color-bg-card: rgba(255, 255, 255, 0.7);
   --color-bg-card-hover: rgba(255, 255, 255, 0.9);
   --color-bg-selected: rgba(238, 17, 19, 0.15);
-  --color-bg-glassmorphism: rgba(255, 255, 255, 0.01);
+  --color-bg-glassmorphism: rgba(30, 65, 124, 0.01);
 
   /* ============================================
      GRADIENTS
      ============================================ */
-  --gradient-primary: linear-gradient(135deg, #EE1113 0%, #C22032 100%);
-  --gradient-text: linear-gradient(135deg, #EE1113 0%, #9B30FF 100%);
-  --gradient-pastel: linear-gradient(135deg, var(--color-pastel-pink) 0%, var(--color-pastel-cyan-light) 100%);
+  --gradient-primary: linear-gradient(161.24deg, #EE1113 0.91%, #7403FA 96.74%);
+  --gradient-text: linear-gradient(161.24deg, #EE1113 0.91%, #7403FA 96.74%);
+  --gradient-pastel: linear-gradient(135deg, var(--color-pastel-purple-light) 0%, var(--color-pastel-cyan-light) 100%);
   --gradient-divider: linear-gradient(90deg, transparent 0%, #bbb 50%, transparent 100%);
 
   /* ============================================
-     TYPOGRAPHY - FONT FAMILIES
+     GLASSMORPHISM EFFECTS
      ============================================ */
+  --glass-backdrop-blur: blur(2.5px);
+  --glass-bg: rgba(30, 65, 124, 0.01);
+
+  /* ============================================
+     TYPOGRAPHY - FONT FAMILIES
+     (Audiowide: headings, Poppins: body, Comfortaa: buttons)
+     ============================================ */
+  --font-heading: 'Audiowide', sans-serif;
+  --font-body: 'Poppins', sans-serif;
+  --font-button: 'Comfortaa', cursive, sans-serif;
+  /* Aliases for backward compatibility */
   --font-primary: 'Poppins', sans-serif;
   --font-display: 'Comfortaa', cursive, sans-serif;
   --font-accent: 'Audiowide', sans-serif;
@@ -142,13 +170,25 @@
   --radius-full: 9999px;
 
   /* ============================================
+     BORDERS - Tag Components
+     ============================================ */
+  --border-tag-default: 1px solid rgba(238, 17, 19, 0.15);
+  --border-tag-selected: 2px solid #C22032;
+  --border-tag-hover: 1px solid rgba(238, 17, 19, 0.25);
+
+  /* ============================================
      SHADOWS
      ============================================ */
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
   --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-  --shadow-tag-inner: inset 0px 0px 6px rgba(194, 32, 50, 0.15);
+  --shadow-tag-inner: inset 0px 0px 6px rgba(194, 32, 50, 0.1);
   --shadow-focus: 0 0 0 3px rgba(var(--color-primary-rgb), 0.3);
+  
+  /* Button Inset Shadow (from Figma spec) */
+  --shadow-button-inset: inset 0px 0px 10px 0px rgba(194, 32, 50, 0.3), 
+                         inset -1px -2px 3px 0px rgba(194, 32, 50, 0.1), 
+                         inset 1px 1px 2px 0px rgba(194, 32, 50, 0.2);
 
   /* ============================================
      TRANSITIONS
@@ -169,9 +209,25 @@
   /* ============================================
      LAYOUT
      ============================================ */
+  /*
+    Responsive container system
+
+    - container-narrow: form/wizard steps look best constrained
+    - container-max: wider pages can breathe on desktop
+  */
+  --container-narrow: 720px;
+  --container-max: 1200px;
+
+  /*
+    Keep for backward compatibility: previously the app was designed as a fixed
+    393px mobile frame. We now make it fluid, but leaving the variable avoids
+    breaking any existing references.
+  */
   --mobile-width: 393px;
-  --content-padding: 20px;
-  --header-padding-top: 35px;
-  --header-padding-bottom: 15px;
+
+  /* Fluid padding scales between small phones and desktop */
+  --content-padding: clamp(16px, 3vw, 32px);
+  --header-padding-top: clamp(20px, 4vw, 35px);
+  --header-padding-bottom: clamp(12px, 2vw, 16px);
 }
 

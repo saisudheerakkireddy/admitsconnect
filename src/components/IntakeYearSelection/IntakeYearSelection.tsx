@@ -21,12 +21,6 @@ const studyDurations: DurationOption[] = [
 const intakeOptions = ["Spring", "Summer", "Fall", "Winter"];
 const yearOptions = ["2025", "2026", "2027", "2028"];
 
-const StarLogo = () => (
-  <svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M17 0L20.8 11H32.5L23 18L26.8 29L17 22L7.2 29L11 18L1.5 11H13.2L17 0Z" fill="#1E417C"/>
-    <path d="M17 6L19.2 12.5H26L20.4 16.5L22.6 23L17 19L11.4 23L13.6 16.5L8 12.5H14.8L17 6Z" fill="#EE1113"/>
-  </svg>
-);
 
 const ProfileIcon = () => (
   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -109,8 +103,7 @@ export default function IntakeYearSelection() {
     <GradientBackgroundTailwind variant="pastel" className="page-container">
       <header className="page-header">
         <div className="page-header__logo">
-          <StarLogo />
-          <span className="page-header__logo-text">One</span>
+          <img src="/assets/logo.png" alt="AUN Logo" style={{ height: '34px' }} />
         </div>
         <div className="page-header__actions">
           <ProfileIcon />

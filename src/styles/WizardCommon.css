@@ -1,0 +1,261 @@
+/* ============================================
+   WizardCommon.css - Shared Wizard Page Styles
+   ============================================
+   Common styles for all wizard/form pages to
+   maintain UI/UX consistency across the app
+   ============================================ */
+
+/* ============================================
+   SELECTION CARD - For grid-based selections
+   (Countries, Industries, etc.)
+   ============================================ */
+.wizard-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-md) var(--space-sm);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  background: transparent;
+  border: none;
+  min-width: 80px;
+}
+
+.wizard-card:hover {
+  background: #C22032;
+  box-shadow: var(--shadow-md);
+}
+
+.wizard-card:hover .wizard-card__icon svg path {
+  fill: #FFFFFF;
+  stroke: #FFFFFF;
+}
+
+.wizard-card:hover .wizard-card__name {
+  color: #FFFFFF;
+}
+
+.wizard-card:active {
+  transform: scale(0.95);
+}
+
+.wizard-card--selected {
+  background: #C22032;
+  box-shadow: 0 0 0 2px #C22032;
+}
+
+.wizard-card--selected .wizard-card__icon svg path {
+  fill: #FFFFFF;
+  stroke: #FFFFFF;
+}
+
+.wizard-card--selected .wizard-card__name {
+  color: #FFFFFF;
+}
+
+.wizard-card__icon {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.wizard-card__icon img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.wizard-card__name {
+  font-family: 'Comfortaa', cursive;
+  font-size: var(--text-sm);
+  font-weight: var(--font-bold);
+  text-align: center;
+  line-height: normal;
+  white-space: pre-line;
+  color: var(--color-black);
+}
+
+/* ============================================
+   SELECTION LIST ITEM - For list-based selections
+   (Study Areas, etc.)
+   ============================================ */
+.wizard-list-item {
+  width: 100%;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  padding: 12px 20px;
+  border-radius: var(--radius-full);
+  background: transparent;
+  border: 1px solid var(--color-primary-light);
+  cursor: pointer;
+  transition: all var(--transition-normal);
+}
+
+.wizard-list-item:hover {
+  background: #C22032;
+  border-color: #C22032;
+}
+
+.wizard-list-item:hover .wizard-list-item__text {
+  color: #FFFFFF;
+}
+
+.wizard-list-item:active {
+  transform: scale(0.98);
+}
+
+.wizard-list-item--selected {
+  background: #C22032;
+  border-color: #C22032;
+  box-shadow: 0 0 0 2px #C22032;
+}
+
+.wizard-list-item--selected .wizard-list-item__text {
+  color: #FFFFFF;
+}
+
+.wizard-list-item__text {
+  font-family: 'Comfortaa', cursive;
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  text-align: left;
+  color: var(--color-black);
+}
+
+/* ============================================
+   SELECTION PILL - For tag/pill selections
+   (Study Level, Degree Type, Format, etc.)
+   ============================================ */
+.wizard-pill {
+  padding: 8px 16px;
+  border-radius: var(--radius-full);
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(238, 17, 19, 0.15);
+  backdrop-filter: blur(4px);
+  box-shadow: inset 0px 0px 6px rgba(194, 32, 50, 0.1);
+  transition: all var(--transition-normal);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.wizard-pill:hover {
+  background: #C22032;
+  border-color: #C22032;
+}
+
+.wizard-pill:hover .wizard-pill__text {
+  color: #FFFFFF;
+}
+
+.wizard-pill:active {
+  transform: scale(0.95);
+}
+
+.wizard-pill--selected {
+  background: #C22032;
+  border: 2px solid #C22032;
+}
+
+.wizard-pill--selected .wizard-pill__text {
+  color: #FFFFFF;
+}
+
+.wizard-pill__text {
+  font-family: 'Comfortaa', cursive;
+  font-size: 9px;
+  font-weight: 500;
+  color: var(--color-black);
+  white-space: nowrap;
+  line-height: normal;
+}
+
+/* ============================================
+   WIZARD NAV - Navigation row with arrows
+   ============================================ */
+.wizard-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 50px;
+  padding: 0 27px;
+}
+
+.wizard-nav__title {
+  font-family: var(--font-primary);
+  font-size: var(--text-base);
+  color: var(--color-text-secondary);
+  text-align: center;
+  line-height: normal;
+}
+
+/* ============================================
+   WIZARD SEARCH - Search bar container
+   ============================================ */
+.wizard-search {
+  padding: 0 20px;
+  margin-bottom: 30px;
+}
+
+/* ============================================
+   WIZARD GRID - For card-based layouts
+   ============================================ */
+.wizard-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px 10px;
+  width: 100%;
+  padding: 0 var(--space-sm);
+  margin-bottom: 60px;
+}
+
+.wizard-grid--4col {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+/* ============================================
+   WIZARD LIST - For list-based layouts
+   ============================================ */
+.wizard-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 0 20px;
+  max-width: 350px;
+  margin: 0 auto 60px;
+}
+
+/* ============================================
+   WIZARD PILLS CONTAINER - For pill layouts
+   ============================================ */
+.wizard-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px 10px;
+  justify-content: center;
+  padding: 0 16px;
+}
+
+/* ============================================
+   WIZARD SECTION - For multiple sections
+   ============================================ */
+.wizard-section {
+  margin-bottom: 55px;
+}
+
+.wizard-section__title {
+  font-family: var(--font-primary);
+  font-size: var(--text-base);
+  color: var(--color-text-secondary);
+  text-align: center;
+  line-height: normal;
+  margin-bottom: 40px;
+}
+
+

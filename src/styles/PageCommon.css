@@ -15,7 +15,7 @@
 }
 
 .page-header--alt {
-  padding: 37px 16px 16px;
+  padding: var(--header-padding-top) var(--content-padding) var(--header-padding-bottom);
 }
 
 .page-header__logo {
@@ -68,7 +68,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 27px;
+  padding: 0 var(--content-padding);
   margin-bottom: 59px;
 }
 
@@ -118,13 +118,11 @@
    COMMON MAIN CONTENT
    ============================================ */
 .page-main {
-  padding: 0 18px;
-  padding-top: var(--space-xl);
+  padding: var(--space-xl) var(--content-padding) 0;
 }
 
 .page-main--alt {
-  padding: 0 16px;
-  padding-top: 32px;
+  padding: clamp(24px, 4vw, 48px) var(--content-padding) 0;
 }
 
 /* ============================================
@@ -162,7 +160,8 @@
 }
 
 .page-divider {
-  width: 300px;
+  width: clamp(280px, 45vw, 520px);
+  max-width: 100%;
   height: 1px;
   background: var(--gradient-divider);
 }
@@ -175,21 +174,22 @@
    GLASSMORPHISM PILL BUTTON
    ============================================ */
 .glass-pill {
-  padding: var(--space-sm) var(--space-lg);
-  border-radius: var(--radius-2xl);
-  background: rgba(255, 255, 255, 0.01);
-  border: 0.5px solid var(--color-primary-light);
-  backdrop-filter: blur(2.5px);
-  box-shadow: 
-    inset 0px 0px 10px 0px rgba(194, 32, 50, 0.3),
-    inset -1px -2px 3px 0px rgba(194, 32, 50, 0.1),
-    inset 1px 1px 2px 0px rgba(194, 32, 50, 0.3);
+  padding: 6px 12px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.7);
+  border: var(--border-tag-default);
+  backdrop-filter: blur(4px);
+  box-shadow: var(--shadow-tag-inner);
   transition: all var(--transition-normal);
   cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .glass-pill:hover {
   background: #C22032;
+  border-color: #C22032;
 }
 
 .glass-pill:hover .glass-pill__text {
@@ -202,19 +202,21 @@
 
 .glass-pill--selected {
   background: #C22032;
-  box-shadow: 0 0 0 2px #C22032;
+  border: var(--border-tag-selected);
 }
 
 .glass-pill--selected:hover {
   background: #C22032;
+  border: var(--border-tag-selected);
 }
 
 .glass-pill__text {
-  font-family: var(--font-display);
-  font-size: 8px;
-  font-weight: var(--font-bold);
+  font-family: 'Comfortaa', cursive;
+  font-size: 9px;
+  font-weight: 500;
   color: var(--color-black);
   white-space: nowrap;
+  line-height: normal;
 }
 
 .glass-pill--selected .glass-pill__text {
@@ -253,22 +255,22 @@
 }
 
 .glass-input--full {
-  width: 312px;
+  width: min(520px, 100%);
 }
 
 .glass-input--medium {
-  width: 237px;
+  width: min(420px, 100%);
 }
 
 .glass-input--small {
-  width: 150px;
+  width: min(240px, 100%);
 }
 
 /* ============================================
    SEARCH BAR
    ============================================ */
 .search-bar {
-  width: 316px;
+  width: min(520px, 100%);
   height: 44px;
   margin: 0 auto;
   position: relative;
@@ -331,7 +333,8 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
-  max-width: 313px;
+  width: 100%;
+  max-width: 520px;
   margin: 0 auto;
 }
 
@@ -347,7 +350,7 @@
   flex-wrap: wrap;
   gap: 16px 10px;
   justify-content: center;
-  padding: 0 16px;
+  padding: 0;
 }
 
 .pills-container--compact {
@@ -398,7 +401,7 @@
    ============================================ */
 .submit-btn {
   height: 33px;
-  width: 156px;
+  width: min(240px, 100%);
   margin: 0 auto;
   padding: 14.5px 20px;
   border-radius: var(--radius-md);
