@@ -1,0 +1,23 @@
+/* ============================================
+   WizardLayout Styles
+   Minimal centralized layout for wizard pages
+   Component-specific styles are in their own files
+   ============================================ */
+
+@import '../../styles/variables.css';
+
+/* ============================================
+   BASE - Mobile First
+   ============================================ */
+
+/* Page container - applies to all wizard pages */
+.wizard-layout__page-container {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  overflow-x: hidden; /* Prevents horizontal scroll */
+}
+
+/* Note: Individual wizard page styles (country-selection__*, 
+   study-industry-selection__*, etc.) are defined in their 
+   respective component CSS files following BEM naming convention */

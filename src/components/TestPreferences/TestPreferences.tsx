@@ -1,11 +1,11 @@
 // Test Preferences (Assessment) Screen Component
-// Refactored with separate CSS file
+// With conditional score inputs based on test selection
 
 import { useState } from 'react';
 import './TestPreferences.css';
-import { GradientBackgroundTailwind } from '../GradientBackgroundTailwind';
 import { useFormStore } from '../../store/formStore';
 import { useFormNavigation } from '../../hooks/useFormNavigation';
+import ThemeToggle from '../ThemeToggle';
 
 const ProfileIcon = () => (
   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -41,9 +41,6 @@ const ChevronDown = () => (
 type Option = { value: string; label: string };
 
 const adaptiveTestOptions: Option[] = [
-  { value: 'psat', label: 'Per SAT - Pre Scholastic Assessment Test' },
-  { value: 'sat', label: 'SAT - Scholastic Assessment Test' },
-  { value: 'act', label: 'ACT - American College Test' },
   { value: 'gre', label: 'GRE - Graduate Record Examinations' },
   { value: 'gmat', label: 'GMAT - Graduate Management Admission Test' },
   { value: 'consider-later', label: 'I wish to consider the tests but later!' },
@@ -99,23 +96,106 @@ const Dropdown = ({ label, value, options, isOpen, onToggle, onSelect }: Dropdow
   </div>
 );
 
-export default function TestPreferences() {
+// Score Input Component
+interface ScoreInputProps {
+  label: string;
+  value: string;
+  onChange: (value: string) => void;
+  placeholder?: string;
+}
+
+const ScoreInput = ({ label, value, onChange, placeholder = "Enter score" }: ScoreInputProps) => (
+  <div className="score-input">
+    <label className="score-input__label">{label}</label>
+    <input
+      type="text"
+      className="glass-input"
+      value={value}
+      onChange={(e) => onChange(e.target.value)}
+      placeholder={placeholder}
+    />
+  </div>
+);
+
+interface TestPreferencesProps {
+  theme?: 'light' | 'dark';
+  onThemeToggle?: () => void;
+}
+
+export default function TestPreferences({ theme = 'light', onThemeToggle }: TestPreferencesProps) {
   const { assessment, setAssessment } = useFormStore();
   const { goToPrevious, goToNext, canProceed } = useFormNavigation();
   const [adaptiveOpen, setAdaptiveOpen] = useState(false);
   const [englishOpen, setEnglishOpen] = useState(false);
 
+  // Helper functions for score management
+  const getAdaptiveScore = (field: string) => {
+    if (!assessment?.adaptiveTestScores) return '';
+    return (assessment.adaptiveTestScores as any)[field] || '';
+  };
+
+  const setAdaptiveScore = (field: string, value: string) => {
+    const currentScores = assessment?.adaptiveTestScores || {};
+    setAssessment({
+      adaptiveTestScores: {
+        ...currentScores,
+        [field]: value,
+      } as any,
+    });
+  };
+
+  const getEnglishScore = (field: string) => {
+    if (!assessment?.englishTestScores) return '';
+    return (assessment.englishTestScores as any)[field] || '';
+  };
+
+  const setEnglishScore = (field: string, value: string) => {
+    const currentScores = assessment?.englishTestScores || {};
+    setAssessment({
+      englishTestScores: {
+        ...currentScores,
+        [field]: value,
+      } as any,
+    });
+  };
+
+  const handleAdaptiveTestChange = (value: string) => {
+    setAssessment({ 
+      adaptiveTest: value,
+      adaptiveTestScores: undefined // Clear scores when changing test
+    });
+  };
+
+  const handleEnglishTestChange = (value: string) => {
+    setAssessment({ 
+      englishLanguageTest: value,
+      englishTestScores: undefined // Clear scores when changing test
+    });
+  };
+
   const handleNext = () => {
     if (canProceed) goToNext();
   };
 
+  // Determine if we need to show score inputs
+  const showAdaptiveScores = assessment?.adaptiveTest && 
+    assessment.adaptiveTest !== 'consider-later' && 
+    assessment.adaptiveTest !== 'not-consider';
+
+  const showEnglishScores = assessment?.englishLanguageTest && 
+    assessment.englishLanguageTest !== 'consider-later' && 
+    assessment.englishLanguageTest !== 'not-consider';
+
   return (
-    <GradientBackgroundTailwind variant="pastel" className="page-container">
+    <div className="page-container">
       <header className="page-header page-header--alt">
         <div className="page-header__logo page-header__logo--alt">
           <img src="/assets/logo.png" alt="AUN Logo" style={{ height: '34px' }} />
         </div>
         <div className="page-header__actions page-header__actions--alt">
+          {onThemeToggle && (
+            <ThemeToggle theme={theme} onToggle={onThemeToggle} />
+          )}
           <button className="page-header__action-btn"><ProfileIcon /></button>
           <button className="page-header__action-btn"><MenuIcon /></button>
         </div>
@@ -138,6 +218,7 @@ export default function TestPreferences() {
           </p>
 
           <div className="assessment-fields">
+            {/* Adaptive Test Selection */}
             <div className="assessment-field">
               <p className="assessment-field__title">Choose Adaptive Test</p>
               <Dropdown
@@ -149,10 +230,31 @@ export default function TestPreferences() {
                   setAdaptiveOpen(!adaptiveOpen);
                   setEnglishOpen(false);
                 }}
-                onSelect={(val) => setAssessment({ adaptiveTest: val })}
+                onSelect={handleAdaptiveTestChange}
               />
+              
+              {/* GRE Score Inputs */}
+              {showAdaptiveScores && assessment.adaptiveTest === 'gre' && (
+                <div className="score-inputs-grid">
+                  <ScoreInput label="Overall Score" value={getAdaptiveScore('overall')} onChange={(v) => setAdaptiveScore('overall', v)} />
+                  <ScoreInput label="Verbal Reasoning" value={getAdaptiveScore('verbalReasoning')} onChange={(v) => setAdaptiveScore('verbalReasoning', v)} />
+                  <ScoreInput label="Quantitative Reasoning" value={getAdaptiveScore('quantitativeReasoning')} onChange={(v) => setAdaptiveScore('quantitativeReasoning', v)} />
+                  <ScoreInput label="Analytical Writing" value={getAdaptiveScore('analyticalWriting')} onChange={(v) => setAdaptiveScore('analyticalWriting', v)} />
+                </div>
+              )}
+
+              {/* GMAT Score Inputs */}
+              {showAdaptiveScores && assessment.adaptiveTest === 'gmat' && (
+                <div className="score-inputs-grid">
+                  <ScoreInput label="Overall Score" value={getAdaptiveScore('overall')} onChange={(v) => setAdaptiveScore('overall', v)} />
+                  <ScoreInput label="Mathematics" value={getAdaptiveScore('mathematics')} onChange={(v) => setAdaptiveScore('mathematics', v)} />
+                  <ScoreInput label="Verbal" value={getAdaptiveScore('verbal')} onChange={(v) => setAdaptiveScore('verbal', v)} />
+                  <ScoreInput label="Integrated Reasoning" value={getAdaptiveScore('integratedReasoning')} onChange={(v) => setAdaptiveScore('integratedReasoning', v)} />
+                </div>
+              )}
             </div>
 
+            {/* English Language Test Selection */}
             <div className="assessment-field">
               <p className="assessment-field__title">Choose English Language Test</p>
               <Dropdown
@@ -164,8 +266,30 @@ export default function TestPreferences() {
                   setEnglishOpen(!englishOpen);
                   setAdaptiveOpen(false);
                 }}
-                onSelect={(val) => setAssessment({ englishLanguageTest: val })}
+                onSelect={handleEnglishTestChange}
               />
+
+              {/* IELTS/TOEFL/PTE Score Inputs */}
+              {showEnglishScores && ['ielts', 'toefl', 'pte'].includes(assessment.englishLanguageTest || '') && (
+                <div className="score-inputs-grid">
+                  <ScoreInput label="Overall Score" value={getEnglishScore('overall')} onChange={(v) => setEnglishScore('overall', v)} />
+                  <ScoreInput label="Reading" value={getEnglishScore('reading')} onChange={(v) => setEnglishScore('reading', v)} />
+                  <ScoreInput label="Writing" value={getEnglishScore('writing')} onChange={(v) => setEnglishScore('writing', v)} />
+                  <ScoreInput label="Speaking" value={getEnglishScore('speaking')} onChange={(v) => setEnglishScore('speaking', v)} />
+                  <ScoreInput label="Listening" value={getEnglishScore('listening')} onChange={(v) => setEnglishScore('listening', v)} />
+                </div>
+              )}
+
+              {/* DET Score Inputs */}
+              {showEnglishScores && assessment.englishLanguageTest === 'det' && (
+                <div className="score-inputs-grid">
+                  <ScoreInput label="Overall Score" value={getEnglishScore('overall')} onChange={(v) => setEnglishScore('overall', v)} />
+                  <ScoreInput label="Literacy" value={getEnglishScore('literacy')} onChange={(v) => setEnglishScore('literacy', v)} />
+                  <ScoreInput label="Conversation" value={getEnglishScore('conversation')} onChange={(v) => setEnglishScore('conversation', v)} />
+                  <ScoreInput label="Comprehension" value={getEnglishScore('comprehension')} onChange={(v) => setEnglishScore('comprehension', v)} />
+                  <ScoreInput label="Production" value={getEnglishScore('production')} onChange={(v) => setEnglishScore('production', v)} />
+                </div>
+              )}
             </div>
           </div>
 
@@ -176,7 +300,6 @@ export default function TestPreferences() {
 
         <div className="assessment-divider" />
       </main>
-    </GradientBackgroundTailwind>
+    </div>
   );
 }
-

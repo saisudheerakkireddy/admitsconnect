@@ -3,10 +3,10 @@
 
 import { useState } from 'react';
 import './RecentAcademicsInfo.css';
-import { GradientBackgroundTailwind } from '../GradientBackgroundTailwind';
 import { FloatingInput } from '../FloatingInput';
 import { useFormStore } from '../../store/formStore';
 import { useFormNavigation } from '../../hooks/useFormNavigation';
+import ThemeToggle from '../ThemeToggle';
 
 
 const ProfileIcon = () => (
@@ -46,9 +46,38 @@ const ChevronUp = () => (
   </svg>
 );
 
-const mediumOptions = ["English", "Hindi", "Regional"];
+const mediumOptions = ["English", "Regional"];
 
-export default function RecentAcademicsInfo() {
+const undergradDegreeTypes = [
+  "BE / B.Tech – Bachelor of Technology",
+  "B.Arch – Bachelor of Architecture",
+  "BBA – Bachelor of Business Administration",
+  "BCom – Bachelor of Commerce",
+  "BCA – Bachelor of Computer Applications",
+  "B.Sc – Information Technology",
+  "BPharma – Bachelor of Pharmacy",
+  "B.Sc – Interior Design",
+  "BDS – Bachelor of Dental Surgery",
+  "B.Sc – Mathematics",
+  "B.Sc – Chemistry",
+  "Others"
+];
+
+const postgradDegreeTypes = [
+  "M.Tech",
+  "MBA",
+  "MCA",
+  "MS",
+  "MRS",
+  "Others"
+];
+
+interface RecentAcademicsInfoProps {
+  theme?: 'light' | 'dark';
+  onThemeToggle?: () => void;
+}
+
+export default function RecentAcademicsInfo({ theme = 'light', onThemeToggle }: RecentAcademicsInfoProps) {
   const { academics, setSecondaryAcademics, setHigherSecondaryAcademics, setUndergradAcademics, setPostgradAcademics } = useFormStore();
   const { goToNext, goToPrevious, canProceed } = useFormNavigation();
   
@@ -60,27 +89,41 @@ export default function RecentAcademicsInfo() {
     if (canProceed) goToNext();
   };
 
-  const renderDropdown = (id: string, value: string, onChange: (val: string) => void) => (
+  const renderDropdown = (
+    id: string, 
+    value: string, 
+    onChange: (val: string) => void, 
+    options: string[] = mediumOptions,
+    placeholder: string = 'Select',
+    width: string = '150px'
+  ) => (
     <div className="academics-dropdown">
       <button
         className="glass-pill glass-input--small"
-        style={{ width: '150px', position: 'relative' }}
+        style={{ width, position: 'relative' }}
         onClick={() => setOpenDropdown(openDropdown === id ? null : id)}
       >
-        <span className="glass-pill__text">{value || 'Medium'}</span>
+        <span className="glass-pill__text" style={{ 
+          overflow: 'hidden', 
+          textOverflow: 'ellipsis', 
+          whiteSpace: 'nowrap',
+          paddingRight: '20px'
+        }}>
+          {value || placeholder}
+        </span>
         <div style={{ position: 'absolute', right: '20px', top: '50%', transform: 'translateY(-50%)' }}>
           <ChevronDown />
         </div>
       </button>
       {openDropdown === id && (
-        <div className="academics-dropdown__menu">
-          {mediumOptions.map((option) => (
+        <div className="academics-dropdown__menu" style={{ maxHeight: '300px', overflowY: 'auto' }}>
+          {options.map((option) => (
             <button
               key={option}
               className="academics-dropdown__option"
               onClick={() => { onChange(option); setOpenDropdown(null); }}
             >
-              <span className="glass-pill__text">{option}</span>
+              <span className="glass-pill__text" style={{ textAlign: 'left', width: '100%' }}>{option}</span>
             </button>
           ))}
         </div>
@@ -89,12 +132,15 @@ export default function RecentAcademicsInfo() {
   );
 
   return (
-    <GradientBackgroundTailwind variant="pastel" className="page-container">
+    <div className="page-container">
       <header className="page-header page-header--alt">
         <div className="page-header__logo page-header__logo--alt">
           <img src="/assets/logo.png" alt="AUN Logo" style={{ height: '34px' }} />
         </div>
         <div className="page-header__actions page-header__actions--alt">
+          {onThemeToggle && (
+            <ThemeToggle theme={theme} onToggle={onThemeToggle} />
+          )}
           <button className="page-header__action-btn"><ProfileIcon /></button>
           <button className="page-header__action-btn"><MenuIcon /></button>
         </div>
@@ -179,12 +225,19 @@ export default function RecentAcademicsInfo() {
             </button>
             {undergradExpanded && (
               <div className="academics-section__fields">
-                <input type="text" placeholder="Choose the Type of Degree" value={academics?.undergrad?.degreeType || ''} onChange={(e) => setUndergradAcademics({ degreeType: e.target.value })} className="glass-input glass-input--medium" />
+                {renderDropdown(
+                  'undergrad-degree', 
+                  academics?.undergrad?.degreeType || '', 
+                  (val) => setUndergradAcademics({ degreeType: val }),
+                  undergradDegreeTypes,
+                  'Choose the Type of Degree',
+                  '100%'
+                )}
                 <input type="text" placeholder="Enter the Start Year" value={academics?.undergrad?.startYear || ''} onChange={(e) => setUndergradAcademics({ startYear: e.target.value })} className="glass-input" style={{ width: '116px' }} />
                 <input type="text" placeholder="Enter the End Year" value={academics?.undergrad?.endYear || ''} onChange={(e) => setUndergradAcademics({ endYear: e.target.value })} className="glass-input" style={{ width: '112px' }} />
                 <input type="text" placeholder="Enter the Achieved Grade" value={academics?.undergrad?.grade || ''} onChange={(e) => setUndergradAcademics({ grade: e.target.value })} className="glass-input" style={{ width: '140px' }} />
                 <input type="number" placeholder="Enter Total Backlogs" value={academics?.undergrad?.backlogs || ''} onChange={(e) => setUndergradAcademics({ backlogs: parseInt(e.target.value) || 0 })} className="glass-input" style={{ width: '119px' }} />
-                {renderDropdown('undergrad-medium', academics?.undergrad?.medium || '', (val) => setUndergradAcademics({ medium: val }))}
+                {renderDropdown('undergrad-medium', academics?.undergrad?.medium || '', (val) => setUndergradAcademics({ medium: val }), mediumOptions, 'Medium', '150px')}
               </div>
             )}
           </div>
@@ -205,12 +258,19 @@ export default function RecentAcademicsInfo() {
             </button>
             {postgradExpanded && (
               <div className="academics-section__fields">
-                <input type="text" placeholder="Choose the Type of Degree" value={academics?.postgrad?.degreeType || ''} onChange={(e) => setPostgradAcademics({ degreeType: e.target.value })} className="glass-input glass-input--medium" />
+                {renderDropdown(
+                  'postgrad-degree', 
+                  academics?.postgrad?.degreeType || '', 
+                  (val) => setPostgradAcademics({ degreeType: val }),
+                  postgradDegreeTypes,
+                  'Choose the Type of Degree',
+                  '100%'
+                )}
                 <input type="text" placeholder="Enter the Start Year" value={academics?.postgrad?.startYear || ''} onChange={(e) => setPostgradAcademics({ startYear: e.target.value })} className="glass-input" style={{ width: '116px' }} />
                 <input type="text" placeholder="Enter the End Year" value={academics?.postgrad?.endYear || ''} onChange={(e) => setPostgradAcademics({ endYear: e.target.value })} className="glass-input" style={{ width: '112px' }} />
                 <input type="text" placeholder="Enter the Achieved Grade" value={academics?.postgrad?.grade || ''} onChange={(e) => setPostgradAcademics({ grade: e.target.value })} className="glass-input" style={{ width: '140px' }} />
                 <input type="number" placeholder="Enter Total Backlogs" value={academics?.postgrad?.backlogs || ''} onChange={(e) => setPostgradAcademics({ backlogs: parseInt(e.target.value) || 0 })} className="glass-input" style={{ width: '119px' }} />
-                {renderDropdown('postgrad-medium', academics?.postgrad?.medium || '', (val) => setPostgradAcademics({ medium: val }))}
+                {renderDropdown('postgrad-medium', academics?.postgrad?.medium || '', (val) => setPostgradAcademics({ medium: val }), mediumOptions, 'Medium', '150px')}
               </div>
             )}
           </div>
@@ -218,7 +278,7 @@ export default function RecentAcademicsInfo() {
 
         <div className="academics-divider" />
       </main>
-    </GradientBackgroundTailwind>
+    </div>
   );
 }
 

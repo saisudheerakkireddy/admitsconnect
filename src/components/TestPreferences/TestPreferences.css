@@ -131,3 +131,43 @@
   margin: 50px auto 32px;
 }
 
+/* ============================================
+   SCORE INPUTS
+   ============================================ */
+.score-inputs-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-top: 16px;
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 12px;
+  border: 1px solid #E5E5E5;
+}
+
+.score-input {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.score-input__label {
+  font-family: var(--font-primary);
+  font-size: 12px;
+  font-weight: var(--font-medium);
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+.score-input .glass-input {
+  width: 100%;
+  font-size: 14px;
+  padding: 10px 14px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .score-inputs-grid {
+    grid-template-columns: 1fr;
+  }
+}

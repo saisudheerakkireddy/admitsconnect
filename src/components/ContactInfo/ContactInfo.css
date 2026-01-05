@@ -90,6 +90,30 @@
   width: 100%;
 }
 
+.contact-consent__link {
+  color: #2E23F3;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.contact-consent__link:hover {
+  color: #F4303B;
+}
+
+.contact-consent__required {
+  color: #F4303B;
+  font-weight: bold;
+}
+
+.contact-consent__box--required {
+  border-color: #F4303B;
+}
+
+.contact-consent__box--required.contact-consent__box--checked {
+  background: linear-gradient(135deg, #F4303B 0%, #2E23F3 100%);
+  border-color: #F4303B;
+}
+
 .contact-submit {
   height: 33px;
   width: min(240px, 100%);

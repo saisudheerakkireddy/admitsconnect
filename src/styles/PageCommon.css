@@ -211,9 +211,9 @@
 }
 
 .glass-pill__text {
-  font-family: 'Comfortaa', cursive;
+  font-family: var(--font-primary);
   font-size: 9px;
-  font-weight: 500;
+  font-weight: 400;
   color: var(--color-black);
   white-space: nowrap;
   line-height: normal;
@@ -239,7 +239,7 @@
     inset 1px 1px 2px 0px rgba(194, 32, 50, 0.3);
   font-family: var(--font-display);
   font-size: 8px;
-  font-weight: var(--font-bold);
+  font-weight: 400;
   color: var(--color-black);
   outline: none;
   transition: all var(--transition-fast);

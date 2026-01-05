@@ -1,0 +1,129 @@
+/* ============================================
+   Background Container
+   ============================================ */
+.background-container {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+  background-color: #ffffff;
+}
+
+/* ============================================
+   Background Image Layer
+   ============================================ */
+.background-image-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  
+  /* Mobile-first: load smaller image */
+  background-image: url('/assets/backgrounds/hero-bg-mobile.webp');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  
+  /* Smooth fade-in */
+  opacity: 0;
+  transition: opacity 0.6s ease-in;
+}
+
+.background-container[data-loaded="true"] .background-image-layer {
+  opacity: 1;
+}
+
+/* Desktop: switch to high-res image */
+@media (min-width: 768px) {
+  .background-image-layer {
+    background-image: url('/assets/backgrounds/hero-bg-desktop.webp');
+  }
+}
+
+/* Fallback for browsers without WebP support */
+@supports not (background-image: url('/test.webp')) {
+  .background-image-layer {
+    background-image: url('/assets/backgrounds/hero-bg-desktop.png');
+  }
+}
+
+/* ============================================
+   Dark Mode Treatment
+   ============================================ */
+.background-dark-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.7) 0%,
+    rgba(0, 0, 0, 0.5) 50%,
+    rgba(0, 0, 0, 0.7) 100%
+  );
+  mix-blend-mode: multiply;
+}
+
+[data-theme="dark"] .background-image-layer {
+  opacity: 0.3;
+  filter: saturate(0.6) brightness(0.5);
+}
+
+/* ============================================
+   Hybrid Mode: Subtle Blobs Over Image
+   ============================================ */
+.background-blobs-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0.3;
+  mix-blend-mode: soft-light;
+}
+
+.background-container--hybrid .background-blobs-layer {
+  display: block;
+}
+
+.background-container--gradient-blobs .background-image-layer {
+  display: none;
+}
+
+/* ============================================
+   Content Layer
+   ============================================ */
+.background-content {
+  position: relative;
+  z-index: 10;
+  min-height: 100vh;
+}
+
+/* ============================================
+   Performance Optimizations
+   ============================================ */
+@media (prefers-reduced-motion: reduce) {
+  .background-image-layer {
+    background-attachment: scroll;
+    transition: none;
+  }
+}
+
+/* Save bandwidth on slow connections */
+@media (prefers-reduced-data: reduce) {
+  .background-image-layer {
+    background-image: none;
+    background: linear-gradient(135deg, #FFE5F0 0%, #E5F5FF 100%);
+  }
+}
+
+/* ============================================
+   Print Styles
+   ============================================ */
+@media print {
+  .background-image-layer,
+  .background-dark-overlay,
+  .background-blobs-layer {
+    display: none;
+  }
+}
+

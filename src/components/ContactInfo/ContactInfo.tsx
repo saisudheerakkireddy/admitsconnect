@@ -2,10 +2,10 @@
 // This component was split out from the prior `TestPreferences` implementation so `/assessment` can exist separately.
 
 import './ContactInfo.css';
-import { GradientBackgroundTailwind } from '../GradientBackgroundTailwind';
 import { useFormStore } from '../../store/formStore';
 import { useFormNavigation } from '../../hooks/useFormNavigation';
 import { submitApplication } from '../../api/services';
+import ThemeToggle from '../ThemeToggle';
 
 const ProfileIcon = () => (
   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -38,10 +38,20 @@ const CheckIcon = () => (
   </svg>
 );
 
-export default function ContactInfo() {
+interface ContactInfoProps {
+  theme?: 'light' | 'dark';
+  onThemeToggle?: () => void;
+}
+
+export default function ContactInfo({ theme = 'light', onThemeToggle }: ContactInfoProps) {
   const { contact, setContact, getApplicationData, setSubmitting, setSubmitted, setError, isSubmitting } =
     useFormStore();
   const { goToPrevious, goToNext } = useFormNavigation();
+
+  // Initialize terms consent as checked by default
+  if (contact && contact.termsConsent === undefined) {
+    setContact({ termsConsent: true, emailConsent: true });
+  }
 
   const handleSubmit = async () => {
     if (!contact?.termsConsent) {
@@ -75,12 +85,15 @@ export default function ContactInfo() {
   };
 
   return (
-    <GradientBackgroundTailwind variant="pastel" className="page-container">
+    <div className="page-container">
       <header className="page-header page-header--alt">
         <div className="page-header__logo page-header__logo--alt">
           <img src="/assets/logo.png" alt="AUN Logo" style={{ height: '34px' }} />
         </div>
         <div className="page-header__actions page-header__actions--alt">
+          {onThemeToggle && (
+            <ThemeToggle theme={theme} onToggle={onThemeToggle} />
+          )}
           <button className="page-header__action-btn">
             <ProfileIcon />
           </button>
@@ -163,13 +176,25 @@ export default function ContactInfo() {
             <div className="contact-consent">
               <div className="contact-consent__checkbox">
                 <button
-                  onClick={() => setContact({ termsConsent: !contact?.termsConsent })}
-                  className={`contact-consent__box ${contact?.termsConsent ? 'contact-consent__box--checked' : ''}`}
+                  onClick={() => {
+                    // Terms consent is mandatory - can only be checked, not unchecked
+                    if (!contact?.termsConsent) {
+                      setContact({ termsConsent: true });
+                    }
+                  }}
+                  className={`contact-consent__box contact-consent__box--required ${contact?.termsConsent ? 'contact-consent__box--checked' : ''}`}
+                  title="This field is required and must be accepted"
                 >
                   {contact?.termsConsent && <CheckIcon />}
                 </button>
               </div>
-              <p className="contact-consent__label">By registering, you agree to our Privacy Statement and Terms and Conditions.</p>
+              <p className="contact-consent__label">
+                By registering, you agree to our{' '}
+                <a href="/privacy-policy" className="contact-consent__link">Privacy Statement</a>
+                {' '}and{' '}
+                <a href="/terms-conditions" className="contact-consent__link">Terms and Conditions.</a>
+                {' '}<span className="contact-consent__required">*</span>
+              </p>
             </div>
           </div>
 
@@ -180,7 +205,7 @@ export default function ContactInfo() {
 
         <div className="contact-divider" />
       </main>
-    </GradientBackgroundTailwind>
+    </div>
   );
 }
 

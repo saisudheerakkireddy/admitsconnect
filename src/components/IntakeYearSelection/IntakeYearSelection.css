@@ -99,7 +99,7 @@
 .intake-dropdown__option-text {
   font-family: var(--font-display);
   font-size: 8px;
-  font-weight: var(--font-bold);
+  font-weight: 400;
   color: var(--color-black);
 }
 

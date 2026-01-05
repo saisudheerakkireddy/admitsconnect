@@ -1,0 +1,1537 @@
+{
+  "generated": "2026-01-04T10:01:50.248Z",
+  "industries": [
+    {
+      "id": "agriculture-forestry",
+      "name": "Agriculture & Forestry",
+      "folderName": "Agriculture and forestry",
+      "studyAreas": [
+        {
+          "id": "agriculture",
+          "name": "Agriculture",
+          "iconPath": "Property 1=Agriculture.svg"
+        },
+        {
+          "id": "animal-science",
+          "name": "Animal Science",
+          "iconPath": "Property 1=Animal Science.svg"
+        },
+        {
+          "id": "food-technology",
+          "name": "Food Technology",
+          "iconPath": "Property 1=Food Technology.svg"
+        },
+        {
+          "id": "forestry",
+          "name": "Forestry",
+          "iconPath": "Property 1=Forestry.svg"
+        },
+        {
+          "id": "horticulture-and-crop-science",
+          "name": "Horticulture & Crop Science",
+          "iconPath": "Property 1=Horticulture and Crop Science.svg"
+        },
+        {
+          "id": "marine-science",
+          "name": "Marine Science",
+          "iconPath": "Property 1=Marine Science.svg"
+        }
+      ]
+    },
+    {
+      "id": "applied-sciences-professions",
+      "name": "Applied Sciences & Professions",
+      "folderName": "Applied Sciences and Professions",
+      "studyAreas": [
+        {
+          "id": "applied-chemistry",
+          "name": "Applied Chemistry",
+          "iconPath": "Applied Sciences & Professions=10.svg"
+        },
+        {
+          "id": "applied-mathematics",
+          "name": "Applied Mathematics",
+          "iconPath": "Applied Sciences & Professions=11.svg"
+        },
+        {
+          "id": "applied-physics",
+          "name": "Applied Physics",
+          "iconPath": "Applied Sciences & Professions=1.svg"
+        },
+        {
+          "id": "aviation",
+          "name": "Aviation",
+          "iconPath": "Applied Sciences & Professions=7.svg"
+        },
+        {
+          "id": "biotechnology",
+          "name": "Biotechnology",
+          "iconPath": "Applied Sciences & Professions=2.svg"
+        },
+        {
+          "id": "forensic-science",
+          "name": "Forensic Science",
+          "iconPath": "Applied Sciences & Professions=8.svg"
+        },
+        {
+          "id": "library-science",
+          "name": "Library Science",
+          "iconPath": "Applied Sciences & Professions=5.svg"
+        },
+        {
+          "id": "military-science",
+          "name": "Military Science",
+          "iconPath": "Applied Sciences & Professions=6.svg"
+        },
+        {
+          "id": "nanotechnology",
+          "name": "Nanotechnology",
+          "iconPath": "Applied Sciences & Professions=3.svg"
+        },
+        {
+          "id": "security-studies",
+          "name": "Security Studies",
+          "iconPath": "Applied Sciences & Professions=9.svg"
+        },
+        {
+          "id": "sports-science",
+          "name": "Sports Science",
+          "iconPath": "Applied Sciences & Professions=4.svg"
+        }
+      ]
+    },
+    {
+      "id": "arts-design-architecture",
+      "name": "Art, Design & Architecture",
+      "folderName": "Art Design and Architecture",
+      "studyAreas": [
+        {
+          "id": "animation",
+          "name": "Animation",
+          "iconPath": "Arts Design & Architecture=15.svg"
+        },
+        {
+          "id": "architecture",
+          "name": "Architecture",
+          "iconPath": "Arts Design & Architecture=1.svg"
+        },
+        {
+          "id": "digital-arts",
+          "name": "Digital Arts",
+          "iconPath": "Arts Design & Architecture=18.svg"
+        },
+        {
+          "id": "exhibition-design",
+          "name": "Exhibition Design",
+          "iconPath": "Arts Design & Architecture=7.svg"
+        },
+        {
+          "id": "fashion-design",
+          "name": "Fashion Design",
+          "iconPath": "Arts Design & Architecture=11.svg"
+        },
+        {
+          "id": "fine-arts",
+          "name": "Fine Arts",
+          "iconPath": "Arts Design & Architecture=16.svg"
+        },
+        {
+          "id": "game-design",
+          "name": "Game Design",
+          "iconPath": "Arts Design & Architecture=21.svg"
+        },
+        {
+          "id": "graphic-design",
+          "name": "Graphic Design",
+          "iconPath": "Arts Design & Architecture=12.svg"
+        },
+        {
+          "id": "illustration",
+          "name": "Illustration",
+          "iconPath": "Arts Design & Architecture=2.svg"
+        },
+        {
+          "id": "industrial-design",
+          "name": "Industrial Design",
+          "iconPath": "Arts Design & Architecture=13.svg"
+        },
+        {
+          "id": "interior-design",
+          "name": "Interior Design",
+          "iconPath": "Arts Design & Architecture=10.svg"
+        },
+        {
+          "id": "jewelry-design",
+          "name": "Jewelry Design",
+          "iconPath": "Arts Design & Architecture=3.svg"
+        },
+        {
+          "id": "landscape-architecture",
+          "name": "Landscape Architecture",
+          "iconPath": "Arts Design & Architecture=4.svg"
+        },
+        {
+          "id": "motion-graphics",
+          "name": "Motion Graphics",
+          "iconPath": "Arts Design & Architecture=9.svg"
+        },
+        {
+          "id": "photography",
+          "name": "Photography",
+          "iconPath": "Arts Design & Architecture=19.svg"
+        },
+        {
+          "id": "product-design",
+          "name": "Product Design",
+          "iconPath": "Arts Design & Architecture=14.svg"
+        },
+        {
+          "id": "set-design",
+          "name": "Set Design",
+          "iconPath": "Arts Design & Architecture=6.svg"
+        },
+        {
+          "id": "textile-design",
+          "name": "Textile Design",
+          "iconPath": "Arts Design & Architecture=22.svg"
+        },
+        {
+          "id": "urban-design",
+          "name": "Urban Design",
+          "iconPath": "Arts Design & Architecture=5.svg"
+        },
+        {
+          "id": "uxui-design",
+          "name": "UX/UI Design",
+          "iconPath": "Arts Design & Architecture=8.svg"
+        },
+        {
+          "id": "visual-arts",
+          "name": "Visual Arts",
+          "iconPath": "Arts Design & Architecture=17.svg"
+        },
+        {
+          "id": "web-design",
+          "name": "Web Design",
+          "iconPath": "Arts Design & Architecture=20.svg"
+        }
+      ]
+    },
+    {
+      "id": "business-management",
+      "name": "Business & Management",
+      "folderName": "Business and management",
+      "studyAreas": [
+        {
+          "id": "accounting",
+          "name": "Accounting",
+          "iconPath": "Business & Management=1.svg"
+        },
+        {
+          "id": "auditing",
+          "name": "Auditing",
+          "iconPath": "Business & Management=30.svg"
+        },
+        {
+          "id": "banking-and-insurance",
+          "name": "Banking & Insurance",
+          "iconPath": "Business & Management=23.svg"
+        },
+        {
+          "id": "brand-management",
+          "name": "Brand Management",
+          "iconPath": "Business & Management=33.svg"
+        },
+        {
+          "id": "business-administration",
+          "name": "Business Administration",
+          "iconPath": "Business & Management=28.svg"
+        },
+        {
+          "id": "business-analytics",
+          "name": "Business Analytics",
+          "iconPath": "Business & Management=19.svg"
+        },
+        {
+          "id": "business-development",
+          "name": "Business Development",
+          "iconPath": "Business & Management=44.svg"
+        },
+        {
+          "id": "business-ethics",
+          "name": "Business Ethics",
+          "iconPath": "Business & Management=8.svg"
+        },
+        {
+          "id": "business-intelligence",
+          "name": "Business Intelligence",
+          "iconPath": "Business & Management=41.svg"
+        },
+        {
+          "id": "business-law",
+          "name": "Business Law",
+          "iconPath": "Business & Management=6.svg"
+        },
+        {
+          "id": "change-management",
+          "name": "Change Management",
+          "iconPath": "Business & Management=39.svg"
+        },
+        {
+          "id": "corporate-finance",
+          "name": "Corporate Finance",
+          "iconPath": "Business & Management=29.svg"
+        },
+        {
+          "id": "corporate-governance",
+          "name": "Corporate Governance",
+          "iconPath": "Business & Management=7.svg"
+        },
+        {
+          "id": "digital-marketing",
+          "name": "Digital Marketing",
+          "iconPath": "Business & Management=34.svg"
+        },
+        {
+          "id": "e-commerce",
+          "name": "E-Commerce",
+          "iconPath": "Business & Management=27.svg"
+        },
+        {
+          "id": "economics",
+          "name": "Economics",
+          "iconPath": "Business & Management=14.svg"
+        },
+        {
+          "id": "entrepreneurship",
+          "name": "Entrepreneurship",
+          "iconPath": "Business & Management=15.svg"
+        },
+        {
+          "id": "event-management",
+          "name": "Event Management",
+          "iconPath": "Business & Management=36.svg"
+        },
+        {
+          "id": "family-business-management",
+          "name": "Family Business Management",
+          "iconPath": "Business & Management=9.svg"
+        },
+        {
+          "id": "finance",
+          "name": "Finance",
+          "iconPath": "Business & Management=10.svg"
+        },
+        {
+          "id": "financial-planning",
+          "name": "Financial Planning",
+          "iconPath": "Business & Management=42.svg"
+        },
+        {
+          "id": "human-resources",
+          "name": "Human Resources",
+          "iconPath": "Business & Management=13.svg"
+        },
+        {
+          "id": "innovation-management",
+          "name": "Innovation Management",
+          "iconPath": "Business & Management=38.svg"
+        },
+        {
+          "id": "international-business",
+          "name": "International Business",
+          "iconPath": "Business & Management=18.svg"
+        },
+        {
+          "id": "international-trade",
+          "name": "International Trade",
+          "iconPath": "Business & Management=5.svg"
+        },
+        {
+          "id": "investment-management",
+          "name": "Investment Management",
+          "iconPath": "Business & Management=24.svg"
+        },
+        {
+          "id": "leadership",
+          "name": "Leadership",
+          "iconPath": "Business & Management=4.svg"
+        },
+        {
+          "id": "logistics",
+          "name": "Logistics",
+          "iconPath": "Business & Management=26.svg"
+        },
+        {
+          "id": "management",
+          "name": "Management",
+          "iconPath": "Business & Management=1.svg"
+        },
+        {
+          "id": "management-consulting",
+          "name": "Management Consulting",
+          "iconPath": "Business & Management=31.svg"
+        },
+        {
+          "id": "marketing",
+          "name": "Marketing",
+          "iconPath": "Business & Management=11.svg"
+        },
+        {
+          "id": "mergers-and-acquisitions",
+          "name": "Mergers & Acquisitions",
+          "iconPath": "Business & Management=43.svg"
+        },
+        {
+          "id": "operations-management",
+          "name": "Operations Management",
+          "iconPath": "Business & Management=16.svg"
+        },
+        {
+          "id": "organizational-behavior",
+          "name": "Organizational Behavior",
+          "iconPath": "Business & Management=40.svg"
+        },
+        {
+          "id": "project-management",
+          "name": "Project Management",
+          "iconPath": "Business & Management=20.svg"
+        },
+        {
+          "id": "quality-management",
+          "name": "Quality Management",
+          "iconPath": "Business & Management=37.svg"
+        },
+        {
+          "id": "real-estate",
+          "name": "Real Estate",
+          "iconPath": "Business & Management=21.svg"
+        },
+        {
+          "id": "retail-management",
+          "name": "Retail Management",
+          "iconPath": "Business & Management=22.svg"
+        },
+        {
+          "id": "risk-management",
+          "name": "Risk Management",
+          "iconPath": "Business & Management=25.svg"
+        },
+        {
+          "id": "sales-management",
+          "name": "Sales Management",
+          "iconPath": "Business & Management=32.svg"
+        },
+        {
+          "id": "social-media-marketing",
+          "name": "Social Media Marketing",
+          "iconPath": "Business & Management=35.svg"
+        },
+        {
+          "id": "strategic-management",
+          "name": "Strategic Management",
+          "iconPath": "Business & Management=2.svg"
+        },
+        {
+          "id": "supply-chain-management",
+          "name": "Supply Chain Management",
+          "iconPath": "Business & Management=17.svg"
+        },
+        {
+          "id": "taxation",
+          "name": "Taxation",
+          "iconPath": "Business & Management=3.svg"
+        }
+      ]
+    },
+    {
+      "id": "computer-science-it",
+      "name": "Computer Science & IT",
+      "folderName": "Computer Sciences",
+      "studyAreas": [
+        {
+          "id": "artificial-intelligence",
+          "name": "Artificial Intelligence",
+          "iconPath": "Property 1=1.svg"
+        },
+        {
+          "id": "blockchain",
+          "name": "Blockchain",
+          "iconPath": "Property 1=4.svg"
+        },
+        {
+          "id": "cloud-computing",
+          "name": "Cloud Computing",
+          "iconPath": "Property 1=13.svg"
+        },
+        {
+          "id": "computer-graphics",
+          "name": "Computer Graphics",
+          "iconPath": "Property 1=7.svg"
+        },
+        {
+          "id": "computer-networks",
+          "name": "Computer Networks",
+          "iconPath": "Property 1=17.svg"
+        },
+        {
+          "id": "cybersecurity",
+          "name": "Cybersecurity",
+          "iconPath": "Property 1=12.svg"
+        },
+        {
+          "id": "data-science",
+          "name": "Data Science",
+          "iconPath": "Property 1=10.svg"
+        },
+        {
+          "id": "database-systems",
+          "name": "Database Systems",
+          "iconPath": "Property 1=2.svg"
+        },
+        {
+          "id": "devops",
+          "name": "DevOps",
+          "iconPath": "Property 1=3.svg"
+        },
+        {
+          "id": "game-development",
+          "name": "Game Development",
+          "iconPath": "Property 1=6.svg"
+        },
+        {
+          "id": "internet-of-things",
+          "name": "Internet of Things",
+          "iconPath": "Property 1=5.svg"
+        },
+        {
+          "id": "machine-learning",
+          "name": "Machine Learning",
+          "iconPath": "Property 1=16.svg"
+        },
+        {
+          "id": "mobile-development",
+          "name": "Mobile Development",
+          "iconPath": "Property 1=15.svg"
+        },
+        {
+          "id": "quantum-computing",
+          "name": "Quantum Computing",
+          "iconPath": "Property 1=9.svg"
+        },
+        {
+          "id": "robotics",
+          "name": "Robotics",
+          "iconPath": "Property 1=8.svg"
+        },
+        {
+          "id": "software-engineering",
+          "name": "Software Engineering",
+          "iconPath": "Property 1=11.svg"
+        },
+        {
+          "id": "web-development",
+          "name": "Web Development",
+          "iconPath": "Property 1=14.svg"
+        }
+      ]
+    },
+    {
+      "id": "education-training",
+      "name": "Education & Training",
+      "folderName": "Education and Training",
+      "studyAreas": [
+        {
+          "id": "adult-education",
+          "name": "Adult Education",
+          "iconPath": "Property 1=17.svg"
+        },
+        {
+          "id": "curriculum-development",
+          "name": "Curriculum Development",
+          "iconPath": "Property 1=15.svg"
+        },
+        {
+          "id": "early-childhood-education",
+          "name": "Early Childhood Education",
+          "iconPath": "Property 1=1.svg"
+        },
+        {
+          "id": "educational-leadership",
+          "name": "Educational Leadership",
+          "iconPath": "Property 1=13.svg"
+        },
+        {
+          "id": "educational-psychology",
+          "name": "Educational Psychology",
+          "iconPath": "Property 1=14.svg"
+        },
+        {
+          "id": "educational-technology",
+          "name": "Educational Technology",
+          "iconPath": "Property 1=2.svg"
+        },
+        {
+          "id": "higher-education",
+          "name": "Higher Education",
+          "iconPath": "Property 1=18.svg"
+        },
+        {
+          "id": "instructional-design",
+          "name": "Instructional Design",
+          "iconPath": "Property 1=16.svg"
+        },
+        {
+          "id": "language-education",
+          "name": "Language Education",
+          "iconPath": "Property 1=7.svg"
+        },
+        {
+          "id": "literacy-education",
+          "name": "Literacy Education",
+          "iconPath": "Property 1=4.svg"
+        },
+        {
+          "id": "mathematics-education",
+          "name": "Mathematics Education",
+          "iconPath": "Property 1=5.svg"
+        },
+        {
+          "id": "online-education",
+          "name": "Online Education",
+          "iconPath": "Property 1=19.svg"
+        },
+        {
+          "id": "physical-education",
+          "name": "Physical Education",
+          "iconPath": "Property 1=8.svg"
+        },
+        {
+          "id": "primary-education",
+          "name": "Primary Education",
+          "iconPath": "Property 1=10.svg"
+        },
+        {
+          "id": "science-education",
+          "name": "Science Education",
+          "iconPath": "Property 1=6.svg"
+        },
+        {
+          "id": "secondary-education",
+          "name": "Secondary Education",
+          "iconPath": "Property 1=11.svg"
+        },
+        {
+          "id": "special-education",
+          "name": "Special Education",
+          "iconPath": "Property 1=12.svg"
+        },
+        {
+          "id": "teacher-training",
+          "name": "Teacher Training",
+          "iconPath": "Property 1=3.svg"
+        },
+        {
+          "id": "vocational-training",
+          "name": "Vocational Training",
+          "iconPath": "Property 1=9.svg"
+        }
+      ]
+    },
+    {
+      "id": "engineering-technology",
+      "name": "Engineering & Technology",
+      "folderName": "Engineering and Technology",
+      "studyAreas": [
+        {
+          "id": "aerospace-engineering",
+          "name": "Aerospace Engineering",
+          "iconPath": "Property 1=13.svg"
+        },
+        {
+          "id": "agricultural-engineering",
+          "name": "Agricultural Engineering",
+          "iconPath": "Property 1=22.svg"
+        },
+        {
+          "id": "automotive-engineering",
+          "name": "Automotive Engineering",
+          "iconPath": "Property 1=18.svg"
+        },
+        {
+          "id": "biomedical-engineering",
+          "name": "Biomedical Engineering",
+          "iconPath": "Property 1=14.svg"
+        },
+        {
+          "id": "chemical-engineering",
+          "name": "Chemical Engineering",
+          "iconPath": "Property 1=12.svg"
+        },
+        {
+          "id": "civil-engineering",
+          "name": "Civil Engineering",
+          "iconPath": "Property 1=11.svg"
+        },
+        {
+          "id": "electrical-engineering",
+          "name": "Electrical Engineering",
+          "iconPath": "Property 1=10.svg"
+        },
+        {
+          "id": "electronics",
+          "name": "Electronics",
+          "iconPath": "Property 1=7.svg"
+        },
+        {
+          "id": "environmental-engineering",
+          "name": "Environmental Engineering",
+          "iconPath": "Property 1=15.svg"
+        },
+        {
+          "id": "industrial-engineering",
+          "name": "Industrial Engineering",
+          "iconPath": "Property 1=16.svg"
+        },
+        {
+          "id": "instrumentation",
+          "name": "Instrumentation",
+          "iconPath": "Property 1=8.svg"
+        },
+        {
+          "id": "manufacturing-engineering",
+          "name": "Manufacturing Engineering",
+          "iconPath": "Property 1=24.svg"
+        },
+        {
+          "id": "marine-engineering",
+          "name": "Marine Engineering",
+          "iconPath": "Property 1=21.svg"
+        },
+        {
+          "id": "materials-science",
+          "name": "Materials Science",
+          "iconPath": "Property 1=17.svg"
+        },
+        {
+          "id": "mechanical-engineering",
+          "name": "Mechanical Engineering",
+          "iconPath": "Property 1=1.svg"
+        },
+        {
+          "id": "mechatronics",
+          "name": "Mechatronics",
+          "iconPath": "Property 1=3.svg"
+        },
+        {
+          "id": "mining-engineering",
+          "name": "Mining Engineering",
+          "iconPath": "Property 1=2.svg"
+        },
+        {
+          "id": "nuclear-engineering",
+          "name": "Nuclear Engineering",
+          "iconPath": "Property 1=20.svg"
+        },
+        {
+          "id": "petroleum-engineering",
+          "name": "Petroleum Engineering",
+          "iconPath": "Property 1=19.svg"
+        },
+        {
+          "id": "renewable-energy",
+          "name": "Renewable Energy",
+          "iconPath": "Property 1=9.svg"
+        },
+        {
+          "id": "structural-engineering",
+          "name": "Structural Engineering",
+          "iconPath": "Property 1=4.svg"
+        },
+        {
+          "id": "systems-engineering",
+          "name": "Systems Engineering",
+          "iconPath": "Property 1=23.svg"
+        },
+        {
+          "id": "telecommunications",
+          "name": "Telecommunications",
+          "iconPath": "Property 1=6.svg"
+        },
+        {
+          "id": "transportation-engineering",
+          "name": "Transportation Engineering",
+          "iconPath": "Property 1=5.svg"
+        }
+      ]
+    },
+    {
+      "id": "environmental-sciences",
+      "name": "Environmental Sciences",
+      "folderName": "Environmental Sciences",
+      "studyAreas": [
+        {
+          "id": "climate-change",
+          "name": "Climate Change",
+          "iconPath": "Property 1=11.svg"
+        },
+        {
+          "id": "conservation-biology",
+          "name": "Conservation Biology",
+          "iconPath": "Property 1=2.svg"
+        },
+        {
+          "id": "ecology",
+          "name": "Ecology",
+          "iconPath": "Property 1=13.svg"
+        },
+        {
+          "id": "environmental-health",
+          "name": "Environmental Health",
+          "iconPath": "Property 1=7.svg"
+        },
+        {
+          "id": "environmental-management",
+          "name": "Environmental Management",
+          "iconPath": "Property 1=10.svg"
+        },
+        {
+          "id": "environmental-policy",
+          "name": "Environmental Policy",
+          "iconPath": "Property 1=3.svg"
+        },
+        {
+          "id": "environmental-science",
+          "name": "Environmental Science",
+          "iconPath": "Property 1=1.svg"
+        },
+        {
+          "id": "green-technology",
+          "name": "Green Technology",
+          "iconPath": "Property 1=9.svg"
+        },
+        {
+          "id": "natural-resource-management",
+          "name": "Natural Resource Management",
+          "iconPath": "Property 1=4.svg"
+        },
+        {
+          "id": "renewable-energy",
+          "name": "Renewable Energy",
+          "iconPath": "Property 1=8.svg"
+        },
+        {
+          "id": "sustainability",
+          "name": "Sustainability",
+          "iconPath": "Property 1=12.svg"
+        },
+        {
+          "id": "waste-management",
+          "name": "Waste Management",
+          "iconPath": "Property 1=5.svg"
+        },
+        {
+          "id": "water-resources",
+          "name": "Water Resources",
+          "iconPath": "Property 1=6.svg"
+        }
+      ]
+    },
+    {
+      "id": "hospitality-leisure-sports",
+      "name": "Hospitality, Leisure & Sports",
+      "folderName": "Hospitality and Leisure",
+      "studyAreas": [
+        {
+          "id": "culinary-arts",
+          "name": "Culinary Arts",
+          "iconPath": "Property 1=5.svg"
+        },
+        {
+          "id": "event-management",
+          "name": "Event Management",
+          "iconPath": "Property 1=3.svg"
+        },
+        {
+          "id": "hotel-management",
+          "name": "Hotel Management",
+          "iconPath": "Property 1=1.svg"
+        },
+        {
+          "id": "recreation-and-leisure",
+          "name": "Recreation & Leisure",
+          "iconPath": "Property 1=6.svg"
+        },
+        {
+          "id": "sports-management",
+          "name": "Sports Management",
+          "iconPath": "Property 1=4.svg"
+        },
+        {
+          "id": "tourism",
+          "name": "Tourism",
+          "iconPath": "Property 1=2.svg"
+        }
+      ]
+    },
+    {
+      "id": "humanities",
+      "name": "Humanities",
+      "folderName": "Humanities",
+      "studyAreas": [
+        {
+          "id": "anthropology",
+          "name": "Anthropology",
+          "iconPath": "Property 1=4.svg"
+        },
+        {
+          "id": "archaeology",
+          "name": "Archaeology",
+          "iconPath": "Property 1=3.svg"
+        },
+        {
+          "id": "area-studies",
+          "name": "Area Studies",
+          "iconPath": "Property 1=2.svg"
+        },
+        {
+          "id": "classical-studies",
+          "name": "Classical Studies",
+          "iconPath": "Property 1=15.svg"
+        },
+        {
+          "id": "classics",
+          "name": "Classics",
+          "iconPath": "Property 1=5.svg"
+        },
+        {
+          "id": "comparative-literature",
+          "name": "Comparative Literature",
+          "iconPath": "Property 1=6.svg"
+        },
+        {
+          "id": "creative-writing",
+          "name": "Creative Writing",
+          "iconPath": "Property 1=7.svg"
+        },
+        {
+          "id": "cultural-studies",
+          "name": "Cultural Studies",
+          "iconPath": "Property 1=16.svg"
+        },
+        {
+          "id": "english-studies",
+          "name": "English Studies",
+          "iconPath": "Property 1=9.svg"
+        },
+        {
+          "id": "history",
+          "name": "History",
+          "iconPath": "Property 1=12.svg"
+        },
+        {
+          "id": "languages",
+          "name": "Languages",
+          "iconPath": "Property 1=10.svg"
+        },
+        {
+          "id": "linguistics",
+          "name": "Linguistics",
+          "iconPath": "Property 1=11.svg"
+        },
+        {
+          "id": "literature",
+          "name": "Literature",
+          "iconPath": "Property 1=1.svg"
+        },
+        {
+          "id": "philosophy",
+          "name": "Philosophy",
+          "iconPath": "Property 1=13.svg"
+        },
+        {
+          "id": "religious-studies",
+          "name": "Religious Studies",
+          "iconPath": "Property 1=14.svg"
+        },
+        {
+          "id": "translation-studies",
+          "name": "Translation Studies",
+          "iconPath": "Property 1=8.svg"
+        }
+      ]
+    },
+    {
+      "id": "journalism-media",
+      "name": "Journalism & Media",
+      "folderName": "Journalism",
+      "studyAreas": [
+        {
+          "id": "advertising",
+          "name": "Advertising",
+          "iconPath": "Property 1=5.svg"
+        },
+        {
+          "id": "broadcasting",
+          "name": "Broadcasting",
+          "iconPath": "Property 1=2.svg"
+        },
+        {
+          "id": "digital-media",
+          "name": "Digital Media",
+          "iconPath": "Property 1=3.svg"
+        },
+        {
+          "id": "film-production",
+          "name": "Film Production",
+          "iconPath": "Property 1=6.svg"
+        },
+        {
+          "id": "journalism",
+          "name": "Journalism",
+          "iconPath": "Property 1=1.svg"
+        },
+        {
+          "id": "public-relations",
+          "name": "Public Relations",
+          "iconPath": "Property 1=4.svg"
+        }
+      ]
+    },
+    {
+      "id": "law",
+      "name": "Law",
+      "folderName": "Law",
+      "studyAreas": [
+        {
+          "id": "constitutional-law",
+          "name": "Constitutional Law",
+          "iconPath": "Property 1=3.svg"
+        },
+        {
+          "id": "corporate-law",
+          "name": "Corporate Law",
+          "iconPath": "Property 1=1.svg"
+        },
+        {
+          "id": "criminal-law",
+          "name": "Criminal Law",
+          "iconPath": "Property 1=10.svg"
+        },
+        {
+          "id": "environmental-law",
+          "name": "Environmental Law",
+          "iconPath": "Property 1=4.svg"
+        },
+        {
+          "id": "family-law",
+          "name": "Family Law",
+          "iconPath": "Property 1=8.svg"
+        },
+        {
+          "id": "human-rights-law",
+          "name": "Human Rights Law",
+          "iconPath": "Property 1=6.svg"
+        },
+        {
+          "id": "intellectual-property-law",
+          "name": "Intellectual Property Law",
+          "iconPath": "Property 1=5.svg"
+        },
+        {
+          "id": "international-law",
+          "name": "International Law",
+          "iconPath": "Property 1=2.svg"
+        },
+        {
+          "id": "labor-law",
+          "name": "Labor Law",
+          "iconPath": "Property 1=9.svg"
+        },
+        {
+          "id": "tax-law",
+          "name": "Tax Law",
+          "iconPath": "Property 1=7.svg"
+        }
+      ]
+    },
+    {
+      "id": "medicine-health",
+      "name": "Medicine & Health",
+      "folderName": "Medicine and Health",
+      "studyAreas": [
+        {
+          "id": "alternative-medicine",
+          "name": "Alternative Medicine",
+          "iconPath": "Property 1=6.svg"
+        },
+        {
+          "id": "cardiology",
+          "name": "Cardiology",
+          "iconPath": "Property 1=23.svg"
+        },
+        {
+          "id": "clinical-research",
+          "name": "Clinical Research",
+          "iconPath": "Property 1=8.svg"
+        },
+        {
+          "id": "dentistry",
+          "name": "Dentistry",
+          "iconPath": "Property 1=12.svg"
+        },
+        {
+          "id": "emergency-medicine",
+          "name": "Emergency Medicine",
+          "iconPath": "Property 1=4.svg"
+        },
+        {
+          "id": "health-psychology",
+          "name": "Health Psychology",
+          "iconPath": "Property 1=16.svg"
+        },
+        {
+          "id": "healthcare-management",
+          "name": "Healthcare Management",
+          "iconPath": "Property 1=7.svg"
+        },
+        {
+          "id": "medical-biotechnology",
+          "name": "Medical Biotechnology",
+          "iconPath": "Property 1=9.svg"
+        },
+        {
+          "id": "medical-laboratory-science",
+          "name": "Medical Laboratory Science",
+          "iconPath": "Property 1=19.svg"
+        },
+        {
+          "id": "medicine",
+          "name": "Medicine",
+          "iconPath": "Property 1=1.svg"
+        },
+        {
+          "id": "neurology",
+          "name": "Neurology",
+          "iconPath": "Property 1=24.svg"
+        },
+        {
+          "id": "nursing",
+          "name": "Nursing",
+          "iconPath": "Property 1=10.svg"
+        },
+        {
+          "id": "nutrition-and-dietetics",
+          "name": "Nutrition & Dietetics",
+          "iconPath": "Property 1=15.svg"
+        },
+        {
+          "id": "occupational-therapy",
+          "name": "Occupational Therapy",
+          "iconPath": "Property 1=17.svg"
+        },
+        {
+          "id": "oncology",
+          "name": "Oncology",
+          "iconPath": "Property 1=26.svg"
+        },
+        {
+          "id": "orthopedics",
+          "name": "Orthopedics",
+          "iconPath": "Property 1=3.svg"
+        },
+        {
+          "id": "pathology",
+          "name": "Pathology",
+          "iconPath": "Property 1=20.svg"
+        },
+        {
+          "id": "pediatrics",
+          "name": "Pediatrics",
+          "iconPath": "Property 1=22.svg"
+        },
+        {
+          "id": "pharmacy",
+          "name": "Pharmacy",
+          "iconPath": "Property 1=11.svg"
+        },
+        {
+          "id": "physiotherapy",
+          "name": "Physiotherapy",
+          "iconPath": "Property 1=13.svg"
+        },
+        {
+          "id": "psychiatry",
+          "name": "Psychiatry",
+          "iconPath": "Property 1=25.svg"
+        },
+        {
+          "id": "public-health",
+          "name": "Public Health",
+          "iconPath": "Property 1=14.svg"
+        },
+        {
+          "id": "radiology",
+          "name": "Radiology",
+          "iconPath": "Property 1=2.svg"
+        },
+        {
+          "id": "sports-medicine",
+          "name": "Sports Medicine",
+          "iconPath": "Property 1=5.svg"
+        },
+        {
+          "id": "surgery",
+          "name": "Surgery",
+          "iconPath": "Property 1=21.svg"
+        },
+        {
+          "id": "veterinary-science",
+          "name": "Veterinary Science",
+          "iconPath": "Property 1=18.svg"
+        }
+      ]
+    },
+    {
+      "id": "natural-sciences-mathematics",
+      "name": "Natural Sciences & Mathematics",
+      "folderName": "Natural Sciences and Mathematics",
+      "studyAreas": [
+        {
+          "id": "applied-mathematics",
+          "name": "Applied Mathematics",
+          "iconPath": "Property 1=4.svg"
+        },
+        {
+          "id": "astronomy",
+          "name": "Astronomy",
+          "iconPath": "Property 1=13.svg"
+        },
+        {
+          "id": "biochemistry",
+          "name": "Biochemistry",
+          "iconPath": "Property 1=16.svg"
+        },
+        {
+          "id": "biology",
+          "name": "Biology",
+          "iconPath": "Property 1=12.svg"
+        },
+        {
+          "id": "biophysics",
+          "name": "Biophysics",
+          "iconPath": "Property 1=19.svg"
+        },
+        {
+          "id": "botany",
+          "name": "Botany",
+          "iconPath": "Property 1=22.svg"
+        },
+        {
+          "id": "chemistry",
+          "name": "Chemistry",
+          "iconPath": "Property 1=11.svg"
+        },
+        {
+          "id": "environmental-science",
+          "name": "Environmental Science",
+          "iconPath": "Property 1=18.svg"
+        },
+        {
+          "id": "experimental-physics",
+          "name": "Experimental Physics",
+          "iconPath": "Property 1=7.svg"
+        },
+        {
+          "id": "genetics",
+          "name": "Genetics",
+          "iconPath": "Property 1=17.svg"
+        },
+        {
+          "id": "geology",
+          "name": "Geology",
+          "iconPath": "Property 1=14.svg"
+        },
+        {
+          "id": "geophysics",
+          "name": "Geophysics",
+          "iconPath": "Property 1=23.svg"
+        },
+        {
+          "id": "inorganic-chemistry",
+          "name": "Inorganic Chemistry",
+          "iconPath": "Property 1=9.svg"
+        },
+        {
+          "id": "mathematics",
+          "name": "Mathematics",
+          "iconPath": "Property 1=1.svg"
+        },
+        {
+          "id": "meteorology",
+          "name": "Meteorology",
+          "iconPath": "Property 1=24.svg"
+        },
+        {
+          "id": "microbiology",
+          "name": "Microbiology",
+          "iconPath": "Property 1=2.svg"
+        },
+        {
+          "id": "molecular-biology",
+          "name": "Molecular Biology",
+          "iconPath": "Property 1=20.svg"
+        },
+        {
+          "id": "oceanography",
+          "name": "Oceanography",
+          "iconPath": "Property 1=3.svg"
+        },
+        {
+          "id": "organic-chemistry",
+          "name": "Organic Chemistry",
+          "iconPath": "Property 1=8.svg"
+        },
+        {
+          "id": "physics",
+          "name": "Physics",
+          "iconPath": "Property 1=10.svg"
+        },
+        {
+          "id": "pure-mathematics",
+          "name": "Pure Mathematics",
+          "iconPath": "Property 1=5.svg"
+        },
+        {
+          "id": "statistics",
+          "name": "Statistics",
+          "iconPath": "Property 1=15.svg"
+        },
+        {
+          "id": "theoretical-physics",
+          "name": "Theoretical Physics",
+          "iconPath": "Property 1=6.svg"
+        },
+        {
+          "id": "zoology",
+          "name": "Zoology",
+          "iconPath": "Property 1=21.svg"
+        }
+      ]
+    },
+    {
+      "id": "social-sciences",
+      "name": "Social Sciences",
+      "folderName": "Social Sciences",
+      "studyAreas": [
+        {
+          "id": "anthropology",
+          "name": "Anthropology",
+          "iconPath": "Property 1=11.svg"
+        },
+        {
+          "id": "archaeology",
+          "name": "Archaeology",
+          "iconPath": "Property 1=34.svg"
+        },
+        {
+          "id": "clinical-psychology",
+          "name": "Clinical Psychology",
+          "iconPath": "Property 1=3.svg"
+        },
+        {
+          "id": "cognitive-psychology",
+          "name": "Cognitive Psychology",
+          "iconPath": "Property 1=29.svg"
+        },
+        {
+          "id": "communication-studies",
+          "name": "Communication Studies",
+          "iconPath": "Property 1=24.svg"
+        },
+        {
+          "id": "comparative-politics",
+          "name": "Comparative Politics",
+          "iconPath": "Property 1=38.svg"
+        },
+        {
+          "id": "counseling-psychology",
+          "name": "Counseling Psychology",
+          "iconPath": "Property 1=30.svg"
+        },
+        {
+          "id": "criminology",
+          "name": "Criminology",
+          "iconPath": "Property 1=15.svg"
+        },
+        {
+          "id": "cultural-studies",
+          "name": "Cultural Studies",
+          "iconPath": "Property 1=26.svg"
+        },
+        {
+          "id": "demography",
+          "name": "Demography",
+          "iconPath": "Property 1=27.svg"
+        },
+        {
+          "id": "development-studies",
+          "name": "Development Studies",
+          "iconPath": "Property 1=19.svg"
+        },
+        {
+          "id": "diplomacy",
+          "name": "Diplomacy",
+          "iconPath": "Property 1=5.svg"
+        },
+        {
+          "id": "economic-geography",
+          "name": "Economic Geography",
+          "iconPath": "Property 1=36.svg"
+        },
+        {
+          "id": "economics",
+          "name": "Economics",
+          "iconPath": "Property 1=23.svg"
+        },
+        {
+          "id": "educational-psychology",
+          "name": "Educational Psychology",
+          "iconPath": "Property 1=31.svg"
+        },
+        {
+          "id": "environmental-psychology",
+          "name": "Environmental Psychology",
+          "iconPath": "Property 1=32.svg"
+        },
+        {
+          "id": "gender-studies",
+          "name": "Gender Studies",
+          "iconPath": "Property 1=2.svg"
+        },
+        {
+          "id": "geography",
+          "name": "Geography",
+          "iconPath": "Property 1=16.svg"
+        },
+        {
+          "id": "geopolitics",
+          "name": "Geopolitics",
+          "iconPath": "Property 1=37.svg"
+        },
+        {
+          "id": "history",
+          "name": "History",
+          "iconPath": "Property 1=17.svg"
+        },
+        {
+          "id": "human-geography",
+          "name": "Human Geography",
+          "iconPath": "Property 1=35.svg"
+        },
+        {
+          "id": "international-relations",
+          "name": "International Relations",
+          "iconPath": "Property 1=13.svg"
+        },
+        {
+          "id": "labor-studies",
+          "name": "Labor Studies",
+          "iconPath": "Property 1=8.svg"
+        },
+        {
+          "id": "media-studies",
+          "name": "Media Studies",
+          "iconPath": "Property 1=25.svg"
+        },
+        {
+          "id": "migration-studies",
+          "name": "Migration Studies",
+          "iconPath": "Property 1=7.svg"
+        },
+        {
+          "id": "organizational-psychology",
+          "name": "Organizational Psychology",
+          "iconPath": "Property 1=33.svg"
+        },
+        {
+          "id": "peace-and-conflict-studies",
+          "name": "Peace and Conflict Studies",
+          "iconPath": "Property 1=4.svg"
+        },
+        {
+          "id": "philosophy",
+          "name": "Philosophy",
+          "iconPath": "Property 1=18.svg"
+        },
+        {
+          "id": "political-science",
+          "name": "Political Science",
+          "iconPath": "Property 1=12.svg"
+        },
+        {
+          "id": "psychology",
+          "name": "Psychology",
+          "iconPath": "Property 1=1.svg"
+        },
+        {
+          "id": "public-administration",
+          "name": "Public Administration",
+          "iconPath": "Property 1=22.svg"
+        },
+        {
+          "id": "public-policy",
+          "name": "Public Policy",
+          "iconPath": "Property 1=21.svg"
+        },
+        {
+          "id": "security-studies",
+          "name": "Security Studies",
+          "iconPath": "Property 1=6.svg"
+        },
+        {
+          "id": "social-policy",
+          "name": "Social Policy",
+          "iconPath": "Property 1=9.svg"
+        },
+        {
+          "id": "social-psychology",
+          "name": "Social Psychology",
+          "iconPath": "Property 1=28.svg"
+        },
+        {
+          "id": "social-work",
+          "name": "Social Work",
+          "iconPath": "Property 1=14.svg"
+        },
+        {
+          "id": "sociology",
+          "name": "Sociology",
+          "iconPath": "Property 1=10.svg"
+        },
+        {
+          "id": "urban-planning",
+          "name": "Urban Planning",
+          "iconPath": "Property 1=20.svg"
+        }
+      ]
+    }
+  ],
+  "industryFolderMap": {
+    "Agriculture and forestry": "agriculture-forestry",
+    "Applied Sciences and Professions": "applied-sciences-professions",
+    "Art Design and Architecture": "arts-design-architecture",
+    "Business and management": "business-management",
+    "Computer Sciences": "computer-science-it",
+    "Education and Training": "education-training",
+    "Engineering and Technology": "engineering-technology",
+    "Environmental Sciences": "environmental-sciences",
+    "Hospitality and Leisure": "hospitality-leisure-sports",
+    "Humanities": "humanities",
+    "Journalism": "journalism-media",
+    "Law": "law",
+    "Medicine and Health": "medicine-health",
+    "Natural Sciences and Mathematics": "natural-sciences-mathematics",
+    "Social Sciences": "social-sciences"
+  }
+}

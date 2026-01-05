@@ -9,7 +9,7 @@
    ============================================ */
 .page-container {
   width: 100%;
-  max-width: var(--container-narrow);
+  max-width: 100%;
   min-height: 100vh;
   margin: 0 auto;
   position: relative;
@@ -17,9 +17,22 @@
   overflow-y: auto;
 }
 
+/* Constrain content width on larger screens while keeping layout fluid */
+@media (min-width: 1400px) {
+  .page-container {
+    max-width: var(--container-max);
+  }
+}
+
 /* Allow pages to opt into a wider layout when needed */
 .page-container--wide {
-  max-width: var(--container-max);
+  max-width: 100%;
+}
+
+@media (min-width: 1600px) {
+  .page-container--wide {
+    max-width: 1400px;
+  }
 }
 
 /* ============================================
@@ -372,6 +385,15 @@
 }
 
 /* ============================================
+   PAGE WRAPPER - Full width white background
+   ============================================ */
+.page-wrapper {
+  width: 100%;
+  min-height: 100vh;
+  background: var(--color-white, #ffffff);
+}
+
+/* ============================================
    APP WRAPPER
    ============================================ */
 .app-wrapper {
@@ -380,7 +402,7 @@
   align-items: stretch;
   justify-content: center;
   padding: clamp(0px, 2vw, var(--space-xl)) 0;
-  background-color: var(--color-gray-800);
+  background-color: var(--color-white);
 }
 
 /* Responsive grid improvements for tablet/desktop */

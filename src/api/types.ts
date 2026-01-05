@@ -33,9 +33,43 @@ export interface ContactData {
   termsConsent: boolean;
 }
 
+// Adaptive Test Score Structures
+export interface GREScores {
+  overall: string;
+  verbalReasoning: string;
+  quantitativeReasoning: string;
+  analyticalWriting: string;
+}
+
+export interface GMATScores {
+  overall: string;
+  mathematics: string;
+  verbal: string;
+  integratedReasoning: string;
+}
+
+// English Language Test Score Structures
+export interface IELTSTOEFLPTEScores {
+  overall: string;
+  reading: string;
+  writing: string;
+  speaking: string;
+  listening: string;
+}
+
+export interface DETScores {
+  overall: string;
+  literacy: string;
+  conversation: string;
+  comprehension: string;
+  production: string;
+}
+
 export interface AssessmentData {
   adaptiveTest: string;
+  adaptiveTestScores?: GREScores | GMATScores;
   englishLanguageTest: string;
+  englishTestScores?: IELTSTOEFLPTEScores | DETScores;
 }
 
 // ============================================
@@ -64,8 +98,11 @@ export interface StudentApplication {
   // Step 6: Study Area
   studyArea: string;
   
-  // Step 7: Study Format
+  // Step 7: Study Format & Preferences
   studyFormat: string;
+  attendanceType: string;
+  budget: string;
+  workExperience: string;
   
   // Step 8: Academic Information
   academics: AcademicsData;

@@ -3,23 +3,28 @@
 
 import { useState } from 'react';
 import './IntakeYearSelection.css';
-import { GradientBackgroundTailwind } from '../GradientBackgroundTailwind';
 import { useFormStore } from '../../store/formStore';
 import { useFormNavigation } from '../../hooks/useFormNavigation';
+import ThemeToggle from '../ThemeToggle';
 
 interface DurationOption {
   label: string;
 }
 
 const studyDurations: DurationOption[] = [
+  { label: "Diploma" },
+  { label: "Post Graduation 1 Year" },
+  { label: "Post Graduation 2 Year" },
   { label: "Undergraduation 3 Years" },
   { label: "Undergraduation 4 Years" },
   { label: "Undergraduation 4+ Years" },
-  { label: "Diploma" },
 ];
 
-const intakeOptions = ["Spring", "Summer", "Fall", "Winter"];
-const yearOptions = ["2025", "2026", "2027", "2028"];
+const intakeOptions = [
+  "January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December"
+];
+const yearOptions = ["2026", "2027", "2028", "2029", "2030"];
 
 
 const ProfileIcon = () => (
@@ -89,7 +94,12 @@ const Dropdown = ({ label, value, options, isOpen, onToggle, onSelect }: Dropdow
   </div>
 );
 
-export default function IntakeYearSelection() {
+interface IntakeYearSelectionProps {
+  theme?: 'light' | 'dark';
+  onThemeToggle?: () => void;
+}
+
+export default function IntakeYearSelection({ theme = 'light', onThemeToggle }: IntakeYearSelectionProps) {
   const { intake, intakeYear, studyDuration, setIntake, setIntakeYear, setStudyDuration } = useFormStore();
   const { goToNext, goToPrevious, canProceed } = useFormNavigation();
   const [intakeOpen, setIntakeOpen] = useState(false);
@@ -100,12 +110,15 @@ export default function IntakeYearSelection() {
   };
 
   return (
-    <GradientBackgroundTailwind variant="pastel" className="page-container">
+    <div className="page-container">
       <header className="page-header">
         <div className="page-header__logo">
           <img src="/assets/logo.png" alt="AUN Logo" style={{ height: '34px' }} />
         </div>
         <div className="page-header__actions">
+          {onThemeToggle && (
+            <ThemeToggle theme={theme} onToggle={onThemeToggle} />
+          )}
           <ProfileIcon />
           <MenuIcon />
         </div>
@@ -162,7 +175,7 @@ export default function IntakeYearSelection() {
           <div className="page-divider" />
         </div>
       </main>
-    </GradientBackgroundTailwind>
+    </div>
   );
 }
 

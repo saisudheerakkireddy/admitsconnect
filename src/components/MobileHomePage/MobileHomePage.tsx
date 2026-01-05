@@ -2,9 +2,9 @@
 // Refactored with separate CSS file
 
 import './MobileHomePage.css';
-import { GradientBackgroundTailwind } from '../GradientBackgroundTailwind';
 import { useFormStore } from '../../store/formStore';
 import { useFormNavigation } from '../../hooks/useFormNavigation';
+import ThemeToggle from '../ThemeToggle';
 
 const tags = [
   "Quick Offer",
@@ -106,7 +106,12 @@ const StatCard = ({ value, lines, iconPath }: StatCardProps) => (
   </div>
 );
 
-export default function MobileHomePage() {
+interface MobileHomePageProps {
+  theme?: 'light' | 'dark';
+  onThemeToggle?: () => void;
+}
+
+export default function MobileHomePage({ theme = 'light', onThemeToggle }: MobileHomePageProps) {
   const { selectedTags, toggleTag } = useFormStore();
   const { goToNext } = useFormNavigation();
 
@@ -115,102 +120,107 @@ export default function MobileHomePage() {
   };
 
   return (
-    <GradientBackgroundTailwind variant="white" className="page-container page-container--wide">
+    <div className="page-container page-container--wide">
       {/* Header */}
       <header className="home-header">
         <div className="home-header__logo">
           <img src="/assets/logo.png" alt="AUN Logo" />
         </div>
         <div className="home-header__actions">
+          {onThemeToggle && (
+            <ThemeToggle theme={theme} onToggle={onThemeToggle} />
+          )}
           <ProfileIcon />
           <MenuIcon />
         </div>
       </header>
 
       {/* Main Content */}
-      <main className="home-main">
-        {/* Tagline Section */}
-        <section className="tagline-section">
-          <p className="tagline-section__subtitle">
-            Four Services <span className="font-semibold">+</span> One Mission:
-          </p>
-          <p className="tagline-section__title">
-            Empowering global talent.
-          </p>
-          <p className="tagline-section__highlight">
-            Not just study options but
-          </p>
-          <p className="tagline-section__highlight">
-            Experience the future-ready-courses.
-          </p>
-        </section>
+      <div className="page-wrapper">
+        <main className="home-main">
+          {/* Tagline Section */}
+          <section className="tagline-section">
+            <p className="tagline-section__subtitle">
+              Four Services <span className="font-semibold">+</span> One Mission:
+            </p>
+            <p className="tagline-section__title">
+              Empowering global talent.
+            </p>
+            <p className="tagline-section__highlight">
+              Not just study options but
+            </p>
+            <p className="tagline-section__highlight">
+              Experience the future-ready-courses.
+            </p>
+          </section>
 
-        {/* Tags Section */}
-        <section className="tags-section">
-          <div className="tags-wrapper">
-            {tags.map((tag, index) => (
-              <TagButton 
-                key={index} 
-                label={tag} 
-                isSelected={selectedTags?.includes(tag) || false}
-                onToggle={() => toggleTag(tag)}
-              />
-            ))}
-          </div>
-          
-          {/* Next Button */}
-          <div className="next-button-container">
-            <button onClick={handleNext} className="next-button">
-              Next
-            </button>
-          </div>
-        </section>
+          {/* Tags Section */}
+          <section className="tags-section">
+            <div className="tags-wrapper">
+              {tags.map((tag, index) => (
+                <TagButton 
+                  key={index} 
+                  label={tag} 
+                  isSelected={selectedTags?.includes(tag) || false}
+                  onToggle={() => toggleTag(tag)}
+                />
+              ))}
+            </div>
+            
+            {/* Next Button */}
+            <div className="next-button-container">
+              <button onClick={handleNext} className="next-button">
+                Next
+              </button>
+            </div>
+          </section>
 
-        {/* Divider */}
-        <div className="home-divider-container">
-          <div className="home-divider" />
-        </div>
-
-        {/* Stats Section */}
-        <section className="stats-section">
-          <div className="stats-grid">
-            {stats.map((stat, index) => (
-              <StatCard 
-                key={index} 
-                value={stat.value} 
-                lines={stat.lines} 
-                iconPath={stat.iconPath}
-              />
-            ))}
-          </div>
-        </section>
-
-        {/* Footer */}
-        <footer className="home-footer">
-          <div className="footer-primary-links">
-            <a href="#" className="footer-primary-link">About Us</a>
-            <a href="#" className="footer-primary-link">EXPLORE</a>
-            <a href="#" className="footer-primary-link">AI Student Advisor</a>
-          </div>
-          
-          <div className="footer-secondary-links">
-            <a href="#" className="footer-secondary-link">T&C</a>
-            <a href="#" className="footer-secondary-link">Privacy Policy</a>
-            <a href="#" className="footer-secondary-link">Refund Policy</a>
-            <a href="#" className="footer-secondary-link">Anti-Fraud Policy</a>
-            <a href="#" className="footer-secondary-link">Grievance</a>
+          {/* Divider */}
+          <div className="home-divider-container">
+            <div className="home-divider" />
           </div>
 
-          <div className="footer-contact">
-            <p className="footer-contact__title">Quick Question?</p>
-            <p className="footer-contact__info">+44 773 45 66688 UK</p>
-            <p className="footer-contact__info">+91 970 45 66688 IN</p>
-            <p className="footer-contact__info">support@applyuninow.com</p>
-            <p className="footer-copyright">Crafted by AUN Tech Consulting Pvt. Ltd.</p>
-          </div>
-        </footer>
-      </main>
-    </GradientBackgroundTailwind>
+          {/* Stats Section */}
+          <section className="stats-section">
+            <div className="stats-grid">
+              {stats.map((stat, index) => (
+                <StatCard 
+                  key={index} 
+                  value={stat.value} 
+                  lines={stat.lines} 
+                  iconPath={stat.iconPath}
+                />
+              ))}
+            </div>
+          </section>
+
+          {/* Footer */}
+          <footer className="home-footer">
+            <div className="footer-primary-links">
+              <a href="#" className="footer-primary-link">About Us</a>
+              <a href="#" className="footer-primary-link">EXPLORE</a>
+              <a href="#" className="footer-primary-link">AI Student Advisor</a>
+            </div>
+            
+            <div className="footer-secondary-links">
+              <a href="#" className="footer-secondary-link">T&C</a>
+              <a href="#" className="footer-secondary-link">Privacy Policy</a>
+              <a href="#" className="footer-secondary-link">Refund Policy</a>
+              <a href="#" className="footer-secondary-link">Anti-Fraud Policy</a>
+              <a href="#" className="footer-secondary-link">Grievance</a>
+            </div>
+
+            <div className="footer-contact">
+              <p className="footer-contact__title">Quick Question?</p>
+              <p className="footer-contact__info">+44 773 45 66688 UK</p>
+              <p className="footer-contact__info">+91 970 45 66688 IN</p>
+              <p className="footer-contact__info">support@applyuninow.com</p>
+              <p className="footer-copyright">Crafted by AUN Tech Consulting Pvt. Ltd.</p>
+            </div>
+          </footer>
+        </main>
+      </div>
+    </div>
   );
 }
 

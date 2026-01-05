@@ -4,10 +4,10 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './CountrySelection.css';
-import { GradientBackgroundTailwind } from '../GradientBackgroundTailwind';
 import { useFormStore } from '../../store/formStore';
 import { useFormNavigation } from '../../hooks/useFormNavigation';
 import { ROUTES } from '../../api/types';
+import ThemeToggle from '../ThemeToggle';
 
 interface Country {
   name: string;
@@ -95,7 +95,12 @@ const CountryCard = ({ country, isSelected, onSelect }: CountryCardProps) => (
   </button>
 );
 
-export default function CountrySelection() {
+interface CountrySelectionProps {
+  theme?: 'light' | 'dark';
+  onThemeToggle?: () => void;
+}
+
+export default function CountrySelection({ theme = 'light', onThemeToggle }: CountrySelectionProps) {
   const { country, setCountry } = useFormStore();
   const { goToPrevious, canProceed } = useFormNavigation();
   const navigate = useNavigate();
@@ -118,53 +123,58 @@ export default function CountrySelection() {
   };
 
   return (
-    <GradientBackgroundTailwind variant="white" className="page-container">
+    <div className="page-container">
       {/* Header */}
       <header className="country-header">
         <div className="country-header__logo">
           <img src="/assets/logo.png" alt="AUN Logo" style={{ height: '34px' }} />
         </div>
         <div className="country-header__actions">
+          {onThemeToggle && (
+            <ThemeToggle theme={theme} onToggle={onThemeToggle} />
+          )}
           <ProfileIcon />
           <MenuIcon />
         </div>
       </header>
 
       {/* Main Content */}
-      <main className="country-main">
-        {/* Navigation Row */}
-        <div className="country-nav-row">
-          <button className="country-nav-arrow" onClick={goToPrevious}>
-            <LeftArrows />
-          </button>
-          <h1 className="country-page-title">Choose Your Country</h1>
-          <button 
-            className="country-nav-arrow"
-            onClick={handleNext}
-            disabled={!canProceed}
-          >
-            <RightArrows />
-          </button>
-        </div>
+      <div className="page-wrapper">
+        <main className="country-main">
+          {/* Navigation Row */}
+          <div className="country-nav-row">
+            <button className="country-nav-arrow" onClick={goToPrevious}>
+              <LeftArrows />
+            </button>
+            <h1 className="country-page-title">Choose Your Country</h1>
+            <button 
+              className="country-nav-arrow"
+              onClick={handleNext}
+              disabled={!canProceed}
+            >
+              <RightArrows />
+            </button>
+          </div>
 
-        {/* Country Grid */}
-        <div className="country-grid">
-          {countries.map((c, index) => (
-            <CountryCard 
-              key={index} 
-              country={c}
-              isSelected={country === c.name}
-              onSelect={() => handleCountrySelect(c.name)}
-            />
-          ))}
-        </div>
+          {/* Country Grid */}
+          <div className="country-grid">
+            {countries.map((c, index) => (
+              <CountryCard 
+                key={index} 
+                country={c}
+                isSelected={country === c.name}
+                onSelect={() => handleCountrySelect(c.name)}
+              />
+            ))}
+          </div>
 
-        {/* Divider */}
-        <div className="country-divider-container">
-          <div className="country-divider" />
-        </div>
-      </main>
-    </GradientBackgroundTailwind>
+          {/* Divider */}
+          <div className="country-divider-container">
+            <div className="country-divider" />
+          </div>
+        </main>
+      </div>
+    </div>
   );
 }
 

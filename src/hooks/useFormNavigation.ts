@@ -53,6 +53,9 @@ export function useFormNavigation(): UseFormNavigationReturn {
     industry,
     studyArea,
     studyFormat,
+    attendanceType,
+    budget,
+    workExperience,
     academics,
     contact,
   } = useFormStore();
@@ -89,6 +92,9 @@ export function useFormNavigation(): UseFormNavigationReturn {
     industry,
     studyArea,
     studyFormat,
+    attendanceType,
+    budget,
+    workExperience,
     academics,
     contact,
   ]);

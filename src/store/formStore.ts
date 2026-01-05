@@ -68,6 +68,9 @@ const initialState: FormState = {
   industry: '',
   studyArea: '',
   studyFormat: '',
+  attendanceType: '',
+  budget: '',
+  workExperience: '',
   academics: initialAcademics,
   assessment: initialAssessment,
   contact: initialContact,
@@ -99,10 +102,13 @@ interface FormActions {
   setIntakeYear: (year: string) => void;
   setStudyDuration: (duration: string) => void;
   
-  // Step 5-7: Industry, Area, Format
+  // Step 5-7: Industry, Area, Format & Preferences
   setIndustry: (industry: string) => void;
   setStudyArea: (area: string) => void;
   setStudyFormat: (format: string) => void;
+  setAttendanceType: (type: string) => void;
+  setBudget: (budget: string) => void;
+  setWorkExperience: (experience: string) => void;
   
   // Step 8: Academics
   setSecondaryAcademics: (data: Partial<AcademicRecord>) => void;
@@ -173,10 +179,13 @@ export const useFormStore = create<FormState & FormActions>()(
       setIntakeYear: (intakeYear) => set({ intakeYear }),
       setStudyDuration: (studyDuration) => set({ studyDuration }),
       
-      // Step 5-7: Industry, Area, Format
+      // Step 5-7: Industry, Area, Format & Preferences
       setIndustry: (industry) => set({ industry }),
       setStudyArea: (studyArea) => set({ studyArea }),
       setStudyFormat: (studyFormat) => set({ studyFormat }),
+      setAttendanceType: (attendanceType) => set({ attendanceType }),
+      setBudget: (budget) => set({ budget }),
+      setWorkExperience: (workExperience) => set({ workExperience }),
       
       // Step 8: Academics
       setSecondaryAcademics: (data) => set((state) => ({
@@ -240,6 +249,9 @@ export const useFormStore = create<FormState & FormActions>()(
           industry: state.industry || '',
           studyArea: state.studyArea || '',
           studyFormat: state.studyFormat || '',
+          attendanceType: state.attendanceType || '',
+          budget: state.budget || '',
+          workExperience: state.workExperience || '',
           academics: state.academics || initialAcademics,
           assessment: state.assessment || initialAssessment,
           contact: state.contact || initialContact,
@@ -268,8 +280,13 @@ export const useFormStore = create<FormState & FormActions>()(
             return !!state.industry;
           case 5: // Study Area
             return !!state.studyArea;
-          case 6: // Format
-            return !!state.studyFormat;
+          case 6: // Format & Preferences
+            return !!(
+              state.studyFormat && 
+              state.attendanceType && 
+              state.budget && 
+              state.workExperience
+            );
           case 7: // Academics - secondary and higher secondary required
             return !!(
               state.academics?.secondary?.year &&
@@ -319,6 +336,9 @@ export const useFormStore = create<FormState & FormActions>()(
         industry: state.industry,
         studyArea: state.studyArea,
         studyFormat: state.studyFormat,
+        attendanceType: state.attendanceType,
+        budget: state.budget,
+        workExperience: state.workExperience,
         academics: state.academics,
         assessment: state.assessment,
         contact: state.contact,

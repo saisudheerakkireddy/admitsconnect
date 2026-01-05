@@ -31,7 +31,7 @@
   transform: translateY(-50%);
   font-family: var(--font-display);
   font-size: 8px;
-  font-weight: var(--font-bold);
+  font-weight: 400;
   color: var(--color-text-secondary);
   pointer-events: none;
   transition: all var(--transition-normal);
@@ -67,7 +67,7 @@
     inset 1px 1px 2px 0px rgba(194, 32, 50, 0.3);
   font-family: var(--font-display);
   font-size: 8px;
-  font-weight: var(--font-bold);
+  font-weight: 400;
   color: var(--color-black);
   outline: none;
   transition: all var(--transition-fast);
@@ -148,7 +148,7 @@
   text-align: left;
   font-family: var(--font-display);
   font-size: 8px;
-  font-weight: var(--font-bold);
+  font-weight: 400;
   color: var(--color-black);
   background: transparent;
   border: none;

@@ -1,30 +1,12 @@
 // Study Area List Screen Component
-// Refactored with separate CSS file
+// Dynamically loads study areas based on selected industry
 
-import { useState } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import './StudyAreaList.css';
-import { GradientBackgroundTailwind } from '../GradientBackgroundTailwind';
 import { useFormStore } from '../../store/formStore';
 import { useFormNavigation } from '../../hooks/useFormNavigation';
-
-interface StudyAreaOption {
-  id: string;
-  name: string;
-}
-
-const studyAreas: StudyAreaOption[] = [
-  { id: "ai", name: "Artificial Intelligence" },
-  { id: "data-science", name: "Data Science" },
-  { id: "computer-science", name: "Computer Science" },
-  { id: "business-admin", name: "Business Administration" },
-  { id: "engineering", name: "Engineering" },
-  { id: "medicine", name: "Medicine" },
-  { id: "psychology", name: "Psychology" },
-  { id: "economics", name: "Economics" },
-  { id: "marketing", name: "Marketing" },
-  { id: "finance", name: "Finance" },
-];
-
+import { getStudyAreasForIndustry, getIndustryById } from '../../config/studyAreaData';
+import ThemeToggle from '../ThemeToggle';
 
 const ProfileIcon = () => (
   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -61,26 +43,118 @@ const SearchIcon = () => (
   </svg>
 );
 
-export default function StudyAreaList() {
-  const { studyArea, setStudyArea } = useFormStore();
+// Study Area Card with Icon
+interface StudyAreaCardProps {
+  id: string;
+  name: string;
+  iconPath: string;
+  isSelected: boolean;
+  onSelect: () => void;
+}
+
+const StudyAreaCard = ({ name, iconPath, isSelected, onSelect }: StudyAreaCardProps) => {
+  return (
+    <button 
+      className={`area-card ${isSelected ? 'area-card--selected' : ''}`}
+      onClick={onSelect}
+    >
+      <div className="area-card__icon">
+        <img src={iconPath} alt={name} width="40" height="40" />
+      </div>
+      <span className="area-card__name">{name}</span>
+    </button>
+  );
+};
+
+interface StudyAreaListProps {
+  theme?: 'light' | 'dark';
+  onThemeToggle?: () => void;
+}
+
+export default function StudyAreaList({ theme = 'light', onThemeToggle }: StudyAreaListProps) {
+  const { industry, studyArea, setStudyArea } = useFormStore();
   const { goToNext, goToPrevious, canProceed } = useFormNavigation();
   const [searchTerm, setSearchTerm] = useState('');
 
-  const filteredAreas = studyAreas.filter(area => 
-    area.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  // Get study areas for selected industry
+  const studyAreas = useMemo(() => {
+    if (!industry) return [];
+    return getStudyAreasForIndustry(industry);
+  }, [industry]);
+
+  // Get industry details for display
+  const selectedIndustry = useMemo(() => {
+    if (!industry) return null;
+    return getIndustryById(industry);
+  }, [industry]);
+
+  // Filter areas based on search
+  const filteredAreas = useMemo(() => {
+    if (!searchTerm) return studyAreas;
+    const term = searchTerm.toLowerCase();
+    return studyAreas.filter(area => 
+      area.name.toLowerCase().includes(term)
+    );
+  }, [studyAreas, searchTerm]);
+
+  // If no industry selected, redirect back
+  useEffect(() => {
+    if (!industry) {
+      console.warn('No industry selected, redirecting to industry selection');
+      // Optionally redirect back to industry selection
+    }
+  }, [industry]);
 
   const handleNext = () => {
     if (canProceed) goToNext();
   };
 
+  // Show message if no industry is selected
+  if (!industry || !selectedIndustry) {
+    return (
+      <div className="page-container">
+        <header className="page-header">
+          <div className="page-header__logo">
+            <img src="/assets/logo.png" alt="AUN Logo" style={{ height: '34px' }} />
+          </div>
+          <div className="page-header__actions">
+            {onThemeToggle && (
+              <ThemeToggle theme={theme} onToggle={onThemeToggle} />
+            )}
+            <ProfileIcon />
+            <MenuIcon />
+          </div>
+        </header>
+
+        <main className="page-main">
+          <div style={{ textAlign: 'center', padding: '4rem 2rem' }}>
+            <h2 style={{ marginBottom: '1rem' }}>No Industry Selected</h2>
+            <p style={{ marginBottom: '2rem', color: '#666' }}>
+              Please select an industry first to view available study areas.
+            </p>
+            <button 
+              onClick={goToPrevious}
+              className="glass-pill glass-pill--selected"
+              style={{ padding: '1rem 2rem' }}
+            >
+              Go Back to Industry Selection
+            </button>
+          </div>
+        </main>
+      </div>
+    );
+  }
+
   return (
-    <GradientBackgroundTailwind variant="white" className="page-container">
+    <div className="page-container">
       <header className="page-header">
         <div className="page-header__logo">
           <img src="/assets/logo.png" alt="AUN Logo" style={{ height: '34px' }} />
         </div>
         <div className="page-header__actions">
+          {onThemeToggle && (
+            <ThemeToggle theme={theme} onToggle={onThemeToggle} />
+          )}
           <ProfileIcon />
           <MenuIcon />
         </div>
@@ -98,13 +172,19 @@ export default function StudyAreaList() {
             </button>
           </div>
 
+          <div className="area-subtitle">
+            <p style={{ textAlign: 'center', color: '#666', marginBottom: '1rem' }}>
+              Study areas for <strong>{selectedIndustry.name}</strong>
+            </p>
+          </div>
+
           <div className="area-search">
             <div className="search-bar">
               <div className="search-bar__icon"><SearchIcon /></div>
               <div className="search-bar__divider" />
               <input 
                 type="text"
-                placeholder="Search"
+                placeholder="Search study areas..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="search-bar__input"
@@ -114,24 +194,30 @@ export default function StudyAreaList() {
         </section>
 
         <section>
-          <div className="area-list">
+          <div className="area-grid">
             {filteredAreas.map((area) => (
-              <button 
+              <StudyAreaCard 
                 key={area.id}
-                className={`area-list-item ${studyArea === area.id ? 'area-list-item--selected' : ''}`}
-                onClick={() => setStudyArea(area.id)}
-              >
-                <span className="area-list-item__text">{area.name}</span>
-              </button>
+                id={area.id}
+                name={area.name}
+                iconPath={area.iconPath}
+                isSelected={studyArea === area.id}
+                onSelect={() => setStudyArea(area.id)}
+              />
             ))}
           </div>
+          
+          {filteredAreas.length === 0 && (
+            <div style={{ textAlign: 'center', padding: '2rem', color: '#666' }}>
+              No study areas found matching "{searchTerm}"
+            </div>
+          )}
         </section>
 
         <div className="page-divider-container">
           <div className="page-divider" />
         </div>
       </main>
-    </GradientBackgroundTailwind>
+    </div>
   );
 }
-

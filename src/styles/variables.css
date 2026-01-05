@@ -213,9 +213,9 @@
     Responsive container system
 
     - container-narrow: form/wizard steps look best constrained
-    - container-max: wider pages can breathe on desktop
+    - container-max: maximum width for very large screens
   */
-  --container-narrow: 720px;
+  --container-narrow: 900px;
   --container-max: 1200px;
 
   /*
@@ -226,8 +226,101 @@
   --mobile-width: 393px;
 
   /* Fluid padding scales between small phones and desktop */
-  --content-padding: clamp(16px, 3vw, 32px);
-  --header-padding-top: clamp(20px, 4vw, 35px);
-  --header-padding-bottom: clamp(12px, 2vw, 16px);
+  --content-padding: clamp(16px, 4vw, 48px);
+  --header-padding-top: clamp(20px, 3vh, 35px);
+  --header-padding-bottom: clamp(12px, 2vh, 16px);
+}
+
+/* ============================================
+   DARK MODE THEME
+   ============================================ */
+.dark {
+  /* Primary colors remain the same for brand consistency */
+  --color-primary: #EE1113;
+  --color-primary-light: #FF3335;
+  --color-primary-dark: #C22032;
+  --color-primary-hover: #D81517;
+
+  /* Secondary colors adjusted for dark mode */
+  --color-secondary: #4A7BC8;
+  --color-secondary-light: #5A8ED9;
+  --color-secondary-dark: #2A5299;
+
+  /* Pastel colors - darker variants for dark mode */
+  --color-pastel-purple-light: #3D2A4A;
+  --color-pastel-purple-base: #4A3357;
+  --color-pastel-purple-medium: #573D64;
+  --color-pastel-purple-dark: #644771;
+
+  --color-pastel-cyan-light: #2A3F47;
+  --color-pastel-cyan-base: #334B54;
+  --color-pastel-cyan-medium: #3D5761;
+  --color-pastel-cyan-dark: #47636E;
+
+  --color-pastel-lavender-light: #3A2F47;
+  --color-pastel-lavender-base: #473854;
+  --color-pastel-lavender-medium: #544261;
+  --color-pastel-lavender-dark: #614C6E;
+
+  /* Brand colors adjusted */
+  --color-brand-navy: #4A7BC8;
+  --color-brand-navy-light: rgba(74, 123, 200, 0.1);
+  --color-brand-red: #EE1113;
+  --color-brand-purple: #9747FF;
+
+  /* Neutral colors - inverted for dark mode */
+  --color-white: #1A1A1A;
+  --color-black: #FFFFFF;
+  --color-gray-50: #2A2A2A;
+  --color-gray-100: #333333;
+  --color-gray-200: #404040;
+  --color-gray-300: #4D4D4D;
+  --color-gray-400: #666666;
+  --color-gray-500: #808080;
+  --color-gray-600: #999999;
+  --color-gray-700: #B3B3B3;
+  --color-gray-800: #CCCCCC;
+  --color-gray-900: #E5E5E5;
+
+  /* Text colors for dark mode */
+  --color-text-primary: #E5E5E5;
+  --color-text-secondary: #CCCCCC;
+  --color-text-muted: #999999;
+  --color-text-light: #B3B3B3;
+  --color-text-dark: #D4D4D4;
+
+  /* Background colors for dark mode */
+  --color-bg-primary: #1A1A1A;
+  --color-bg-secondary: #2A2A2A;
+  --color-bg-card: rgba(42, 42, 42, 0.7);
+  --color-bg-card-hover: rgba(51, 51, 51, 0.9);
+  --color-bg-selected: rgba(238, 17, 19, 0.25);
+  --color-bg-glassmorphism: rgba(74, 123, 200, 0.05);
+
+  /* Glassmorphism effects */
+  --glass-backdrop-blur: blur(3px);
+  --glass-bg: rgba(42, 42, 42, 0.3);
+
+  /* Borders - adjusted for dark mode */
+  --border-tag-default: 1px solid rgba(238, 17, 19, 0.25);
+  --border-tag-selected: 2px solid #EE1113;
+  --border-tag-hover: 1px solid rgba(238, 17, 19, 0.35);
+
+  /* Shadows - lighter for dark mode */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+  --shadow-tag-inner: inset 0px 0px 6px rgba(238, 17, 19, 0.2);
+  --shadow-focus: 0 0 0 3px rgba(238, 17, 19, 0.4);
+  
+  --shadow-button-inset: inset 0px 0px 10px 0px rgba(238, 17, 19, 0.4), 
+                         inset -1px -2px 3px 0px rgba(238, 17, 19, 0.2), 
+                         inset 1px 1px 2px 0px rgba(238, 17, 19, 0.3);
+
+  /* Gradients remain similar but adjusted */
+  --gradient-primary: linear-gradient(161.24deg, #EE1113 0.91%, #9747FF 96.74%);
+  --gradient-text: linear-gradient(161.24deg, #EE1113 0.91%, #9747FF 96.74%);
+  --gradient-pastel: linear-gradient(135deg, #3D2A4A 0%, #2A3F47 100%);
+  --gradient-divider: linear-gradient(90deg, transparent 0%, #555 50%, transparent 100%);
 }
 

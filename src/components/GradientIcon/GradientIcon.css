@@ -1,0 +1,111 @@
+/* ============================================
+   GradientIcon Component Styles
+   Utility component for applying gradient effects to SVG icons
+   Following BEM naming convention
+   ============================================ */
+
+/* ============================================
+   BASE STYLES
+   ============================================ */
+.gradient-icon {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Icon image with gradient effect applied via CSS filter */
+.gradient-icon__img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  /* 
+   * Gradient coloring using CSS filter chain
+   * This creates a red-to-purple gradient tint effect on SVG icons
+   * Filter order: brightness(0) converts to black, then color filters apply
+   */
+  filter: 
+    brightness(0)      /* Convert to black base */
+    saturate(100%)     /* Maintain saturation */
+    invert(23%)        /* Partial invert to gray */
+    sepia(95%)         /* Add sepia tone for warmth */
+    saturate(2000%)    /* Boost saturation for vivid red */
+    hue-rotate(340deg) /* Rotate to red spectrum (340deg) */
+    brightness(95%)    /* Slight darken for depth */
+    contrast(100%);    /* Maintain contrast */
+  transition: filter var(--transition-normal);
+}
+
+/* ============================================
+   ADVANCED: Gradient using mask (for browsers that support it)
+   This creates a true gradient fill instead of filter-based coloring
+   ============================================ */
+@supports (mask-image: url('')) {
+  .gradient-icon--gradient .gradient-icon__img {
+    mask-image: url(attr(src)); /* Uses image src as mask */
+    mask-size: contain;
+    mask-repeat: no-repeat;
+    mask-position: center;
+    background: var(--gradient-icon); /* Applies actual gradient */
+  }
+}
+
+/* Hidden SVG defs container - positioned off-screen */
+.gradient-icon__defs {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  pointer-events: none; /* Prevents interaction */
+}
+
+/* ============================================
+   HOVER STATE - More vibrant purple tone
+   ============================================ */
+.gradient-icon:hover > .gradient-icon__img {
+  filter: 
+    brightness(0) 
+    saturate(100%) 
+    invert(18%)        /* Darker base */
+    sepia(90%) 
+    saturate(3000%)    /* Higher saturation for purple */
+    hue-rotate(260deg) /* Rotate to purple spectrum (260deg) */
+    brightness(90%)    /* Darker for emphasis */
+    contrast(110%);    /* Increased contrast for pop */
+}
+
+/* ============================================
+   SELECTED STATE - Deep purple tone
+   ============================================ */
+.gradient-icon--selected > .gradient-icon__img {
+  filter: 
+    brightness(0) 
+    saturate(100%) 
+    invert(15%)        /* Darkest base */
+    sepia(100%) 
+    saturate(4000%)    /* Maximum saturation */
+    hue-rotate(270deg) /* Deep purple (270deg) */
+    brightness(85%)    /* Darkest for selected state */
+    contrast(120%);    /* Maximum contrast */
+}
+
+/* ============================================
+   FOCUS STATE - Accessibility
+   ============================================ */
+.gradient-icon:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+.gradient-icon:focus-visible > .gradient-icon__img {
+  /* Use hover state for focus */
+  filter: 
+    brightness(0) 
+    saturate(100%) 
+    invert(18%) 
+    sepia(90%) 
+    saturate(3000%) 
+    hue-rotate(260deg) 
+    brightness(90%) 
+    contrast(110%);
+}

@@ -2,9 +2,9 @@
 // Refactored with separate CSS file
 
 import './StudyAreaSelection.css';
-import { GradientBackgroundTailwind } from '../GradientBackgroundTailwind';
 import { useFormStore } from '../../store/formStore';
 import { useFormNavigation } from '../../hooks/useFormNavigation';
+import ThemeToggle from '../ThemeToggle';
 
 interface StudyOption {
   label: string;
@@ -80,7 +80,12 @@ const PillButton = ({ option, isSelected, onSelect }: PillButtonProps) => (
   </button>
 );
 
-export default function StudyAreaSelection() {
+interface StudyAreaSelectionProps {
+  theme?: 'light' | 'dark';
+  onThemeToggle?: () => void;
+}
+
+export default function StudyAreaSelection({ theme = 'light', onThemeToggle }: StudyAreaSelectionProps) {
   const { studyLevel, degreeType, setStudyLevel, setDegreeType } = useFormStore();
   const { goToNext, goToPrevious, canProceed } = useFormNavigation();
 
@@ -91,12 +96,15 @@ export default function StudyAreaSelection() {
   };
 
   return (
-    <GradientBackgroundTailwind variant="white" className="page-container">
+    <div className="page-container">
       <header className="page-header">
         <div className="page-header__logo">
           <img src="/assets/logo.png" alt="AUN Logo" style={{ height: '34px' }} />
         </div>
         <div className="page-header__actions">
+          {onThemeToggle && (
+            <ThemeToggle theme={theme} onToggle={onThemeToggle} />
+          )}
           <ProfileIcon />
           <MenuIcon />
         </div>
@@ -108,7 +116,7 @@ export default function StudyAreaSelection() {
             <button className="page-nav-arrow" onClick={goToPrevious}>
               <LeftArrows />
             </button>
-            <h1 className="page-title">Choose the Study Level</h1>
+            <h1 className="page-title">Choose Your Study Level</h1>
             <button 
               className="page-nav-arrow"
               onClick={handleNext}
@@ -148,7 +156,7 @@ export default function StudyAreaSelection() {
           <div className="page-divider" />
         </div>
       </main>
-    </GradientBackgroundTailwind>
+    </div>
   );
 }
 

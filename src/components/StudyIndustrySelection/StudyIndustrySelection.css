@@ -39,22 +39,16 @@
   cursor: pointer;
   transition: all var(--transition-normal);
   background: transparent;
-  border: none;
+  border: 2px solid transparent;
   min-width: 80px;
+  position: relative;
 }
 
 .industry-card:hover {
-  background: #C22032;
+  border: 2px solid transparent;
+  background: linear-gradient(white, white) padding-box,
+              linear-gradient(161.24deg, #EE1113 0.91%, #7403FA 96.74%) border-box;
   box-shadow: var(--shadow-md);
-}
-
-.industry-card:hover .industry-card__name {
-  color: #FFFFFF;
-}
-
-.industry-card:hover .industry-card__icon svg path {
-  fill: #FFFFFF;
-  stroke: #FFFFFF;
 }
 
 .industry-card:active {
@@ -62,25 +56,32 @@
 }
 
 .industry-card--selected {
-  background: #C22032;
-  box-shadow: 0 0 0 2px #C22032;
+  border: 2px solid transparent;
+  background: linear-gradient(white, white) padding-box,
+              linear-gradient(161.24deg, #EE1113 0.91%, #7403FA 96.74%) border-box;
+  box-shadow: 0 0 0 2px rgba(238, 17, 19, 0.1);
 }
 
 .industry-card--selected .industry-card__name {
-  color: #FFFFFF;
+  color: var(--color-black);
 }
 
-.industry-card--selected .industry-card__icon svg path {
-  fill: #FFFFFF;
-  stroke: #FFFFFF;
+.industry-card--selected .industry-card__icon img {
+  filter: none;
 }
 
 .industry-card__icon {
-  width: 44px;
-  height: 44px;
+  width: 50px;
+  height: 50px;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.industry-card__icon svg {
+  width: 100%;
+  height: 100%;
+  transition: all var(--transition-normal);
 }
 
 .industry-card__icon img {
@@ -90,16 +91,13 @@
 }
 
 .industry-card__name {
-  font-family: 'Comfortaa', cursive;
+  font-family: var(--font-primary);
   font-size: var(--text-sm);
   font-weight: var(--font-bold);
   text-align: center;
   line-height: normal;
   white-space: pre-line;
   color: var(--color-black);
-}
-
-.industry-card--selected .industry-card__name {
-  color: #FFFFFF;
+  transition: color var(--transition-normal);
 }
 

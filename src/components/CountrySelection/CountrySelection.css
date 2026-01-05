@@ -15,7 +15,12 @@
 .country-header__logo {
   display: flex;
   align-items: center;
-  gap: 3px;
+  gap: 6px;
+}
+
+.country-header__logo img {
+  height: 34px;
+  width: auto;
 }
 
 .country-header__logo-text {
@@ -37,12 +42,22 @@
 .country-main {
   display: flex;
   width: 100%;
+  max-width: 100%;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: clamp(28px, 4vw, 50px);
-  margin: 0 auto;
-  padding: var(--space-xl) var(--content-padding) var(--space-2xl);
+  margin-left: auto;
+  margin-right: auto;
+  padding: var(--space-xl) var(--content-padding) var(--space-3xl);
+  /* Wrapper handles background - no background here */
+}
+
+/* Constrain content on very large screens for better readability */
+@media (min-width: 1200px) {
+  .country-main {
+    max-width: 1100px;
+  }
 }
 
 /* ============================================
@@ -53,7 +68,9 @@
   align-items: center;
   justify-content: space-between;
   width: 100%;
+  max-width: 100%;
   padding: 0;
+  gap: clamp(8px, 2vw, 16px);
 }
 
 .country-nav-arrow {
@@ -62,6 +79,7 @@
   border: none;
   padding: var(--space-sm);
   transition: opacity var(--transition-fast);
+  flex-shrink: 0;
 }
 
 .country-nav-arrow:hover:not(:disabled) {
@@ -79,6 +97,8 @@
   color: var(--color-text-secondary);
   text-align: center;
   line-height: normal;
+  flex: 1;
+  min-width: 0;
 }
 
 /* ============================================
@@ -87,9 +107,26 @@
 .country-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
-  gap: clamp(12px, 2.5vw, 20px) clamp(10px, 2vw, 16px);
+  gap: clamp(18px, 3vw, 30px) clamp(10px, 2vw, 20px);
   width: 100%;
+  max-width: 100%;
   padding: 0;
+  justify-items: center;
+}
+
+/* Ensure grid adapts smoothly across all viewports */
+@media (min-width: 640px) {
+  .country-grid {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .country-grid {
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    max-width: 1000px;
+    margin: 0 auto;
+  }
 }
 
 /* ============================================
@@ -100,13 +137,14 @@
   flex-direction: column;
   align-items: center;
   gap: var(--space-sm);
-  padding: var(--space-md) var(--space-sm);
+  padding: clamp(10px, 2vw, 12px) clamp(6px, 1.5vw, 8px);
   border-radius: var(--radius-md);
   cursor: pointer;
   transition: all var(--transition-normal);
   background: transparent;
   border: none;
-  min-width: 80px;
+  width: 100%;
+  max-width: 160px;
 }
 
 .country-card:hover {
@@ -132,8 +170,8 @@
 }
 
 .country-card__flag {
-  width: 57px;
-  height: 54px;
+  width: clamp(45px, 10vw, 57px);
+  height: clamp(42px, 9vw, 54px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -146,12 +184,13 @@
 }
 
 .country-card__name {
-  font-family: 'Comfortaa', cursive;
+  font-family: var(--font-primary);
   font-size: var(--text-sm);
   font-weight: var(--font-bold);
   text-align: center;
   line-height: normal;
   color: var(--color-black);
+  word-break: break-word;
 }
 
 .country-card--selected .country-card__name {
@@ -164,12 +203,70 @@
 .country-divider-container {
   display: flex;
   justify-content: center;
-  margin-bottom: var(--space-3xl);
+  width: 100%;
 }
 
 .country-divider {
   width: clamp(280px, 45vw, 520px);
   height: 1px;
   background: var(--gradient-divider);
+}
+
+/* ============================================
+   RESPONSIVE BREAKPOINTS
+   ============================================ */
+
+/* Mobile (up to 480px) */
+@media (max-width: 480px) {
+  .country-grid {
+    grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+    gap: clamp(14px, 2.5vw, 18px) clamp(8px, 1.5vw, 12px);
+  }
+
+  .country-card {
+    padding: 10px 6px;
+  }
+
+  .country-card__flag {
+    width: 45px;
+    height: 42px;
+  }
+
+  .country-page-title {
+    font-size: clamp(11px, 2.5vw, var(--text-base));
+  }
+}
+
+/* Tablet (481px to 768px) */
+@media (min-width: 481px) and (max-width: 768px) {
+  .country-grid {
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: clamp(16px, 2.8vw, 24px) clamp(10px, 1.8vw, 16px);
+  }
+
+  .country-card {
+    max-width: 140px;
+  }
+}
+
+/* Desktop (769px and up) */
+@media (min-width: 769px) {
+  .country-main {
+    padding: var(--space-2xl) var(--content-padding) var(--space-4xl);
+  }
+
+  .country-grid {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 30px 20px;
+  }
+
+  .country-card {
+    padding: 12px 8px;
+  }
+
+  .country-card__flag {
+    width: 57px;
+    height: 54px;
+  }
 }
 

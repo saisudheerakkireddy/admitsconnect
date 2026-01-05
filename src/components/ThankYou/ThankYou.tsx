@@ -2,9 +2,9 @@
 // Refactored with separate CSS file
 
 import './ThankYou.css';
-import { GradientBackgroundTailwind } from '../GradientBackgroundTailwind';
 import { useFormStore } from '../../store/formStore';
 import { useFormNavigation } from '../../hooks/useFormNavigation';
+import ThemeToggle from '../ThemeToggle';
 
 
 const ProfileIcon = () => (
@@ -38,7 +38,12 @@ const HomeIcon = () => (
   </svg>
 );
 
-export default function ThankYou() {
+interface ThankYouProps {
+  theme?: 'light' | 'dark';
+  onThemeToggle?: () => void;
+}
+
+export default function ThankYou({ theme = 'light', onThemeToggle }: ThankYouProps) {
   const { resetForm } = useFormStore();
   const { goHome } = useFormNavigation();
 
@@ -48,12 +53,15 @@ export default function ThankYou() {
   };
 
   return (
-    <GradientBackgroundTailwind variant="pastel" className="page-container">
+    <div className="page-container">
       <header className="page-header page-header--alt">
         <div className="page-header__logo page-header__logo--alt">
           <img src="/assets/logo.png" alt="AUN Logo" style={{ height: '34px' }} />
         </div>
         <div className="page-header__actions page-header__actions--alt">
+          {onThemeToggle && (
+            <ThemeToggle theme={theme} onToggle={onThemeToggle} />
+          )}
           <button className="page-header__action-btn"><ProfileIcon /></button>
           <button className="page-header__action-btn"><MenuIcon /></button>
         </div>
@@ -93,7 +101,7 @@ export default function ThankYou() {
 
         <div className="thankyou-divider" />
       </main>
-    </GradientBackgroundTailwind>
+    </div>
   );
 }
 
