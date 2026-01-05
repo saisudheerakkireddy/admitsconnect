@@ -7,7 +7,6 @@ export interface BackgroundImageProps {
   variant?: BackgroundVariant;
   children: React.ReactNode;
   className?: string;
-  theme?: 'light' | 'dark';
   // Backwards compatibility
   showGradient?: boolean;
   customBlobs?: any[];
@@ -17,16 +16,29 @@ export const BackgroundImage: React.FC<BackgroundImageProps> = ({
   variant = 'pastel-mountains',
   children,
   className = '',
-  theme = 'light',
   showGradient = false,
 }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
 
-  // Preload background image
+  // Preload background image based on screen size
   useEffect(() => {
+    const isMobile = window.innerWidth < 768;
     const img = new Image();
-    img.src = '/assets/backgrounds/hero-bg-desktop.webp';
+    
+    // Load appropriate image based on screen size
+    img.src = isMobile 
+      ? '/assets/backgrounds/hero-bg-mobile.webp'
+      : '/assets/backgrounds/hero-bg-desktop.webp';
+    
     img.onload = () => setImageLoaded(true);
+    img.onerror = () => {
+      // Fallback to PNG if WebP fails
+      if (!isMobile) {
+        const fallbackImg = new Image();
+        fallbackImg.src = '/assets/backgrounds/hero-bg-desktop.png';
+        fallbackImg.onload = () => setImageLoaded(true);
+      }
+    };
   }, []);
 
   const showBlobs = variant === 'gradient-blobs' || variant === 'hybrid';
@@ -35,7 +47,6 @@ export const BackgroundImage: React.FC<BackgroundImageProps> = ({
   return (
     <div 
       className={`background-container background-container--${variant} ${className}`}
-      data-theme={theme}
       data-loaded={imageLoaded}
     >
       {/* Background Image Layer */}
@@ -50,11 +61,6 @@ export const BackgroundImage: React.FC<BackgroundImageProps> = ({
         <div className="background-blobs-layer" aria-hidden="true">
           {/* Blob rendering logic from GradientBackground */}
         </div>
-      )}
-
-      {/* Dark Mode Overlay */}
-      {theme === 'dark' && showImage && (
-        <div className="background-dark-overlay" aria-hidden="true" />
       )}
 
       {/* Content Layer */}

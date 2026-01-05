@@ -170,7 +170,7 @@
 .wizard-pill__text {
   font-family: var(--font-primary);
   font-size: 9px;
-  font-weight: 400;
+  font-weight: var(--font-medium);
   color: var(--color-black);
   white-space: nowrap;
   line-height: normal;

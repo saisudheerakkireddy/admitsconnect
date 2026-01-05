@@ -93,7 +93,7 @@
 .industry-card__name {
   font-family: var(--font-primary);
   font-size: var(--text-sm);
-  font-weight: var(--font-bold);
+  font-weight: var(--font-semibold);
   text-align: center;
   line-height: normal;
   white-space: pre-line;

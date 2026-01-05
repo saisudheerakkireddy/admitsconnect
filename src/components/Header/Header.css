@@ -4,6 +4,9 @@
    Following BEM naming convention (already implemented)
    ============================================ */
 
+/* Import Autowide font for hamburger menu items */
+@import url('https://fonts.cdnfonts.com/css/autowide');
+
 /* ============================================
    BASE - Mobile First (393px)
    ============================================ */
@@ -171,11 +174,15 @@
 
 /* Dropdown item text colors (split logo style) */
 .app-header__dropdown-item-prefix {
-  color: var(--color-primary-blue, #1E417C); /* Blue for "Admits" */
+  color: #1E417C; /* Blue for "ApplyUni" */
+  font-family: 'Autowide', sans-serif;
+  font-weight: 400; /* Regular */
 }
 
 .app-header__dropdown-item-suffix {
-  color: var(--color-primary-red, #C22032); /* Red for "Connect" */
+  color: #C22032; /* Red for suffix (NOW, HOMES, etc.) */
+  font-family: 'Autowide', sans-serif;
+  font-weight: 400; /* Regular */
 }
 
 /* ============================================
@@ -269,22 +276,31 @@
 
   .app-header__desktop-link {
     display: block;
-    font-family: var(--font-nav, 'Montserrat', sans-serif);
+    background: none;
+    border: none;
+    cursor: pointer;
     font-size: clamp(13px, 1.2vw, 16px); /* Fluid typography OK */
-    font-weight: 500;
-    color: var(--color-text-secondary);
     text-decoration: none;
-    transition: color var(--transition-fast);
+    transition: opacity var(--transition-fast);
   }
 
   .app-header__desktop-link:hover,
   .app-header__desktop-link:focus-visible {
-    color: var(--color-primary);
+    opacity: 0.8;
     outline: none;
   }
 
-  .app-header__desktop-link:focus-visible {
-    text-decoration: underline;
+  /* Desktop link text colors (split style) */
+  .app-header__desktop-link-prefix {
+    color: #1E417C; /* Blue for "ApplyUni" */
+    font-family: 'Autowide', sans-serif;
+    font-weight: 400; /* Regular */
+  }
+
+  .app-header__desktop-link-suffix {
+    color: #C22032; /* Red for suffix (NOW, HOMES, etc.) */
+    font-family: 'Autowide', sans-serif;
+    font-weight: 400; /* Regular */
   }
 
   .app-header__dropdown {

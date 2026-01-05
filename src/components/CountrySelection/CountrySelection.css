@@ -53,10 +53,12 @@
   /* Wrapper handles background - no background here */
 }
 
-/* Constrain content on very large screens for better readability */
+/* Allow content to span full width on large screens for fluid responsiveness */
 @media (min-width: 1200px) {
   .country-main {
-    max-width: 1100px;
+    max-width: 100%;
+    padding-left: clamp(32px, 5vw, 80px);
+    padding-right: clamp(32px, 5vw, 80px);
   }
 }
 
@@ -94,11 +96,15 @@
 .country-page-title {
   font-family: var(--font-primary);
   font-size: var(--text-base);
-  color: var(--color-text-secondary);
+  font-weight: var(--font-semibold);
   text-align: center;
   line-height: normal;
   flex: 1;
   min-width: 0;
+  background: linear-gradient(161.24deg, #EE1113 0%, #7403FA 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 /* ============================================
@@ -124,7 +130,7 @@
 @media (min-width: 1024px) {
   .country-grid {
     grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-    max-width: 1000px;
+    max-width: 100%;
     margin: 0 auto;
   }
 }

@@ -145,27 +145,27 @@ export const GradientBackgroundTailwind: React.FC<GradientBackgroundTailwindProp
   children,
   className = '',
 }) => {
-  // Variant is kept for forward-compatibility (future spec differences).
-  // Read it to satisfy `noUnusedLocals` without changing behavior.
-  void variant;
+  const showBlobs = variant === 'pastel';
 
   return (
     <>
       {/* Inject animation keyframes */}
-      <style>{blobAnimationStyles}</style>
+      {showBlobs && <style>{blobAnimationStyles}</style>}
       
       <div
-        className={`relative min-h-screen overflow-hidden bg-white ${className}`}
+        className={`relative min-h-screen w-full overflow-hidden bg-transparent ${className}`}
       >
-        {/* Blob Container */}
-        <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
-          {BLOBS.map((blob) => (
-            <AnimatedBlob key={blob.id} config={blob} />
-          ))}
-        </div>
+        {/* Blob Container - only show for pastel variant */}
+        {showBlobs && (
+          <div className="absolute inset-0 w-full h-full pointer-events-none" aria-hidden="true">
+            {BLOBS.map((blob) => (
+              <AnimatedBlob key={blob.id} config={blob} />
+            ))}
+          </div>
+        )}
 
         {/* Content */}
-        <div className="relative z-10">{children}</div>
+        <div className="relative z-10 w-full">{children}</div>
       </div>
     </>
   );

@@ -135,7 +135,7 @@ export const applyUniNowCourseExplorerSource = {
         { value: 'part-time-academics', label: 'Part-time jobs (in-line to academics / work experience)' },
       ],
       pageMetadata: {
-        header: { logoSrc: '/assets/logo.png', profileIcon: 'inline svg', menuIcon: 'inline svg' },
+        header: { logoSrc: '/assets/AUN Logo.svg', profileIcon: 'inline svg', menuIcon: 'inline svg' },
         tagline: {
           subtitle: 'Four Services + One Mission:',
           title: 'Empowering global talent.',

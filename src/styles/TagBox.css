@@ -64,7 +64,7 @@
 .box-tag__text {
   font-family: var(--font-primary);
   font-size: 9px;
-  font-weight: 400;
+  font-weight: var(--font-medium);
   line-height: normal;
   white-space: nowrap;
   color: var(--color-text-primary, #333333);

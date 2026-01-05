@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import ThemeToggle from '../ThemeToggle';
 import './Header.css';
 
 // Service links for dropdown and desktop navigation
@@ -11,7 +10,7 @@ const SERVICE_LINKS = [
   { id: 'service-4', name: 'ApplyUniJobs', href: 'https://www.applyunijobs.com' },
 ];
 
-// Profile Icon
+// Profile Icon - Black and white version
 const ProfileIcon: React.FC<{ className?: string }> = ({ className }) => (
   <svg 
     className={className}
@@ -19,8 +18,8 @@ const ProfileIcon: React.FC<{ className?: string }> = ({ className }) => (
     fill="none" 
     xmlns="http://www.w3.org/2000/svg"
   >
-    <circle cx="10" cy="6" r="4" stroke="#C22032" strokeWidth="1.5" fill="none"/>
-    <path d="M2 18c0-4 4-6 8-6s8 2 8 6" stroke="#C22032" strokeWidth="1.5" fill="none"/>
+    <circle cx="10" cy="6" r="4" stroke="#000000" strokeWidth="1.5" fill="none"/>
+    <path d="M2 18c0-4 4-6 8-6s8 2 8 6" stroke="#000000" strokeWidth="1.5" fill="none"/>
   </svg>
 );
 
@@ -55,15 +54,11 @@ const CloseIcon: React.FC<{ className?: string; onClick?: () => void }> = ({ cla
 interface HeaderProps {
   variant?: 'default' | 'alt';
   className?: string;
-  theme?: 'light' | 'dark';
-  onThemeToggle?: () => void;
 }
 
 const Header: React.FC<HeaderProps> = ({ 
   variant = 'default', 
-  className = '',
-  theme = 'light',
-  onThemeToggle 
+  className = ''
 }) => {
   const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -113,13 +108,6 @@ const Header: React.FC<HeaderProps> = ({
         
         {/* Actions */}
         <div className="app-header__actions">
-          {onThemeToggle && (
-            <ThemeToggle 
-              theme={theme} 
-              onToggle={onThemeToggle}
-              className="app-header__theme-toggle"
-            />
-          )}
           <ProfileIcon className="app-header__profile-icon" />
           {isMenuOpen ? (
             <CloseIcon className="app-header__menu-icon" onClick={toggleMenu} />

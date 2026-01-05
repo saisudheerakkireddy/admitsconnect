@@ -21,10 +21,14 @@
 .degree-section__title {
   font-family: var(--font-primary);
   font-size: var(--text-base);
-  color: var(--color-text-secondary);
+  font-weight: var(--font-semibold);
   text-align: center;
   line-height: normal;
   margin-bottom: 40px;
+  background: linear-gradient(161.24deg, #EE1113 0%, #7403FA 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .study-pills-container {

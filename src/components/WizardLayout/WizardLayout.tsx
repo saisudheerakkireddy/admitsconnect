@@ -14,10 +14,6 @@ export interface WizardLayoutProps {
   className?: string;
   /** Page content */
   children: React.ReactNode;
-  /** Theme: 'light' or 'dark' */
-  theme?: 'light' | 'dark';
-  /** Theme toggle callback */
-  onThemeToggle?: () => void;
 }
 
 export default function WizardLayout({
@@ -25,8 +21,6 @@ export default function WizardLayout({
   headerVariant = 'alt',
   className = '',
   children,
-  theme = 'light',
-  onThemeToggle,
 }: WizardLayoutProps) {
   return (
     <GradientBackgroundTailwind 
@@ -35,8 +29,6 @@ export default function WizardLayout({
     >
       <Header 
         variant={headerVariant}
-        theme={theme}
-        onThemeToggle={onThemeToggle}
       />
       {children}
     </GradientBackgroundTailwind>

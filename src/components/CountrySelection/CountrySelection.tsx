@@ -7,7 +7,7 @@ import './CountrySelection.css';
 import { useFormStore } from '../../store/formStore';
 import { useFormNavigation } from '../../hooks/useFormNavigation';
 import { ROUTES } from '../../api/types';
-import ThemeToggle from '../ThemeToggle';
+import WizardLayout from '../WizardLayout';
 
 interface Country {
   name: string;
@@ -38,35 +38,20 @@ const countries: Country[] = [
   { name: "Spain", flagUrl: "/assets/icons/flags/Spain.svg" },
 ];
 
-
-// Profile Icon
-const ProfileIcon = () => (
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M12 12C14.21 12 16 10.21 16 8C16 5.79 14.21 4 12 4C9.79 4 8 5.79 8 8C8 10.21 9.79 12 12 12ZM12 14C9.33 14 4 15.34 4 18V20H20V18C20 15.34 14.67 14 12 14Z" fill="#333"/>
-  </svg>
-);
-
-// Menu Icon
-const MenuIcon = () => (
-  <svg width="20" height="14" viewBox="0 0 20 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M0 14H20V11.67H0V14ZM0 8.17H20V5.83H0V8.17ZM0 0V2.33H20V0H0Z" fill="#333"/>
-  </svg>
-);
-
 // Navigation Arrow Icons
 const LeftArrows = () => (
   <svg width="24" height="12" viewBox="0 0 24 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M7 1L2 6L7 11" stroke="#EE1113" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-    <path d="M14 1L9 6L14 11" stroke="#EE1113" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-    <path d="M21 1L16 6L21 11" stroke="#EE1113" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M7 1L2 6L7 11" stroke="#1E417C" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M14 1L9 6L14 11" stroke="#1E417C" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M21 1L16 6L21 11" stroke="#1E417C" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
   </svg>
 );
 
 const RightArrows = () => (
   <svg width="24" height="12" viewBox="0 0 24 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M17 11L22 6L17 1" stroke="#EE1113" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-    <path d="M10 11L15 6L10 1" stroke="#EE1113" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-    <path d="M3 11L8 6L3 1" stroke="#EE1113" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M17 11L22 6L17 1" stroke="#C22032" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M10 11L15 6L10 1" stroke="#C22032" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M3 11L8 6L3 1" stroke="#C22032" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
   </svg>
 );
 
@@ -95,12 +80,7 @@ const CountryCard = ({ country, isSelected, onSelect }: CountryCardProps) => (
   </button>
 );
 
-interface CountrySelectionProps {
-  theme?: 'light' | 'dark';
-  onThemeToggle?: () => void;
-}
-
-export default function CountrySelection({ theme = 'light', onThemeToggle }: CountrySelectionProps) {
+export default function CountrySelection() {
   const { country, setCountry } = useFormStore();
   const { goToPrevious, canProceed } = useFormNavigation();
   const navigate = useNavigate();
@@ -123,22 +103,7 @@ export default function CountrySelection({ theme = 'light', onThemeToggle }: Cou
   };
 
   return (
-    <div className="page-container">
-      {/* Header */}
-      <header className="country-header">
-        <div className="country-header__logo">
-          <img src="/assets/logo.png" alt="AUN Logo" style={{ height: '34px' }} />
-        </div>
-        <div className="country-header__actions">
-          {onThemeToggle && (
-            <ThemeToggle theme={theme} onToggle={onThemeToggle} />
-          )}
-          <ProfileIcon />
-          <MenuIcon />
-        </div>
-      </header>
-
-      {/* Main Content */}
+    <WizardLayout variant="white" headerVariant="alt">
       <div className="page-wrapper">
         <main className="country-main">
           {/* Navigation Row */}
@@ -174,7 +139,7 @@ export default function CountrySelection({ theme = 'light', onThemeToggle }: Cou
           </div>
         </main>
       </div>
-    </div>
+    </WizardLayout>
   );
 }
 

@@ -17,10 +17,10 @@
   overflow-y: auto;
 }
 
-/* Constrain content width on larger screens while keeping layout fluid */
+/* Allow full width on large screens - pages can opt into constraints individually */
 @media (min-width: 1400px) {
   .page-container {
-    max-width: var(--container-max);
+    max-width: 100%;
   }
 }
 
@@ -385,24 +385,25 @@
 }
 
 /* ============================================
-   PAGE WRAPPER - Full width white background
+   PAGE WRAPPER - Transparent to show background image
    ============================================ */
 .page-wrapper {
   width: 100%;
   min-height: 100vh;
-  background: var(--color-white, #ffffff);
+  background: transparent;
 }
 
 /* ============================================
    APP WRAPPER
    ============================================ */
 .app-wrapper {
+  width: 100%;
   min-height: 100vh;
   display: flex;
   align-items: stretch;
   justify-content: center;
   padding: clamp(0px, 2vw, var(--space-xl)) 0;
-  background-color: var(--color-white);
+  background-color: transparent;
 }
 
 /* Responsive grid improvements for tablet/desktop */

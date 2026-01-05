@@ -6,21 +6,7 @@ import './RecentAcademicsInfo.css';
 import { FloatingInput } from '../FloatingInput';
 import { useFormStore } from '../../store/formStore';
 import { useFormNavigation } from '../../hooks/useFormNavigation';
-import ThemeToggle from '../ThemeToggle';
-
-
-const ProfileIcon = () => (
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <circle cx="12" cy="8" r="4" stroke="#1E417C" strokeWidth="1.5" fill="none"/>
-    <path d="M6 20c0-3.3 2.7-6 6-6s6 2.7 6 6" stroke="#1E417C" strokeWidth="1.5" fill="none"/>
-  </svg>
-);
-
-const MenuIcon = () => (
-  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M4 6h16M4 12h16M4 18h16" stroke="#1E417C" strokeWidth="2" strokeLinecap="round"/>
-  </svg>
-);
+import WizardLayout from '../WizardLayout';
 
 const LeftArrow = () => (
   <svg width="5" height="9" viewBox="0 0 5 9" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -30,7 +16,7 @@ const LeftArrow = () => (
 
 const RightArrow = () => (
   <svg width="5" height="9" viewBox="0 0 5 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M1 1L4 4.5L1 8" stroke="#1E417C" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M1 1L4 4.5L1 8" stroke="#C22032" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
   </svg>
 );
 
@@ -72,12 +58,7 @@ const postgradDegreeTypes = [
   "Others"
 ];
 
-interface RecentAcademicsInfoProps {
-  theme?: 'light' | 'dark';
-  onThemeToggle?: () => void;
-}
-
-export default function RecentAcademicsInfo({ theme = 'light', onThemeToggle }: RecentAcademicsInfoProps) {
+export default function RecentAcademicsInfo() {
   const { academics, setSecondaryAcademics, setHigherSecondaryAcademics, setUndergradAcademics, setPostgradAcademics } = useFormStore();
   const { goToNext, goToPrevious, canProceed } = useFormNavigation();
   
@@ -132,20 +113,7 @@ export default function RecentAcademicsInfo({ theme = 'light', onThemeToggle }: 
   );
 
   return (
-    <div className="page-container">
-      <header className="page-header page-header--alt">
-        <div className="page-header__logo page-header__logo--alt">
-          <img src="/assets/logo.png" alt="AUN Logo" style={{ height: '34px' }} />
-        </div>
-        <div className="page-header__actions page-header__actions--alt">
-          {onThemeToggle && (
-            <ThemeToggle theme={theme} onToggle={onThemeToggle} />
-          )}
-          <button className="page-header__action-btn"><ProfileIcon /></button>
-          <button className="page-header__action-btn"><MenuIcon /></button>
-        </div>
-      </header>
-
+    <WizardLayout variant="white" headerVariant="alt">
       <main className="page-main--alt" style={{ paddingTop: '24px' }}>
         <div className="academics-nav">
           <button className="page-nav-arrow" onClick={goToPrevious}>
@@ -278,7 +246,7 @@ export default function RecentAcademicsInfo({ theme = 'light', onThemeToggle }: 
 
         <div className="academics-divider" />
       </main>
-    </div>
+    </WizardLayout>
   );
 }
 
