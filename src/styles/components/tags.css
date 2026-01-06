@@ -152,7 +152,7 @@
   align-content: center;
   max-width: var(--tag-max-width);
   margin: 0 auto;
-  padding: 0 16px;
+  padding: 0 24px;
 }
 
 @media (min-width: 768px) {
@@ -244,28 +244,16 @@
   justify-content: center;
   padding: 6px 12px;
   border-radius: 9999px;
-  background: rgba(255, 255, 255, 0.7);
-  border: var(--border-tag-default, 1px solid rgba(238, 17, 19, 0.15));
-  backdrop-filter: blur(4px);
-  box-shadow: var(--shadow-tag-inner, inset 0px 0px 6px rgba(194, 32, 50, 0.1));
+  background: transparent;
+  border: 1px solid rgba(0, 0, 0, 0.05);
   transition: all var(--transition-normal);
   cursor: pointer;
-  font-family: var(--font-primary);
+  font-family: 'Poppins', sans-serif;
   font-size: 9px;
-  font-weight: var(--font-medium);
+  font-weight: 400;
   color: var(--color-black);
   white-space: nowrap;
   line-height: normal;
-}
-
-.glass-pill:hover {
-  background: var(--color-primary);
-  border-color: var(--color-primary);
-  color: #FFFFFF;
-}
-
-.glass-pill:active {
-  transform: scale(0.95);
 }
 
 .glass-pill--selected {
@@ -274,15 +262,10 @@
   color: #FFFFFF;
 }
 
-.glass-pill--selected:hover {
-  background: var(--color-primary);
-  border: var(--border-tag-selected, 2px solid #C22032);
-}
-
 .glass-pill__text {
-  font-family: var(--font-primary);
+  font-family: 'Poppins', sans-serif;
   font-size: 9px;
-  font-weight: var(--font-medium);
+  font-weight: 400;
   color: inherit;
   white-space: nowrap;
   line-height: normal;

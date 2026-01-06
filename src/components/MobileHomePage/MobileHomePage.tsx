@@ -2,6 +2,7 @@
 // Responsive implementation matching Figma specs (Mobile-first)
 // Breakpoints: Mobile (base) → Tablet (768px) → Desktop (1280px)
 
+import { useEffect } from 'react';
 import { useFormStore } from '../../store/formStore';
 import { useFormNavigation } from '../../hooks/useFormNavigation';
 import Header from '../Header';
@@ -98,8 +99,14 @@ const StatCard = ({ value, lines, iconPath }: StatCardProps) => (
 );
 
 export default function MobileHomePage() {
-  const { selectedTags, toggleTag } = useFormStore();
+  const { selectedTags, toggleTag, resetStore } = useFormStore();
   const { goToNext } = useFormNavigation();
+
+  // Reset all form state when homepage mounts
+  useEffect(() => {
+    resetStore();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleNext = () => {
     goToNext();
@@ -107,18 +114,18 @@ export default function MobileHomePage() {
 
   return (
     <div className="page-container">
-      {/* Header - Uses responsive CSS custom properties */}
+      {/* Header - Fully responsive with Figma-aligned padding */}
       <Header variant="default" />
 
       {/* Main Content - Responsive container */}
-      <main className="w-full mx-auto px-(--content-padding) tablet:px-[39px] desktop:px-[110px]">
+      <main className="w-full mx-auto px-[22px] tablet:px-[39px] desktop:px-[110px]">
         {/* Tagline Section - Uses Figma-aligned responsive classes */}
-        <section className="text-center mb-10 tablet:mb-20 mt-0">
-          <p className="tagline-figma mx-auto mb-6 tablet:mb-[42px] text-center">
+        <section className="flex flex-col items-center mb-10 tablet:mb-20" style={{ marginTop: 'clamp(40px, 6vh, 80px)', marginBottom: 'clamp(40px, 6vh, 80px)' }}>
+          <p className="tagline-figma mb-6 tablet:mb-[42px]">
             Four Services + One Mission: <strong>Empowering global talent</strong>.
           </p>
           <p 
-            className="subtitle-figma mx-auto text-center"
+            className="subtitle-figma"
             style={{
               background: 'linear-gradient(140.59deg, #EE1113 0.91%, #7403FA 96.74%)',
               WebkitBackgroundClip: 'text',
@@ -131,7 +138,7 @@ export default function MobileHomePage() {
         </section>
 
         {/* Tags Section - Uses CSS custom properties for responsive gap/sizing */}
-        <section className="mb-10 tablet:mb-20">
+        <section className="mb-10 tablet:mb-20" style={{ marginTop: 'clamp(30px, 5vh, 60px)', marginBottom: 'clamp(40px, 6vh, 80px)' }}>
           <div className="tag-container">
             {tags.map((tag, index) => (
               <TagButton 
@@ -144,7 +151,7 @@ export default function MobileHomePage() {
           </div>
           
           {/* Next Button - Figma spec: Red pill button with "Next" text */}
-          <div className="flex justify-center mt-10 tablet:mt-14 mb-0">
+          <div className="flex justify-center" style={{ marginTop: 'clamp(30px, 4vh, 50px)', marginBottom: 'clamp(30px, 4vh, 50px)' }}>
             <button 
               onClick={handleNext} 
               aria-label="Continue to next step"
@@ -156,7 +163,7 @@ export default function MobileHomePage() {
         </section>
 
         {/* Stats Section - Responsive grid: 3 cols mobile/tablet → 9 cols desktop */}
-        <section className="mb-10 tablet:mb-20">
+        <section className="mb-10 tablet:mb-20" style={{ marginTop: 'clamp(40px, 6vh, 80px)', marginBottom: 'clamp(40px, 6vh, 80px)' }}>
           <div className="stats-grid-figma">
             {stats.map((stat, index) => (
               <StatCard 
@@ -170,7 +177,7 @@ export default function MobileHomePage() {
         </section>
 
         {/* Footer - Horizontal layout matching Figma design */}
-        <footer className="text-center pb-6 tablet:pb-10 mt-10 tablet:mt-16">
+        <footer className="text-center pb-6 tablet:pb-10" style={{ marginTop: 'clamp(50px, 8vh, 100px)' }}>
           {/* Links Section - Horizontal on all viewports */}
           <div className="flex flex-wrap justify-center items-center gap-x-6 tablet:gap-x-8 gap-y-3 mb-6 tablet:mb-8 max-w-[1400px] mx-auto px-4">
             {/* Navigation Links */}

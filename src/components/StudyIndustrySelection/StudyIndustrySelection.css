@@ -1,53 +1,52 @@
 /* ============================================
    StudyIndustrySelection Component Styles
-   ============================================
-   Consistent with CountrySelection styling
+   REFACTORED - Using Unified Design Tokens
    ============================================ */
 
 .industry-nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: clamp(28px, 4vw, 50px);
-  padding: 0;
+  width: 100%;
+  max-width: var(--selection-nav-max-width);
+  gap: var(--selection-nav-gap);
+  margin-bottom: var(--selection-section-gap);
 }
 
 .industry-search {
-  padding: 0;
-  margin-bottom: clamp(18px, 3vw, 30px);
+  margin-bottom: var(--selection-content-gap);
 }
 
 .industry-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-  gap: clamp(12px, 2.5vw, 20px) clamp(10px, 2vw, 16px);
+  grid-template-columns: repeat(auto-fit, minmax(8.125rem, 1fr));
+  gap: var(--selection-grid-gap-row) var(--selection-grid-gap-col);
   width: 100%;
-  padding: 0;
-  margin-bottom: clamp(32px, 6vw, 60px);
+  margin-bottom: var(--selection-section-gap);
 }
 
 /* ============================================
-   INDUSTRY CARD - Matching CountrySelection
+   INDUSTRY CARD - Unified Styling
    ============================================ */
 .industry-card {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--space-sm);
-  padding: var(--space-md) var(--space-sm);
+  gap: var(--selection-card-gap);
+  padding: var(--selection-card-padding-block) var(--selection-card-padding-inline);
   border-radius: var(--radius-md);
   cursor: pointer;
   transition: all var(--transition-normal);
   background: transparent;
   border: 2px solid transparent;
-  min-width: 80px;
+  min-width: 5rem;
   position: relative;
 }
 
 .industry-card:hover {
   border: 2px solid transparent;
-  background: linear-gradient(white, white) padding-box,
-              linear-gradient(161.24deg, #EE1113 0.91%, #7403FA 96.74%) border-box;
+  background: linear-gradient(var(--color-white), var(--color-white)) padding-box,
+              var(--gradient-primary) border-box;
   box-shadow: var(--shadow-md);
 }
 
@@ -57,9 +56,9 @@
 
 .industry-card--selected {
   border: 2px solid transparent;
-  background: linear-gradient(white, white) padding-box,
-              linear-gradient(161.24deg, #EE1113 0.91%, #7403FA 96.74%) border-box;
-  box-shadow: 0 0 0 2px rgba(238, 17, 19, 0.1);
+  background: linear-gradient(var(--color-white), var(--color-white)) padding-box,
+              var(--gradient-primary) border-box;
+  box-shadow: 0 0 0 2px rgba(var(--color-primary-rgb), 0.1);
 }
 
 .industry-card--selected .industry-card__name {
@@ -71,8 +70,8 @@
 }
 
 .industry-card__icon {
-  width: 50px;
-  height: 50px;
+  width: 3.125rem;
+  height: 3.125rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -92,10 +91,10 @@
 
 .industry-card__name {
   font-family: var(--font-primary);
-  font-size: var(--text-sm);
-  font-weight: var(--font-semibold);
+  font-size: var(--selection-card-label-size);
+  font-weight: var(--selection-card-label-weight);
+  line-height: var(--selection-card-label-line-height);
   text-align: center;
-  line-height: normal;
   white-space: pre-line;
   color: var(--color-black);
   transition: color var(--transition-normal);

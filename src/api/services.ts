@@ -52,14 +52,13 @@ const mockCountries: Country[] = [
 ];
 
 const mockStudyLevels: StudyLevel[] = [
+  { id: "postgrad", label: "Post Graduation" },
+  { id: "undergrad", label: "Under Graduation" },
   { id: "summer", label: "Summer Programs" },
   { id: "diploma", label: "Diploma" },
-  { id: "undergrad", label: "Under Graduation" },
-  { id: "ug-integrated", label: "UG - Integrated" },
   { id: "pre-masters", label: "Pre Masters" },
-  { id: "postgrad", label: "Post Graduation" },
-  { id: "phd", label: "PhD (Doctor of Philosophy)" },
   { id: "dba", label: "DBA (Doctorate of Business Administration)", multiline: true },
+  { id: "phd", label: "PhD (Doctor of Philosophy)" },
 ];
 
 const mockDegreeTypes: DegreeType[] = [

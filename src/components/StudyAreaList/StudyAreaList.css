@@ -1,41 +1,40 @@
 /* ============================================
    StudyAreaList Component Styles
-   ============================================
-   Consistent with CountrySelection styling
+   REFACTORED - Using Unified Design Tokens
    ============================================ */
 
 .area-nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: clamp(28px, 4vw, 50px);
-  padding: 0;
+  width: 100%;
+  max-width: var(--selection-nav-max-width);
+  gap: var(--selection-nav-gap);
+  margin-bottom: var(--selection-section-gap);
 }
 
 .area-search {
-  padding: 0;
-  margin-bottom: clamp(18px, 3vw, 30px);
+  margin-bottom: var(--selection-content-gap);
 }
 
 .area-list {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  padding: 0;
+  gap: var(--space-md);
   width: 100%;
-  max-width: 520px;
-  margin: 0 auto clamp(32px, 6vw, 60px);
+  max-width: 32.5rem;
+  margin: 0 auto var(--selection-section-gap);
 }
 
 /* ============================================
-   AREA LIST ITEM - Matching consistent style
+   AREA LIST ITEM - Unified Styling
    ============================================ */
 .area-list-item {
   width: 100%;
-  min-height: 44px;
+  min-height: 2.75rem;
   display: flex;
   align-items: center;
-  padding: 12px 20px;
+  padding: var(--space-md) var(--space-xl);
   border-radius: var(--radius-full);
   background: transparent;
   border: 1px solid var(--color-primary-light);
@@ -44,12 +43,12 @@
 }
 
 .area-list-item:hover {
-  background: #C22032;
-  border-color: #C22032;
+  background: var(--color-primary);
+  border-color: var(--color-primary);
 }
 
 .area-list-item:hover .area-list-item__text {
-  color: #FFFFFF;
+  color: var(--color-white);
 }
 
 .area-list-item:active {
@@ -57,21 +56,22 @@
 }
 
 .area-list-item--selected {
-  background: #C22032;
-  border-color: #C22032;
-  box-shadow: 0 0 0 2px #C22032;
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px var(--color-primary);
 }
 
 .area-list-item--selected .area-list-item__text {
-  color: #FFFFFF;
+  color: var(--color-white);
 }
 
 .area-list-item__text {
   font-family: var(--font-primary);
-  font-size: var(--text-sm);
-  font-weight: var(--font-semibold);
+  font-size: var(--selection-card-label-size);
+  font-weight: var(--selection-card-label-weight);
   text-align: left;
   color: var(--color-black);
+  transition: color var(--transition-normal);
 }
 
 /* ============================================
@@ -79,11 +79,10 @@
    ============================================ */
 .area-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-  gap: 16px;
-  padding: 0;
+  grid-template-columns: repeat(auto-fill, minmax(8.75rem, 1fr));
+  gap: var(--space-lg);
   width: 100%;
-  margin: 0 auto clamp(32px, 6vw, 60px);
+  margin: 0 auto var(--selection-section-gap);
 }
 
 .area-card {
@@ -91,36 +90,36 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 20px 12px;
-  background: #FFFFFF;
-  border: 1.5px solid #E5E5E5;
-  border-radius: 12px;
+  padding: var(--space-xl) var(--space-md);
+  background: var(--color-white);
+  border: 1.5px solid var(--color-gray-200);
+  border-radius: var(--radius-lg);
   cursor: pointer;
   transition: all var(--transition-normal);
-  min-height: 140px;
+  min-height: 8.75rem;
   position: relative;
 }
 
 .area-card:hover {
-  border-color: #C22032;
-  box-shadow: 0 4px 12px rgba(194, 32, 50, 0.1);
+  border-color: var(--color-primary);
+  box-shadow: 0 4px 12px rgba(var(--color-primary-rgb), 0.1);
   transform: translateY(-2px);
 }
 
 .area-card--selected {
-  border-color: #C22032;
+  border-color: var(--color-primary);
   border-width: 2px;
-  background: rgba(194, 32, 50, 0.05);
-  box-shadow: 0 0 0 2px rgba(194, 32, 50, 0.2);
+  background: rgba(var(--color-primary-rgb), 0.05);
+  box-shadow: 0 0 0 2px rgba(var(--color-primary-rgb), 0.2);
 }
 
 .area-card__icon {
-  width: 40px;
-  height: 40px;
+  width: 2.5rem;
+  height: 2.5rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 12px;
+  margin-bottom: var(--space-md);
 }
 
 .area-card__icon img {
@@ -131,39 +130,35 @@
 
 .area-card__name {
   font-family: var(--font-primary);
-  font-size: 13px;
-  font-weight: var(--font-semibold);
+  font-size: var(--selection-card-label-size);
+  font-weight: var(--selection-card-label-weight);
+  line-height: var(--leading-snug);
   text-align: center;
   color: var(--color-black);
-  line-height: 1.3;
   word-wrap: break-word;
   hyphens: auto;
 }
 
 .area-subtitle {
-  margin-bottom: 1rem;
+  margin-bottom: var(--space-lg);
 }
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .area-grid {
-    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-    gap: 12px;
+    grid-template-columns: repeat(auto-fill, minmax(7.5rem, 1fr));
+    gap: var(--space-md);
   }
 
   .area-card {
-    min-height: 120px;
-    padding: 16px 10px;
+    min-height: 7.5rem;
+    padding: var(--space-lg) var(--space-sm);
   }
 
   .area-card__icon {
-    width: 32px;
-    height: 32px;
-    margin-bottom: 8px;
-  }
-
-  .area-card__name {
-    font-size: 12px;
+    width: 2rem;
+    height: 2rem;
+    margin-bottom: var(--space-sm);
   }
 }
 

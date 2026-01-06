@@ -1,0 +1,68 @@
+/* ============================================
+   NAVIGATION ARROWS - GLOBAL COMPONENT
+   Consistent styling for <<< >>> arrows across all pages
+   ============================================ */
+
+.nav-arrow-btn {
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin: 0;
+  transition: opacity var(--transition-fast), transform var(--transition-fast);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-arrow-btn:hover:not(:disabled) {
+  opacity: 0.7;
+  transform: scale(1.05);
+}
+
+.nav-arrow-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.nav-arrow-btn:active:not(:disabled) {
+  transform: scale(0.95);
+}
+
+/* SVG sizing - responsive */
+.nav-arrows-svg {
+  width: 50px;
+  height: 19px;
+  display: block;
+}
+
+/* Mobile adjustments */
+@media (max-width: 767px) {
+  .nav-arrows-svg {
+    width: 40px;
+    height: 15px;
+  }
+  
+  .nav-arrow-btn {
+    min-width: 40px;
+    min-height: 20px;
+  }
+}
+
+/* Tablet adjustments */
+@media (min-width: 768px) and (max-width: 1279px) {
+  .nav-arrows-svg {
+    width: 45px;
+    height: 17px;
+  }
+}
+
+/* Desktop - full size */
+@media (min-width: 1280px) {
+  .nav-arrows-svg {
+    width: 50px;
+    height: 19px;
+  }
+}
+

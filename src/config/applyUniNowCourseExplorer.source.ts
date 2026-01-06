@@ -222,14 +222,14 @@ export const applyUniNowCourseExplorerSource = {
           inputType: 'single-select-tabs',
           field: { name: 'studyLevel', type: 'string' },
           options: [
+            { id: 'postgrad', value: 'post-graduation', label: 'Post Graduation' },
+            { id: 'undergrad', value: 'under-graduation', label: 'Under Graduation' },
             { id: 'summer', value: 'summer-programs', label: 'Summer Programs' },
             { id: 'diploma', value: 'diploma', label: 'Diploma' },
-            { id: 'undergrad', value: 'under-graduation', label: 'Under Graduation' },
-            { id: 'ug-integrated', value: 'ug-integrated', label: 'UG - Integrated' },
             { id: 'pre-masters', value: 'pre-masters', label: 'Pre Masters' },
-            { id: 'postgrad', value: 'post-graduation', label: 'Post Graduation', default: true },
-            { id: 'phd', value: 'phd', label: 'PhD (Doctor of Philosophy)' },
             { id: 'dba', value: 'dba', label: 'DBA (Doctorate of Business Administration)', multiline: true },
+            { id: 'phd', value: 'phd', label: 'PhD (Doctor of Philosophy)' },
+            { id: 'ug-integrated', value: 'ug-integrated', label: 'UG - Integrated' },
           ],
         },
         {
@@ -264,7 +264,7 @@ export const applyUniNowCourseExplorerSource = {
             'under-graduation': [
               { id: 'bsc', value: 'bsc', label: 'BSC - Bachelor of Science' },
               { id: 'ba', value: 'ba', label: 'BA - Bachelor of Arts' },
-              { id: 'llb', value: 'llb', label: 'LLB - Bachelor of Laws' },
+              { id: 'bl', value: 'bl', label: 'BL - Bachelor of Laws' },
               { id: 'be', value: 'be', label: 'BE - Bachelor of Engineering' },
               { id: 'bba', value: 'bba', label: 'BBA - Bachelor of Business Administration' },
               { id: 'associate', value: 'associate', label: 'Associate Degree' },

@@ -1,6 +1,8 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { useEffect } from 'react';
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { ROUTES } from './api/types';
 import { BackgroundImage } from './components/BackgroundImage';
+import { useFormStore } from './store/formStore';
 
 // Import all page components
 import MobileHomePage from './components/MobileHomePage';
@@ -15,10 +17,27 @@ import TestPreferences from './components/TestPreferences';
 import ContactInfo from './components/ContactInfo/ContactInfo';
 import ThankYou from './components/ThankYou';
 
+// Route change listener to reset state when navigating to homepage
+function RouteListener() {
+  const location = useLocation();
+  const resetStore = useFormStore((state) => state.resetStore);
+
+  useEffect(() => {
+    // Reset store when navigating to homepage
+    if (location.pathname === '/' || location.pathname === '/home') {
+      resetStore();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [location.pathname]);
+
+  return null;
+}
+
 // Wrapper component to provide consistent layout
 function AppContent() {
   return (
     <BackgroundImage variant="pastel-mountains">
+      <RouteListener />
       <div className="app-wrapper">
         <Routes>
           <Route path={ROUTES.HOME} element={<MobileHomePage />} />

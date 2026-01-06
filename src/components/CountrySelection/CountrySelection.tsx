@@ -1,5 +1,5 @@
 // Country Selection Screen Component
-// Refactored with separate CSS file
+// Viewport-responsive design with consistent navigation
 
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -8,6 +8,7 @@ import { useFormStore } from '../../store/formStore';
 import { useFormNavigation } from '../../hooks/useFormNavigation';
 import { ROUTES } from '../../api/types';
 import WizardLayout from '../WizardLayout';
+import { LeftArrows, RightArrows } from '../NavigationArrows';
 
 interface Country {
   name: string;
@@ -37,23 +38,6 @@ const countries: Country[] = [
   { name: "Singapore", flagUrl: "/assets/icons/flags/Singapore.svg" },
   { name: "Spain", flagUrl: "/assets/icons/flags/Spain.svg" },
 ];
-
-// Navigation Arrow Icons
-const LeftArrows = () => (
-  <svg width="24" height="12" viewBox="0 0 24 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M7 1L2 6L7 11" stroke="#1E417C" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-    <path d="M14 1L9 6L14 11" stroke="#1E417C" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-    <path d="M21 1L16 6L21 11" stroke="#1E417C" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-  </svg>
-);
-
-const RightArrows = () => (
-  <svg width="24" height="12" viewBox="0 0 24 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M17 11L22 6L17 1" stroke="#C22032" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-    <path d="M10 11L15 6L10 1" stroke="#C22032" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-    <path d="M3 11L8 6L3 1" stroke="#C22032" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-  </svg>
-);
 
 // Country Card Component
 interface CountryCardProps {
@@ -104,41 +88,40 @@ export default function CountrySelection() {
 
   return (
     <WizardLayout variant="white" headerVariant="alt">
-      <div className="page-wrapper">
-        <main className="country-main">
-          {/* Navigation Row */}
-          <div className="country-nav-row">
-            <button className="country-nav-arrow" onClick={goToPrevious}>
-              <LeftArrows />
-            </button>
-            <h1 className="country-page-title">Choose Your Country</h1>
-            <button 
-              className="country-nav-arrow"
-              onClick={handleNext}
-              disabled={!canProceed}
-            >
-              <RightArrows />
-            </button>
-          </div>
+      <main className="country-main">
+        {/* Navigation Row with Title and Arrows - Consistent styling */}
+        <div className="country-nav-row">
+          <button className="nav-arrow-btn nav-arrow-btn--left" onClick={goToPrevious} aria-label="Previous page">
+            <LeftArrows />
+          </button>
+          <h1 className="country-page-title">Choose Your Country</h1>
+          <button 
+            className="nav-arrow-btn nav-arrow-btn--right"
+            onClick={handleNext}
+            disabled={!canProceed}
+            aria-label="Next page"
+          >
+            <RightArrows />
+          </button>
+        </div>
 
-          {/* Country Grid */}
-          <div className="country-grid">
-            {countries.map((c, index) => (
-              <CountryCard 
-                key={index} 
-                country={c}
-                isSelected={country === c.name}
-                onSelect={() => handleCountrySelect(c.name)}
-              />
-            ))}
-          </div>
+        {/* Country Grid - Viewport responsive (3-6 columns) */}
+        <div className="country-grid">
+          {countries.map((c, index) => (
+            <CountryCard 
+              key={index} 
+              country={c}
+              isSelected={country === c.name}
+              onSelect={() => handleCountrySelect(c.name)}
+            />
+          ))}
+        </div>
 
-          {/* Divider */}
-          <div className="country-divider-container">
-            <div className="country-divider" />
-          </div>
-        </main>
-      </div>
+        {/* Bottom Divider - Responsive width */}
+        <div className="country-divider-container">
+          <div className="country-divider" />
+        </div>
+      </main>
     </WizardLayout>
   );
 }

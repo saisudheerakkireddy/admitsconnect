@@ -1,165 +1,103 @@
 /* ============================================
    CountrySelection Component Styles
+   REFACTORED - Using Unified Design Tokens
    ============================================ */
 
 /* ============================================
-   HEADER
-   ============================================ */
-.country-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: var(--header-padding-top) var(--content-padding) var(--header-padding-bottom);
-}
-
-.country-header__logo {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.country-header__logo img {
-  height: 34px;
-  width: auto;
-}
-
-.country-header__logo-text {
-  font-family: var(--font-accent);
-  font-size: var(--text-xl);
-  color: var(--color-secondary);
-  line-height: normal;
-}
-
-.country-header__actions {
-  display: flex;
-  align-items: center;
-  gap: 18px;
-}
-
-/* ============================================
-   MAIN CONTENT
+   MAIN CONTENT CONTAINER
    ============================================ */
 .country-main {
   display: flex;
+  flex-direction: column;
+  align-items: center;
   width: 100%;
   max-width: 100%;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: clamp(28px, 4vw, 50px);
-  margin-left: auto;
-  margin-right: auto;
-  padding: var(--space-xl) var(--content-padding) var(--space-3xl);
-  /* Wrapper handles background - no background here */
-}
-
-/* Allow content to span full width on large screens for fluid responsiveness */
-@media (min-width: 1200px) {
-  .country-main {
-    max-width: 100%;
-    padding-left: clamp(32px, 5vw, 80px);
-    padding-right: clamp(32px, 5vw, 80px);
-  }
+  min-height: calc(100vh - 7.5rem);
+  margin: 0 auto;
+  padding: var(--selection-page-padding-block) var(--selection-page-padding-inline);
+  gap: var(--selection-page-gap);
 }
 
 /* ============================================
-   NAVIGATION ROW
+   NAVIGATION ROW (Title + Arrows)
    ============================================ */
 .country-nav-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  max-width: 100%;
-  padding: 0;
-  gap: clamp(8px, 2vw, 16px);
+  max-width: var(--selection-nav-max-width);
+  gap: var(--selection-nav-gap);
 }
 
-.country-nav-arrow {
-  cursor: pointer;
-  background: transparent;
-  border: none;
-  padding: var(--space-sm);
-  transition: opacity var(--transition-fast);
-  flex-shrink: 0;
-}
-
-.country-nav-arrow:hover:not(:disabled) {
-  opacity: 0.7;
-}
-
-.country-nav-arrow:disabled {
-  opacity: 0.3;
-  cursor: not-allowed;
-}
-
+/* Page Title - Gradient styling */
 .country-page-title {
-  font-family: var(--font-primary);
-  font-size: var(--text-base);
-  font-weight: var(--font-semibold);
-  text-align: center;
-  line-height: normal;
   flex: 1;
   min-width: 0;
-  background: linear-gradient(161.24deg, #EE1113 0%, #7403FA 100%);
+  margin: 0;
+  padding: 0 var(--selection-title-padding-inline);
+  
+  font-family: var(--font-primary);
+  font-size: var(--selection-title-size);
+  font-weight: var(--selection-title-weight);
+  line-height: var(--selection-title-line-height);
+  text-align: center;
+  letter-spacing: var(--tracking-wide);
+  
+  background: var(--gradient-primary);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
 /* ============================================
-   COUNTRY GRID
+   COUNTRY GRID - Responsive Layout
+   Mobile: 3 cols → Tablet: 4 cols → Desktop: 6 cols
    ============================================ */
 .country-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
-  gap: clamp(18px, 3vw, 30px) clamp(10px, 2vw, 20px);
+  grid-template-columns: repeat(
+    var(--selection-grid-columns), 
+    minmax(var(--selection-grid-item-min), var(--selection-grid-item-max))
+  );
+  gap: var(--selection-grid-gap-row) var(--selection-grid-gap-col);
   width: 100%;
-  max-width: 100%;
-  padding: 0;
-  justify-items: center;
-}
-
-/* Ensure grid adapts smoothly across all viewports */
-@media (min-width: 640px) {
-  .country-grid {
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-  }
-}
-
-@media (min-width: 1024px) {
-  .country-grid {
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-    max-width: 100%;
-    margin: 0 auto;
-  }
+  max-width: var(--selection-grid-max-width);
+  justify-content: center;
+  align-items: start;
 }
 
 /* ============================================
-   COUNTRY CARD
+   COUNTRY CARD - Interactive Element
    ============================================ */
 .country-card {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--space-sm);
-  padding: clamp(10px, 2vw, 12px) clamp(6px, 1.5vw, 8px);
-  border-radius: var(--radius-md);
-  cursor: pointer;
-  transition: all var(--transition-normal);
+  gap: var(--selection-card-gap);
+  padding: var(--selection-card-padding-block) 
+           var(--selection-card-padding-inline)
+           calc(var(--selection-card-padding-block) + 0.25rem);
+  
+  width: 100%;
+  min-height: clamp(5.9375rem, 15vh, 7.5rem);
+  
   background: transparent;
   border: none;
-  width: 100%;
-  max-width: 160px;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  
+  transition: all var(--transition-normal);
 }
 
 .country-card:hover {
-  background: #C22032;
+  background: var(--color-primary);
   box-shadow: var(--shadow-md);
 }
 
-.country-card:hover .country-card__name {
-  color: #FFFFFF;
+.country-card:hover .country-card__name,
+.country-card--selected .country-card__name {
+  color: var(--color-white);
 }
 
 .country-card:active {
@@ -167,40 +105,40 @@
 }
 
 .country-card--selected {
-  background: #C22032;
-  box-shadow: 0 0 0 2px #C22032;
+  background: var(--color-primary);
+  box-shadow: 0 0 0 2px var(--color-primary);
 }
 
-.country-card--selected .country-card__name {
-  color: #FFFFFF;
-}
-
+/* Country Flag Container */
 .country-card__flag {
-  width: clamp(45px, 10vw, 57px);
-  height: clamp(42px, 9vw, 54px);
+  width: clamp(3.25rem, 8vw, 4rem);
+  height: clamp(3.125rem, 7.5vw, 3.75rem);
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
 }
 
 .country-card__flag img {
   max-width: 100%;
   max-height: 100%;
   object-fit: contain;
+  border-radius: var(--radius-sm);
 }
 
+/* Country Name */
 .country-card__name {
-  font-family: var(--font-primary);
-  font-size: var(--text-sm);
-  font-weight: var(--font-bold);
+  font-family: 'Poppins', sans-serif;
+  font-size: var(--selection-card-label-size);
+  font-weight: 500;
+  line-height: var(--selection-card-label-line-height);
   text-align: center;
-  line-height: normal;
   color: var(--color-black);
+  padding: 0 var(--selection-card-label-padding);
+  margin: 0;
   word-break: break-word;
-}
-
-.country-card--selected .country-card__name {
-  color: #FFFFFF;
+  
+  transition: color var(--transition-normal);
 }
 
 /* ============================================
@@ -210,69 +148,21 @@
   display: flex;
   justify-content: center;
   width: 100%;
+  margin-top: auto;
 }
 
 .country-divider {
-  width: clamp(280px, 45vw, 520px);
+  width: min(85%, 32.5rem);
   height: 1px;
   background: var(--gradient-divider);
 }
 
 /* ============================================
-   RESPONSIVE BREAKPOINTS
+   RESPONSIVE ENHANCEMENTS
+   Grid system controlled by CSS variables in variables.css
+   Breakpoints: Mobile (default) → Tablet (768px) → Desktop (1280px)
    ============================================ */
 
-/* Mobile (up to 480px) */
-@media (max-width: 480px) {
-  .country-grid {
-    grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
-    gap: clamp(14px, 2.5vw, 18px) clamp(8px, 1.5vw, 12px);
-  }
-
-  .country-card {
-    padding: 10px 6px;
-  }
-
-  .country-card__flag {
-    width: 45px;
-    height: 42px;
-  }
-
-  .country-page-title {
-    font-size: clamp(11px, 2.5vw, var(--text-base));
-  }
-}
-
-/* Tablet (481px to 768px) */
-@media (min-width: 481px) and (max-width: 768px) {
-  .country-grid {
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-    gap: clamp(16px, 2.8vw, 24px) clamp(10px, 1.8vw, 16px);
-  }
-
-  .country-card {
-    max-width: 140px;
-  }
-}
-
-/* Desktop (769px and up) */
-@media (min-width: 769px) {
-  .country-main {
-    padding: var(--space-2xl) var(--content-padding) var(--space-4xl);
-  }
-
-  .country-grid {
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-    gap: 30px 20px;
-  }
-
-  .country-card {
-    padding: 12px 8px;
-  }
-
-  .country-card__flag {
-    width: 57px;
-    height: 54px;
-  }
-}
+/* All responsive adjustments handled by CSS variables */
+/* See variables.css for --selection-grid-* token definitions */
 

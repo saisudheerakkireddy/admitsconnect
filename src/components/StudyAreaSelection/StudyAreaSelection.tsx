@@ -1,6 +1,7 @@
 // Study Area Selection Screen Component
 // Refactored with separate CSS file
 
+import { useEffect } from 'react';
 import './StudyAreaSelection.css';
 import { useFormStore } from '../../store/formStore';
 import { useFormNavigation } from '../../hooks/useFormNavigation';
@@ -12,26 +13,51 @@ interface StudyOption {
 }
 
 const studyLevels: StudyOption[] = [
+  { label: "Post Graduation" },
+  { label: "Under Graduation" },
   { label: "Summer Programs" },
   { label: "Diploma" },
-  { label: "Under Graduation" },
-  { label: "UG - Integrated" },
   { label: "Pre Masters" },
-  { label: "Post Graduation" },
+  { label: "DBA (Doctorate of Business Administration)", multiline: true },
   { label: "PhD (Doctor of Philosophy)" },
-  { label: "DBA (Doctorate of\nBusiness Administration)", multiline: true },
+  { label: "UG - Integrated" },
 ];
 
-const degreeTypes: StudyOption[] = [
+// Degree types for Under Graduation (Bachelor's degrees)
+const undergradDegreeTypes: StudyOption[] = [
   { label: "BSC - Bachelor of Science" },
   { label: "BA - Bachelor of Arts" },
-  { label: "BBA - Bachelor of Laws" },
+  { label: "BL - Bachelor of Laws" },
   { label: "BE - Bachelors of Engineering" },
   { label: "BBA - Bachelor of Business Administration" },
   { label: "Associate Degree" },
   { label: "Academy Profession" },
   { label: "Advanced Diploma" },
   { label: "Joint Programs" },
+];
+
+// Degree types for Post Graduation (Master's degrees)
+const postgradDegreeTypes: StudyOption[] = [
+  { label: "MSc - Master of Science" },
+  { label: "M.Ph - Master of Philosophy" },
+  { label: "MBA - Masters of Business Administration" },
+  { label: "PhD - Doctor of Philosophy" },
+  { label: "Doctorate - Academics General" },
+  { label: "MA - Master of Arts" },
+  { label: "Postgraduate certificate" },
+  { label: "Graduate diploma" },
+  { label: "M.Res - Master of Research" },
+  { label: "M.Ed - Master of Education" },
+  { label: "LLM - Master of Laws" },
+  { label: "M.Arch - Master of Architecture" },
+  { label: "Postgraduate Certificate in Education" },
+  { label: "MEng - Master of Engineering" },
+  { label: "MEM - Masters of Engineering Management" },
+  { label: "MFA - Master of Fine Arts" },
+  { label: "MSW - Master of Social Work" },
+  { label: "Master of Business" },
+  { label: "M.D. - Doctor of Medicine" },
+  { label: "M.Fin/MiF/MFiN - Master of Finance" },
 ];
 
 const LeftArrows = () => (
@@ -71,6 +97,39 @@ export default function StudyAreaSelection() {
   const { studyLevel, degreeType, setStudyLevel, setDegreeType } = useFormStore();
   const { goToNext, goToPrevious, canProceed } = useFormNavigation();
 
+  // Determine if degree type selection should be shown
+  const shouldShowDegreeType = studyLevel === 'Under Graduation' || studyLevel === 'Post Graduation';
+  
+  // Get appropriate degree types based on study level
+  const degreeTypes = studyLevel === 'Under Graduation' 
+    ? undergradDegreeTypes 
+    : studyLevel === 'Post Graduation'
+    ? postgradDegreeTypes
+    : [];
+
+  // Auto-navigate when study level that doesn't require degree type is selected
+  useEffect(() => {
+    if (studyLevel && !shouldShowDegreeType) {
+      // Clear degree type if not needed
+      if (degreeType) {
+        setDegreeType('');
+      }
+      // Auto-advance after brief delay for visual feedback
+      const timer = setTimeout(() => {
+        goToNext();
+      }, 300);
+      return () => clearTimeout(timer);
+    }
+  }, [studyLevel, shouldShowDegreeType, degreeType, setDegreeType, goToNext]);
+
+  const handleStudyLevelSelect = (label: string) => {
+    setStudyLevel(label);
+    // Clear degree type when changing study level
+    if (degreeType) {
+      setDegreeType('');
+    }
+  };
+
   const handleNext = () => {
     if (canProceed) {
       goToNext();
@@ -85,7 +144,7 @@ export default function StudyAreaSelection() {
             <button className="page-nav-arrow" onClick={goToPrevious}>
               <LeftArrows />
             </button>
-            <h1 className="page-title">Choose Your Study Level</h1>
+            <h1 className="page-title">Choose the Study Level</h1>
             <button 
               className="page-nav-arrow"
               onClick={handleNext}
@@ -101,25 +160,27 @@ export default function StudyAreaSelection() {
                 key={index} 
                 option={option}
                 isSelected={studyLevel === option.label}
-                onSelect={() => setStudyLevel(option.label)}
+                onSelect={() => handleStudyLevelSelect(option.label)}
               />
             ))}
           </div>
         </section>
 
-        <section className="degree-section">
-          <h2 className="degree-section__title">Choose the Degree Type</h2>
-          <div className="study-pills-container">
-            {degreeTypes.map((option, index) => (
-              <PillButton 
-                key={index} 
-                option={option}
-                isSelected={degreeType === option.label}
-                onSelect={() => setDegreeType(option.label)}
-              />
-            ))}
-          </div>
-        </section>
+        {shouldShowDegreeType && (
+          <section className="degree-section">
+            <h2 className="degree-section__title">Choose the Degree Type</h2>
+            <div className="study-pills-container">
+              {degreeTypes.map((option, index) => (
+                <PillButton 
+                  key={index} 
+                  option={option}
+                  isSelected={degreeType === option.label}
+                  onSelect={() => setDegreeType(option.label)}
+                />
+              ))}
+            </div>
+          </section>
+        )}
 
         <div className="page-divider-container">
           <div className="page-divider" />

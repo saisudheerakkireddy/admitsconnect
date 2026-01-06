@@ -130,6 +130,7 @@ interface FormActions {
   // Utilities
   getApplicationData: () => StudentApplication;
   resetForm: () => void;
+  resetStore: () => void;
   canProceedFromStep: (sourceStep: number) => boolean;
   canProceedToStep: (targetStep: number) => boolean;
 }
@@ -261,6 +262,14 @@ export const useFormStore = create<FormState & FormActions>()(
       // Reset form to initial state
       resetForm: () => set({ ...initialState }),
       
+      // Reset store completely - clears state AND localStorage
+      resetStore: () => {
+        // Remove from localStorage first to prevent persist middleware from saving partial state
+        localStorage.removeItem('admits-connect-form');
+        // Then reset the state
+        set({ ...initialState }, true); // Pass true to replace state completely
+      },
+      
       // Validation for step navigation
       // Takes the current step (source) to validate before proceeding to next
       canProceedFromStep: (sourceStep: number): boolean => {
@@ -273,7 +282,16 @@ export const useFormStore = create<FormState & FormActions>()(
           case 1: // Country
             return !!state.country;
           case 2: // Study Level
-            return !!state.studyLevel && !!state.degreeType;
+            // Degree type only required for Under Graduation and Post Graduation
+            const requiresDegreeType = 
+              state.studyLevel === 'Under Graduation' || 
+              state.studyLevel === 'Post Graduation';
+            
+            if (requiresDegreeType) {
+              return !!state.studyLevel && !!state.degreeType;
+            } else {
+              return !!state.studyLevel;
+            }
           case 3: // Intake
             return !!state.intake && !!state.intakeYear && !!state.studyDuration;
           case 4: // Industry

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useFormStore } from '../../store/formStore';
 import ProfileIconSvg from '../../assets/Header_Icons/Profile icon 1.svg';
 import MenuIconSvg from '../../assets/Header_Icons/Vector.svg';
 
@@ -16,6 +17,21 @@ const CloseIcon: React.FC<{ className?: string; onClick?: () => void }> = ({ cla
   </svg>
 );
 
+// View Mode Toggle (Light/Dark Mode) - matches Figma specs
+const ViewModeToggle: React.FC<{ className?: string; onClick?: () => void }> = ({ className, onClick }) => (
+  <button 
+    className={`relative ${className}`}
+    onClick={onClick}
+    aria-label="Toggle theme"
+  >
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
+      {/* Sun icon for light mode */}
+      <circle cx="12" cy="12" r="4" fill="#000" />
+      <path d="M12 1v3M12 20v3M22.5 12h-3M4.5 12h-3M19.778 4.222l-2.121 2.121M6.343 17.657l-2.121 2.121M19.778 19.778l-2.121-2.121M6.343 6.343L4.222 4.222" stroke="#000" strokeWidth="2" strokeLinecap="round"/>
+    </svg>
+  </button>
+);
+
 interface HeaderProps {
   variant?: 'default' | 'alt';
   className?: string;
@@ -26,9 +42,11 @@ const Header: React.FC<HeaderProps> = ({
   className = ''
 }) => {
   const navigate = useNavigate();
+  const { resetStore } = useFormStore();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const handleLogoClick = () => {
+    resetStore();
     navigate('/');
   };
 
@@ -39,10 +57,7 @@ const Header: React.FC<HeaderProps> = ({
   return (
     <>
       <header className={`
-        flex items-center justify-between
-        pt-[20px] tablet:pt-[35px]
-        px-4 tablet:px-[39px]
-        pb-3 tablet:pb-4
+        header-figma
         ${className}
       `}>
         {/* Logo - clickable to go home */}
@@ -53,28 +68,32 @@ const Header: React.FC<HeaderProps> = ({
           <img 
             src="/assets/AUN Logo.svg" 
             alt="AUN Logo" 
-            className="h-[34px] w-auto" 
+            className="header-logo-figma" 
           />
-          <span className="font-accent text-xl text-secondary">One</span>
+          <span className="header-one-text-figma">One</span>
         </div>
         
         {/* Actions */}
-        <div className="flex items-center gap-[18px]">
+        <div className="flex items-center gap-[14px] tablet:gap-[18px] desktop:gap-[24px]">
           <img 
             src={ProfileIconSvg} 
             alt="Profile" 
-            className="w-[15px] h-[15px] cursor-pointer" 
+            className="header-profile-icon-figma cursor-pointer" 
+          />
+          <ViewModeToggle 
+            className="header-view-mode-toggle-figma cursor-pointer" 
+            onClick={() => {/* TODO: Implement theme toggle */}}
           />
           {isMenuOpen ? (
             <CloseIcon 
-              className="w-[15px] h-[15px] cursor-pointer" 
+              className="header-menu-icon-figma cursor-pointer" 
               onClick={toggleMenu} 
             />
           ) : (
             <img 
               src={MenuIconSvg} 
               alt="Menu" 
-              className="w-[15px] h-[10px] cursor-pointer" 
+              className="header-menu-icon-figma cursor-pointer" 
               onClick={toggleMenu}
             />
           )}

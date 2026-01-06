@@ -1,53 +1,13 @@
+/* ============================================
+   GOOGLE FONTS IMPORT
+   ============================================ */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Comfortaa:wght@400;700&family=Audiowide&display=swap');
+
 @import "tailwindcss";
 @import "./styles/variables.css";
 @import "./styles/components/tags.css";
 @import "./styles/components/buttons.css";
 @import "./styles/components/cards.css";
-
-/* ============================================
-   FONT FACE DECLARATIONS
-   ============================================ */
-@font-face {
-  font-family: 'Comfortaa';
-  src: url('https://fonts.gstatic.com/s/comfortaa/v46/1Pt_g8LJRfWJmhDAuUsSQamb1W0lwk4S4WjMPrQVIT9c2c8.woff2') format('woff2');
-  font-weight: 400;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Comfortaa';
-  src: url('https://fonts.gstatic.com/s/comfortaa/v46/1Pt_g8LJRfWJmhDAuUsSQamb1W0lwk4S4Y_LPrQVIT9c2c8.woff2') format('woff2');
-  font-weight: 700;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Poppins';
-  src: url('https://fonts.gstatic.com/s/poppins/v21/pxiEyp8kv8JHgFVrFJA.woff2') format('woff2');
-  font-weight: 400;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Poppins';
-  src: url('https://fonts.gstatic.com/s/poppins/v21/pxiByp8kv8JHgFVrLGT9V1s.woff2') format('woff2');
-  font-weight: 600;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Poppins';
-  src: url('https://fonts.gstatic.com/s/poppins/v21/pxiByp8kv8JHgFVrLCz7V1s.woff2') format('woff2');
-  font-weight: 700;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Audiowide';
-  src: url('https://fonts.gstatic.com/s/audiowide/v20/l7gdbjpo0cum0ckerWCdmA.woff2') format('woff2');
-  font-weight: 400;
-  font-style: normal;
-}
 
 /* ============================================
    GLOBAL STYLES
@@ -184,7 +144,7 @@ body {
     align-content: center;
     max-width: var(--tag-max-width);
     margin: 0 auto;
-    padding: 0 16px;
+    padding: 0 auto;
   }
   
   @media (min-width: 768px) {
@@ -204,23 +164,23 @@ body {
      Red pill-shaped button with "Next" text
      ============================================ */
   .btn-next-figma {
-    min-width: 120px;
+    min-width: 100px;
     width: auto;
-    height: 44px;
-    padding: 12px 40px;
+    height: 38px;
+    padding: 10px 32px;
     font-family: var(--font-button);
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 500;
     background-color: #C22032;
     color: #FFFFFF;
-    border-radius: 29px;
+    border-radius: 25px;
     border: none;
     cursor: pointer;
     transition: all 200ms ease;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.3px;
   }
   
   .btn-next-figma:hover {
@@ -236,10 +196,20 @@ body {
   /* Mobile size adjustments */
   @media (max-width: 767px) {
     .btn-next-figma {
-      min-width: 100px;
-      height: 38px;
-      padding: 10px 32px;
-      font-size: 13px;
+      min-width: 90px;
+      height: 34px;
+      padding: 8px 28px;
+      font-size: 12px;
+    }
+  }
+  
+  /* Tablet size */
+  @media (min-width: 768px) and (max-width: 1279px) {
+    .btn-next-figma {
+      min-width: 110px;
+      height: 40px;
+      padding: 10px 36px;
+      font-size: 14px;
     }
   }
   
@@ -281,19 +251,132 @@ body {
   /* ============================================
      RESPONSIVE HEADER (Figma Specs)
      ============================================ */
+  .header-figma {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 37px;
+    padding-bottom: 12px;
+    padding-left: 22px;
+    padding-right: 22px;
+    width: 100%;
+  }
+  
+  @media (min-width: 768px) {
+    .header-figma {
+      padding-top: 39px;
+      padding-bottom: 16px;
+      padding-left: 39px;
+      padding-right: 39px;
+    }
+  }
+  
+  @media (min-width: 1280px) {
+    .header-figma {
+      padding-top: 86px;
+      padding-bottom: 20px;
+      padding-left: 110px;
+      padding-right: 110px;
+    }
+  }
+  
   .header-logo-figma {
-    width: var(--header-logo-width);
-    height: var(--header-logo-height);
+    width: 31px;
+    height: 30px;
+    object-fit: contain;
+  }
+  
+  @media (min-width: 768px) {
+    .header-logo-figma {
+      width: 38px;
+      height: 36px;
+    }
+  }
+  
+  @media (min-width: 1280px) {
+    .header-logo-figma {
+      width: 69px;
+      height: 66px;
+    }
   }
   
   .header-one-text-figma {
-    font-size: var(--header-one-text-size);
+    font-family: var(--font-accent);
+    font-size: 14px;
+    font-weight: 400;
     color: var(--color-brand-navy);
+    line-height: normal;
+  }
+  
+  @media (min-width: 768px) {
+    .header-one-text-figma {
+      font-size: 16px;
+    }
+  }
+  
+  @media (min-width: 1280px) {
+    .header-one-text-figma {
+      font-size: 20px;
+    }
   }
   
   .header-profile-icon-figma {
-    width: var(--header-profile-icon-size);
-    height: var(--header-profile-icon-size);
+    width: 11px;
+    height: 11px;
+    object-fit: contain;
+  }
+  
+  @media (min-width: 768px) {
+    .header-profile-icon-figma {
+      width: 15px;
+      height: 15px;
+    }
+  }
+  
+  @media (min-width: 1280px) {
+    .header-profile-icon-figma {
+      width: 24px;
+      height: 24px;
+    }
+  }
+  
+  .header-view-mode-toggle-figma {
+    width: 12px;
+    height: 12px;
+  }
+  
+  @media (min-width: 768px) {
+    .header-view-mode-toggle-figma {
+      width: 16px;
+      height: 16px;
+    }
+  }
+  
+  @media (min-width: 1280px) {
+    .header-view-mode-toggle-figma {
+      width: 24px;
+      height: 24px;
+    }
+  }
+  
+  .header-menu-icon-figma {
+    width: 14.48px;
+    height: 9.54px;
+    object-fit: contain;
+  }
+  
+  @media (min-width: 768px) {
+    .header-menu-icon-figma {
+      width: 15px;
+      height: 10px;
+    }
+  }
+  
+  @media (min-width: 1280px) {
+    .header-menu-icon-figma {
+      width: 20px;
+      height: 13px;
+    }
   }
   
   /* ============================================
@@ -306,6 +389,10 @@ body {
     color: var(--tagline-color);
     max-width: var(--tagline-max-width);
     line-height: normal;
+    text-align: justify;
+    text-align-last: center;
+    margin-left: auto;
+    margin-right: auto;
   }
   
   .tagline-figma strong,
@@ -319,6 +406,10 @@ body {
     font-weight: 400;
     max-width: var(--subtitle-max-width);
     line-height: normal;
+    text-align: justify;
+    text-align-last: center;
+    margin-left: auto;
+    margin-right: auto;
   }
   
   /* ============================================

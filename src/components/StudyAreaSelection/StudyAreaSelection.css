@@ -1,7 +1,11 @@
 /* ============================================
    StudyAreaSelection Component Styles
+   Mobile-First Design (Figma Specs)
    ============================================ */
 
+/* ============================================
+   MAIN SECTIONS
+   ============================================ */
 .study-level-section {
   margin-bottom: 55px;
 }
@@ -10,7 +14,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 65px;
+  margin-bottom: 40px;
   padding: 0;
 }
 
@@ -18,24 +22,139 @@
   margin-bottom: 60px;
 }
 
+/* ============================================
+   SECTION TITLE (Mobile: 12px)
+   ============================================ */
 .degree-section__title {
-  font-family: var(--font-primary);
-  font-size: var(--text-base);
-  font-weight: var(--font-semibold);
+  font-family: var(--font-primary, 'Poppins', sans-serif);
+  font-size: 12px;
+  font-weight: 400;
   text-align: center;
   line-height: normal;
-  margin-bottom: 40px;
-  background: linear-gradient(161.24deg, #EE1113 0%, #7403FA 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  margin-bottom: 30px;
+  color: #505050;
 }
 
+/* ============================================
+   PILL CONTAINER (Mobile: 16px row, 10px col gap)
+   ============================================ */
 .study-pills-container {
   display: flex;
   flex-wrap: wrap;
   gap: 16px 10px;
   justify-content: center;
-  padding: 0;
+  padding: 0 16px;
+  max-width: 325px;
+  margin: 0 auto;
+}
+
+/* ============================================
+   GLASS PILL BUTTONS (Mobile: 8px font, Figma specs)
+   ============================================ */
+.glass-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 16px;
+  min-height: 28px;
+  
+  /* Typography - Poppins Regular */
+  font-family: 'Poppins', sans-serif;
+  font-size: 8px;
+  font-weight: 400;
+  line-height: normal;
+  text-align: center;
+  color: #000000;
+  
+  /* Transparent background with subtle border */
+  background: transparent;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  border-radius: 23px;
+  
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.glass-pill--selected {
+  background: rgba(30, 65, 124, 0.15);
+  border: 1px solid rgba(30, 65, 124, 0.3);
+}
+
+.glass-pill__text {
+  display: block;
+}
+
+/* Multiline support for DBA */
+.whitespace-pre-line {
+  white-space: pre-line;
+}
+
+.text-center {
+  text-align: center;
+}
+
+/* ============================================
+   TABLET RESPONSIVE (768px - 1279px)
+   ============================================ */
+@media (min-width: 768px) {
+  .study-level-nav {
+    margin-bottom: 50px;
+  }
+
+  .degree-section__title {
+    font-size: 16px;
+    margin-bottom: 40px;
+  }
+
+  .study-pills-container {
+    gap: 20px 14px;
+    padding: 0 20px;
+    max-width: 600px;
+  }
+
+  .glass-pill {
+    padding: 10px 20px;
+    min-height: 36px;
+    font-size: 12px;
+    font-weight: 400;
+    border-radius: 28px;
+  }
+}
+
+/* ============================================
+   DESKTOP RESPONSIVE (1280px+)
+   ============================================ */
+@media (min-width: 1280px) {
+  .study-level-section {
+    margin-bottom: 65px;
+  }
+
+  .study-level-nav {
+    margin-bottom: 65px;
+  }
+
+  .degree-section {
+    margin-bottom: 70px;
+  }
+
+  .degree-section__title {
+    font-size: 18px;
+    margin-bottom: 50px;
+  }
+
+  .study-pills-container {
+    gap: 24px 16px;
+    padding: 0 24px;
+    max-width: 900px;
+  }
+
+  .glass-pill {
+    padding: 12px 24px;
+    min-height: 44px;
+    font-size: 14px;
+    font-weight: 400;
+    border-radius: 30px;
+  }
 }
 
