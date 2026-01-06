@@ -1,7 +1,7 @@
-// AdmitsConnect Mobile Home Page Component
-// Refactored with separate CSS file
+// AdmitsConnect Home Page Component
+// Responsive implementation matching Figma specs (Mobile-first)
+// Breakpoints: Mobile (base) → Tablet (768px) → Desktop (1280px)
 
-import './MobileHomePage.css';
 import { useFormStore } from '../../store/formStore';
 import { useFormNavigation } from '../../hooks/useFormNavigation';
 import Header from '../Header';
@@ -46,7 +46,13 @@ const stats = [
   { value: "12+", lines: ["Year's", "Experience"], iconPath: "/assets/icons/stats/Years Experience icon.svg" },
 ];
 
-// Tag Button Component
+/**
+ * TagButton Component
+ * Uses CSS custom properties for responsive sizing (defined in variables.css)
+ * Mobile: 8px font, 28px height, 23px radius
+ * Tablet: 12px font (Comfortaa), 40px height, 30px radius  
+ * Desktop: 15px font (Poppins), 50px height, 30px radius
+ */
 interface TagButtonProps {
   label: string;
   isSelected: boolean;
@@ -54,16 +60,21 @@ interface TagButtonProps {
 }
 
 const TagButton = ({ label, isSelected, onToggle }: TagButtonProps) => (
-  <button className="home-tag-button" onClick={onToggle}>
-    <div className={`home-tag-button__inner ${isSelected ? 'home-tag-button__inner--selected' : ''}`}>
-      <span className={`home-tag-button__text ${isSelected ? 'home-tag-button__text--selected' : ''}`}>
-        {label}
-      </span>
-    </div>
+  <button 
+    onClick={onToggle}
+    aria-pressed={isSelected}
+    className={`tag-figma ${isSelected ? 'tag-figma--selected' : ''}`}
+  >
+    {label}
   </button>
 );
 
-// Stat Card Component
+/**
+ * StatCard Component
+ * Uses CSS custom properties for responsive icon and text sizing
+ * Mobile: 20px icons, 8px text
+ * Tablet/Desktop: 32px icons, 15px text
+ */
 interface StatCardProps {
   value: string;
   lines: string[];
@@ -71,14 +82,16 @@ interface StatCardProps {
 }
 
 const StatCard = ({ value, lines, iconPath }: StatCardProps) => (
-  <div className="stat-card">
-    <div className="stat-card__icon">
-      <img src={iconPath} alt="" width="28" height="28" />
-    </div>
-    <div className="stat-card__content">
-      <p className="stat-card__value">{value}</p>
+  <div className="flex flex-col items-center text-center gap-2">
+    <img 
+      src={iconPath} 
+      alt="" 
+      className="stats-icon-figma object-contain"
+    />
+    <div className="stats-value-figma font-primary text-black">
+      <p className="font-normal m-0">{value}</p>
       {lines.map((line, i) => (
-        <p key={i} className="stat-card__label">{line}</p>
+        <p key={i} className="font-normal m-0">{line}</p>
       ))}
     </div>
   </div>
@@ -93,90 +106,99 @@ export default function MobileHomePage() {
   };
 
   return (
-    <div className="page-container page-container--wide">
-      {/* Header */}
+    <div className="page-container">
+      {/* Header - Uses responsive CSS custom properties */}
       <Header variant="default" />
 
-      {/* Main Content */}
-      <div className="page-wrapper">
-        <main className="home-main">
-          {/* Tagline Section */}
-          <section className="tagline-section">
-            <p className="tagline-section__subtitle">
-              Four Services <span className="font-semibold">+</span> One Mission: <span className="tagline-section__title">Empowering global talent.</span>
-            </p>
-            <p className="tagline-section__highlight">
-              Not just study options but Experience the future-ready-courses.
-            </p>
-          </section>
+      {/* Main Content - Responsive container */}
+      <main className="w-full mx-auto px-(--content-padding) tablet:px-[39px] desktop:px-[110px]">
+        {/* Tagline Section - Uses Figma-aligned responsive classes */}
+        <section className="text-center mb-10 tablet:mb-20 mt-0">
+          <p className="tagline-figma mx-auto mb-6 tablet:mb-[42px] text-center">
+            Four Services + One Mission: <strong>Empowering global talent</strong>.
+          </p>
+          <p 
+            className="subtitle-figma mx-auto text-center"
+            style={{
+              background: 'linear-gradient(140.59deg, #EE1113 0.91%, #7403FA 96.74%)',
+              WebkitBackgroundClip: 'text',
+              backgroundClip: 'text',
+              WebkitTextFillColor: 'transparent'
+            }}
+          >
+            Not just study options but experience the future-ready-courses.
+          </p>
+        </section>
 
-          {/* Tags Section */}
-          <section className="tags-section">
-            <div className="tags-wrapper">
-              {tags.map((tag, index) => (
-                <TagButton 
-                  key={index} 
-                  label={tag} 
-                  isSelected={selectedTags?.includes(tag) || false}
-                  onToggle={() => toggleTag(tag)}
-                />
-              ))}
-            </div>
-            
-            {/* Next Button */}
-            <div className="next-button-container">
-              <button onClick={handleNext} className="next-button">
-                Next
-              </button>
-            </div>
-          </section>
+        {/* Tags Section - Uses CSS custom properties for responsive gap/sizing */}
+        <section className="mb-10 tablet:mb-20">
+          <div className="tag-container">
+            {tags.map((tag, index) => (
+              <TagButton 
+                key={index} 
+                label={tag} 
+                isSelected={selectedTags?.includes(tag) || false}
+                onToggle={() => toggleTag(tag)}
+              />
+            ))}
+          </div>
+          
+          {/* Next Button - Figma spec: Red pill button with "Next" text */}
+          <div className="flex justify-center mt-10 tablet:mt-14 mb-0">
+            <button 
+              onClick={handleNext} 
+              aria-label="Continue to next step"
+              className="btn-next-figma"
+            >
+              Next
+            </button>
+          </div>
+        </section>
 
-          {/* Divider */}
-          <div className="home-divider-container">
-            <div className="home-divider" />
+        {/* Stats Section - Responsive grid: 3 cols mobile/tablet → 9 cols desktop */}
+        <section className="mb-10 tablet:mb-20">
+          <div className="stats-grid-figma">
+            {stats.map((stat, index) => (
+              <StatCard 
+                key={index} 
+                value={stat.value} 
+                lines={stat.lines} 
+                iconPath={stat.iconPath}
+              />
+            ))}
+          </div>
+        </section>
+
+        {/* Footer - Horizontal layout matching Figma design */}
+        <footer className="text-center pb-6 tablet:pb-10 mt-10 tablet:mt-16">
+          {/* Links Section - Horizontal on all viewports */}
+          <div className="flex flex-wrap justify-center items-center gap-x-6 tablet:gap-x-8 gap-y-3 mb-6 tablet:mb-8 max-w-[1400px] mx-auto px-4">
+            {/* Navigation Links */}
+            <a href="#" className="footer-link-figma">About Us</a>
+            <a href="#" className="footer-link-figma">EXPLORE</a>
+            <a href="#" className="footer-link-figma">AI Student Advisor</a>
+            {/* Legal Links */}
+            <a href="#" className="footer-link-figma">Terms & Conditions</a>
+            <a href="#" className="footer-link-figma">Privacy Policy</a>
+            <a href="#" className="footer-link-figma">Refund Policy</a>
+            <a href="#" className="footer-link-figma">Anti-Fraud Policy</a>
+            <a href="#" className="footer-link-figma">Grievance</a>
           </div>
 
-          {/* Stats Section */}
-          <section className="stats-section">
-            <div className="stats-grid">
-              {stats.map((stat, index) => (
-                <StatCard 
-                  key={index} 
-                  value={stat.value} 
-                  lines={stat.lines} 
-                  iconPath={stat.iconPath}
-                />
-              ))}
-            </div>
-          </section>
+          {/* Contact Info - Horizontal layout with "Talking to us is easy:" */}
+          <div className="flex flex-wrap justify-center items-center gap-x-4 tablet:gap-x-8 gap-y-2 mb-6">
+            <p className="footer-contact-title-figma leading-normal">Talking to us is easy:</p>
+            <p className="footer-contact-detail-figma leading-normal">+44 773 45 66688 UK</p>
+            <p className="footer-contact-detail-figma leading-normal">+91 970 45 66688 IN</p>
+            <p className="footer-contact-detail-figma leading-normal">support@applyuninow.com</p>
+          </div>
 
-          {/* Footer */}
-          <footer className="home-footer">
-            <div className="footer-primary-links">
-              <a href="#" className="footer-primary-link">About Us</a>
-              <a href="#" className="footer-primary-link">EXPLORE</a>
-              <a href="#" className="footer-primary-link">AI Student Advisor</a>
-            </div>
-            
-            <div className="footer-secondary-links">
-              <a href="#" className="footer-secondary-link">T&C</a>
-              <a href="#" className="footer-secondary-link">Privacy Policy</a>
-              <a href="#" className="footer-secondary-link">Refund Policy</a>
-              <a href="#" className="footer-secondary-link">Anti-Fraud Policy</a>
-              <a href="#" className="footer-secondary-link">Grievance</a>
-            </div>
-
-            <div className="footer-contact">
-              <p className="footer-contact__title">Quick Question?</p>
-              <p className="footer-contact__info">+44 773 45 66688 UK</p>
-              <p className="footer-contact__info">+91 970 45 66688 IN</p>
-              <p className="footer-contact__info">support@applyuninow.com</p>
-              <p className="footer-copyright">Crafted by AUN Tech Consulting Pvt. Ltd.</p>
-            </div>
-          </footer>
-        </main>
-      </div>
+          {/* Crafted By */}
+          <p className="footer-crafted-figma leading-normal pt-2 gradient-text-footer">
+            Crafted by AUN Tech Consulting Pvt. Ltd.
+          </p>
+        </footer>
+      </main>
     </div>
   );
 }
-

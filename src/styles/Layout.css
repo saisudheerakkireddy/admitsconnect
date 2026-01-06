@@ -334,16 +334,6 @@
 }
 
 /* ============================================
-   STATS GRID
-   ============================================ */
-.stats-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 30px 5px;
-  justify-items: center;
-}
-
-/* ============================================
    BUTTON CONTAINER
    ============================================ */
 .button-container {

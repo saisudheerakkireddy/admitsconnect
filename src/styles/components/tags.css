@@ -1,0 +1,444 @@
+/* ============================================
+   AdmitsConnect - Unified Tag/Pill Component System
+   ============================================
+   Consolidates 7 previous implementations:
+   - tag-figma (index.css)
+   - tag-button (Buttons.css)
+   - box-tag (TagBox.css)
+   - wizard-pill (WizardCommon.css)
+   - glass-pill (PageCommon.css)
+   - pill-option (Forms.css)
+   - CSS variable tokens (variables.css)
+   
+   Design: Uses CSS variables for design tokens,
+   Tailwind for spacing/layout utilities
+   ============================================ */
+
+/* ============================================
+   BASE TAG - Default selectable tag
+   ============================================ */
+.tag {
+  /* Layout */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  
+  /* Responsive sizing using CSS variables (Figma spec) */
+  height: var(--tag-height);
+  padding: var(--tag-padding-y) var(--tag-padding-x);
+  
+  /* Typography using CSS variables */
+  font-family: var(--tag-font-family);
+  font-size: var(--tag-font-size);
+  font-weight: var(--tag-font-weight);
+  line-height: var(--tag-line-height, normal);
+  color: var(--color-text-primary);
+  white-space: nowrap;
+  
+  /* Visual styling */
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: var(--tag-border-radius);
+  
+  /* Glassmorphism */
+  backdrop-filter: blur(2.5px);
+  box-shadow: inset 0px 0px 10px 0px rgba(0,0,0,0.05), 
+              inset -1px -2px 3px 0px rgba(0,0,0,0.05), 
+              inset 1px 1px 2px 0px rgba(0,0,0,0.05);
+  
+  /* Interaction */
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  
+  /* Remove default button styles */
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  appearance: none;
+}
+
+/* Hover state */
+.tag:hover {
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+/* Active/pressed state */
+.tag:active:not(.tag--selected) {
+  transform: scale(0.95);
+}
+
+/* Focus state (keyboard navigation) */
+.tag:focus-visible {
+  outline: none;
+  box-shadow: inset 0px 0px 10px 0px rgba(0,0,0,0.05), 
+              inset -1px -2px 3px 0px rgba(0,0,0,0.05), 
+              inset 1px 1px 2px 0px rgba(0,0,0,0.05),
+              0 0 0 3px rgba(var(--color-primary-rgb), 0.3);
+}
+
+/* ============================================
+   TAG MODIFIERS - Variants
+   ============================================ */
+
+/* Selected state */
+.tag--selected {
+  background: var(--color-primary);
+  border: 2px solid var(--color-primary);
+  color: #FFFFFF;
+  box-shadow: inset 0px 0px 10px 0px rgba(194,32,50,0.15), 
+              inset -1px -2px 3px 0px rgba(194,32,50,0.1), 
+              inset 1px 1px 2px 0px rgba(194,32,50,0.1);
+}
+
+.tag--selected:hover {
+  background: var(--color-primary);
+  border: 2px solid var(--color-primary);
+}
+
+/* Glass variant (more transparent) */
+.tag--glass {
+  background: rgba(255, 255, 255, 0.7);
+  border: var(--border-tag-default, 1px solid rgba(238, 17, 19, 0.15));
+  backdrop-filter: blur(4px);
+  box-shadow: var(--shadow-tag-inner, inset 0px 0px 6px rgba(194, 32, 50, 0.1));
+}
+
+.tag--glass:hover {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #FFFFFF;
+}
+
+.tag--glass.tag--selected {
+  background: var(--color-primary);
+  border: var(--border-tag-selected, 2px solid #C22032);
+  color: #FFFFFF;
+}
+
+/* Transparent/ghost variant */
+.tag--ghost {
+  background: transparent;
+  border: 1px solid var(--color-gray-300);
+  backdrop-filter: none;
+  box-shadow: none;
+}
+
+.tag--ghost:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.tag--ghost.tag--selected {
+  background: var(--color-bg-selected);
+  border-color: var(--color-primary-light);
+  color: var(--color-primary-light);
+}
+
+/* Disabled state */
+.tag:disabled,
+.tag--disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* ============================================
+   TAG CONTAINER - Responsive wrapper
+   ============================================ */
+.tag-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--tag-gap-y) var(--tag-gap-x);
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  max-width: var(--tag-max-width);
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+@media (min-width: 768px) {
+  .tag-container {
+    padding: 0 24px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .tag-container {
+    padding: 0 40px;
+  }
+}
+
+/* ============================================
+   TAG TEXT - Optional text wrapper
+   ============================================ */
+.tag__text {
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  color: inherit;
+  white-space: nowrap;
+  line-height: inherit;
+}
+
+.tag--selected .tag__text {
+  color: #FFFFFF;
+}
+
+/* ============================================
+   BACKWARD COMPATIBILITY ALIASES
+   These provide smooth migration from old class names
+   Can be removed after full migration is complete
+   ============================================ */
+
+/* Legacy: tag-figma -> tag (inherit all base tag styles) */
+.tag-figma {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: var(--tag-height);
+  padding: var(--tag-padding-y) var(--tag-padding-x);
+  font-family: var(--tag-font-family);
+  font-size: var(--tag-font-size);
+  font-weight: var(--tag-font-weight);
+  line-height: var(--tag-line-height, normal);
+  color: var(--color-text-primary);
+  white-space: nowrap;
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: var(--tag-border-radius);
+  backdrop-filter: blur(2.5px);
+  box-shadow: inset 0px 0px 10px 0px rgba(0,0,0,0.05), 
+              inset -1px -2px 3px 0px rgba(0,0,0,0.05), 
+              inset 1px 1px 2px 0px rgba(0,0,0,0.05);
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  appearance: none;
+}
+
+.tag-figma:hover {
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.tag-figma:active:not(.tag-figma--selected) {
+  transform: scale(0.95);
+}
+
+.tag-figma--selected {
+  background: var(--color-primary);
+  border: 2px solid var(--color-primary);
+  color: #FFFFFF;
+  box-shadow: inset 0px 0px 10px 0px rgba(194,32,50,0.15), 
+              inset -1px -2px 3px 0px rgba(194,32,50,0.1), 
+              inset 1px 1px 2px 0px rgba(194,32,50,0.1);
+}
+
+.tag-figma--selected:hover {
+  background: var(--color-primary);
+  border: 2px solid var(--color-primary);
+}
+
+/* Legacy: glass-pill -> tag--glass */
+.glass-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 12px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.7);
+  border: var(--border-tag-default, 1px solid rgba(238, 17, 19, 0.15));
+  backdrop-filter: blur(4px);
+  box-shadow: var(--shadow-tag-inner, inset 0px 0px 6px rgba(194, 32, 50, 0.1));
+  transition: all var(--transition-normal);
+  cursor: pointer;
+  font-family: var(--font-primary);
+  font-size: 9px;
+  font-weight: var(--font-medium);
+  color: var(--color-black);
+  white-space: nowrap;
+  line-height: normal;
+}
+
+.glass-pill:hover {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #FFFFFF;
+}
+
+.glass-pill:active {
+  transform: scale(0.95);
+}
+
+.glass-pill--selected {
+  background: var(--color-primary);
+  border: var(--border-tag-selected, 2px solid #C22032);
+  color: #FFFFFF;
+}
+
+.glass-pill--selected:hover {
+  background: var(--color-primary);
+  border: var(--border-tag-selected, 2px solid #C22032);
+}
+
+.glass-pill__text {
+  font-family: var(--font-primary);
+  font-size: 9px;
+  font-weight: var(--font-medium);
+  color: inherit;
+  white-space: nowrap;
+  line-height: normal;
+}
+
+.glass-pill--selected .glass-pill__text {
+  color: #FFFFFF;
+}
+
+/* Legacy: box-tag -> tag */
+.box-tag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 12px;
+  border-radius: 9999px;
+  border: var(--border-tag-default, 1px solid rgba(238, 17, 19, 0.15));
+  background: rgba(255, 255, 255, 0.7);
+  box-shadow: inset 0px 0px 6px rgba(194, 32, 50, 0.1);
+  backdrop-filter: blur(4px);
+  cursor: pointer;
+  transition: all var(--transition-normal);
+}
+
+.box-tag:hover {
+  border: var(--border-tag-hover, 1px solid rgba(238, 17, 19, 0.25));
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.box-tag--selected {
+  border: var(--border-tag-selected, 2px solid #C22032);
+  background: #C22032;
+}
+
+.box-tag--selected:hover {
+  background: #C22032;
+  border: var(--border-tag-selected, 2px solid #C22032);
+}
+
+.box-tag:active:not(.box-tag--disabled) {
+  transform: scale(0.95);
+}
+
+.box-tag__text {
+  font-family: var(--font-primary);
+  font-size: 9px;
+  font-weight: var(--font-medium);
+  line-height: normal;
+  white-space: nowrap;
+  color: var(--color-text-primary, #333333);
+}
+
+.box-tag--selected .box-tag__text {
+  color: #FFFFFF;
+}
+
+/* Legacy: wizard-pill -> tag */
+.wizard-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 16px;
+  border-radius: var(--radius-full);
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(238, 17, 19, 0.15);
+  backdrop-filter: blur(4px);
+  box-shadow: inset 0px 0px 6px rgba(194, 32, 50, 0.1);
+  transition: all var(--transition-normal);
+  cursor: pointer;
+}
+
+.wizard-pill:hover {
+  background: #C22032;
+  border-color: #C22032;
+}
+
+.wizard-pill:hover .wizard-pill__text {
+  color: #FFFFFF;
+}
+
+.wizard-pill:active {
+  transform: scale(0.95);
+}
+
+.wizard-pill--selected {
+  background: #C22032;
+  border: 2px solid #C22032;
+}
+
+.wizard-pill--selected .wizard-pill__text {
+  color: #FFFFFF;
+}
+
+.wizard-pill__text {
+  font-family: var(--font-primary);
+  font-size: 9px;
+  font-weight: var(--font-medium);
+  color: var(--color-black);
+  white-space: nowrap;
+  line-height: normal;
+}
+
+/* Legacy: pill-option -> tag--ghost */
+.pill-option {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-sm) var(--space-lg);
+  font-family: var(--font-display);
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  color: var(--color-text-primary);
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-gray-300);
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: all var(--transition-normal);
+}
+
+.pill-option:hover {
+  border-color: var(--color-primary-light);
+}
+
+.pill-option.selected {
+  background: var(--color-bg-selected);
+  border-color: var(--color-primary-light);
+  color: var(--color-primary-light);
+}
+
+/* Legacy: tag-button -> tag */
+.tag-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 12px;
+  font-family: var(--font-primary);
+  font-size: var(--text-xs);
+  font-weight: var(--font-medium);
+  color: var(--color-text-primary);
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-primary-light);
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  white-space: nowrap;
+  box-shadow: var(--shadow-tag-inner);
+}
+
+.tag-button:hover {
+  background: var(--color-bg-card-hover);
+}
+
+.tag-button.selected,
+.tag-button[aria-pressed="true"] {
+  background: var(--color-bg-selected);
+  border: 2px solid var(--color-primary-light);
+  color: var(--color-primary-light);
+}
+

@@ -1,0 +1,319 @@
+/* ============================================
+   AdmitsConnect - Unified Button Component System
+   ============================================
+   Consolidates 4 previous implementations:
+   - btn-primary, btn-secondary (Buttons.css)
+   - btn-next-figma (index.css)
+   - submit-btn (PageCommon.css)
+   - nav-arrow (multiple files)
+   
+   Design: Uses CSS variables for design tokens,
+   Tailwind for spacing/layout utilities
+   ============================================ */
+
+/* ============================================
+   BASE BUTTON
+   ============================================ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-button);
+  font-weight: var(--font-medium);
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  text-decoration: none;
+  white-space: nowrap;
+  border: none;
+  appearance: none;
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ============================================
+   PRIMARY BUTTON (CTA / Next / Submit)
+   ============================================ */
+.btn-primary {
+  min-width: 120px;
+  height: 44px;
+  padding: 12px 40px;
+  font-family: var(--font-button);
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--color-white);
+  background: var(--color-primary);
+  border: none;
+  border-radius: 29px;
+  letter-spacing: 0.5px;
+  
+  /* Figma spec: Multi-layer inset shadow */
+  box-shadow: var(--shadow-button-inset, 
+    inset 0px 0px 10px 0px rgba(194, 32, 50, 0.3), 
+    inset -1px -2px 3px 0px rgba(194, 32, 50, 0.1), 
+    inset 1px 1px 2px 0px rgba(194, 32, 50, 0.2));
+}
+
+.btn-primary:hover:not(:disabled) {
+  opacity: 0.9;
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-button-inset), 0 4px 12px rgba(var(--color-primary-rgb), 0.35);
+}
+
+.btn-primary:active:not(:disabled) {
+  transform: translateY(0) scale(0.98);
+  box-shadow: var(--shadow-button-inset);
+}
+
+.btn-primary:focus-visible {
+  outline: none;
+  box-shadow: var(--shadow-button-inset), var(--shadow-focus);
+}
+
+.btn-primary:disabled {
+  background: var(--color-gray-300);
+  box-shadow: none;
+}
+
+/* Mobile size adjustments for primary button */
+@media (max-width: 767px) {
+  .btn-primary {
+    min-width: 100px;
+    height: 38px;
+    padding: 10px 32px;
+    font-size: 13px;
+  }
+}
+
+/* ============================================
+   SECONDARY BUTTON (Outlined)
+   ============================================ */
+.btn-secondary {
+  min-width: 138px;
+  padding: var(--space-sm) var(--space-xl);
+  font-size: var(--text-lg);
+  color: var(--color-primary);
+  background-color: transparent;
+  border: 2px solid var(--color-primary);
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+}
+
+.btn-secondary:focus-visible {
+  outline: none;
+  box-shadow: var(--shadow-focus);
+}
+
+/* ============================================
+   GHOST BUTTON (Transparent)
+   ============================================ */
+.btn-ghost {
+  padding: var(--space-sm) var(--space-lg);
+  color: var(--color-text-primary);
+  background: transparent;
+  border: none;
+}
+
+.btn-ghost:hover:not(:disabled) {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+/* ============================================
+   GLASSMORPHISM BUTTON (Submit/Form)
+   ============================================ */
+.btn-glass {
+  height: 33px;
+  width: min(240px, 100%);
+  padding: 14.5px 20px;
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.01);
+  border: 0.5px solid var(--color-primary-light);
+  backdrop-filter: blur(2.5px);
+  box-shadow: 
+    inset 0px 0px 10px 0px rgba(194, 32, 50, 0.3),
+    inset -1px -2px 3px 0px rgba(194, 32, 50, 0.1),
+    inset 1px 1px 2px 0px rgba(194, 32, 50, 0.3);
+  font-family: var(--font-primary);
+  font-size: var(--text-base);
+  color: var(--color-black);
+}
+
+.btn-glass:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.btn-glass:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ============================================
+   BUTTON SIZES
+   ============================================ */
+.btn-sm {
+  min-width: 100px;
+  padding: var(--space-xs) var(--space-md);
+  font-size: var(--text-sm);
+}
+
+.btn-md {
+  min-width: 138px;
+  padding: var(--space-sm) var(--space-xl);
+  font-size: var(--text-base);
+}
+
+.btn-lg {
+  min-width: 180px;
+  padding: var(--space-md) var(--space-2xl);
+  font-size: var(--text-lg);
+}
+
+.btn-full {
+  width: 100%;
+  max-width: 280px;
+}
+
+/* ============================================
+   NAVIGATION ARROWS
+   ============================================ */
+.nav-arrow,
+.page-nav-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  padding: var(--space-sm);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: opacity var(--transition-fast);
+}
+
+.nav-arrow:hover:not(:disabled),
+.page-nav-arrow:hover:not(:disabled) {
+  opacity: 0.7;
+}
+
+.nav-arrow:disabled,
+.page-nav-arrow:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+/* ============================================
+   BACKWARD COMPATIBILITY ALIASES
+   These provide smooth migration from old class names
+   Can be removed after full migration is complete
+   ============================================ */
+
+/* Legacy: btn-next-figma -> btn-primary */
+.btn-next-figma {
+  min-width: 120px;
+  width: auto;
+  height: 44px;
+  padding: 12px 40px;
+  font-family: var(--font-button);
+  font-size: 15px;
+  font-weight: 500;
+  background-color: #C22032;
+  color: #FFFFFF;
+  border-radius: 29px;
+  border: none;
+  cursor: pointer;
+  transition: all 200ms ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  letter-spacing: 0.5px;
+}
+
+.btn-next-figma:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(194, 32, 50, 0.35);
+}
+
+.btn-next-figma:active {
+  transform: translateY(0) scale(0.98);
+}
+
+@media (max-width: 767px) {
+  .btn-next-figma {
+    min-width: 100px;
+    height: 38px;
+    padding: 10px 32px;
+    font-size: 13px;
+  }
+}
+
+/* Legacy: submit-btn -> btn-glass */
+.submit-btn {
+  height: 33px;
+  width: min(240px, 100%);
+  margin: 0 auto;
+  padding: 14.5px 20px;
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.01);
+  border: 0.5px solid var(--color-primary-light);
+  backdrop-filter: blur(2.5px);
+  box-shadow: 
+    inset 0px 0px 10px 0px rgba(194, 32, 50, 0.3),
+    inset -1px -2px 3px 0px rgba(194, 32, 50, 0.1),
+    inset 1px 1px 2px 0px rgba(194, 32, 50, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--transition-normal);
+}
+
+.submit-btn:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.submit-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.submit-btn__text {
+  font-family: var(--font-primary);
+  font-size: var(--text-base);
+  color: var(--color-black);
+}
+
+/* Legacy: btn-submit -> btn-glass.btn-full */
+.btn-submit {
+  width: 100%;
+  max-width: 280px;
+  padding: var(--space-md) var(--space-xl);
+  font-family: var(--font-button);
+  font-size: var(--text-base);
+  font-weight: var(--font-semibold);
+  color: var(--color-white);
+  background: var(--gradient-primary);
+  border: none;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  box-shadow: var(--shadow-button-inset);
+}
+
+.btn-submit:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-button-inset), 0 6px 20px rgba(var(--color-primary-rgb), 0.35);
+}
+
+.btn-submit:disabled {
+  background: var(--color-gray-300);
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
