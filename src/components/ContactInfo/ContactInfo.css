@@ -6,34 +6,56 @@
 .contact-nav {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 16px;
-  margin-bottom: 20px;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 30px;
+  width: 100%;
+  max-width: 900px;
+  margin-inline: auto;
+  padding-inline: 40px;
+}
+
+.page-title--highlight {
+  color: #000000;
+  font-weight: 600;
+  font-size: 24px;
 }
 
 .contact-form {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 30px;
   width: 100%;
-  max-width: 520px;
+  max-width: 900px;
   margin: 0 auto;
 }
 
 .contact-form__description {
   font-family: var(--font-primary);
-  font-size: var(--text-base);
-  color: var(--color-text-secondary);
-  text-align: left;
+  font-size: 20px;
+  font-weight: 600;
+  text-align: center;
   line-height: 1.5;
   width: 100%;
+  background: var(--gradient-text);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .contact-form__fields {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 20px;
   width: 100%;
+}
+
+.glass-input--full {
+  width: 100%;
+  border-radius: 50px;
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 16px 24px;
 }
 
 .contact-form__divider {
@@ -62,31 +84,43 @@
 }
 
 .contact-consent__box {
-  width: 11px;
-  height: 11px;
-  border: 1px solid var(--color-black);
-  border-radius: 2px;
+  width: 20px;
+  height: 20px;
+  border: 1px solid rgba(0, 0, 0, 0.4);
+  border-radius: 6px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: transparent;
+  background: rgba(255, 255, 255, 0.5);
   cursor: pointer;
   transition: all var(--transition-fast);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  outline: none;
 }
 
-.contact-consent__box:hover {
-  background: rgba(0, 0, 0, 0.05);
+.contact-consent__box:focus-visible {
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.8), 0 0 0 4px var(--color-primary);
+  border-color: var(--color-primary);
 }
+
+
 
 .contact-consent__box--checked {
-  background: var(--color-bg-selected);
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+/* Override the SVG stroke to white when checked */
+.contact-consent__box--checked svg path {
+  stroke: white;
 }
 
 .contact-consent__label {
   font-family: var(--font-primary);
-  font-size: var(--text-sm);
-  color: var(--color-text-secondary);
-  line-height: 1.5;
+  font-size: 15px;
+  font-weight: 500;
+  color: #000000;
+  line-height: 1.4;
   width: 100%;
 }
 
@@ -94,38 +128,34 @@
   color: #2E23F3;
   text-decoration: underline;
   cursor: pointer;
+  font-weight: 600;
 }
 
-.contact-consent__link:hover {
-  color: #F4303B;
-}
+
 
 .contact-consent__required {
   color: #F4303B;
   font-weight: bold;
+  margin-left: 4px;
 }
 
-.contact-consent__box--required {
-  border-color: #F4303B;
-}
+/* Removed the specific red border for required box to fix inconsistency */
 
 .contact-consent__box--required.contact-consent__box--checked {
-  background: linear-gradient(135deg, #F4303B 0%, #2E23F3 100%);
-  border-color: #F4303B;
+  /* Use standard checked style */
+  background: var(--color-primary);
+  border-color: var(--color-primary);
 }
 
 .contact-submit {
-  height: 33px;
+  height: 44px;
   width: min(240px, 100%);
   margin: 0 auto;
-  padding: 14.5px 20px;
-  border-radius: var(--radius-md);
-  background: rgba(255, 255, 255, 0.01);
-  border: 0.5px solid var(--color-primary-light);
-  backdrop-filter: blur(2.5px);
-  box-shadow: inset 0px 0px 10px 0px rgba(194, 32, 50, 0.3),
-    inset -1px -2px 3px 0px rgba(194, 32, 50, 0.1),
-    inset 1px 1px 2px 0px rgba(194, 32, 50, 0.3);
+  padding: 0 20px;
+  border-radius: 50px;
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -134,7 +164,13 @@
 }
 
 .contact-submit:hover:not(:disabled) {
-  background: rgba(255, 255, 255, 0.1);
+  background: #C22032;
+  border-color: #C22032;
+  box-shadow: 0 4px 12px rgba(194, 32, 50, 0.3);
+}
+
+.contact-submit:hover:not(:disabled) .contact-submit__text {
+  color: white;
 }
 
 .contact-submit:disabled {
@@ -144,7 +180,8 @@
 
 .contact-submit__text {
   font-family: var(--font-primary);
-  font-size: var(--text-base);
+  font-size: 16px;
+  font-weight: 600;
   color: var(--color-black);
 }
 
@@ -155,5 +192,3 @@
   background: #d0d0d0;
   margin: 50px auto 32px;
 }
-
-

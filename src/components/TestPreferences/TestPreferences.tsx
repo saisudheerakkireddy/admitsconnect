@@ -9,19 +9,19 @@ import WizardLayout from '../WizardLayout';
 
 const LeftArrow = () => (
   <svg width="5" height="9" viewBox="0 0 5 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M4 1L1 4.5L4 8" stroke="#1E417C" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M4 1L1 4.5L4 8" stroke="#1E417C" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
   </svg>
 );
 
 const RightArrow = () => (
   <svg width="5" height="9" viewBox="0 0 5 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M1 1L4 4.5L1 8" stroke="#C22032" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M1 1L4 4.5L1 8" stroke="#C22032" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
   </svg>
 );
 
 const ChevronDown = () => (
   <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M1 1L5 5L9 1" stroke="#333" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M1 1L5 5L9 1" stroke="#333" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
   </svg>
 );
 
@@ -142,14 +142,14 @@ export default function TestPreferences() {
   };
 
   const handleAdaptiveTestChange = (value: string) => {
-    setAssessment({ 
+    setAssessment({
       adaptiveTest: value,
       adaptiveTestScores: undefined // Clear scores when changing test
     });
   };
 
   const handleEnglishTestChange = (value: string) => {
-    setAssessment({ 
+    setAssessment({
       englishLanguageTest: value,
       englishTestScores: undefined // Clear scores when changing test
     });
@@ -159,13 +159,15 @@ export default function TestPreferences() {
     if (canProceed) goToNext();
   };
 
+
+
   // Determine if we need to show score inputs
-  const showAdaptiveScores = assessment?.adaptiveTest && 
-    assessment.adaptiveTest !== 'consider-later' && 
+  const showAdaptiveScores = assessment?.adaptiveTest &&
+    assessment.adaptiveTest !== 'consider-later' &&
     assessment.adaptiveTest !== 'not-consider';
 
-  const showEnglishScores = assessment?.englishLanguageTest && 
-    assessment.englishLanguageTest !== 'consider-later' && 
+  const showEnglishScores = assessment?.englishLanguageTest &&
+    assessment.englishLanguageTest !== 'consider-later' &&
     assessment.englishLanguageTest !== 'not-consider';
 
   return (
@@ -175,23 +177,23 @@ export default function TestPreferences() {
           <button className="page-nav-arrow" onClick={goToPrevious}>
             <LeftArrow /><LeftArrow /><LeftArrow />
           </button>
-          <h2 className="page-title">Assessment</h2>
+
+          <p className="assessment-description">
+            Help us with your Additional Assessment that might be helpful for mapping your Requirements on the best school for your chosen destination
+          </p>
+
           <button className="page-nav-arrow" onClick={handleNext} disabled={!canProceed}>
             <RightArrow /><RightArrow /><RightArrow />
           </button>
         </div>
 
         <div className="assessment-card">
-          <p className="assessment-description">
-            Help us with your Additional Assessment that might be helpful for mapping your requirements on the best school for your chosen destination.
-          </p>
 
           <div className="assessment-fields">
             {/* Adaptive Test Selection */}
             <div className="assessment-field">
-              <p className="assessment-field__title">Choose Adaptive Test</p>
               <Dropdown
-                label="Select"
+                label="Select the Exam"
                 value={assessment?.adaptiveTest || ''}
                 options={adaptiveTestOptions}
                 isOpen={adaptiveOpen}
@@ -201,7 +203,7 @@ export default function TestPreferences() {
                 }}
                 onSelect={handleAdaptiveTestChange}
               />
-              
+
               {/* GRE Score Inputs */}
               {showAdaptiveScores && assessment.adaptiveTest === 'gre' && (
                 <div className="score-inputs-grid">
@@ -225,9 +227,8 @@ export default function TestPreferences() {
 
             {/* English Language Test Selection */}
             <div className="assessment-field">
-              <p className="assessment-field__title">Choose English Language Test</p>
               <Dropdown
-                label="Select"
+                label="Select the English Proficiency test"
                 value={assessment?.englishLanguageTest || ''}
                 options={englishLanguageTestOptions}
                 isOpen={englishOpen}
@@ -262,9 +263,7 @@ export default function TestPreferences() {
             </div>
           </div>
 
-          <button className="assessment-next" onClick={handleNext} disabled={!canProceed}>
-            Next
-          </button>
+
         </div>
 
         <div className="assessment-divider" />

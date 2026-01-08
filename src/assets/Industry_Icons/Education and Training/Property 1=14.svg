@@ -11,47 +11,47 @@
 <path d="M10.8999 23.4426C10.5889 23.4426 10.3347 23.6957 10.3347 24.0084C10.3347 24.3211 10.5892 24.5741 10.8999 24.5741C11.2139 24.5741 11.4667 24.3211 11.4667 24.0084C11.4667 23.6957 11.2143 23.4426 10.8999 23.4426Z" fill="url(#paint9_linear_5944_22779)"/>
 <path d="M10.8999 25.326C10.5889 25.326 10.3347 25.5791 10.3347 25.8918C10.3347 26.2045 10.5892 26.4576 10.8999 26.4576C11.2139 26.4576 11.4667 26.2045 11.4667 25.8918C11.4667 25.5791 11.2143 25.326 10.8999 25.326Z" fill="url(#paint10_linear_5944_22779)"/>
 <defs>
-<linearGradient id="paint0_linear_5944_22779" x1="37.6624" y1="31.4797" x2="37.6624" y2="37.4879" gradientUnits="userSpaceOnUse">
+<linearGradient id="paint0_linear_5944_22779" x1="0" y1="0" x2="0" y2="1" gradientUnits="objectBoundingBox">
 <stop stop-color="#ED3040"/>
 <stop offset="1" stop-color="#2D23F4"/>
 </linearGradient>
-<linearGradient id="paint1_linear_5944_22779" x1="37.6624" y1="31.4797" x2="37.6624" y2="37.4879" gradientUnits="userSpaceOnUse">
+<linearGradient id="paint1_linear_5944_22779" x1="0" y1="0" x2="0" y2="1" gradientUnits="objectBoundingBox">
 <stop stop-color="#ED3040"/>
 <stop offset="1" stop-color="#2D23F4"/>
 </linearGradient>
-<linearGradient id="paint2_linear_5944_22779" x1="37.6624" y1="31.4797" x2="37.6624" y2="37.4879" gradientUnits="userSpaceOnUse">
+<linearGradient id="paint2_linear_5944_22779" x1="0" y1="0" x2="0" y2="1" gradientUnits="objectBoundingBox">
 <stop stop-color="#ED3040"/>
 <stop offset="1" stop-color="#2D23F4"/>
 </linearGradient>
-<linearGradient id="paint3_linear_5944_22779" x1="37.6624" y1="31.4797" x2="37.6624" y2="37.4879" gradientUnits="userSpaceOnUse">
+<linearGradient id="paint3_linear_5944_22779" x1="0" y1="0" x2="0" y2="1" gradientUnits="objectBoundingBox">
 <stop stop-color="#ED3040"/>
 <stop offset="1" stop-color="#2D23F4"/>
 </linearGradient>
-<linearGradient id="paint4_linear_5944_22779" x1="37.6624" y1="31.4797" x2="37.6624" y2="37.4879" gradientUnits="userSpaceOnUse">
+<linearGradient id="paint4_linear_5944_22779" x1="0" y1="0" x2="0" y2="1" gradientUnits="objectBoundingBox">
 <stop stop-color="#ED3040"/>
 <stop offset="1" stop-color="#2D23F4"/>
 </linearGradient>
-<linearGradient id="paint5_linear_5944_22779" x1="37.6624" y1="31.4797" x2="37.6624" y2="37.4879" gradientUnits="userSpaceOnUse">
+<linearGradient id="paint5_linear_5944_22779" x1="0" y1="0" x2="0" y2="1" gradientUnits="objectBoundingBox">
 <stop stop-color="#ED3040"/>
 <stop offset="1" stop-color="#2D23F4"/>
 </linearGradient>
-<linearGradient id="paint6_linear_5944_22779" x1="37.6624" y1="31.4797" x2="37.6624" y2="37.4879" gradientUnits="userSpaceOnUse">
+<linearGradient id="paint6_linear_5944_22779" x1="0" y1="0" x2="0" y2="1" gradientUnits="objectBoundingBox">
 <stop stop-color="#ED3040"/>
 <stop offset="1" stop-color="#2D23F4"/>
 </linearGradient>
-<linearGradient id="paint7_linear_5944_22779" x1="37.6624" y1="31.4797" x2="37.6624" y2="37.4879" gradientUnits="userSpaceOnUse">
+<linearGradient id="paint7_linear_5944_22779" x1="0" y1="0" x2="0" y2="1" gradientUnits="objectBoundingBox">
 <stop stop-color="#ED3040"/>
 <stop offset="1" stop-color="#2D23F4"/>
 </linearGradient>
-<linearGradient id="paint8_linear_5944_22779" x1="37.6624" y1="31.4797" x2="37.6624" y2="37.4879" gradientUnits="userSpaceOnUse">
+<linearGradient id="paint8_linear_5944_22779" x1="0" y1="0" x2="0" y2="1" gradientUnits="objectBoundingBox">
 <stop stop-color="#ED3040"/>
 <stop offset="1" stop-color="#2D23F4"/>
 </linearGradient>
-<linearGradient id="paint9_linear_5944_22779" x1="37.6624" y1="31.4797" x2="37.6624" y2="37.4879" gradientUnits="userSpaceOnUse">
+<linearGradient id="paint9_linear_5944_22779" x1="0" y1="0" x2="0" y2="1" gradientUnits="objectBoundingBox">
 <stop stop-color="#ED3040"/>
 <stop offset="1" stop-color="#2D23F4"/>
 </linearGradient>
-<linearGradient id="paint10_linear_5944_22779" x1="37.6624" y1="31.4797" x2="37.6624" y2="37.4879" gradientUnits="userSpaceOnUse">
+<linearGradient id="paint10_linear_5944_22779" x1="0" y1="0" x2="0" y2="1" gradientUnits="objectBoundingBox">
 <stop stop-color="#ED3040"/>
 <stop offset="1" stop-color="#2D23F4"/>
 </linearGradient>

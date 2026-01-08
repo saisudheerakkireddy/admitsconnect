@@ -4,19 +4,19 @@
 <path d="M37.198 33.1061C36.8689 32.9809 36.4739 33.2314 36.4082 33.5443C35.8817 35.2971 34.9601 36.9246 33.6434 38.3017C33.38 38.5522 33.4461 38.9904 33.7091 39.1781C33.9725 39.4286 34.3673 39.3658 34.6307 39.1157C36.0131 37.5506 37.0664 35.7354 37.6585 33.8573C37.7905 33.5444 37.5928 33.1689 37.198 33.1061Z" fill="url(#paint2_linear_5436_13702)"/>
 <path d="M17.3851 41.3067C14.5547 39.8044 12.3825 37.05 11.3292 33.8577C11.1975 33.5447 10.8684 33.357 10.4734 33.4195C10.1443 33.5447 9.94689 33.8577 10.0126 34.2334C11.1975 37.739 13.6328 40.7436 16.6609 42.371C16.99 42.5587 17.3851 42.4335 17.5825 42.1205C17.8459 41.87 17.7145 41.4943 17.3851 41.3066V41.3067Z" fill="url(#paint3_linear_5436_13702)"/>
 <defs>
-<linearGradient id="paint0_linear_5436_13702" x1="34.4968" y1="33.6397" x2="34.4968" y2="41.6506" gradientUnits="userSpaceOnUse">
+<linearGradient id="paint0_linear_5436_13702" x1="0" y1="0" x2="0" y2="1" gradientUnits="objectBoundingBox">
 <stop stop-color="#ED3040"/>
 <stop offset="1" stop-color="#2D23F4"/>
 </linearGradient>
-<linearGradient id="paint1_linear_5436_13702" x1="34.4968" y1="33.6397" x2="34.4968" y2="41.6506" gradientUnits="userSpaceOnUse">
+<linearGradient id="paint1_linear_5436_13702" x1="0" y1="0" x2="0" y2="1" gradientUnits="objectBoundingBox">
 <stop stop-color="#ED3040"/>
 <stop offset="1" stop-color="#2D23F4"/>
 </linearGradient>
-<linearGradient id="paint2_linear_5436_13702" x1="34.4968" y1="33.6397" x2="34.4968" y2="41.6506" gradientUnits="userSpaceOnUse">
+<linearGradient id="paint2_linear_5436_13702" x1="0" y1="0" x2="0" y2="1" gradientUnits="objectBoundingBox">
 <stop stop-color="#ED3040"/>
 <stop offset="1" stop-color="#2D23F4"/>
 </linearGradient>
-<linearGradient id="paint3_linear_5436_13702" x1="34.4968" y1="33.6397" x2="34.4968" y2="41.6506" gradientUnits="userSpaceOnUse">
+<linearGradient id="paint3_linear_5436_13702" x1="0" y1="0" x2="0" y2="1" gradientUnits="objectBoundingBox">
 <stop stop-color="#ED3040"/>
 <stop offset="1" stop-color="#2D23F4"/>
 </linearGradient>

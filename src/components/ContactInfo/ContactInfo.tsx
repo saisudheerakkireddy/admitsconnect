@@ -2,6 +2,7 @@
 // This component was split out from the prior `TestPreferences` implementation so `/assessment` can exist separately.
 
 import './ContactInfo.css';
+import { useEffect } from 'react';
 import { useFormStore } from '../../store/formStore';
 import { useFormNavigation } from '../../hooks/useFormNavigation';
 import { submitApplication } from '../../api/services';
@@ -31,9 +32,11 @@ export default function ContactInfo() {
   const { goToPrevious, goToNext } = useFormNavigation();
 
   // Initialize terms consent as checked by default
-  if (contact && contact.termsConsent === undefined) {
-    setContact({ termsConsent: true, emailConsent: true });
-  }
+  useEffect(() => {
+    if (contact && contact.termsConsent === undefined) {
+      setContact({ termsConsent: true, emailConsent: true });
+    }
+  }, [contact, setContact]);
 
   const handleSubmit = async () => {
     if (!contact?.termsConsent) {
@@ -126,13 +129,18 @@ export default function ContactInfo() {
             <div className="contact-consent">
               <div className="contact-consent__checkbox">
                 <button
+                  type="button"
                   onClick={() => setContact({ emailConsent: !contact?.emailConsent })}
                   className={`contact-consent__box ${contact?.emailConsent ? 'contact-consent__box--checked' : ''}`}
                 >
                   {contact?.emailConsent && <CheckIcon />}
                 </button>
               </div>
-              <p className="contact-consent__label">
+              <p
+                className="contact-consent__label"
+                onClick={() => setContact({ emailConsent: !contact?.emailConsent })}
+                style={{ cursor: 'pointer' }}
+              >
                 Receive monthly emails right to your inbox with programmes that match your individual profile as well as
                 useful information to plan your study abroad journey.
               </p>
@@ -141,19 +149,23 @@ export default function ContactInfo() {
             <div className="contact-consent">
               <div className="contact-consent__checkbox">
                 <button
-                  onClick={() => {
-                    // Terms consent is mandatory - can only be checked, not unchecked
-                    if (!contact?.termsConsent) {
-                      setContact({ termsConsent: true });
-                    }
-                  }}
+                  type="button"
+                  onClick={() => setContact({ termsConsent: !contact?.termsConsent })}
                   className={`contact-consent__box contact-consent__box--required ${contact?.termsConsent ? 'contact-consent__box--checked' : ''}`}
                   title="This field is required and must be accepted"
                 >
                   {contact?.termsConsent && <CheckIcon />}
                 </button>
               </div>
-              <p className="contact-consent__label">
+              <p
+                className="contact-consent__label"
+                onClick={(e) => {
+                  // Prevent toggle if clicking on links
+                  if ((e.target as HTMLElement).tagName === 'A') return;
+                  setContact({ termsConsent: !contact?.termsConsent });
+                }}
+                style={{ cursor: 'pointer' }}
+              >
                 By registering, you agree to our{' '}
                 <a href="/privacy-policy" className="contact-consent__link">Privacy Statement</a>
                 {' '}and{' '}

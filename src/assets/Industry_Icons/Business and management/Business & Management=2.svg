@@ -7,31 +7,31 @@
 <path d="M19.2 19.5615H19.3046C22.7858 18.9078 25.9217 17.0216 28.1486 14.2422L27.9052 15.6907H27.9049C27.8447 16.1441 28.1402 16.5681 28.5832 16.6648H28.7224C29.123 16.6537 29.4644 16.3672 29.5486 15.9716L30.2182 11.8371C30.2677 11.5813 30.1932 11.3173 30.0182 11.1259C29.8415 10.9482 29.5974 10.8554 29.3486 10.8714L25.0007 11.2487V11.249C24.7318 11.1942 24.4528 11.2706 24.2483 11.4552C24.0441 11.6401 23.9379 11.9112 23.9622 12.1873C23.9865 12.463 24.1386 12.7109 24.3719 12.8563C24.6056 13.0017 24.8933 13.0275 25.1483 12.9256L27.1483 12.7501V12.7498C25.1558 15.3956 22.2788 17.2204 19.0528 17.8849C18.8328 17.9189 18.6357 18.0424 18.5079 18.2263C18.3797 18.4102 18.3315 18.6389 18.3745 18.8594C18.4551 19.2586 18.7972 19.5493 19.2004 19.5614L19.2 19.5615Z" fill="url(#paint5_linear_5443_13655)"/>
 <path d="M40.9045 31.2974H39.7217C39.458 31.2148 39.1706 31.2634 38.9482 31.4291C38.7256 31.5944 38.5942 31.8567 38.5942 32.1357C38.5942 32.4147 38.7256 32.677 38.9482 32.8426C39.1706 33.0079 39.458 33.0569 39.7217 32.9739H40.9045C41.1683 33.0569 41.4553 33.0079 41.678 32.8426C41.9006 32.677 42.032 32.4147 42.032 32.1357C42.032 31.8567 41.9006 31.5944 41.678 31.4291C41.4553 31.2634 41.1683 31.2148 40.9045 31.2974Z" fill="url(#paint6_linear_5443_13655)"/>
 <defs>
-<linearGradient id="paint0_linear_5443_13655" x1="37.6624" y1="33.2077" x2="37.6624" y2="40.818" gradientUnits="userSpaceOnUse">
+<linearGradient id="paint0_linear_5443_13655" x1="0" y1="0" x2="0" y2="1" gradientUnits="objectBoundingBox">
 <stop stop-color="#ED3040"/>
 <stop offset="1" stop-color="#2D23F4"/>
 </linearGradient>
-<linearGradient id="paint1_linear_5443_13655" x1="37.6624" y1="33.2077" x2="37.6624" y2="40.818" gradientUnits="userSpaceOnUse">
+<linearGradient id="paint1_linear_5443_13655" x1="0" y1="0" x2="0" y2="1" gradientUnits="objectBoundingBox">
 <stop stop-color="#ED3040"/>
 <stop offset="1" stop-color="#2D23F4"/>
 </linearGradient>
-<linearGradient id="paint2_linear_5443_13655" x1="37.6624" y1="33.2077" x2="37.6624" y2="40.818" gradientUnits="userSpaceOnUse">
+<linearGradient id="paint2_linear_5443_13655" x1="0" y1="0" x2="0" y2="1" gradientUnits="objectBoundingBox">
 <stop stop-color="#ED3040"/>
 <stop offset="1" stop-color="#2D23F4"/>
 </linearGradient>
-<linearGradient id="paint3_linear_5443_13655" x1="37.6624" y1="33.2077" x2="37.6624" y2="40.818" gradientUnits="userSpaceOnUse">
+<linearGradient id="paint3_linear_5443_13655" x1="0" y1="0" x2="0" y2="1" gradientUnits="objectBoundingBox">
 <stop stop-color="#ED3040"/>
 <stop offset="1" stop-color="#2D23F4"/>
 </linearGradient>
-<linearGradient id="paint4_linear_5443_13655" x1="37.6624" y1="33.2077" x2="37.6624" y2="40.818" gradientUnits="userSpaceOnUse">
+<linearGradient id="paint4_linear_5443_13655" x1="0" y1="0" x2="0" y2="1" gradientUnits="objectBoundingBox">
 <stop stop-color="#ED3040"/>
 <stop offset="1" stop-color="#2D23F4"/>
 </linearGradient>
-<linearGradient id="paint5_linear_5443_13655" x1="37.6624" y1="33.2077" x2="37.6624" y2="40.818" gradientUnits="userSpaceOnUse">
+<linearGradient id="paint5_linear_5443_13655" x1="0" y1="0" x2="0" y2="1" gradientUnits="objectBoundingBox">
 <stop stop-color="#ED3040"/>
 <stop offset="1" stop-color="#2D23F4"/>
 </linearGradient>
-<linearGradient id="paint6_linear_5443_13655" x1="37.6624" y1="33.2077" x2="37.6624" y2="40.818" gradientUnits="userSpaceOnUse">
+<linearGradient id="paint6_linear_5443_13655" x1="0" y1="0" x2="0" y2="1" gradientUnits="objectBoundingBox">
 <stop stop-color="#ED3040"/>
 <stop offset="1" stop-color="#2D23F4"/>
 </linearGradient>

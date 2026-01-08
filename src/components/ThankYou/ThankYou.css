@@ -2,71 +2,177 @@
    ThankYou Component Styles
    ============================================ */
 
-.thankyou-nav {
+/* ============================================
+   ThankYou Component Styles
+   ============================================ */
+
+.page-main--thankyou {
+  width: 100%;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: 16px;
-  margin-bottom: 30px;
+  padding-top: 40px;
 }
 
 .thankyou-content {
   display: flex;
   flex-direction: column;
-  gap: 30px;
   align-items: center;
   width: 100%;
-  max-width: 520px;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 0 var(--content-padding) 50px;
-  border-radius: 7px;
-  overflow: hidden;
+  text-align: center;
 }
 
-.thankyou-text {
+.thankyou-title {
+  font-family: var(--font-primary);
+  font-size: 32px;
+  font-weight: 600;
+  color: #C22032;
+  /* Fallback */
+  background: linear-gradient(90deg, #C22032 0%, #8A2BE2 100%);
+  /* Pink to Purple gradient */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 20px;
+}
+
+.thankyou-message {
+  font-family: var(--font-primary);
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.6;
+  color: #C22032;
+  /* Fallback */
+  background: linear-gradient(90deg, #C22032 0%, #8A2BE2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 20px;
+}
+
+.thankyou-message--highlight {
+  font-weight: 600;
+  margin-bottom: 60px;
+}
+
+.thankyou-logo-container {
+  margin-bottom: 80px;
+}
+
+.thankyou-logo {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+}
+
+.thankyou-logo-img {
+  height: 60px;
+  width: auto;
+}
+
+.thankyou-logo-text {
+  font-family: var(--font-primary);
+  font-size: 24px;
+  font-weight: 600;
+  color: #1E417C;
+  margin-bottom: 8px;
+}
+
+/* Stats Grid */
+.thankyou-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+  gap: 20px;
+  width: 100%;
+  margin-bottom: 100px;
+}
+
+/* Responsive Grid */
+@media (max-width: 1024px) {
+  .thankyou-stats-grid {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .thankyou-stats-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.thankyou-stat-card {
   display: flex;
   flex-direction: column;
-  gap: 20px;
   align-items: center;
-  text-align: center;
-  width: 100%;
+  gap: 10px;
+}
+
+.thankyou-stat-icon {
+  height: 32px;
+  width: auto;
+  object-fit: contain;
+}
+
+.thankyou-stat-text {
   font-family: var(--font-primary);
+  text-align: center;
+  color: #000000;
 }
 
-.thankyou-text__title {
-  color: var(--color-primary);
-  font-size: var(--text-xl);
-  line-height: normal;
+.thankyou-stat-value {
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.thankyou-stat-label {
+  font-size: 12px;
+  font-weight: 400;
+  margin: 0;
+  line-height: 1.2;
+}
+
+/* Footer */
+.thankyou-footer {
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+  padding-bottom: 40px;
+  font-family: var(--font-primary);
+  font-size: 12px;
+  color: #000000;
 }
 
-.thankyou-text__body {
-  color: var(--color-secondary);
-  font-size: var(--text-base);
-  line-height: 1.5;
-  width: 100%;
+.thankyou-footer-links {
+  display: flex;
+  gap: 40px;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
-.thankyou-text__body p {
-  margin-bottom: 0;
+.thankyou-footer-links a {
+  color: #000000;
+  text-decoration: none;
+  font-weight: 500;
 }
 
-.thankyou-home-btn {
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  transition: opacity var(--transition-fast);
+.thankyou-footer-contact {
+  display: flex;
+  gap: 30px;
+  flex-wrap: wrap;
+  justify-content: center;
+  font-weight: 500;
 }
 
-.thankyou-home-btn:hover {
-  opacity: 0.7;
+.thankyou-contact-label {
+  font-weight: 700;
 }
 
-.thankyou-divider {
-  width: clamp(280px, 45vw, 520px);
-  max-width: 100%;
-  height: 1px;
-  background: #D0D0D0;
-  margin: 168px auto 32px;
+.thankyou-footer-copyright {
+  font-size: 11px;
+  opacity: 0.8;
 }
-
