@@ -1,14 +1,15 @@
 /* ============================================
    AdmitsConnect - Unified Tag/Pill Component System
    ============================================
-   Consolidates 7 previous implementations:
+   Consolidates 6 previous implementations:
    - tag-figma (index.css)
    - tag-button (Buttons.css)
    - box-tag (TagBox.css)
    - wizard-pill (WizardCommon.css)
-   - glass-pill (PageCommon.css)
    - pill-option (Forms.css)
    - CSS variable tokens (variables.css)
+   
+   Note: glass-pill styles are in StudyAreaSelection.css
    
    Design: Uses CSS variables for design tokens,
    Tailwind for spacing/layout utilities
@@ -237,43 +238,8 @@
   border: 2px solid var(--color-primary);
 }
 
-/* Legacy: glass-pill -> tag--glass */
-.glass-pill {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 6px 12px;
-  border-radius: 9999px;
-  background: transparent;
-  border: 1px solid rgba(0, 0, 0, 0.05);
-  transition: all var(--transition-normal);
-  cursor: pointer;
-  font-family: 'Poppins', sans-serif;
-  font-size: 9px;
-  font-weight: 400;
-  color: var(--color-black);
-  white-space: nowrap;
-  line-height: normal;
-}
-
-.glass-pill--selected {
-  background: var(--color-primary);
-  border: var(--border-tag-selected, 2px solid #C22032);
-  color: #FFFFFF;
-}
-
-.glass-pill__text {
-  font-family: 'Poppins', sans-serif;
-  font-size: 9px;
-  font-weight: 400;
-  color: inherit;
-  white-space: nowrap;
-  line-height: normal;
-}
-
-.glass-pill--selected .glass-pill__text {
-  color: #FFFFFF;
-}
+/* Legacy: glass-pill styles moved to StudyAreaSelection.css */
+/* See src/components/StudyAreaSelection/StudyAreaSelection.css for .glass-pill styles */
 
 /* Legacy: box-tag -> tag */
 .box-tag {

@@ -56,7 +56,7 @@ const initialState: FormState = {
   isSubmitting: false,
   isSubmitted: false,
   error: null,
-  
+
   // Form data
   selectedTags: [],
   country: '',
@@ -85,23 +85,23 @@ interface FormActions {
   setCurrentStep: (step: number) => void;
   nextStep: () => void;
   prevStep: () => void;
-  
+
   // Step 1: Tags
   setSelectedTags: (tags: string[]) => void;
   toggleTag: (tag: string) => void;
-  
+
   // Step 2: Country
   setCountry: (country: string) => void;
-  
+
   // Step 3: Study Level & Degree
   setStudyLevel: (level: string) => void;
   setDegreeType: (type: string) => void;
-  
+
   // Step 4: Intake & Duration
   setIntake: (intake: string) => void;
   setIntakeYear: (year: string) => void;
   setStudyDuration: (duration: string) => void;
-  
+
   // Step 5-7: Industry, Area, Format & Preferences
   setIndustry: (industry: string) => void;
   setStudyArea: (area: string) => void;
@@ -109,24 +109,24 @@ interface FormActions {
   setAttendanceType: (type: string) => void;
   setBudget: (budget: string) => void;
   setWorkExperience: (experience: string) => void;
-  
+
   // Step 8: Academics
   setSecondaryAcademics: (data: Partial<AcademicRecord>) => void;
   setHigherSecondaryAcademics: (data: Partial<AcademicRecord>) => void;
   setUndergradAcademics: (data: Partial<AdvancedAcademicRecord> | undefined) => void;
   setPostgradAcademics: (data: Partial<AdvancedAcademicRecord> | undefined) => void;
-  
+
   // Step 9: Contact
   setContact: (data: Partial<ContactData>) => void;
 
   // Step 9.5: Optional Assessment
   setAssessment: (data: Partial<AssessmentData>) => void;
-  
+
   // Submission
   setSubmitting: (isSubmitting: boolean) => void;
   setSubmitted: (isSubmitted: boolean) => void;
   setError: (error: string | null) => void;
-  
+
   // Utilities
   getApplicationData: () => StudentApplication;
   resetForm: () => void;
@@ -143,43 +143,43 @@ export const useFormStore = create<FormState & FormActions>()(
   persist(
     (set, get) => ({
       ...initialState,
-      
+
       // Navigation
       setCurrentStep: (step) => set({ currentStep: step }),
-      
-      nextStep: () => set((state) => ({ 
-        currentStep: Math.min(state.currentStep + 1, STEP_ORDER.length - 1) 
+
+      nextStep: () => set((state) => ({
+        currentStep: Math.min(state.currentStep + 1, STEP_ORDER.length - 1)
       })),
-      
-      prevStep: () => set((state) => ({ 
-        currentStep: Math.max(state.currentStep - 1, 0) 
+
+      prevStep: () => set((state) => ({
+        currentStep: Math.max(state.currentStep - 1, 0)
       })),
-      
+
       // Step 1: Tags
       setSelectedTags: (tags) => set({ selectedTags: tags }),
-      
+
       toggleTag: (tag) => set((state) => {
         const tags = state.selectedTags || [];
         const exists = tags.includes(tag);
         return {
-          selectedTags: exists 
+          selectedTags: exists
             ? tags.filter(t => t !== tag)
             : [...tags, tag]
         };
       }),
-      
+
       // Step 2: Country
       setCountry: (country) => set({ country }),
-      
+
       // Step 3: Study Level & Degree
       setStudyLevel: (studyLevel) => set({ studyLevel }),
       setDegreeType: (degreeType) => set({ degreeType }),
-      
+
       // Step 4: Intake & Duration
       setIntake: (intake) => set({ intake }),
       setIntakeYear: (intakeYear) => set({ intakeYear }),
       setStudyDuration: (studyDuration) => set({ studyDuration }),
-      
+
       // Step 5-7: Industry, Area, Format & Preferences
       setIndustry: (industry) => set({ industry }),
       setStudyArea: (studyArea) => set({ studyArea }),
@@ -187,7 +187,7 @@ export const useFormStore = create<FormState & FormActions>()(
       setAttendanceType: (attendanceType) => set({ attendanceType }),
       setBudget: (budget) => set({ budget }),
       setWorkExperience: (workExperience) => set({ workExperience }),
-      
+
       // Step 8: Academics
       setSecondaryAcademics: (data) => set((state) => ({
         academics: {
@@ -195,32 +195,32 @@ export const useFormStore = create<FormState & FormActions>()(
           secondary: { ...state.academics!.secondary, ...data }
         }
       })),
-      
+
       setHigherSecondaryAcademics: (data) => set((state) => ({
         academics: {
           ...state.academics!,
           higherSecondary: { ...state.academics!.higherSecondary, ...data }
         }
       })),
-      
+
       setUndergradAcademics: (data) => set((state) => ({
         academics: {
           ...state.academics!,
-          undergrad: data === undefined 
-            ? undefined 
+          undergrad: data === undefined
+            ? undefined
             : { ...initialAdvancedAcademicRecord, ...state.academics?.undergrad, ...data }
         }
       })),
-      
+
       setPostgradAcademics: (data) => set((state) => ({
         academics: {
           ...state.academics!,
-          postgrad: data === undefined 
-            ? undefined 
+          postgrad: data === undefined
+            ? undefined
             : { ...initialAdvancedAcademicRecord, ...state.academics?.postgrad, ...data }
         }
       })),
-      
+
       // Step 9: Contact
       setContact: (data) => set((state) => ({
         contact: { ...state.contact!, ...data }
@@ -230,12 +230,12 @@ export const useFormStore = create<FormState & FormActions>()(
       setAssessment: (data) => set((state) => ({
         assessment: { ...(state.assessment || initialAssessment), ...data }
       })),
-      
+
       // Submission
       setSubmitting: (isSubmitting) => set({ isSubmitting }),
       setSubmitted: (isSubmitted) => set({ isSubmitted }),
       setError: (error) => set({ error }),
-      
+
       // Get complete application data for submission
       getApplicationData: (): StudentApplication => {
         const state = get();
@@ -258,23 +258,24 @@ export const useFormStore = create<FormState & FormActions>()(
           contact: state.contact || initialContact,
         };
       },
-      
+
       // Reset form to initial state
       resetForm: () => set({ ...initialState }),
-      
+
       // Reset store completely - clears state AND localStorage
       resetStore: () => {
         // Remove from localStorage first to prevent persist middleware from saving partial state
         localStorage.removeItem('admits-connect-form');
         // Then reset the state
-        set({ ...initialState }, true); // Pass true to replace state completely
+        // Then reset the state
+        set({ ...initialState }); // Merge initial state (preserves actions)
       },
-      
+
       // Validation for step navigation
       // Takes the current step (source) to validate before proceeding to next
       canProceedFromStep: (sourceStep: number): boolean => {
         const state = get();
-        
+
         // Validate each step before proceeding
         switch (sourceStep) {
           case 0: // Home - tags are optional
@@ -283,10 +284,10 @@ export const useFormStore = create<FormState & FormActions>()(
             return !!state.country;
           case 2: // Study Level
             // Degree type only required for Under Graduation and Post Graduation
-            const requiresDegreeType = 
-              state.studyLevel === 'Under Graduation' || 
+            const requiresDegreeType =
+              state.studyLevel === 'Under Graduation' ||
               state.studyLevel === 'Post Graduation';
-            
+
             if (requiresDegreeType) {
               return !!state.studyLevel && !!state.degreeType;
             } else {
@@ -300,9 +301,9 @@ export const useFormStore = create<FormState & FormActions>()(
             return !!state.studyArea;
           case 6: // Format & Preferences
             return !!(
-              state.studyFormat && 
-              state.attendanceType && 
-              state.budget && 
+              state.studyFormat &&
+              state.attendanceType &&
+              state.budget &&
               state.workExperience
             );
           case 7: // Academics - secondary and higher secondary required
@@ -326,7 +327,7 @@ export const useFormStore = create<FormState & FormActions>()(
             return true;
         }
       },
-      
+
       // Legacy method for backwards compatibility
       canProceedToStep: (targetStep: number): boolean => {
         const state = get();

@@ -392,7 +392,8 @@
   display: flex;
   align-items: stretch;
   justify-content: center;
-  padding: clamp(0px, 2vw, var(--space-xl)) 0;
+  /* Ensure consistent breathing room on all sides; previous shorthand set horizontal padding to 0 */
+  padding: clamp(0.5rem, 2vh, 1.25rem) clamp(1rem, 3vw, 2rem);
   background-color: transparent;
 }
 

@@ -49,12 +49,12 @@
   border: none;
   border-radius: 29px;
   letter-spacing: 0.5px;
-  
+
   /* Figma spec: Multi-layer inset shadow */
-  box-shadow: var(--shadow-button-inset, 
-    inset 0px 0px 10px 0px rgba(194, 32, 50, 0.3), 
-    inset -1px -2px 3px 0px rgba(194, 32, 50, 0.1), 
-    inset 1px 1px 2px 0px rgba(194, 32, 50, 0.2));
+  box-shadow: var(--shadow-button-inset,
+      inset 0px 0px 10px 0px rgba(194, 32, 50, 0.3),
+      inset -1px -2px 3px 0px rgba(194, 32, 50, 0.1),
+      inset 1px 1px 2px 0px rgba(194, 32, 50, 0.2));
 }
 
 .btn-primary:hover:not(:disabled) {
@@ -135,7 +135,7 @@
   background: rgba(255, 255, 255, 0.01);
   border: 0.5px solid var(--color-primary-light);
   backdrop-filter: blur(2.5px);
-  box-shadow: 
+  box-shadow:
     inset 0px 0px 10px 0px rgba(194, 32, 50, 0.3),
     inset -1px -2px 3px 0px rgba(194, 32, 50, 0.1),
     inset 1px 1px 2px 0px rgba(194, 32, 50, 0.3);
@@ -213,44 +213,7 @@
    ============================================ */
 
 /* Legacy: btn-next-figma -> btn-primary */
-.btn-next-figma {
-  min-width: 120px;
-  width: auto;
-  height: 44px;
-  padding: 12px 40px;
-  font-family: var(--font-button);
-  font-size: 15px;
-  font-weight: 500;
-  background-color: #C22032;
-  color: #FFFFFF;
-  border-radius: 29px;
-  border: none;
-  cursor: pointer;
-  transition: all 200ms ease;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  letter-spacing: 0.5px;
-}
-
-.btn-next-figma:hover {
-  opacity: 0.9;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(194, 32, 50, 0.35);
-}
-
-.btn-next-figma:active {
-  transform: translateY(0) scale(0.98);
-}
-
-@media (max-width: 767px) {
-  .btn-next-figma {
-    min-width: 100px;
-    height: 38px;
-    padding: 10px 32px;
-    font-size: 13px;
-  }
-}
+/* Legacy: btn-next-figma -> btn-primary (Removed to avoid conflict with MobileHomePage.css) */
 
 /* Legacy: submit-btn -> btn-glass */
 .submit-btn {
@@ -262,7 +225,7 @@
   background: rgba(255, 255, 255, 0.01);
   border: 0.5px solid var(--color-primary-light);
   backdrop-filter: blur(2.5px);
-  box-shadow: 
+  box-shadow:
     inset 0px 0px 10px 0px rgba(194, 32, 50, 0.3),
     inset -1px -2px 3px 0px rgba(194, 32, 50, 0.1),
     inset 1px 1px 2px 0px rgba(194, 32, 50, 0.3);
@@ -316,4 +279,3 @@
   transform: none;
   box-shadow: none;
 }
-

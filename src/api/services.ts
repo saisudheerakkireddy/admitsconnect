@@ -127,7 +127,7 @@ const mockStudyDurations: StudyDuration[] = [
 ];
 
 const mockTags: string[] = [
-  "Faster Offer",
+  "Quick Offer",
   "Course with Internships",
   "High Offer Acceptance-Rate",
   "Affordable University",

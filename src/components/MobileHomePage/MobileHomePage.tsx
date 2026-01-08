@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 import { useFormStore } from '../../store/formStore';
 import { useFormNavigation } from '../../hooks/useFormNavigation';
 import Header from '../Header';
+import './MobileHomePage.css';
 
 const tags = [
   "Quick Offer",
@@ -61,7 +62,7 @@ interface TagButtonProps {
 }
 
 const TagButton = ({ label, isSelected, onToggle }: TagButtonProps) => (
-  <button 
+  <button
     onClick={onToggle}
     aria-pressed={isSelected}
     className={`tag-figma ${isSelected ? 'tag-figma--selected' : ''}`}
@@ -84,9 +85,9 @@ interface StatCardProps {
 
 const StatCard = ({ value, lines, iconPath }: StatCardProps) => (
   <div className="flex flex-col items-center text-center gap-2">
-    <img 
-      src={iconPath} 
-      alt="" 
+    <img
+      src={iconPath}
+      alt=""
       className="stats-icon-figma object-contain"
     />
     <div className="stats-value-figma font-primary text-black">
@@ -118,13 +119,13 @@ export default function MobileHomePage() {
       <Header variant="default" />
 
       {/* Main Content - Responsive container */}
-      <main className="w-full mx-auto px-[22px] tablet:px-[39px] desktop:px-[110px]">
-        {/* Tagline Section - Uses Figma-aligned responsive classes */}
-        <section className="flex flex-col items-center mb-10 tablet:mb-20" style={{ marginTop: 'clamp(40px, 6vh, 80px)', marginBottom: 'clamp(40px, 6vh, 80px)' }}>
+      <main className="home-content-wrapper">
+        {/* Tagline Section - Uses systematic spacing */}
+        <section className="home-section flex flex-col items-center">
           <p className="tagline-figma mb-6 tablet:mb-[42px]">
             Four Services + One Mission: <strong>Empowering global talent</strong>.
           </p>
-          <p 
+          <p
             className="subtitle-figma"
             style={{
               background: 'linear-gradient(140.59deg, #EE1113 0.91%, #7403FA 96.74%)',
@@ -138,22 +139,22 @@ export default function MobileHomePage() {
         </section>
 
         {/* Tags Section - Uses CSS custom properties for responsive gap/sizing */}
-        <section className="mb-10 tablet:mb-20" style={{ marginTop: 'clamp(30px, 5vh, 60px)', marginBottom: 'clamp(40px, 6vh, 80px)' }}>
+        <section className="home-section home-section--tags">
           <div className="tag-container">
             {tags.map((tag, index) => (
-              <TagButton 
-                key={index} 
-                label={tag} 
+              <TagButton
+                key={index}
+                label={tag}
                 isSelected={selectedTags?.includes(tag) || false}
                 onToggle={() => toggleTag(tag)}
               />
             ))}
           </div>
-          
+
           {/* Next Button - Figma spec: Red pill button with "Next" text */}
-          <div className="flex justify-center" style={{ marginTop: 'clamp(30px, 4vh, 50px)', marginBottom: 'clamp(30px, 4vh, 50px)' }}>
-            <button 
-              onClick={handleNext} 
+          <div className="flex justify-center mt-[var(--home-content-gap)] mb-[var(--home-content-gap)]">
+            <button
+              onClick={handleNext}
               aria-label="Continue to next step"
               className="btn-next-figma"
             >
@@ -163,13 +164,13 @@ export default function MobileHomePage() {
         </section>
 
         {/* Stats Section - Responsive grid: 3 cols mobile/tablet → 9 cols desktop */}
-        <section className="mb-10 tablet:mb-20" style={{ marginTop: 'clamp(40px, 6vh, 80px)', marginBottom: 'clamp(40px, 6vh, 80px)' }}>
+        <section className="home-section">
           <div className="stats-grid-figma">
             {stats.map((stat, index) => (
-              <StatCard 
-                key={index} 
-                value={stat.value} 
-                lines={stat.lines} 
+              <StatCard
+                key={index}
+                value={stat.value}
+                lines={stat.lines}
                 iconPath={stat.iconPath}
               />
             ))}
@@ -177,9 +178,9 @@ export default function MobileHomePage() {
         </section>
 
         {/* Footer - Horizontal layout matching Figma design */}
-        <footer className="text-center pb-6 tablet:pb-10" style={{ marginTop: 'clamp(50px, 8vh, 100px)' }}>
+        <footer className="home-section--footer footer">
           {/* Links Section - Horizontal on all viewports */}
-          <div className="flex flex-wrap justify-center items-center gap-x-6 tablet:gap-x-8 gap-y-3 mb-6 tablet:mb-8 max-w-[1400px] mx-auto px-4">
+          <div className="footer-links">
             {/* Navigation Links */}
             <a href="#" className="footer-link-figma">About Us</a>
             <a href="#" className="footer-link-figma">EXPLORE</a>
@@ -193,7 +194,7 @@ export default function MobileHomePage() {
           </div>
 
           {/* Contact Info - Horizontal layout with "Talking to us is easy:" */}
-          <div className="flex flex-wrap justify-center items-center gap-x-4 tablet:gap-x-8 gap-y-2 mb-6">
+          <div className="footer-contact">
             <p className="footer-contact-title-figma leading-normal">Talking to us is easy:</p>
             <p className="footer-contact-detail-figma leading-normal">+44 773 45 66688 UK</p>
             <p className="footer-contact-detail-figma leading-normal">+91 970 45 66688 IN</p>
@@ -201,7 +202,7 @@ export default function MobileHomePage() {
           </div>
 
           {/* Crafted By */}
-          <p className="footer-crafted-figma leading-normal pt-2 gradient-text-footer">
+          <p className="footer-crafted-figma leading-normal gradient-text-footer">
             Crafted by AUN Tech Consulting Pvt. Ltd.
           </p>
         </footer>

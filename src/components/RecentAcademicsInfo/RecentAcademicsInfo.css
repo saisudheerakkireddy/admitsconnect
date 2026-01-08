@@ -1,24 +1,151 @@
 /* ============================================
    RecentAcademicsInfo Component Styles
+   Matching Figma Design - No Gradient Border
    ============================================ */
 
-.academics-nav {
+/* ============================================
+   MAIN CONTENT CONTAINER
+   ============================================ */
+.academics-main {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: 16px;
-  margin-bottom: 50px;
+  width: 100%;
+  max-width: 100%;
+  height: 100vh;
+  /* Full viewport height */
+  overflow-y: auto;
+  /* Enable vertical scrolling */
+  scroll-snap-type: y mandatory;
+  /* Enable vertical scroll snapping */
+  scroll-behavior: smooth;
+  margin: 0 auto;
+  padding: 0;
+  /* Remove default padding */
 }
 
+/* ============================================
+   SCROLL SECTIONS
+   ============================================ */
+.academics-scroll-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 100vh;
+  /* Full viewport height */
+  scroll-snap-align: start;
+  /* Snap to start of section */
+  padding: var(--selection-page-padding-block) var(--selection-page-padding-inline);
+}
+
+#graduation-section {
+  padding-top: 5px;
+  padding-bottom: 220px;
+}
+
+
+/* ============================================
+   VERTICAL STEPPER
+   ============================================ */
+.vertical-stepper {
+  position: fixed;
+  left: 40px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  /* Space between dots */
+  z-index: 100;
+}
+
+.stepper-line {
+  position: absolute;
+  top: 10px;
+  /* Start from center of first dot */
+  bottom: 10px;
+  /* End at center of last dot */
+  width: 2px;
+  background-color: rgba(0, 0, 0, 0.1);
+  z-index: -1;
+}
+
+.stepper-progress {
+  width: 100%;
+  background: var(--gradient-primary);
+  transition: height 0.3s ease;
+}
+
+.stepper-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: #E0E0E0;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.stepper-dot.active {
+  background: var(--gradient-primary);
+  transform: scale(1.5);
+}
+
+/* ============================================
+   NAVIGATION ROW (Title + Arrows)
+   ============================================ */
+.academics-nav-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: var(--selection-nav-max-width);
+  gap: var(--selection-nav-gap);
+  margin-bottom: 40px;
+}
+
+/* Page Title - Gradient styling */
+.academics-page-title {
+  flex: 1;
+  min-width: 0;
+  margin: 0;
+  padding: 0 var(--selection-title-padding-inline);
+
+  font-family: 'Poppins', sans-serif;
+  font-size: calc(var(--selection-title-size) + 4px);
+  font-weight: 600;
+  /* Semibold */
+  line-height: var(--selection-title-line-height);
+  text-align: center;
+  letter-spacing: 0;
+  /* Zero spacing */
+
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ============================================
+   ACADEMICS FORM
+   ============================================ */
 .academics-form {
   display: flex;
   flex-direction: column;
-  gap: 50px;
+  gap: 35px;
   width: 100%;
-  max-width: 520px;
+  max-width: 900px;
   margin: 0 auto;
 }
 
+/* ============================================
+   ACADEMICS SECTION
+   ============================================ */
 .academics-section {
   display: flex;
   flex-direction: column;
@@ -26,80 +153,319 @@
   align-items: center;
 }
 
+/* Section Title - Gradient styling */
 .academics-section__title {
-  font-family: var(--font-primary);
-  font-size: var(--text-base);
-  color: var(--color-text-secondary);
+  font-family: 'Poppins', sans-serif;
+  font-size: calc(var(--selection-title-size) + 4px);
+  /* Match main title size */
+  font-weight: 600;
+  /* Semibold */
   text-align: center;
-  width: 100%;
+  margin: 0;
+  letter-spacing: 0;
+  /* Zero spacing */
+  /* opacity: 0.6; Removed to allow manual gradient control */
+
+  /* Manual gradient for customization */
+  background: linear-gradient(120.24deg, #EE1113 0.91%, #7403FA 96.74%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
+
+/* Section Fields */
 .academics-section__fields {
   display: flex;
-  flex-direction: column;
-  gap: 10px;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: center;
   align-items: center;
   width: 100%;
 }
 
-.academics-section__toggle {
+.academics-section__fields--expanded {
+  flex-direction: column;
+  gap: 16px;
+}
+
+.academics-field-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+/* ============================================
+   INPUT FIELDS - Pill Style (No Gradient Border)
+   ============================================ */
+.academics-input {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18px 30px;
+  /* Reduced padding */
+  min-height: 60px;
+  min-width: 280px;
+  /* Increased min-width */
+
+  /* Typography */
+  font-family: 'Poppins', sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: normal;
+  text-align: center;
+  color: #333333;
+
+  /* Simple white background with subtle border */
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 35px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+
+  cursor: text;
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+.academics-input::placeholder {
+  color: #888;
+  font-weight: 500;
+}
+
+.academics-input:focus {
+  border-color: rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+}
+
+/* Dropdown button style */
+.academics-input--dropdown {
+  cursor: pointer;
+  position: relative;
+  padding-right: 44px;
+}
+
+.academics-input__text {
+  flex: 1;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.academics-input__chevron {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
   display: flex;
   align-items: center;
-  gap: 18px;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  transition: opacity var(--transition-fast);
+  justify-content: center;
+  transition: transform 0.2s ease;
 }
 
-.academics-section__toggle:hover {
-  opacity: 0.7;
+.academics-input__chevron--open {
+  transform: translateY(-50%) rotate(180deg);
 }
 
-.academics-section__toggle-icon {
-  transition: transform var(--transition-normal);
-}
-
-.academics-section__toggle-icon--open {
-  transform: rotate(180deg);
-}
-
+/* ============================================
+   DROPDOWN MENU
+   ============================================ */
 .academics-dropdown {
   position: relative;
 }
 
 .academics-dropdown__menu {
   position: absolute;
-  top: 32px;
+  top: calc(100% + 8px);
   left: 0;
   width: 100%;
-  background: var(--color-white);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-lg);
-  border: 1px solid rgba(238, 17, 19, 0.2);
-  z-index: var(--z-dropdown);
-  overflow: hidden;
+  /* Occupy full width of the parent */
+  max-height: 250px;
+  overflow-y: auto;
+  background: white;
+  border-radius: 20px;
+  /* Increased border radius to match inputs */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  z-index: 100;
 }
 
 .academics-dropdown__option {
   width: 100%;
-  padding: var(--space-sm) var(--space-lg);
+  padding: 14px 22px;
   text-align: left;
   background: transparent;
   border: none;
+  font-family: 'Poppins', sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  color: #333;
   cursor: pointer;
-  transition: background var(--transition-fast);
+  transition: background 0.15s ease;
 }
 
 .academics-dropdown__option:hover {
-  background: var(--color-bg-selected);
+  background: rgba(194, 32, 50, 0.08);
+}
+
+/* Post Graduation Medium Dropdown - Open Upward */
+#postgrad-medium+.academics-dropdown__menu {
+  top: auto;
+  bottom: calc(100% + 8px);
+}
+
+
+/* ============================================
+   DIVIDER
+   ============================================ */
+.academics-divider-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: auto;
 }
 
 .academics-divider {
-  width: clamp(280px, 45vw, 520px);
-  max-width: 100%;
+  width: min(85%, 32.5rem);
   height: 1px;
-  background: #D0D0D0;
-  margin: 50px auto 32px;
+  background: var(--gradient-divider);
 }
 
+/* ============================================
+   MOBILE RESPONSIVE (< 768px)
+   ============================================ */
+@media (max-width: 767px) {
+  .academics-main {
+    gap: 25px;
+  }
+
+  .vertical-stepper {
+    display: none;
+    /* Hide stepper on mobile */
+  }
+
+  .academics-form {
+    gap: 30px;
+  }
+
+  .academics-section {
+    gap: 16px;
+  }
+
+  .academics-section__title {
+    font-size: 14px;
+  }
+
+  .academics-section__fields {
+    gap: 12px;
+  }
+
+  .academics-field-row {
+    gap: 12px;
+  }
+
+  .academics-input {
+    padding: 16px 24px;
+    /* Reduced padding */
+    min-height: 52px;
+    min-width: 260px;
+    /* Increased min-width */
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 30px;
+  }
+
+  .academics-dropdown__option {
+    padding: 12px 18px;
+    font-size: 14px;
+    font-weight: 500;
+  }
+}
+
+/* ============================================
+   TABLET RESPONSIVE (768px - 1279px)
+   ============================================ */
+@media (min-width: 768px) and (max-width: 1279px) {
+  .academics-form {
+    gap: 32px;
+  }
+
+  .academics-section {
+    gap: 18px;
+  }
+
+  .academics-section__title {
+    font-size: calc(var(--selection-title-size) + 4px);
+    /* Match main title size */
+  }
+
+  .academics-section__fields {
+    gap: 14px;
+  }
+
+  .academics-input {
+    padding: 18px 30px;
+    min-height: 56px;
+    min-width: 300px;
+    font-size: 15px;
+    font-weight: 500;
+  }
+}
+
+/* ============================================
+   DESKTOP RESPONSIVE (1280px+)
+   ============================================ */
+@media (min-width: 1280px) {
+  .academics-main {
+    gap: 40px;
+  }
+
+  .academics-page-title {
+    font-size: calc(var(--selection-title-size) + 4px);
+  }
+
+  .academics-form {
+    gap: 40px;
+    max-width: 1000px;
+  }
+
+  .academics-section {
+    gap: 24px;
+  }
+
+  .academics-section__title {
+    font-size: calc(var(--selection-title-size) + 4px);
+    /* Match main title size */
+  }
+
+  .academics-section__fields {
+    gap: 20px;
+  }
+
+  .academics-field-row {
+    gap: 20px;
+  }
+
+  .academics-input {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 40px;
+    /* Reduced padding to give text more space */
+    min-height: 64px;
+    min-width: 360px;
+    /* Increased min-width significantly */
+    font-size: 18px;
+    font-weight: 500;
+    border-radius: 40px;
+  }
+
+  .academics-dropdown__option {
+    padding: 16px 26px;
+    font-size: 16px;
+    font-weight: 500;
+  }
+}

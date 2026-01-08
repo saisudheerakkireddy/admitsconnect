@@ -1,24 +1,28 @@
 // Study Area Selection Screen Component
 // Refactored with separate CSS file
 
-import { useEffect } from 'react';
 import './StudyAreaSelection.css';
 import { useFormStore } from '../../store/formStore';
 import { useFormNavigation } from '../../hooks/useFormNavigation';
 import WizardLayout from '../WizardLayout';
+import { LeftArrows, RightArrows } from '../NavigationArrows';
+import { useState, useEffect } from 'react';
 
 interface StudyOption {
   label: string;
   multiline?: boolean;
 }
 
+// Study levels ordered for 5-3 layout (matching Figma design)
 const studyLevels: StudyOption[] = [
+  // Row 1 (5 items)
   { label: "Post Graduation" },
   { label: "Under Graduation" },
   { label: "Summer Programs" },
   { label: "Diploma" },
   { label: "Pre Masters" },
-  { label: "DBA (Doctorate of Business Administration)", multiline: true },
+  // Row 2 (3 items)
+  { label: "DBA (Doctorate of Business Administration)" },
   { label: "PhD (Doctor of Philosophy)" },
   { label: "UG - Integrated" },
 ];
@@ -60,22 +64,6 @@ const postgradDegreeTypes: StudyOption[] = [
   { label: "M.Fin/MiF/MFiN - Master of Finance" },
 ];
 
-const LeftArrows = () => (
-  <svg width="24" height="12" viewBox="0 0 24 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M7 1L2 6L7 11" stroke="#1E417C" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-    <path d="M14 1L9 6L14 11" stroke="#1E417C" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-    <path d="M21 1L16 6L21 11" stroke="#1E417C" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-  </svg>
-);
-
-const RightArrows = () => (
-  <svg width="24" height="12" viewBox="0 0 24 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M17 11L22 6L17 1" stroke="#C22032" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-    <path d="M10 11L15 6L10 1" stroke="#C22032" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-    <path d="M3 11L8 6L3 1" stroke="#C22032" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-  </svg>
-);
-
 interface PillButtonProps {
   option: StudyOption;
   isSelected: boolean;
@@ -83,7 +71,7 @@ interface PillButtonProps {
 }
 
 const PillButton = ({ option, isSelected, onSelect }: PillButtonProps) => (
-  <button 
+  <button
     className={`glass-pill ${isSelected ? 'glass-pill--selected' : ''}`}
     onClick={onSelect}
   >
@@ -96,34 +84,31 @@ const PillButton = ({ option, isSelected, onSelect }: PillButtonProps) => (
 export default function StudyAreaSelection() {
   const { studyLevel, degreeType, setStudyLevel, setDegreeType } = useFormStore();
   const { goToNext, goToPrevious, canProceed } = useFormNavigation();
+  const [activeStep, setActiveStep] = useState(0);
 
   // Determine if degree type selection should be shown
   const shouldShowDegreeType = studyLevel === 'Under Graduation' || studyLevel === 'Post Graduation';
-  
-  // Get appropriate degree types based on study level
-  const degreeTypes = studyLevel === 'Under Graduation' 
-    ? undergradDegreeTypes 
-    : studyLevel === 'Post Graduation'
-    ? postgradDegreeTypes
-    : [];
 
-  // Auto-navigate when study level that doesn't require degree type is selected
-  useEffect(() => {
-    if (studyLevel && !shouldShowDegreeType) {
-      // Clear degree type if not needed
-      if (degreeType) {
-        setDegreeType('');
-      }
-      // Auto-advance after brief delay for visual feedback
-      const timer = setTimeout(() => {
-        goToNext();
-      }, 300);
-      return () => clearTimeout(timer);
-    }
-  }, [studyLevel, shouldShowDegreeType, degreeType, setDegreeType, goToNext]);
+  // Get appropriate degree types based on study level
+  const degreeTypes = studyLevel === 'Under Graduation'
+    ? undergradDegreeTypes
+    : studyLevel === 'Post Graduation'
+      ? postgradDegreeTypes
+      : [];
 
   const handleStudyLevelSelect = (label: string) => {
-    setStudyLevel(label);
+    // Toggle: if already selected, deselect; otherwise select
+    if (studyLevel === label) {
+      setStudyLevel('');
+    } else {
+      setStudyLevel(label);
+      // Scroll to next section if available
+      if (shouldShowDegreeType) {
+        setTimeout(() => {
+          document.getElementById('degree-section')?.scrollIntoView({ behavior: 'smooth' });
+        }, 100);
+      }
+    }
     // Clear degree type when changing study level
     if (degreeType) {
       setDegreeType('');
@@ -136,28 +121,81 @@ export default function StudyAreaSelection() {
     }
   };
 
+  // Intersection Observer for active step
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            if (entry.target.id === 'study-level-section') setActiveStep(0);
+            if (entry.target.id === 'degree-section') setActiveStep(1);
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+
+    const studySection = document.getElementById('study-level-section');
+    const degreeSection = document.getElementById('degree-section');
+
+    if (studySection) observer.observe(studySection);
+    if (degreeSection) observer.observe(degreeSection);
+
+    return () => observer.disconnect();
+  }, [shouldShowDegreeType]);
+
+  const scrollToSection = (index: number) => {
+    const id = index === 0 ? 'study-level-section' : 'degree-section';
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
     <WizardLayout variant="white" headerVariant="alt">
-      <main className="page-main">
-        <section className="study-level-section">
-          <div className="study-level-nav">
-            <button className="page-nav-arrow" onClick={goToPrevious}>
+      <main className="study-main">
+        {/* Vertical Stepper */}
+        <div className="vertical-stepper">
+          <div className="stepper-line">
+            <div
+              className="stepper-progress"
+              style={{ height: `${shouldShowDegreeType ? (activeStep / 1) * 100 : 0}%` }}
+            />
+          </div>
+          <button
+            className={`stepper-dot ${activeStep >= 0 ? 'active' : ''}`}
+            onClick={() => scrollToSection(0)}
+            aria-label="Go to Study Level"
+          />
+          {shouldShowDegreeType && (
+            <button
+              className={`stepper-dot ${activeStep >= 1 ? 'active' : ''}`}
+              onClick={() => scrollToSection(1)}
+              aria-label="Go to Degree Type"
+            />
+          )}
+        </div>
+
+        <section id="study-level-section" className="study-level-section">
+          {/* Navigation Row - Same structure as CountrySelection */}
+          <div className="study-nav-row">
+            <button className="nav-arrow-btn nav-arrow-btn--left" onClick={goToPrevious} aria-label="Previous page">
               <LeftArrows />
             </button>
-            <h1 className="page-title">Choose the Study Level</h1>
-            <button 
-              className="page-nav-arrow"
+            <h1 className="study-page-title">Choose the study level</h1>
+            <button
+              className="nav-arrow-btn nav-arrow-btn--right"
               onClick={handleNext}
               disabled={!canProceed}
+              aria-label="Next page"
             >
               <RightArrows />
             </button>
           </div>
 
+          {/* Study Level Pills - 5-3 layout */}
           <div className="study-pills-container">
             {studyLevels.map((option, index) => (
-              <PillButton 
-                key={index} 
+              <PillButton
+                key={index}
                 option={option}
                 isSelected={studyLevel === option.label}
                 onSelect={() => handleStudyLevelSelect(option.label)}
@@ -167,12 +205,12 @@ export default function StudyAreaSelection() {
         </section>
 
         {shouldShowDegreeType && (
-          <section className="degree-section">
+          <section id="degree-section" className="degree-section">
             <h2 className="degree-section__title">Choose the Degree Type</h2>
-            <div className="study-pills-container">
+            <div className="study-pills-container degree-pills-container">
               {degreeTypes.map((option, index) => (
-                <PillButton 
-                  key={index} 
+                <PillButton
+                  key={index}
                   option={option}
                   isSelected={degreeType === option.label}
                   onSelect={() => setDegreeType(option.label)}
@@ -182,8 +220,8 @@ export default function StudyAreaSelection() {
           </section>
         )}
 
-        <div className="page-divider-container">
-          <div className="page-divider" />
+        <div className="study-divider-container">
+          <div className="study-divider" />
         </div>
       </main>
     </WizardLayout>

@@ -18,6 +18,57 @@
   box-sizing: border-box;
 }
 
+.home-content-wrapper {
+  width: 100%;
+  margin: 0 auto;
+  padding-inline: var(--home-padding-inline);
+}
+
+.home-section {
+  margin-bottom: var(--home-section-gap);
+}
+
+.home-section--tags {
+  margin-bottom: var(--home-subsection-gap);
+}
+
+.home-section--footer {
+  margin-top: var(--home-footer-gap);
+}
+
+/* Optional: Glassmorphic content card for enhanced visual hierarchy */
+.home-content-card {
+  max-width: 1600px;
+  margin-inline: auto;
+  margin-block: clamp(0.5rem, 2vh, 1rem);
+  padding: var(--space-xl);
+
+  /* Subtle glassmorphism */
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: clamp(1rem, 2vw, 1.5rem);
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.06),
+    inset 0 1px 1px rgba(255, 255, 255, 0.3);
+}
+
+@media (max-width: 767px) {
+  .home-content-card {
+    margin-inline: 0.5rem;
+    border-radius: 0.75rem;
+    background: rgba(255, 255, 255, 0.15);
+    padding: var(--space-lg);
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1279px) {
+  .home-content-card {
+    margin-inline: 1rem;
+    padding: var(--space-2xl);
+  }
+}
+
 body {
   font-family: 'Poppins', sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -62,391 +113,7 @@ body {
    TAILWIND CUSTOM UTILITIES
    ============================================ */
 @layer utilities {
-  /* ============================================
-     GLASSMORPHISM EFFECTS (Figma Specs)
-     ============================================ */
-  .glass-effect {
-    backdrop-filter: blur(2.5px);
-    background: rgba(30, 65, 124, 0.01);
-    box-shadow: var(--shadow-glass, inset 0px 0px 10px 0px rgba(0,0,0,0.05), inset -1px -2px 3px 0px rgba(0,0,0,0.05), inset 1px 1px 2px 0px rgba(0,0,0,0.05));
-  }
-  
-  .glass-effect-white {
-    backdrop-filter: blur(2.5px);
-    background: rgba(255, 255, 255, 0.01);
-    box-shadow: inset 0px 0px 10px 0px rgba(0,0,0,0.05), inset -1px -2px 3px 0px rgba(0,0,0,0.05), inset 1px 1px 2px 0px rgba(0,0,0,0.05);
-  }
-  
-  .glass-effect-black {
-    backdrop-filter: blur(2.5px);
-    background: rgba(0, 0, 0, 0.01);
-    box-shadow: inset 0px 0px 10px 0px rgba(0,0,0,0.05), inset -1px -2px 3px 0px rgba(0,0,0,0.05), inset 1px 1px 2px 0px rgba(0,0,0,0.05);
-  }
-  
-  /* ============================================
-     RESPONSIVE TAG BUTTON (Figma Specs)
-     Mobile-first approach with viewport overrides
-     ============================================ */
-  .tag-figma {
-    /* Base/Mobile styles */
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    height: var(--tag-height);
-    padding: var(--tag-padding-y) var(--tag-padding-x);
-    font-family: var(--tag-font-family);
-    font-size: var(--tag-font-size);
-    font-weight: var(--tag-font-weight);
-    line-height: var(--tag-line-height);
-    color: var(--color-text-primary);
-    background: rgba(255, 255, 255, 0.5);
-    border-radius: var(--tag-border-radius);
-    backdrop-filter: blur(2.5px);
-    box-shadow: inset 0px 0px 10px 0px rgba(0,0,0,0.05), inset -1px -2px 3px 0px rgba(0,0,0,0.05), inset 1px 1px 2px 0px rgba(0,0,0,0.05);
-    cursor: pointer;
-    transition: all 200ms ease;
-    white-space: nowrap;
-    /* Figma spec: Visible border on tags */
-    border: 1px solid rgba(0, 0, 0, 0.12);
-  }
-  
-  .tag-figma:hover {
-    background: rgba(255, 255, 255, 0.95);
-    border: 1px solid rgba(0, 0, 0, 0.2);
-  }
-  
-  .tag-figma--selected {
-    background: var(--color-primary);
-    border: 2px solid var(--color-primary);
-    color: #FFFFFF;
-    box-shadow: inset 0px 0px 10px 0px rgba(194,32,50,0.15), inset -1px -2px 3px 0px rgba(194,32,50,0.1), inset 1px 1px 2px 0px rgba(194,32,50,0.1);
-  }
-  
-  .tag-figma--selected:hover {
-    background: var(--color-primary);
-    border: 2px solid var(--color-primary);
-  }
-  
-  .tag-figma:active:not(.tag-figma--selected) {
-    transform: scale(0.95);
-  }
-  
-  /* ============================================
-     TAG CONTAINER (Responsive)
-     Figma spec: Center-aligned tags with balanced rows
-     ============================================ */
-  .tag-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--tag-gap-y) var(--tag-gap-x);
-    justify-content: center;
-    align-items: center;
-    align-content: center;
-    max-width: var(--tag-max-width);
-    margin: 0 auto;
-    padding: 0 auto;
-  }
-  
-  @media (min-width: 768px) {
-    .tag-container {
-      padding: 0 24px;
-    }
-  }
-  
-  @media (min-width: 1280px) {
-    .tag-container {
-      padding: 0 40px;
-    }
-  }
-  
-  /* ============================================
-     RESPONSIVE NEXT BUTTON (Figma Specs)
-     Red pill-shaped button with "Next" text
-     ============================================ */
-  .btn-next-figma {
-    min-width: 100px;
-    width: auto;
-    height: 38px;
-    padding: 10px 32px;
-    font-family: var(--font-button);
-    font-size: 14px;
-    font-weight: 500;
-    background-color: #C22032;
-    color: #FFFFFF;
-    border-radius: 25px;
-    border: none;
-    cursor: pointer;
-    transition: all 200ms ease;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    letter-spacing: 0.3px;
-  }
-  
-  .btn-next-figma:hover {
-    opacity: 0.9;
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(194, 32, 50, 0.35);
-  }
-  
-  .btn-next-figma:active {
-    transform: translateY(0) scale(0.98);
-  }
-  
-  /* Mobile size adjustments */
-  @media (max-width: 767px) {
-    .btn-next-figma {
-      min-width: 90px;
-      height: 34px;
-      padding: 8px 28px;
-      font-size: 12px;
-    }
-  }
-  
-  /* Tablet size */
-  @media (min-width: 768px) and (max-width: 1279px) {
-    .btn-next-figma {
-      min-width: 110px;
-      height: 40px;
-      padding: 10px 36px;
-      font-size: 14px;
-    }
-  }
-  
-  /* ============================================
-     RESPONSIVE DIVIDER (Figma Specs)
-     ============================================ */
-  .divider-figma {
-    width: var(--divider-width);
-    max-width: 90%;
-    height: var(--divider-height);
-    background: var(--gradient-divider);
-    margin: 0 auto;
-  }
-  
-  /* ============================================
-     RESPONSIVE STATS GRID (Figma Specs)
-     ============================================ */
-  .stats-grid-figma {
-    display: grid;
-    grid-template-columns: repeat(var(--stats-grid-cols), 1fr);
-    gap: var(--stats-gap-y) var(--stats-gap-x);
-    justify-items: center;
-    align-items: start;
-    max-width: var(--stats-max-width);
-    margin: 0 auto;
-  }
-  
-  .stats-icon-figma {
-    width: var(--stats-icon-size);
-    height: var(--stats-icon-size);
-  }
-  
-  .stats-value-figma {
-    font-size: var(--stats-value-font-size);
-    line-height: var(--stats-value-line-height);
-    font-weight: 400;
-  }
-  
-  /* ============================================
-     RESPONSIVE HEADER (Figma Specs)
-     ============================================ */
-  .header-figma {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding-top: 37px;
-    padding-bottom: 12px;
-    padding-left: 22px;
-    padding-right: 22px;
-    width: 100%;
-  }
-  
-  @media (min-width: 768px) {
-    .header-figma {
-      padding-top: 39px;
-      padding-bottom: 16px;
-      padding-left: 39px;
-      padding-right: 39px;
-    }
-  }
-  
-  @media (min-width: 1280px) {
-    .header-figma {
-      padding-top: 86px;
-      padding-bottom: 20px;
-      padding-left: 110px;
-      padding-right: 110px;
-    }
-  }
-  
-  .header-logo-figma {
-    width: 31px;
-    height: 30px;
-    object-fit: contain;
-  }
-  
-  @media (min-width: 768px) {
-    .header-logo-figma {
-      width: 38px;
-      height: 36px;
-    }
-  }
-  
-  @media (min-width: 1280px) {
-    .header-logo-figma {
-      width: 69px;
-      height: 66px;
-    }
-  }
-  
-  .header-one-text-figma {
-    font-family: var(--font-accent);
-    font-size: 14px;
-    font-weight: 400;
-    color: var(--color-brand-navy);
-    line-height: normal;
-  }
-  
-  @media (min-width: 768px) {
-    .header-one-text-figma {
-      font-size: 16px;
-    }
-  }
-  
-  @media (min-width: 1280px) {
-    .header-one-text-figma {
-      font-size: 20px;
-    }
-  }
-  
-  .header-profile-icon-figma {
-    width: 11px;
-    height: 11px;
-    object-fit: contain;
-  }
-  
-  @media (min-width: 768px) {
-    .header-profile-icon-figma {
-      width: 15px;
-      height: 15px;
-    }
-  }
-  
-  @media (min-width: 1280px) {
-    .header-profile-icon-figma {
-      width: 24px;
-      height: 24px;
-    }
-  }
-  
-  .header-view-mode-toggle-figma {
-    width: 12px;
-    height: 12px;
-  }
-  
-  @media (min-width: 768px) {
-    .header-view-mode-toggle-figma {
-      width: 16px;
-      height: 16px;
-    }
-  }
-  
-  @media (min-width: 1280px) {
-    .header-view-mode-toggle-figma {
-      width: 24px;
-      height: 24px;
-    }
-  }
-  
-  .header-menu-icon-figma {
-    width: 14.48px;
-    height: 9.54px;
-    object-fit: contain;
-  }
-  
-  @media (min-width: 768px) {
-    .header-menu-icon-figma {
-      width: 15px;
-      height: 10px;
-    }
-  }
-  
-  @media (min-width: 1280px) {
-    .header-menu-icon-figma {
-      width: 20px;
-      height: 13px;
-    }
-  }
-  
-  /* ============================================
-     RESPONSIVE TAGLINE (Figma Specs)
-     ============================================ */
-  .tagline-figma {
-    font-family: var(--font-primary);
-    font-size: var(--tagline-font-size);
-    font-weight: var(--tagline-font-weight);
-    color: var(--tagline-color);
-    max-width: var(--tagline-max-width);
-    line-height: normal;
-    text-align: justify;
-    text-align-last: center;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  
-  .tagline-figma strong,
-  .tagline-figma b {
-    font-weight: var(--tagline-bold-weight);
-  }
-  
-  .subtitle-figma {
-    font-family: var(--font-primary);
-    font-size: var(--subtitle-font-size);
-    font-weight: 400;
-    max-width: var(--subtitle-max-width);
-    line-height: normal;
-    text-align: justify;
-    text-align-last: center;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  
-  /* ============================================
-     RESPONSIVE FOOTER (Figma Specs)
-     ============================================ */
-  .footer-link-figma {
-    font-family: var(--font-primary);
-    font-size: var(--footer-link-font-size);
-    font-weight: var(--footer-link-font-weight);
-    line-height: 1.5;
-    color: var(--color-black);
-    text-decoration: none;
-    transition: color 150ms ease;
-  }
-  
-  .footer-link-figma:hover {
-    color: var(--color-primary);
-  }
-  
-  .footer-contact-title-figma {
-    font-family: var(--font-primary);
-    font-size: var(--footer-contact-title-size);
-    font-weight: var(--footer-contact-title-weight);
-    color: var(--color-text-primary);
-  }
-  
-  .footer-contact-detail-figma {
-    font-family: var(--font-primary);
-    font-size: var(--footer-contact-details-size);
-    color: var(--color-black);
-  }
-  
-  .footer-crafted-figma {
-    font-family: var(--font-primary);
-    font-size: var(--footer-crafted-font-size);
-  }
-  
+
   /* ============================================
      PAGE CONTAINER
      ============================================ */

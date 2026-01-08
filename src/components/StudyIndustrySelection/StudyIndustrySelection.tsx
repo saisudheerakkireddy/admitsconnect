@@ -1,5 +1,5 @@
 // Study Industry Selection Screen Component
-// Dynamically loads all industries from configuration
+// Matching Figma Design with card grid layout
 
 import './StudyIndustrySelection.css';
 import { useFormStore } from '../../store/formStore';
@@ -7,22 +7,7 @@ import { useFormNavigation } from '../../hooks/useFormNavigation';
 import { getAllIndustries } from '../../config/studyAreaData';
 import { IndustryIcons } from './IndustryIcons';
 import WizardLayout from '../WizardLayout';
-
-const LeftArrows = () => (
-  <svg width="24" height="12" viewBox="0 0 24 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M7 1L2 6L7 11" stroke="#1E417C" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-    <path d="M14 1L9 6L14 11" stroke="#1E417C" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-    <path d="M21 1L16 6L21 11" stroke="#1E417C" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-  </svg>
-);
-
-const RightArrows = () => (
-  <svg width="24" height="12" viewBox="0 0 24 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M17 11L22 6L17 1" stroke="#C22032" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-    <path d="M10 11L15 6L10 1" stroke="#C22032" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-    <path d="M3 11L8 6L3 1" stroke="#C22032" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-  </svg>
-);
+import { LeftArrows, RightArrows } from '../NavigationArrows';
 
 // Industry Card Component
 interface IndustryCardProps {
@@ -44,7 +29,7 @@ const IndustryCard = ({ industryId, industryName, isSelected, onSelect }: Indust
         {iconUrl ? (
           <img src={iconUrl} alt={industryName} />
         ) : (
-          <div style={{ width: 50, height: 50 }} />
+          <div className="industry-card__icon-placeholder" />
         )}
       </div>
       <p className="industry-card__name">{industryName}</p>
@@ -58,9 +43,13 @@ export default function StudyIndustrySelection() {
 
   // Get all industries (already sorted alphabetically from the data)
   const allIndustries = getAllIndustries();
-  
-  // Filter based on search
-  const filteredIndustries = allIndustries;
+
+  const handleIndustrySelect = (industryId: string) => {
+    // Select industry and navigate to next page
+    setIndustry(industryId);
+    // Navigate to next page after selection
+    goToNext();
+  };
 
   const handleNext = () => {
     if (canProceed) goToNext();
@@ -68,35 +57,40 @@ export default function StudyIndustrySelection() {
 
   return (
     <WizardLayout variant="white" headerVariant="alt">
-      <main className="page-main">
-        <section>
-          <div className="industry-nav">
-            <button className="page-nav-arrow" onClick={goToPrevious}>
+      <main className="industry-main">
+        <section className="industry-section">
+          {/* Navigation Row */}
+          <div className="industry-nav-row">
+            <button className="nav-arrow-btn nav-arrow-btn--left" onClick={goToPrevious} aria-label="Previous page">
               <LeftArrows />
             </button>
-            <h1 className="page-title">Choose Your Study Industry</h1>
-            <button className="page-nav-arrow" onClick={handleNext} disabled={!canProceed}>
+            <h1 className="industry-page-title">Choose Your Study Industry</h1>
+            <button 
+              className="nav-arrow-btn nav-arrow-btn--right" 
+              onClick={handleNext} 
+              disabled={!canProceed}
+              aria-label="Next page"
+            >
               <RightArrows />
             </button>
           </div>
-        </section>
 
-        <section>
+          {/* Industry Grid - 5 columns on desktop */}
           <div className="industry-grid">
-            {filteredIndustries.map((ind) => (
+            {allIndustries.map((ind) => (
               <IndustryCard 
                 key={ind.id}
                 industryId={ind.id}
                 industryName={ind.name}
                 isSelected={industry === ind.id}
-                onSelect={() => setIndustry(ind.id)}
+                onSelect={() => handleIndustrySelect(ind.id)}
               />
             ))}
           </div>
         </section>
 
-        <div className="page-divider-container">
-          <div className="page-divider" />
+        <div className="industry-divider-container">
+          <div className="industry-divider" />
         </div>
       </main>
     </WizardLayout>

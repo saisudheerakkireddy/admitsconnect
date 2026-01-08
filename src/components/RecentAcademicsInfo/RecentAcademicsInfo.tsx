@@ -1,34 +1,16 @@
 // Recent Academics Info Screen Component
-// Refactored with separate CSS file
+// Matching Figma Design - "Help us to understand better"
 
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import './RecentAcademicsInfo.css';
-import { FloatingInput } from '../FloatingInput';
 import { useFormStore } from '../../store/formStore';
 import { useFormNavigation } from '../../hooks/useFormNavigation';
 import WizardLayout from '../WizardLayout';
-
-const LeftArrow = () => (
-  <svg width="5" height="9" viewBox="0 0 5 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M4 1L1 4.5L4 8" stroke="#1E417C" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-  </svg>
-);
-
-const RightArrow = () => (
-  <svg width="5" height="9" viewBox="0 0 5 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M1 1L4 4.5L1 8" stroke="#C22032" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-  </svg>
-);
+import { LeftArrows, RightArrows } from '../NavigationArrows';
 
 const ChevronDown = () => (
-  <svg width="7" height="4" viewBox="0 0 7 4" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M1 1L3.5 3L6 1" stroke="#000000" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-  </svg>
-);
-
-const ChevronUp = () => (
-  <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M3 7L6 4L9 7" stroke="#505050" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+  <svg width="14" height="8" viewBox="0 0 14 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M1 1L7 7L13 1" stroke="#C22032" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
   </svg>
 );
 
@@ -58,195 +40,429 @@ const postgradDegreeTypes = [
   "Others"
 ];
 
+interface DropdownProps {
+  id: string;
+  value: string;
+  onChange: (val: string) => void;
+  options: string[];
+  placeholder: string;
+  isOpen: boolean;
+  onToggle: () => void;
+}
+
+const Dropdown = ({ value, onChange, options, placeholder, isOpen, onToggle }: DropdownProps) => (
+  <div className="academics-dropdown">
+    <button className="academics-input academics-input--dropdown" onClick={onToggle}>
+      <span className="academics-input__text">{value || placeholder}</span>
+      <div className={`academics-input__chevron ${isOpen ? 'academics-input__chevron--open' : ''}`}>
+        <ChevronDown />
+      </div>
+    </button>
+    {isOpen && (
+      <div className="academics-dropdown__menu">
+        {options.map((option) => (
+          <button
+            key={option}
+            className="academics-dropdown__option"
+            onClick={() => { onChange(option); onToggle(); }}
+          >
+            {option}
+          </button>
+        ))}
+      </div>
+    )}
+  </div>
+);
+
 export default function RecentAcademicsInfo() {
   const { academics, setSecondaryAcademics, setHigherSecondaryAcademics, setUndergradAcademics, setPostgradAcademics } = useFormStore();
   const { goToNext, goToPrevious, canProceed } = useFormNavigation();
-  
-  const [undergradExpanded, setUndergradExpanded] = useState(false);
-  const [postgradExpanded, setPostgradExpanded] = useState(false);
+
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const [activeStep, setActiveStep] = useState(0);
+  const [hasAutoScrolled, setHasAutoScrolled] = useState(false);
+  const prevCanProceed = useRef(canProceed);
 
   const handleNext = () => {
     if (canProceed) goToNext();
   };
 
-  const renderDropdown = (
-    id: string, 
-    value: string, 
-    onChange: (val: string) => void, 
-    options: string[] = mediumOptions,
-    placeholder: string = 'Select',
-    width: string = '150px'
-  ) => (
-    <div className="academics-dropdown">
-      <button
-        className="glass-pill glass-input--small"
-        style={{ width, position: 'relative' }}
-        onClick={() => setOpenDropdown(openDropdown === id ? null : id)}
-      >
-        <span className="glass-pill__text" style={{ 
-          overflow: 'hidden', 
-          textOverflow: 'ellipsis', 
-          whiteSpace: 'nowrap',
-          paddingRight: '20px'
-        }}>
-          {value || placeholder}
-        </span>
-        <div style={{ position: 'absolute', right: '20px', top: '50%', transform: 'translateY(-50%)' }}>
-          <ChevronDown />
-        </div>
-      </button>
-      {openDropdown === id && (
-        <div className="academics-dropdown__menu" style={{ maxHeight: '300px', overflowY: 'auto' }}>
-          {options.map((option) => (
-            <button
-              key={option}
-              className="academics-dropdown__option"
-              onClick={() => { onChange(option); setOpenDropdown(null); }}
-            >
-              <span className="glass-pill__text" style={{ textAlign: 'left', width: '100%' }}>{option}</span>
-            </button>
-          ))}
-        </div>
-      )}
-    </div>
-  );
+  const toggleDropdown = (id: string) => {
+    setOpenDropdown(openDropdown === id ? null : id);
+  };
+
+  const scrollToSection = (index: number) => {
+    const sectionId = index === 0 ? 'schooling-section' : 'graduation-section';
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  // Input Sanitization Helpers
+  const handleYearChange = (val: string, setter: (val: string) => void) => {
+    const sanitized = val.replace(/\D/g, '').slice(0, 4);
+    setter(sanitized);
+  };
+
+  const handleGradeChange = (val: string, setter: (val: string) => void) => {
+    // Allow only digits and one decimal point
+    if (!/^\d*\.?\d*$/.test(val)) return;
+
+    const parts = val.split('.');
+
+    // Case 1: Integer only (no decimal point)
+    if (parts.length === 1) {
+      if (val.length <= 3) {
+        setter(val);
+      }
+    }
+    // Case 2: Float (has decimal point)
+    else {
+      // Total digits (integer part + fractional part) should be <= 5
+      const totalDigits = parts[0].length + parts[1].length;
+      if (totalDigits <= 5) {
+        setter(val);
+      }
+    }
+  };
+
+  const handleBacklogChange = (val: string, setter: (val: number) => void) => {
+    if (val === '') {
+      setter(-1); // Handle empty
+      return;
+    }
+    // Only allow digits
+    if (!/^\d+$/.test(val)) return;
+
+    const num = parseInt(val, 10);
+    // Only update if valid
+    if (num >= 0 && num <= 50) {
+      setter(num);
+    }
+  };
+
+  // Auto-scroll when Schooling section is complete
+  useEffect(() => {
+    const isSecondaryComplete =
+      academics?.secondary?.year &&
+      academics?.secondary?.year.length === 4 &&
+      academics?.secondary?.grade &&
+      academics?.secondary?.medium;
+
+    const isHigherSecondaryComplete =
+      academics?.higherSecondary?.year &&
+      academics?.higherSecondary?.year.length === 4 &&
+      academics?.higherSecondary?.grade &&
+      academics?.higherSecondary?.medium;
+
+    if (isSecondaryComplete && isHigherSecondaryComplete && !hasAutoScrolled && activeStep === 0) {
+      scrollToSection(1);
+      setHasAutoScrolled(true);
+    }
+  }, [academics, hasAutoScrolled, activeStep]);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            if (entry.target.id === 'schooling-section') setActiveStep(0);
+            if (entry.target.id === 'graduation-section') setActiveStep(1);
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+
+    const schoolingSection = document.getElementById('schooling-section');
+    const graduationSection = document.getElementById('graduation-section');
+
+    if (schoolingSection) observer.observe(schoolingSection);
+    if (graduationSection) observer.observe(graduationSection);
+
+    return () => observer.disconnect();
+  }, []);
+
+  // Auto-navigate when form is valid (only on transition from invalid to valid)
+  useEffect(() => {
+    let timeoutId: NodeJS.Timeout;
+
+    // Check if we transitioned from FALSE to TRUE
+    if (!prevCanProceed.current && canProceed) {
+      timeoutId = setTimeout(() => {
+        handleNext();
+      }, 500); // 500ms delay for better UX
+    }
+
+    // Update ref for next render
+    prevCanProceed.current = canProceed;
+
+    return () => clearTimeout(timeoutId);
+  }, [canProceed]);
+
+  // Handle click outside to close dropdowns
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (openDropdown && !(event.target as Element).closest('.academics-dropdown')) {
+        setOpenDropdown(null);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [openDropdown]);
 
   return (
     <WizardLayout variant="white" headerVariant="alt">
-      <main className="page-main--alt" style={{ paddingTop: '24px' }}>
-        <div className="academics-nav">
-          <button className="page-nav-arrow" onClick={goToPrevious}>
-            <LeftArrow /><LeftArrow /><LeftArrow />
-          </button>
-          <h2 className="page-title">Help us to Understand better</h2>
-          <button className="page-nav-arrow" onClick={handleNext} disabled={!canProceed}>
-            <RightArrow /><RightArrow /><RightArrow />
-          </button>
+      <main className="academics-main">
+        {/* Vertical Stepper */}
+        <div className="vertical-stepper">
+          <div className="stepper-line">
+            <div
+              className="stepper-progress"
+              style={{ height: `${(activeStep / 1) * 100}%` }}
+            />
+          </div>
+          <button
+            className={`stepper-dot ${activeStep >= 0 ? 'active' : ''}`}
+            onClick={() => scrollToSection(0)}
+            aria-label="Go to Schooling"
+          />
+          <button
+            className={`stepper-dot ${activeStep >= 1 ? 'active' : ''}`}
+            onClick={() => scrollToSection(1)}
+            aria-label="Go to Graduation"
+          />
         </div>
 
-        <div className="academics-form">
-          {/* Secondary School */}
-          <div className="academics-section">
-            <p className="academics-section__title">Secondary school Certificate / 10th</p>
-            <div className="academics-section__fields">
-              <FloatingInput
-                variant="text"
-                label="Year of Completion"
-                value={academics?.secondary?.year || ''}
-                onChange={(val) => setSecondaryAcademics({ year: val })}
-                containerClassName="floating-container--full"
-              />
-              <FloatingInput
-                variant="text"
-                label="Achieved Grade"
-                value={academics?.secondary?.grade || ''}
-                onChange={(val) => setSecondaryAcademics({ grade: val })}
-                containerClassName="floating-container--full"
-              />
-              <FloatingInput
-                variant="select"
-                label="Medium"
-                value={academics?.secondary?.medium || ''}
-                onChange={(val) => setSecondaryAcademics({ medium: val })}
-                options={mediumOptions.map(opt => ({ value: opt, label: opt }))}
-                containerClassName="floating-container--small"
-              />
-            </div>
-          </div>
-
-          {/* Higher Secondary */}
-          <div className="academics-section">
-            <p className="academics-section__title">Higher Secondary school Certificate / 12th</p>
-            <div className="academics-section__fields">
-              <input
-                type="text"
-                placeholder="Enter Year of Completion"
-                value={academics?.higherSecondary?.year || ''}
-                onChange={(e) => setHigherSecondaryAcademics({ year: e.target.value })}
-                className="glass-input glass-input--full"
-              />
-              <input
-                type="text"
-                placeholder="Enter the Achieved Grade"
-                value={academics?.higherSecondary?.grade || ''}
-                onChange={(e) => setHigherSecondaryAcademics({ grade: e.target.value })}
-                className="glass-input glass-input--full"
-              />
-              {renderDropdown('higher-secondary-medium', academics?.higherSecondary?.medium || '', (val) => setHigherSecondaryAcademics({ medium: val }))}
-            </div>
-          </div>
-
-          {/* Under Graduation */}
-          <div className="academics-section">
-            <button 
-              className="academics-section__toggle"
-              onClick={() => {
-                setUndergradExpanded(!undergradExpanded);
-                if (!undergradExpanded && !academics?.undergrad) setUndergradAcademics({});
-              }}
-            >
-              <p className="academics-section__title" style={{ marginBottom: 0 }}>Under Graduation</p>
-              <div className={`academics-section__toggle-icon ${undergradExpanded ? 'academics-section__toggle-icon--open' : ''}`}>
-                <ChevronUp />
-              </div>
+        {/* SECTION 1: Schooling (10th & 12th) */}
+        <div id="schooling-section" className="academics-scroll-section">
+          {/* Navigation Row */}
+          <div className="academics-nav-row">
+            <button className="nav-arrow-btn nav-arrow-btn--left" onClick={goToPrevious} aria-label="Previous page">
+              <LeftArrows />
             </button>
-            {undergradExpanded && (
-              <div className="academics-section__fields">
-                {renderDropdown(
-                  'undergrad-degree', 
-                  academics?.undergrad?.degreeType || '', 
-                  (val) => setUndergradAcademics({ degreeType: val }),
-                  undergradDegreeTypes,
-                  'Choose the Type of Degree',
-                  '100%'
-                )}
-                <input type="text" placeholder="Enter the Start Year" value={academics?.undergrad?.startYear || ''} onChange={(e) => setUndergradAcademics({ startYear: e.target.value })} className="glass-input" style={{ width: '116px' }} />
-                <input type="text" placeholder="Enter the End Year" value={academics?.undergrad?.endYear || ''} onChange={(e) => setUndergradAcademics({ endYear: e.target.value })} className="glass-input" style={{ width: '112px' }} />
-                <input type="text" placeholder="Enter the Achieved Grade" value={academics?.undergrad?.grade || ''} onChange={(e) => setUndergradAcademics({ grade: e.target.value })} className="glass-input" style={{ width: '140px' }} />
-                <input type="number" placeholder="Enter Total Backlogs" value={academics?.undergrad?.backlogs || ''} onChange={(e) => setUndergradAcademics({ backlogs: parseInt(e.target.value) || 0 })} className="glass-input" style={{ width: '119px' }} />
-                {renderDropdown('undergrad-medium', academics?.undergrad?.medium || '', (val) => setUndergradAcademics({ medium: val }), mediumOptions, 'Medium', '150px')}
-              </div>
-            )}
+            <h1 className="academics-page-title">Help us to understand better</h1>
+            <button
+              className="nav-arrow-btn nav-arrow-btn--right"
+              onClick={handleNext}
+              disabled={!canProceed}
+              aria-label="Next page"
+            >
+              <RightArrows />
+            </button>
           </div>
 
-          {/* Post Graduation */}
-          <div className="academics-section">
-            <button 
-              className="academics-section__toggle"
-              onClick={() => {
-                setPostgradExpanded(!postgradExpanded);
-                if (!postgradExpanded && !academics?.postgrad) setPostgradAcademics({});
-              }}
-            >
-              <p className="academics-section__title" style={{ marginBottom: 0 }}>Post Graduation</p>
-              <div className={`academics-section__toggle-icon ${postgradExpanded ? 'academics-section__toggle-icon--open' : ''}`}>
-                <ChevronUp />
-              </div>
-            </button>
-            {postgradExpanded && (
+          <div className="academics-form">
+            {/* Secondary School Certificate / 10th */}
+            <div className="academics-section">
+              <h2 className="academics-section__title">Secondary school certificate / 10th</h2>
               <div className="academics-section__fields">
-                {renderDropdown(
-                  'postgrad-degree', 
-                  academics?.postgrad?.degreeType || '', 
-                  (val) => setPostgradAcademics({ degreeType: val }),
-                  postgradDegreeTypes,
-                  'Choose the Type of Degree',
-                  '100%'
-                )}
-                <input type="text" placeholder="Enter the Start Year" value={academics?.postgrad?.startYear || ''} onChange={(e) => setPostgradAcademics({ startYear: e.target.value })} className="glass-input" style={{ width: '116px' }} />
-                <input type="text" placeholder="Enter the End Year" value={academics?.postgrad?.endYear || ''} onChange={(e) => setPostgradAcademics({ endYear: e.target.value })} className="glass-input" style={{ width: '112px' }} />
-                <input type="text" placeholder="Enter the Achieved Grade" value={academics?.postgrad?.grade || ''} onChange={(e) => setPostgradAcademics({ grade: e.target.value })} className="glass-input" style={{ width: '140px' }} />
-                <input type="number" placeholder="Enter Total Backlogs" value={academics?.postgrad?.backlogs || ''} onChange={(e) => setPostgradAcademics({ backlogs: parseInt(e.target.value) || 0 })} className="glass-input" style={{ width: '119px' }} />
-                {renderDropdown('postgrad-medium', academics?.postgrad?.medium || '', (val) => setPostgradAcademics({ medium: val }), mediumOptions, 'Medium', '150px')}
+                <div className="academics-field-row">
+                  <input
+                    type="text"
+                    placeholder="Enter Year of Completion"
+                    value={academics?.secondary?.year || ''}
+                    onChange={(e) => handleYearChange(e.target.value, (val) => setSecondaryAcademics({ year: val }))}
+                    className="academics-input"
+                    maxLength={4}
+                  />
+                  <input
+                    type="text"
+                    placeholder="Enter the Achieved Grade"
+                    value={academics?.secondary?.grade || ''}
+                    onChange={(e) => handleGradeChange(e.target.value, (val) => setSecondaryAcademics({ grade: val }))}
+                    className="academics-input"
+                  />
+                  <Dropdown
+                    id="secondary-medium"
+                    value={academics?.secondary?.medium || ''}
+                    onChange={(val) => setSecondaryAcademics({ medium: val })}
+                    options={mediumOptions}
+                    placeholder="Medium"
+                    isOpen={openDropdown === 'secondary-medium'}
+                    onToggle={() => toggleDropdown('secondary-medium')}
+                  />
+                </div>
               </div>
-            )}
+            </div>
+
+            {/* Higher Secondary School Certificate / 12th */}
+            <div className="academics-section">
+              <h2 className="academics-section__title">Higher Secondary school certificate / 12th</h2>
+              <div className="academics-section__fields">
+                <div className="academics-field-row">
+                  <input
+                    type="text"
+                    placeholder="Enter Year of Completion"
+                    value={academics?.higherSecondary?.year || ''}
+                    onChange={(e) => handleYearChange(e.target.value, (val) => setHigherSecondaryAcademics({ year: val }))}
+                    className="academics-input"
+                    maxLength={4}
+                  />
+                  <input
+                    type="text"
+                    placeholder="Enter the Achieved Grade"
+                    value={academics?.higherSecondary?.grade || ''}
+                    onChange={(e) => handleGradeChange(e.target.value, (val) => setHigherSecondaryAcademics({ grade: val }))}
+                    className="academics-input"
+                  />
+                  <Dropdown
+                    id="higher-secondary-medium"
+                    value={academics?.higherSecondary?.medium || ''}
+                    onChange={(val) => setHigherSecondaryAcademics({ medium: val })}
+                    options={mediumOptions}
+                    placeholder="Medium"
+                    isOpen={openDropdown === 'higher-secondary-medium'}
+                    onToggle={() => toggleDropdown('higher-secondary-medium')}
+                  />
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
-        <div className="academics-divider" />
+        {/* SECTION 2: Graduation (UG & PG) */}
+        <div id="graduation-section" className="academics-scroll-section">
+          <div className="academics-form">
+            {/* Under Graduation */}
+            <div className="academics-section">
+              <h2 className="academics-section__title">Under Graduation</h2>
+              <div className="academics-section__fields academics-section__fields--expanded">
+                <div className="academics-field-row">
+                  <Dropdown
+                    id="undergrad-degree"
+                    value={academics?.undergrad?.degreeType || ''}
+                    onChange={(val) => setUndergradAcademics({ degreeType: val })}
+                    options={undergradDegreeTypes}
+                    placeholder="Choose the Type of Degree"
+                    isOpen={openDropdown === 'undergrad-degree'}
+                    onToggle={() => toggleDropdown('undergrad-degree')}
+                  />
+                  <input
+                    type="text"
+                    placeholder="Enter the Start Year"
+                    value={academics?.undergrad?.startYear || ''}
+                    onChange={(e) => handleYearChange(e.target.value, (val) => setUndergradAcademics({ startYear: val }))}
+                    className="academics-input"
+                    maxLength={4}
+                  />
+                  <input
+                    type="text"
+                    placeholder="Enter the End Year"
+                    value={academics?.undergrad?.endYear || ''}
+                    onChange={(e) => handleYearChange(e.target.value, (val) => setUndergradAcademics({ endYear: val }))}
+                    className="academics-input"
+                    maxLength={4}
+                  />
+                </div>
+                <div className="academics-field-row">
+                  <input
+                    type="text"
+                    placeholder="Enter the Achieved Grade"
+                    value={academics?.undergrad?.grade || ''}
+                    onChange={(e) => handleGradeChange(e.target.value, (val) => setUndergradAcademics({ grade: val }))}
+                    className="academics-input"
+                  />
+                  <input
+                    type="text"
+                    placeholder="Enter total Backlogs"
+                    value={academics?.undergrad?.backlogs === -1 ? '' : academics?.undergrad?.backlogs ?? ''}
+                    onChange={(e) => handleBacklogChange(e.target.value, (val) => setUndergradAcademics({ backlogs: val }))}
+                    className="academics-input"
+                  />
+                  <Dropdown
+                    id="undergrad-medium"
+                    value={academics?.undergrad?.medium || ''}
+                    onChange={(val) => setUndergradAcademics({ medium: val })}
+                    options={mediumOptions}
+                    placeholder="Medium"
+                    isOpen={openDropdown === 'undergrad-medium'}
+                    onToggle={() => toggleDropdown('undergrad-medium')}
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Post Graduation */}
+            <div className="academics-section">
+              <h2 className="academics-section__title">Post Graduation</h2>
+              <div className="academics-section__fields academics-section__fields--expanded">
+                <div className="academics-field-row">
+                  <Dropdown
+                    id="postgrad-degree"
+                    value={academics?.postgrad?.degreeType || ''}
+                    onChange={(val) => setPostgradAcademics({ degreeType: val })}
+                    options={postgradDegreeTypes}
+                    placeholder="Choose the Type of Degree"
+                    isOpen={openDropdown === 'postgrad-degree'}
+                    onToggle={() => toggleDropdown('postgrad-degree')}
+                  />
+                  <input
+                    type="text"
+                    placeholder="Enter the Start Year"
+                    value={academics?.postgrad?.startYear || ''}
+                    onChange={(e) => handleYearChange(e.target.value, (val) => setPostgradAcademics({ startYear: val }))}
+                    className="academics-input"
+                    maxLength={4}
+                  />
+                  <input
+                    type="text"
+                    placeholder="Enter the End Year"
+                    value={academics?.postgrad?.endYear || ''}
+                    onChange={(e) => handleYearChange(e.target.value, (val) => setPostgradAcademics({ endYear: val }))}
+                    className="academics-input"
+                    maxLength={4}
+                  />
+                </div>
+                <div className="academics-field-row">
+                  <input
+                    type="text"
+                    placeholder="Enter the Achieved Grade"
+                    value={academics?.postgrad?.grade || ''}
+                    onChange={(e) => handleGradeChange(e.target.value, (val) => setPostgradAcademics({ grade: val }))}
+                    className="academics-input"
+                  />
+                  <input
+                    type="text"
+                    placeholder="Enter total Backlogs"
+                    value={academics?.postgrad?.backlogs === -1 ? '' : academics?.postgrad?.backlogs ?? ''}
+                    onChange={(e) => handleBacklogChange(e.target.value, (val) => setPostgradAcademics({ backlogs: val }))}
+                    className="academics-input"
+                  />
+                  <Dropdown
+                    id="postgrad-medium"
+                    value={academics?.postgrad?.medium || ''}
+                    onChange={(val) => setPostgradAcademics({ medium: val })}
+                    options={mediumOptions}
+                    placeholder="Medium"
+                    isOpen={openDropdown === 'postgrad-medium'}
+                    onToggle={() => toggleDropdown('postgrad-medium')}
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Navigation Row for Graduation Section */}
+          <div className="academics-nav-row" style={{ marginTop: '2rem' }}>
+            <button className="nav-arrow-btn nav-arrow-btn--left" onClick={goToPrevious} aria-label="Previous page">
+              <LeftArrows />
+            </button>
+            <button
+              className="nav-arrow-btn nav-arrow-btn--right"
+              onClick={handleNext}
+              disabled={!canProceed}
+              aria-label="Next page"
+            >
+              <RightArrows />
+            </button>
+          </div>
+        </div>
       </main>
     </WizardLayout>
   );
 }
-

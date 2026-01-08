@@ -1,25 +1,26 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import './Header.css';
 import { useFormStore } from '../../store/formStore';
 import ProfileIconSvg from '../../assets/Header_Icons/Profile icon 1.svg';
 import MenuIconSvg from '../../assets/Header_Icons/Vector.svg';
 
 // Close Icon (for menu close state)
 const CloseIcon: React.FC<{ className?: string; onClick?: () => void }> = ({ className, onClick }) => (
-  <svg 
+  <svg
     className={className}
     onClick={onClick}
-    viewBox="0 0 24 24" 
-    fill="none" 
+    viewBox="0 0 24 24"
+    fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
-    <path d="M18 6L6 18M6 6L18 18" stroke="black" strokeWidth="2" strokeLinecap="round"/>
+    <path d="M18 6L6 18M6 6L18 18" stroke="black" strokeWidth="2" strokeLinecap="round" />
   </svg>
 );
 
 // View Mode Toggle (Light/Dark Mode) - matches Figma specs
 const ViewModeToggle: React.FC<{ className?: string; onClick?: () => void }> = ({ className, onClick }) => (
-  <button 
+  <button
     className={`relative ${className}`}
     onClick={onClick}
     aria-label="Toggle theme"
@@ -27,7 +28,7 @@ const ViewModeToggle: React.FC<{ className?: string; onClick?: () => void }> = (
     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
       {/* Sun icon for light mode */}
       <circle cx="12" cy="12" r="4" fill="#000" />
-      <path d="M12 1v3M12 20v3M22.5 12h-3M4.5 12h-3M19.778 4.222l-2.121 2.121M6.343 17.657l-2.121 2.121M19.778 19.778l-2.121-2.121M6.343 6.343L4.222 4.222" stroke="#000" strokeWidth="2" strokeLinecap="round"/>
+      <path d="M12 1v3M12 20v3M22.5 12h-3M4.5 12h-3M19.778 4.222l-2.121 2.121M6.343 17.657l-2.121 2.121M19.778 19.778l-2.121-2.121M6.343 6.343L4.222 4.222" stroke="#000" strokeWidth="2" strokeLinecap="round" />
     </svg>
   </button>
 );
@@ -37,8 +38,8 @@ interface HeaderProps {
   className?: string;
 }
 
-const Header: React.FC<HeaderProps> = ({ 
-  variant = 'default', 
+const Header: React.FC<HeaderProps> = ({
+  variant = 'default',
   className = ''
 }) => {
   const navigate = useNavigate();
@@ -61,39 +62,39 @@ const Header: React.FC<HeaderProps> = ({
         ${className}
       `}>
         {/* Logo - clickable to go home */}
-        <div 
-          className="flex items-center gap-[6px] cursor-pointer"
+        <div
+          className="flex items-end gap-[6px] cursor-pointer"
           onClick={handleLogoClick}
         >
-          <img 
-            src="/assets/AUN Logo.svg" 
-            alt="AUN Logo" 
-            className="header-logo-figma" 
+          <img
+            src="/assets/AUN Logo.svg"
+            alt="AUN Logo"
+            className="header-logo-figma"
           />
           <span className="header-one-text-figma">One</span>
         </div>
-        
+
         {/* Actions */}
         <div className="flex items-center gap-[14px] tablet:gap-[18px] desktop:gap-[24px]">
-          <img 
-            src={ProfileIconSvg} 
-            alt="Profile" 
-            className="header-profile-icon-figma cursor-pointer" 
+          <img
+            src={ProfileIconSvg}
+            alt="Profile"
+            className="header-profile-icon-figma cursor-pointer"
           />
-          <ViewModeToggle 
-            className="header-view-mode-toggle-figma cursor-pointer" 
-            onClick={() => {/* TODO: Implement theme toggle */}}
+          <ViewModeToggle
+            className="header-view-mode-toggle-figma cursor-pointer"
+            onClick={() => {/* TODO: Implement theme toggle */ }}
           />
           {isMenuOpen ? (
-            <CloseIcon 
-              className="header-menu-icon-figma cursor-pointer" 
-              onClick={toggleMenu} 
+            <CloseIcon
+              className="header-menu-icon-figma cursor-pointer"
+              onClick={toggleMenu}
             />
           ) : (
-            <img 
-              src={MenuIconSvg} 
-              alt="Menu" 
-              className="header-menu-icon-figma cursor-pointer" 
+            <img
+              src={MenuIconSvg}
+              alt="Menu"
+              className="header-menu-icon-figma cursor-pointer"
               onClick={toggleMenu}
             />
           )}

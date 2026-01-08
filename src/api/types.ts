@@ -79,34 +79,34 @@ export interface AssessmentData {
 export interface StudentApplication {
   // Step 1: Home - Tag Preferences
   selectedTags: string[];
-  
+
   // Step 2: Country Selection
   country: string;
-  
+
   // Step 3: Study Level & Degree Type
   studyLevel: string;
   degreeType: string;
-  
+
   // Step 4: Intake & Duration
   intake: string;
   intakeYear: string;
   studyDuration: string;
-  
+
   // Step 5: Industry Selection
   industry: string;
-  
+
   // Step 6: Study Area
   studyArea: string;
-  
+
   // Step 7: Study Format & Preferences
   studyFormat: string;
   attendanceType: string;
   budget: string;
   workExperience: string;
-  
+
   // Step 8: Academic Information
   academics: AcademicsData;
-  
+
   // Step 9: Optional Assessment Information
   assessment?: AssessmentData;
 

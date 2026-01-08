@@ -36,14 +36,14 @@
   min-width: 0;
   margin: 0;
   padding: 0 var(--selection-title-padding-inline);
-  
-  font-family: var(--font-primary);
+
+  font-family: 'Poppins', sans-serif;
   font-size: var(--selection-title-size);
-  font-weight: var(--selection-title-weight);
+  font-weight: 600;
   line-height: var(--selection-title-line-height);
   text-align: center;
-  letter-spacing: var(--tracking-wide);
-  
+  letter-spacing: 0;
+
   background: var(--gradient-primary);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -52,19 +52,29 @@
 
 /* ============================================
    COUNTRY GRID - Responsive Layout
-   Mobile: 3 cols → Tablet: 4 cols → Desktop: 6 cols
+   Mobile: 3 cols → Tablet: 4 cols → Desktop: 7 cols
    ============================================ */
 .country-grid {
+  --selection-grid-columns: 3;
   display: grid;
-  grid-template-columns: repeat(
-    var(--selection-grid-columns), 
-    minmax(var(--selection-grid-item-min), var(--selection-grid-item-max))
-  );
-  gap: var(--selection-grid-gap-row) var(--selection-grid-gap-col);
+  grid-template-columns: repeat(var(--selection-grid-columns), minmax(var(--selection-grid-item-min), var(--selection-grid-item-max)));
+  gap: 60px;
   width: 100%;
   max-width: var(--selection-grid-max-width);
   justify-content: center;
   align-items: start;
+}
+
+@media (min-width: 768px) {
+  .country-grid {
+    --selection-grid-columns: 4;
+  }
+}
+
+@media (min-width: 1280px) {
+  .country-grid {
+    --selection-grid-columns: 7;
+  }
 }
 
 /* ============================================
@@ -74,19 +84,18 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--selection-card-gap);
-  padding: var(--selection-card-padding-block) 
-           var(--selection-card-padding-inline)
-           calc(var(--selection-card-padding-block) + 0.25rem);
-  
-  width: 100%;
-  min-height: clamp(5.9375rem, 15vh, 7.5rem);
-  
+  gap: calc(var(--selection-card-gap) + 0.25rem);
+  padding: 1.25rem;
+
+  width: fit-content;
+  justify-self: center;
+  min-height: clamp(7rem, 18vh, 8.75rem);
+
   background: transparent;
   border: none;
   border-radius: var(--radius-md);
   cursor: pointer;
-  
+
   transition: all var(--transition-normal);
 }
 
@@ -111,8 +120,8 @@
 
 /* Country Flag Container */
 .country-card__flag {
-  width: clamp(3.25rem, 8vw, 4rem);
-  height: clamp(3.125rem, 7.5vw, 3.75rem);
+  width: 100px;
+  height: 100px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -120,8 +129,8 @@
 }
 
 .country-card__flag img {
-  max-width: 100%;
-  max-height: 100%;
+  width: 100%;
+  height: 100%;
   object-fit: contain;
   border-radius: var(--radius-sm);
 }
@@ -129,15 +138,18 @@
 /* Country Name */
 .country-card__name {
   font-family: 'Poppins', sans-serif;
-  font-size: var(--selection-card-label-size);
-  font-weight: 500;
+  font-size: calc(var(--selection-card-label-size) + 2px);
+  font-weight: 600;
   line-height: var(--selection-card-label-line-height);
   text-align: center;
   color: var(--color-black);
   padding: 0 var(--selection-card-label-padding);
   margin: 0;
-  word-break: break-word;
-  
+  white-space: nowrap;
+  overflow: visible;
+  text-overflow: unset;
+  max-width: none;
+
   transition: color var(--transition-normal);
 }
 
@@ -165,4 +177,3 @@
 
 /* All responsive adjustments handled by CSS variables */
 /* See variables.css for --selection-grid-* token definitions */
-

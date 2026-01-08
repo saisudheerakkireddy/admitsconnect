@@ -1,50 +1,36 @@
 // Intake Year Selection Screen Component
-// Refactored with separate CSS file
+// Matching Figma Design
 
 import { useState } from 'react';
 import './IntakeYearSelection.css';
 import { useFormStore } from '../../store/formStore';
 import { useFormNavigation } from '../../hooks/useFormNavigation';
 import WizardLayout from '../WizardLayout';
+import { LeftArrows, RightArrows } from '../NavigationArrows';
 
 interface DurationOption {
   label: string;
 }
 
+// Study durations ordered to match Figma (3-1 layout)
 const studyDurations: DurationOption[] = [
-  { label: "Diploma" },
-  { label: "Post Graduation 1 Year" },
-  { label: "Post Graduation 2 Year" },
+  // Row 1 (3 items)
   { label: "Undergraduation 3 Years" },
-  { label: "Undergraduation 4 Years" },
-  { label: "Undergraduation 4+ Years" },
+  { label: "Under Graduation 4 Years" },
+  { label: "Under Graduation 4+ Years" },
+  // Row 2 (1 item)
+  { label: "Diploma" },
 ];
 
 const intakeOptions = [
   "January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December"
 ];
-const yearOptions = ["2026", "2027", "2028", "2029", "2030"];
-
-const LeftArrows = () => (
-  <svg width="24" height="12" viewBox="0 0 24 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M7 1L2 6L7 11" stroke="#1E417C" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-    <path d="M14 1L9 6L14 11" stroke="#1E417C" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-    <path d="M21 1L16 6L21 11" stroke="#1E417C" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-  </svg>
-);
-
-const RightArrows = () => (
-  <svg width="24" height="12" viewBox="0 0 24 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M17 11L22 6L17 1" stroke="#C22032" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-    <path d="M10 11L15 6L10 1" stroke="#C22032" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-    <path d="M3 11L8 6L3 1" stroke="#C22032" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-  </svg>
-);
+const yearOptions = ["2025", "2026", "2027", "2028", "2029", "2030"];
 
 const ChevronDown = () => (
-  <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M1 1L5 5L9 1" stroke="#333" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+  <svg width="16" height="10" viewBox="0 0 16 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M1 1L8 8L15 1" stroke="#666" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
   </svg>
 );
 
@@ -59,8 +45,8 @@ interface DropdownProps {
 
 const Dropdown = ({ label, value, options, isOpen, onToggle, onSelect }: DropdownProps) => (
   <div className="intake-dropdown">
-    <button className="glass-pill intake-dropdown__button" onClick={onToggle}>
-      <span className="glass-pill__text">{value || label}</span>
+    <button className="intake-dropdown__button" onClick={onToggle}>
+      <span className="intake-dropdown__label">{value || label}</span>
       <div className={`intake-dropdown__chevron ${isOpen ? 'intake-dropdown__chevron--open' : ''}`}>
         <ChevronDown />
       </div>
@@ -73,7 +59,7 @@ const Dropdown = ({ label, value, options, isOpen, onToggle, onSelect }: Dropdow
             className="intake-dropdown__option"
             onClick={() => { onSelect(option); onToggle(); }}
           >
-            <span className="intake-dropdown__option-text">{option}</span>
+            {option}
           </button>
         ))}
       </div>
@@ -91,20 +77,36 @@ export default function IntakeYearSelection() {
     if (canProceed) goToNext();
   };
 
+  const handleDurationSelect = (label: string) => {
+    // Toggle: if already selected, deselect; otherwise select
+    if (studyDuration === label) {
+      setStudyDuration('');
+    } else {
+      setStudyDuration(label);
+    }
+  };
+
   return (
     <WizardLayout variant="white" headerVariant="alt">
-      <main className="page-main">
+      <main className="intake-main">
         <section className="intake-section">
-          <div className="intake-nav">
-            <button className="page-nav-arrow" onClick={goToPrevious}>
+          {/* Navigation Row */}
+          <div className="intake-nav-row">
+            <button className="nav-arrow-btn nav-arrow-btn--left" onClick={goToPrevious} aria-label="Previous page">
               <LeftArrows />
             </button>
-            <h1 className="page-title">Choose intake and year</h1>
-            <button className="page-nav-arrow" onClick={handleNext} disabled={!canProceed}>
+            <h1 className="intake-page-title">Choose intake and year.</h1>
+            <button 
+              className="nav-arrow-btn nav-arrow-btn--right" 
+              onClick={handleNext} 
+              disabled={!canProceed}
+              aria-label="Next page"
+            >
               <RightArrows />
             </button>
           </div>
 
+          {/* Dropdowns - Side by side */}
           <div className="intake-dropdowns">
             <Dropdown 
               label="Intake" 
@@ -126,13 +128,13 @@ export default function IntakeYearSelection() {
         </section>
 
         <section className="duration-section">
-          <h2 className="duration-section__title">Choose your study duration</h2>
+          <h2 className="duration-section__title">Choose your study duration.</h2>
           <div className="duration-pills">
             {studyDurations.map((option, index) => (
               <button 
                 key={index}
                 className={`glass-pill ${studyDuration === option.label ? 'glass-pill--selected' : ''}`}
-                onClick={() => setStudyDuration(option.label)}
+                onClick={() => handleDurationSelect(option.label)}
               >
                 <span className="glass-pill__text">{option.label}</span>
               </button>
@@ -140,11 +142,10 @@ export default function IntakeYearSelection() {
           </div>
         </section>
 
-        <div className="page-divider-container">
-          <div className="page-divider" />
+        <div className="intake-divider-container">
+          <div className="intake-divider" />
         </div>
       </main>
     </WizardLayout>
   );
 }
-

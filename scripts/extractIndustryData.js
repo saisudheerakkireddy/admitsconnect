@@ -6,9 +6,13 @@
  * Outputs sorted JSON configuration
  */
 
-const XLSX = require('xlsx');
-const fs = require('fs');
-const path = require('path');
+import ExcelJS from 'exceljs';
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Paths
 const EXCEL_PATH = path.join(__dirname, '../src/assets/Industry_Icons/Industry & Area list (1).xlsx');
@@ -34,13 +38,35 @@ const INDUSTRY_FOLDERS = {
   'Social Sciences': 'social-sciences',
 };
 
+// Explicit mapping for Excel headers that don't match folder names
+const HEADER_MAPPING = {
+  'Arts, Design & Architecture': 'Art Design and Architecture',
+  'Business & Management': 'Business and management',
+  'Computer Science & IT': 'Computer Sciences',
+  'Education & Training': 'Education and Training',
+  'Engineering & Technology': 'Engineering and Technology',
+  'Environmental Studies & Earth Sciences': 'Environmental Sciences',
+  'Hospitality, Leisure & Sports': 'Hospitality and Leisure',
+  'Medicine & Health': 'Medicine and Health',
+  'Natural Sciences & Mathematics': 'Natural Sciences and Mathematics'
+};
+
 // Read and parse Excel file
-function readExcelFile() {
+// Read and parse Excel file
+async function readExcelFile() {
   console.log('Reading Excel file:', EXCEL_PATH);
-  const workbook = XLSX.readFile(EXCEL_PATH);
-  const sheetName = workbook.SheetNames[0];
-  const worksheet = workbook.Sheets[sheetName];
-  const data = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+  const workbook = new ExcelJS.Workbook();
+  await workbook.xlsx.readFile(EXCEL_PATH);
+  // console.log('Sheet Names:', workbook.worksheets.map(s => s.name));
+  const worksheet = workbook.worksheets[0];
+
+  const data = [];
+  worksheet.eachRow({ includeEmpty: true }, (row, rowNumber) => {
+    // row.values is 1-based, so slice(1) to get 0-based array of cell values
+    const rowValues = Array.isArray(row.values) ? row.values.slice(1) : [];
+    data.push(rowValues);
+  });
+
   return data;
 }
 
@@ -66,35 +92,34 @@ function createSlug(name) {
 // Parse Excel data and create mapping
 function parseExcelData(data) {
   const industries = {};
-  
-  // Skip header row(s) and parse data
-  // Assuming structure: Industry Name | Study Area Name
-  for (let i = 1; i < data.length; i++) {
-    const row = data[i];
-    if (!row || row.length < 2) continue;
-    
-    const industryName = row[0]?.toString().trim();
-    const studyAreaName = row[1]?.toString().trim();
-    
-    if (!industryName || !studyAreaName) continue;
-    
-    // Find matching folder
+
+  if (!data || data.length === 0) return industries;
+
+  // Row 1 contains headers (Industry Names)
+  const headers = data[0];
+
+  // Iterate through each column
+  for (let colIndex = 0; colIndex < headers.length; colIndex++) {
+    const industryName = headers[colIndex]?.toString().trim();
+    if (!industryName) continue;
+
+    // Find matching folder for this industry
     let folderName = null;
     let industryId = null;
-    
-    for (const [folder, id] of Object.entries(INDUSTRY_FOLDERS)) {
-      if (industryName.includes(folder) || folder.includes(industryName)) {
-        folderName = folder;
-        industryId = id;
-        break;
-      }
-    }
-    
-    // If no exact match, try fuzzy matching
-    if (!folderName) {
-      const normalizedIndustry = industryName.toLowerCase();
+
+    // Normalize for matching
+    const normalize = (str) => str.toLowerCase().replace(/&/g, 'and').replace(/[^a-z0-9]/g, '');
+
+    // Check explicit mapping first
+    if (HEADER_MAPPING[industryName]) {
+      folderName = HEADER_MAPPING[industryName];
+      industryId = INDUSTRY_FOLDERS[folderName];
+    } else {
+      // Try fuzzy matching
+      const normalizedIndustry = normalize(industryName);
+
       for (const [folder, id] of Object.entries(INDUSTRY_FOLDERS)) {
-        const normalizedFolder = folder.toLowerCase();
+        const normalizedFolder = normalize(folder);
         if (normalizedIndustry.includes(normalizedFolder) || normalizedFolder.includes(normalizedIndustry)) {
           folderName = folder;
           industryId = id;
@@ -102,13 +127,13 @@ function parseExcelData(data) {
         }
       }
     }
-    
+
     if (!industryId) {
       console.warn(`No folder mapping found for industry: ${industryName}`);
       continue;
     }
-    
-    // Initialize industry if not exists
+
+    // Initialize industry
     if (!industries[industryId]) {
       industries[industryId] = {
         id: industryId,
@@ -117,15 +142,28 @@ function parseExcelData(data) {
         studyAreas: []
       };
     }
-    
-    // Add study area
-    const studyAreaSlug = createSlug(studyAreaName);
-    industries[industryId].studyAreas.push({
-      id: studyAreaSlug,
-      name: studyAreaName
-    });
+
+    // Iterate rows for this column to get study areas
+    for (let rowIndex = 1; rowIndex < data.length; rowIndex++) {
+      const row = data[rowIndex];
+      // Ensure row has this column
+      if (!row || row.length <= colIndex) continue;
+
+      const studyAreaName = row[colIndex]?.toString().trim();
+      if (!studyAreaName) continue;
+
+      const studyAreaSlug = createSlug(studyAreaName);
+
+      // Avoid duplicates
+      if (!industries[industryId].studyAreas.find(sa => sa.id === studyAreaSlug)) {
+        industries[industryId].studyAreas.push({
+          id: studyAreaSlug,
+          name: studyAreaName
+        });
+      }
+    }
   }
-  
+
   return industries;
 }
 
@@ -134,9 +172,9 @@ function matchIconFiles(industries) {
   for (const industryId in industries) {
     const industry = industries[industryId];
     const iconFiles = getIconFiles(industry.folderName);
-    
+
     console.log(`\nProcessing ${industry.name}: ${iconFiles.length} icons found`);
-    
+
     // Match each study area with an icon file
     industry.studyAreas.forEach((area, index) => {
       // Try to find matching icon by name
@@ -145,78 +183,78 @@ function matchIconFiles(industries) {
         const areaName = area.name.toLowerCase();
         return fileName.includes(areaName) || areaName.includes(fileName.replace('.svg', ''));
       });
-      
+
       // If no match, use numbered icon
       if (!iconFile) {
         // Try Property 1=N.svg pattern
         iconFile = iconFiles.find(file => file.includes(`=${index + 1}.svg`));
       }
-      
+
       // If still no match, use index-based
       if (!iconFile && iconFiles[index]) {
         iconFile = iconFiles[index];
       }
-      
+
       area.iconPath = iconFile || `Property 1=${index + 1}.svg`;
     });
   }
-  
+
   return industries;
 }
 
 // Sort industries and study areas alphabetically
 function sortData(industries) {
   // Convert to array and sort industries
-  const industriesArray = Object.values(industries).sort((a, b) => 
+  const industriesArray = Object.values(industries).sort((a, b) =>
     a.name.localeCompare(b.name)
   );
-  
+
   // Sort study areas within each industry
   industriesArray.forEach(industry => {
     industry.studyAreas.sort((a, b) => a.name.localeCompare(b.name));
   });
-  
+
   return industriesArray;
 }
 
 // Main execution
-function main() {
+async function main() {
   try {
     console.log('=== Starting Excel Data Extraction ===\n');
-    
+
     // Read Excel data
-    const excelData = readExcelFile();
+    const excelData = await readExcelFile();
     console.log(`Parsed ${excelData.length} rows from Excel\n`);
-    
+
     // Parse and create mapping
     let industries = parseExcelData(excelData);
     console.log(`\nFound ${Object.keys(industries).length} industries`);
-    
+
     // Match with icon files
     industries = matchIconFiles(industries);
-    
+
     // Sort alphabetically
     const sortedIndustries = sortData(industries);
-    
+
     // Create output structure
     const output = {
       generated: new Date().toISOString(),
       industries: sortedIndustries,
       industryFolderMap: INDUSTRY_FOLDERS
     };
-    
+
     // Write output file
     fs.writeFileSync(OUTPUT_PATH, JSON.stringify(output, null, 2));
     console.log(`\n✓ Output written to: ${OUTPUT_PATH}`);
-    
+
     // Print summary
     console.log('\n=== Summary ===');
     sortedIndustries.forEach(industry => {
       console.log(`${industry.name}: ${industry.studyAreas.length} study areas`);
     });
-    
+
     console.log('\n=== Extraction Complete ===');
-    
+
   } catch (error) {
     console.error('Error during extraction:', error);
     process.exit(1);

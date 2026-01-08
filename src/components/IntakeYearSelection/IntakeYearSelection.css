@@ -1,105 +1,370 @@
 /* ============================================
    IntakeYearSelection Component Styles
+   Matching Figma Design
    ============================================ */
 
-.intake-section {
-  margin-bottom: 56px;
-}
-
-.intake-nav {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 53px;
-  padding: 0;
-}
-
-.intake-dropdowns {
+/* ============================================
+   MAIN CONTENT CONTAINER
+   ============================================ */
+.intake-main {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  padding: 0;
+  align-items: center;
+  width: 100%;
+  max-width: 100%;
+  min-height: calc(100vh - 7.5rem);
+  margin: 0 auto;
+  padding: var(--selection-page-padding-block) var(--selection-page-padding-inline);
+  gap: var(--selection-page-gap);
 }
 
-.duration-section {
-  margin-bottom: 68px;
-}
-
-.duration-section__title {
-  font-family: var(--font-primary);
-  font-size: var(--text-base);
-  color: var(--color-text-secondary);
-  text-align: center;
-  line-height: normal;
+/* ============================================
+   INTAKE SECTION
+   ============================================ */
+.intake-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
   margin-bottom: 40px;
 }
 
-.duration-pills {
+/* ============================================
+   NAVIGATION ROW (Title + Arrows)
+   ============================================ */
+.intake-nav-row {
   display: flex;
-  flex-wrap: wrap;
-  gap: 15px 10px;
-  justify-content: center;
-  padding: 0;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: var(--selection-nav-max-width);
+  gap: var(--selection-nav-gap);
+  margin-bottom: 50px;
 }
 
-/* Dropdown specific styles */
+/* Page Title - Gradient styling */
+.intake-page-title {
+  flex: 1;
+  min-width: 0;
+  margin: 0;
+  padding: 0 var(--selection-title-padding-inline);
+
+  font-family: 'Poppins', sans-serif;
+  font-size: calc(var(--selection-title-size) + 4px);
+  font-weight: 600;
+  /* Semibold */
+  line-height: var(--selection-title-line-height);
+  text-align: center;
+  letter-spacing: 0;
+  /* Zero spacing */
+
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ============================================
+   DROPDOWNS - Side by Side
+   ============================================ */
+.intake-dropdowns {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 40px;
+  width: 100%;
+  max-width: 1000px;
+  /* Increased base width */
+}
+
 .intake-dropdown {
   position: relative;
-  width: 100%;
+  flex: 1;
+  /* Removed max-width to let it fill the container */
 }
 
 .intake-dropdown__button {
   width: 100%;
-  height: 28px;
+  height: 56px;
   display: flex;
   align-items: center;
-  padding: 0 var(--space-lg);
-  position: relative;
+  justify-content: space-between;
+  padding: 0 24px;
+
+  font-family: 'Poppins', sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  color: #555;
+
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.intake-dropdown__button:hover {
+  background: rgba(255, 255, 255, 0.9);
+  border-color: rgba(0, 0, 0, 0.15);
+}
+
+.intake-dropdown__label {
+  flex: 1;
+  text-align: left;
 }
 
 .intake-dropdown__chevron {
-  position: absolute;
-  right: 20px;
-  top: 50%;
-  transform: translateY(-50%);
-  transition: transform var(--transition-normal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease;
 }
 
 .intake-dropdown__chevron--open {
-  transform: translateY(-50%) rotate(180deg);
+  transform: rotate(180deg);
 }
 
 .intake-dropdown__menu {
   position: absolute;
-  top: 32px;
+  top: calc(100% + 6px);
   left: 0;
   width: 100%;
-  background: var(--color-white);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-lg);
-  border: 1px solid rgba(238, 17, 19, 0.2);
-  z-index: var(--z-dropdown);
-  overflow: hidden;
+  max-height: 250px;
+  overflow-y: auto;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  z-index: 100;
 }
 
 .intake-dropdown__option {
   width: 100%;
-  padding: var(--space-sm) var(--space-lg);
+  padding: 14px 24px;
   text-align: left;
   background: transparent;
   border: none;
+  font-family: 'Poppins', sans-serif;
+  font-size: 16px;
+  color: #333;
   cursor: pointer;
-  transition: background var(--transition-fast);
+  transition: background 0.15s ease;
 }
 
 .intake-dropdown__option:hover {
-  background: var(--color-bg-selected);
+  background: rgba(30, 65, 124, 0.1);
 }
 
-.intake-dropdown__option-text {
-  font-family: var(--font-display);
-  font-size: 8px;
-  font-weight: 400;
-  color: var(--color-black);
+/* ============================================
+   DURATION SECTION
+   ============================================ */
+.duration-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin-top: 30px;
 }
 
+.duration-section__title {
+  font-family: 'Poppins', sans-serif;
+  font-size: calc(var(--selection-title-size) + 4px);
+  /* Match main title size */
+  font-weight: 600;
+  /* Semibold */
+  text-align: center;
+  line-height: var(--selection-title-line-height);
+  letter-spacing: 0;
+  /* Zero spacing */
+  margin-bottom: 40px;
+
+  /* Gradient text like main title */
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ============================================
+   DURATION PILLS
+   ============================================ */
+.duration-pills {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px 16px;
+  width: 100%;
+  max-width: 800px;
+  padding: 0 20px;
+}
+
+/* Glass pill styles (inherits from StudyAreaSelection) */
+.duration-pills .glass-pill {
+  padding: 14px 28px;
+  min-height: 44px;
+  font-size: 16px;
+}
+
+/* ============================================
+   DIVIDER
+   ============================================ */
+.intake-divider-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: auto;
+}
+
+.intake-divider {
+  width: min(85%, 32.5rem);
+  height: 1px;
+  background: var(--gradient-divider);
+}
+
+/* ============================================
+   MOBILE RESPONSIVE (< 768px)
+   ============================================ */
+@media (max-width: 767px) {
+  .intake-nav-row {
+    margin-bottom: 35px;
+  }
+
+  .intake-dropdowns {
+    flex-direction: column;
+    gap: 16px;
+    max-width: 300px;
+  }
+
+  .intake-dropdown {
+    max-width: 100%;
+  }
+
+  .intake-dropdown__button {
+    height: 48px;
+    font-size: 15px;
+    padding: 0 18px;
+    border-radius: 10px;
+  }
+
+  .intake-dropdown__option {
+    padding: 12px 18px;
+    font-size: 14px;
+  }
+
+  .duration-section__title {
+    font-size: 14px;
+    margin-bottom: 30px;
+  }
+
+  .duration-pills {
+    gap: 14px 10px;
+  }
+
+  .duration-pills .glass-pill {
+    padding: 10px 18px;
+    min-height: 38px;
+    font-size: 13px;
+  }
+}
+
+/* ============================================
+   TABLET RESPONSIVE (768px - 1279px)
+   ============================================ */
+@media (min-width: 768px) and (max-width: 1279px) {
+  .intake-nav-row {
+    margin-bottom: 45px;
+  }
+
+  .intake-dropdowns {
+    gap: 30px;
+    max-width: 800px;
+    /* Increased tablet width */
+  }
+
+  .intake-dropdown {
+    /* No max-width needed */
+  }
+
+  .intake-dropdown__button {
+    height: 52px;
+    font-size: 16px;
+    padding: 0 20px;
+  }
+
+  .intake-dropdown__option {
+    padding: 13px 20px;
+    font-size: 15px;
+  }
+
+  .duration-section__title {
+    font-size: calc(var(--selection-title-size) + 4px);
+    /* Match main title size */
+    margin-bottom: 35px;
+  }
+
+  .duration-pills .glass-pill {
+    padding: 12px 24px;
+    min-height: 42px;
+    font-size: 15px;
+  }
+}
+
+/* ============================================
+   DESKTOP RESPONSIVE (1280px+)
+   ============================================ */
+@media (min-width: 1280px) {
+  .intake-nav-row {
+    margin-bottom: 60px;
+  }
+
+  .intake-page-title {
+    font-size: calc(var(--selection-title-size) + 4px);
+  }
+
+  .intake-dropdowns {
+    gap: 50px;
+    max-width: 1200px;
+    /* Increased desktop width significantly */
+  }
+
+  .intake-dropdown {
+    /* No max-width needed */
+  }
+
+  .intake-dropdown__button {
+    height: 60px;
+    font-size: 20px;
+    padding: 0 28px;
+    border-radius: 14px;
+  }
+
+  .intake-dropdown__option {
+    padding: 16px 28px;
+    font-size: 18px;
+  }
+
+  .intake-dropdown__menu {
+    border-radius: 14px;
+  }
+
+  .duration-section {
+    margin-top: 40px;
+  }
+
+  .duration-section__title {
+    font-size: calc(var(--selection-title-size) + 4px);
+    /* Match main title size */
+    margin-bottom: 50px;
+  }
+
+  .duration-pills {
+    gap: 24px 20px;
+    max-width: 900px;
+  }
+
+  .duration-pills .glass-pill {
+    padding: 16px 32px;
+    min-height: 50px;
+    font-size: 18px;
+  }
+}
