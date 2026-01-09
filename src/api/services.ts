@@ -14,6 +14,8 @@ import type {
   StudentApplication,
   ApplicationSubmitResponse,
 } from './types';
+import { applyUniNowCourseExplorer } from '../config/applyUniNowCourseExplorer';
+import { captureLead } from './leadCapture';
 
 // ============================================
 // Simulated Network Delay
@@ -26,38 +28,37 @@ const delay = (ms: number = 500) => new Promise(resolve => setTimeout(resolve, m
 // ============================================
 
 const mockCountries: Country[] = [
-  { name: "Australia", flagUrl: "/AdmitsConnect_Vishal_Icons/Country Flags/Australia.svg", code: "AU" },
-  { name: "Canada", flagUrl: "/AdmitsConnect_Vishal_Icons/Country Flags/Canada.svg", code: "CA" },
-  { name: "UK", flagUrl: "/AdmitsConnect_Vishal_Icons/Country Flags/UK.svg", code: "GB" },
-  { name: "USA", flagUrl: "/AdmitsConnect_Vishal_Icons/Country Flags/USA.svg", code: "US" },
-  { name: "Ireland", flagUrl: "/AdmitsConnect_Vishal_Icons/Country Flags/Ireland.svg", code: "IE" },
-  { name: "Germany", flagUrl: "/AdmitsConnect_Vishal_Icons/Country Flags/Germany.svg", code: "DE" },
-  { name: "Switzerland", flagUrl: "/AdmitsConnect_Vishal_Icons/Country Flags/Switzerland.svg", code: "CH" },
-  { name: "Sweden", flagUrl: "/AdmitsConnect_Vishal_Icons/Country Flags/Sweden.svg", code: "SE" },
-  { name: "Netherlands", flagUrl: "/AdmitsConnect_Vishal_Icons/Country Flags/Netherlands.svg", code: "NL" },
-  { name: "New Zealand", flagUrl: "/AdmitsConnect_Vishal_Icons/Country Flags/Australia.svg", code: "NZ" },
-  { name: "Cyprus", flagUrl: "/AdmitsConnect_Vishal_Icons/Country Flags/Cyprus.svg", code: "CY" },
-  { name: "Denmark", flagUrl: "/AdmitsConnect_Vishal_Icons/Country Flags/Denmark.svg", code: "DK" },
-  { name: "France", flagUrl: "/AdmitsConnect_Vishal_Icons/Country Flags/France.svg", code: "FR" },
-  { name: "Italy", flagUrl: "/AdmitsConnect_Vishal_Icons/Country Flags/Italy.svg", code: "IT" },
-  { name: "Finland", flagUrl: "/AdmitsConnect_Vishal_Icons/Country Flags/Finland.svg", code: "FI" },
-  { name: "Latvia", flagUrl: "/AdmitsConnect_Vishal_Icons/Country Flags/Latvia.svg", code: "LV" },
-  { name: "Malta", flagUrl: "/AdmitsConnect_Vishal_Icons/Country Flags/Malta.svg", code: "MT" },
-  { name: "Norway", flagUrl: "/AdmitsConnect_Vishal_Icons/Country Flags/Norway.svg", code: "NO" },
-  { name: "Poland", flagUrl: "/AdmitsConnect_Vishal_Icons/Country Flags/Poland.svg", code: "PL" },
-  { name: "Singapore", flagUrl: "/AdmitsConnect_Vishal_Icons/Country Flags/Singapore.svg", code: "SG" },
-  { name: "Spain", flagUrl: "/AdmitsConnect_Vishal_Icons/Country Flags/Spain.svg", code: "ES" },
+  { name: "Australia", flagUrl: "/assets/icons/flags/Australia.svg", code: "AU" },
+  { name: "Canada", flagUrl: "/assets/icons/flags/Canada.svg", code: "CA" },
+  { name: "UK", flagUrl: "/assets/icons/flags/UK.svg", code: "GB" },
+  { name: "USA", flagUrl: "/assets/icons/flags/USA.svg", code: "US" },
+  { name: "Ireland", flagUrl: "/assets/icons/flags/Ireland.svg", code: "IE" },
+  { name: "Germany", flagUrl: "/assets/icons/flags/Germany.svg", code: "DE" },
+  { name: "Switzerland", flagUrl: "/assets/icons/flags/Switzerland.svg", code: "CH" },
+  { name: "Sweden", flagUrl: "/assets/icons/flags/Sweden.svg", code: "SE" },
+  { name: "Netherlands", flagUrl: "/assets/icons/flags/Netherlands.svg", code: "NL" },
+  { name: "New Zealand", flagUrl: "/assets/icons/flags/NewZealand.svg", code: "NZ" },
+  { name: "Cyprus", flagUrl: "/assets/icons/flags/Cyprus.svg", code: "CY" },
+  { name: "Denmark", flagUrl: "/assets/icons/flags/Denmark.svg", code: "DK" },
+  { name: "France", flagUrl: "/assets/icons/flags/France.svg", code: "FR" },
+  { name: "Italy", flagUrl: "/assets/icons/flags/Italy.svg", code: "IT" },
+  { name: "Finland", flagUrl: "/assets/icons/flags/Finland.svg", code: "FI" },
+  { name: "Latvia", flagUrl: "/assets/icons/flags/Latvia.svg", code: "LV" },
+  { name: "Malta", flagUrl: "/assets/icons/flags/Malta.svg", code: "MT" },
+  { name: "Norway", flagUrl: "/assets/icons/flags/Norway.svg", code: "NO" },
+  { name: "Poland", flagUrl: "/assets/icons/flags/Poland.svg", code: "PL" },
+  { name: "Singapore", flagUrl: "/assets/icons/flags/Singapore.svg", code: "SG" },
+  { name: "Spain", flagUrl: "/assets/icons/flags/Spain.svg", code: "ES" },
 ];
 
 const mockStudyLevels: StudyLevel[] = [
+  { id: "postgrad", label: "Post Graduation" },
+  { id: "undergrad", label: "Under Graduation" },
   { id: "summer", label: "Summer Programs" },
   { id: "diploma", label: "Diploma" },
-  { id: "undergrad", label: "Under Graduation" },
-  { id: "ug-integrated", label: "UG - Integrated" },
   { id: "pre-masters", label: "Pre Masters" },
-  { id: "postgrad", label: "Post Graduation" },
-  { id: "phd", label: "PhD (Doctor of Philosophy)" },
   { id: "dba", label: "DBA (Doctorate of Business Administration)", multiline: true },
+  { id: "phd", label: "PhD (Doctor of Philosophy)" },
 ];
 
 const mockDegreeTypes: DegreeType[] = [
@@ -73,7 +74,7 @@ const mockDegreeTypes: DegreeType[] = [
 ];
 
 const mockIndustries: Industry[] = [
-  { id: "business", name: "Business & Management", iconUrl: "/AdmitsConnect_Vishal_Icons/Industry selection/Industry selection icon.svg" },
+  { id: "business", name: "Business & Management", iconUrl: "/assets/icons/industry/Industry selection icon.svg" },
   { id: "engineering", name: "Engineering & Technology" },
   { id: "health", name: "Health & Medicine" },
   { id: "arts", name: "Arts & Humanities" },
@@ -126,7 +127,7 @@ const mockStudyDurations: StudyDuration[] = [
 ];
 
 const mockTags: string[] = [
-  "Faster Offer",
+  "Quick Offer",
   "Course with Internships",
   "High Offer Acceptance-Rate",
   "Affordable University",
@@ -265,9 +266,9 @@ export async function submitApplication(
   application: StudentApplication
 ): Promise<ApiResponse<ApplicationSubmitResponse>> {
   await delay(1000); // Longer delay for submission
-  
-  // Simulate validation
-  if (!application.contact.email || !application.contact.termsConsent) {
+
+  // Minimal server-side validation (UI already validates, but keep API contract robust)
+  if (!application?.contact?.email || !application?.contact?.termsConsent) {
     return {
       success: false,
       data: {
@@ -277,24 +278,44 @@ export async function submitApplication(
       },
     };
   }
-  
-  // Generate a mock application ID
-  const applicationId = `APP-${Date.now()}-${Math.random().toString(36).substr(2, 9).toUpperCase()}`;
-  
-  // Log the application for debugging (in real app, this would go to backend)
-  console.log('Application submitted:', {
-    applicationId,
-    application,
-  });
-  
-  return {
-    success: true,
-    data: {
+
+  try {
+    const result = await captureLead(application);
+
+    if (!result.ok) {
+      return {
+        success: false,
+        data: {
+          success: false,
+          applicationId: '',
+          message: result.errorMessage || 'Submission failed. Please try again.',
+        },
+      };
+    }
+
+    if (import.meta.env.DEV) {
+      console.log('Lead captured:', { leadId: result.id, application });
+    }
+
+    return {
       success: true,
-      applicationId,
-      message: 'Your application has been submitted successfully! Our team will contact you soon.',
-    },
-  };
+      data: {
+        success: true,
+        applicationId: result.id,
+        message: 'Your application has been submitted successfully! Our team will contact you soon.',
+      },
+    };
+  } catch (e) {
+    if (import.meta.env.DEV) console.warn('submitApplication failed', e);
+    return {
+      success: false,
+      data: {
+        success: false,
+        applicationId: '',
+        message: 'Submission failed. Please try again.',
+      },
+    };
+  }
 }
 
 // ============================================
@@ -303,20 +324,12 @@ export async function submitApplication(
 
 export const API_CONFIG = {
   // Replace with your actual backend URL when ready
-  baseUrl: import.meta.env.VITE_API_BASE_URL || 'https://api.admitsconnect.com',
-  
-  endpoints: {
-    countries: '/api/countries',
-    studyLevels: '/api/study-levels',
-    degreeTypes: '/api/degree-types',
-    industries: '/api/industries',
-    studyAreas: '/api/study-areas',
-    studyFormats: '/api/study-formats',
-    intakes: '/api/intakes',
-    studyDurations: '/api/study-durations',
-    tags: '/api/tags',
-    applications: '/api/applications',
-  },
+  baseUrl:
+    import.meta.env.VITE_API_BASE_URL ||
+    applyUniNowCourseExplorer.apiConfig.baseUrlDefault,
+
+  // Single source of truth for endpoints (mirrors wizard metadata)
+  endpoints: applyUniNowCourseExplorer.apiConfig.endpoints,
 };
 
 // ============================================

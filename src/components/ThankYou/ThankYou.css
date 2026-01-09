@@ -2,69 +2,137 @@
    ThankYou Component Styles
    ============================================ */
 
-.thankyou-nav {
+/* ============================================
+   ThankYou Component Styles
+   ============================================ */
+
+.page-main--thankyou {
+  width: 100%;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: 16px;
-  margin-bottom: 30px;
+  padding-top: 40px;
 }
 
 .thankyou-content {
   display: flex;
   flex-direction: column;
-  gap: 30px;
   align-items: center;
-  width: 390px;
+  width: 100%;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 0 20px 50px;
-  border-radius: 7px;
-  overflow: hidden;
+  text-align: center;
 }
 
-.thankyou-text {
+.thankyou-title {
+  font-family: var(--font-primary);
+  font-size: 32px;
+  font-weight: var(--font-weight-semibold);
+  margin-bottom: 20px;
+
+  /* Gradient Text */
+  background: linear-gradient(90deg, #C22032 0%, #8A2BE2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
+.thankyou-message {
+  font-family: var(--font-primary);
+  font-size: 18px;
+  font-weight: var(--font-weight-medium);
+  line-height: var(--leading-normal);
+  color: #C22032;
+  /* Fallback */
+  background: linear-gradient(90deg, #C22032 0%, #8A2BE2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 20px;
+}
+
+.thankyou-message--highlight {
+  font-weight: var(--font-weight-semibold);
+  margin-bottom: 60px;
+}
+
+.thankyou-logo-container {
+  margin-bottom: 80px;
+}
+
+.thankyou-logo {
+  display: flex;
+  align-items: flex-end;
+  gap: 6px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.thankyou-logo-img {
+  height: 60px;
+  width: auto;
+}
+
+.thankyou-logo-text {
+  font-family: 'Audiowide', sans-serif;
+  font-size: 24px;
+  font-weight: var(--font-weight-regular);
+  color: #1E417C;
+  margin-bottom: 0;
+  line-height: 1;
+}
+
+/* Stats Grid */
+.thankyou-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+  gap: 20px;
+  width: 100%;
+  margin-bottom: 100px;
+}
+
+/* Responsive Grid */
+@media (max-width: 1024px) {
+  .thankyou-stats-grid {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .thankyou-stats-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.thankyou-stat-card {
   display: flex;
   flex-direction: column;
-  gap: 20px;
   align-items: center;
-  text-align: center;
-  width: 100%;
+  gap: 10px;
+}
+
+.thankyou-stat-icon {
+  height: 32px;
+  width: auto;
+  object-fit: contain;
+}
+
+.thankyou-stat-text {
   font-family: var(--font-primary);
+  text-align: center;
+  color: #000000;
 }
 
-.thankyou-text__title {
-  color: var(--color-primary);
-  font-size: var(--text-xl);
-  line-height: normal;
-  width: 100%;
+.thankyou-stat-value {
+  font-size: 14px;
+  font-weight: var(--font-weight-semibold);
+  margin: 0;
 }
 
-.thankyou-text__body {
-  color: var(--color-secondary);
-  font-size: var(--text-base);
-  line-height: 1.5;
-  width: 100%;
+.thankyou-stat-label {
+  font-size: 12px;
+  font-weight: var(--font-weight-regular);
+  margin: 0;
+  line-height: 1.2;
 }
-
-.thankyou-text__body p {
-  margin-bottom: 0;
-}
-
-.thankyou-home-btn {
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  transition: opacity var(--transition-fast);
-}
-
-.thankyou-home-btn:hover {
-  opacity: 0.7;
-}
-
-.thankyou-divider {
-  width: 300px;
-  height: 1px;
-  background: #D0D0D0;
-  margin: 168px auto 32px;
-}
-

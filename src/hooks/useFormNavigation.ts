@@ -53,6 +53,9 @@ export function useFormNavigation(): UseFormNavigationReturn {
     industry,
     studyArea,
     studyFormat,
+    attendanceType,
+    budget,
+    workExperience,
     academics,
     contact,
   } = useFormStore();
@@ -89,6 +92,9 @@ export function useFormNavigation(): UseFormNavigationReturn {
     industry,
     studyArea,
     studyFormat,
+    attendanceType,
+    budget,
+    workExperience,
     academics,
     contact,
   ]);
@@ -169,6 +175,7 @@ export const STEP_LABELS: Record<RoutePath, string> = {
   [ROUTES.STUDY_AREA]: 'Study Area',
   [ROUTES.FORMAT]: 'Format',
   [ROUTES.ACADEMICS]: 'Academics',
+  [ROUTES.ASSESSMENT]: 'Assessment',
   [ROUTES.CONTACT]: 'Contact',
   [ROUTES.THANK_YOU]: 'Complete',
 };

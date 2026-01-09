@@ -1,106 +1,76 @@
-// Thank You Confirmation Screen Component
-// Refactored with separate CSS file
+
 
 import './ThankYou.css';
-import { GradientBackgroundTailwind } from '../GradientBackgroundTailwind';
-import { useFormStore } from '../../store/formStore';
-import { useFormNavigation } from '../../hooks/useFormNavigation';
 
-const StarLogo = () => (
-  <svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M17 0L20.8 11H32.5L23 18L26.8 29L17 22L7.2 29L11 18L1.5 11H13.2L17 0Z" fill="#1E417C"/>
-    <path d="M17 6L19.2 12.5H26L20.4 16.5L22.6 23L17 19L11.4 23L13.6 16.5L8 12.5H14.8L17 6Z" fill="#EE1113"/>
-  </svg>
+import WizardLayout from '../WizardLayout';
+
+// Stats data matching MobileHomePage
+const stats = [
+  { value: "12,000+", lines: ["Students", "Helped"], iconPath: "/assets/icons/stats/Students Helped icon.svg" },
+  { value: "3,00,000+", lines: ["Study", "Options"], iconPath: "/assets/icons/stats/Study Options Icon.svg" },
+  { value: "2,180", lines: ["Global", "Universities"], iconPath: "/assets/icons/stats/Global Universities icon.svg" },
+  { value: "100%", lines: ["Transparent", "Process"], iconPath: "/assets/icons/stats/Transparent Process icon.svg" },
+  { value: "500+", lines: ["Global", "Events"], iconPath: "/assets/icons/stats/Global Events icon.svg" },
+  { value: "1,200+", lines: ["Virtual", "sessions"], iconPath: "/assets/icons/stats/Virtual sessions icon.svg" },
+  { value: "100%", lines: ["Student", "Satisfaction"], iconPath: "/assets/icons/stats/Student satisfaction icon.svg" },
+  { value: "20+", lines: ["Study", "Destinations"], iconPath: "/assets/icons/stats/Study destination Icon.svg" },
+  { value: "12+", lines: ["Year's", "Experience"], iconPath: "/assets/icons/stats/Years Experience icon.svg" },
+];
+
+const StatCard = ({ value, lines, iconPath }: { value: string; lines: string[]; iconPath: string }) => (
+  <div className="thankyou-stat-card">
+    <img src={iconPath} alt="" className="thankyou-stat-icon" />
+    <div className="thankyou-stat-text">
+      <p className="thankyou-stat-value">{value}</p>
+      {lines.map((line, i) => (
+        <p key={i} className="thankyou-stat-label">{line}</p>
+      ))}
+    </div>
+  </div>
 );
 
-const ProfileIcon = () => (
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <circle cx="12" cy="8" r="4" stroke="#1E417C" strokeWidth="1.5" fill="none"/>
-    <path d="M6 20c0-3.3 2.7-6 6-6s6 2.7 6 6" stroke="#1E417C" strokeWidth="1.5" fill="none"/>
-  </svg>
-);
-
-const MenuIcon = () => (
-  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M4 6h16M4 12h16M4 18h16" stroke="#1E417C" strokeWidth="2" strokeLinecap="round"/>
-  </svg>
-);
-
-const LeftArrow = () => (
-  <svg width="5" height="9" viewBox="0 0 5 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M4 1L1 4.5L4 8" stroke="#1E417C" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-  </svg>
-);
-
-const RightArrow = () => (
-  <svg width="5" height="9" viewBox="0 0 5 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M1 1L4 4.5L1 8" stroke="#1E417C" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-  </svg>
-);
-
-const HomeIcon = () => (
-  <svg width="31" height="26" viewBox="0 0 31 26" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M15.5 0L0 10V26H10V16H21V26H31V10L15.5 0Z" fill="#9E9E9E"/>
-  </svg>
-);
+import { Link } from 'react-router-dom';
+import Footer from '../Footer/Footer';
 
 export default function ThankYou() {
-  const { resetForm } = useFormStore();
-  const { goHome } = useFormNavigation();
-
-  const handleGoHome = () => {
-    resetForm();
-    goHome();
-  };
+  // handleGoHome removed as it is unused
 
   return (
-    <GradientBackgroundTailwind variant="pastel" className="page-container">
-      <header className="page-header page-header--alt">
-        <div className="page-header__logo page-header__logo--alt">
-          <StarLogo />
-          <span className="page-header__logo-text page-header__logo-text--small">One</span>
-        </div>
-        <div className="page-header__actions page-header__actions--alt">
-          <button className="page-header__action-btn"><ProfileIcon /></button>
-          <button className="page-header__action-btn"><MenuIcon /></button>
-        </div>
-      </header>
-
-      <main className="page-main--alt">
-        <div className="thankyou-nav">
-          <button className="page-nav-arrow" disabled>
-            <LeftArrow /><LeftArrow /><LeftArrow />
-          </button>
-          <h2 className="page-title page-title--highlight">Thankyou..!</h2>
-          <button className="page-nav-arrow" disabled>
-            <RightArrow /><RightArrow /><RightArrow />
-          </button>
-        </div>
-
+    <WizardLayout variant="white" headerVariant="default">
+      <main className="page-main--thankyou">
         <div className="thankyou-content">
-          <div className="thankyou-text">
-            <p className="thankyou-text__title">Thankyou..!</p>
-            
-            <div className="thankyou-text__body">
-              <p>Thank you for letting us know your interest</p>
-              <p>and your study abroad partner will connect</p>
-              <p>you at the earliest possible.</p>
-            </div>
-            
-            <div className="thankyou-text__body">
-              <p>We are FULLY DIGITAL and focusing</p>
-              <p>for truest global student recruitment.</p>
-            </div>
+          <h2 className="thankyou-title">Thankyou..!</h2>
+
+          <div className="thankyou-message">
+            <p>Thank you for letting us know your interest</p>
+            <p>and your study abroad partner will connect you at the earliest possible.</p>
           </div>
 
-          <button className="thankyou-home-btn" onClick={handleGoHome}>
-            <HomeIcon />
-          </button>
-        </div>
+          <div className="thankyou-message thankyou-message--highlight">
+            <p>We are FULLY DIGITAL and focusing for truest global student recruitment.</p>
+          </div>
 
-        <div className="thankyou-divider" />
+          <div className="thankyou-logo-container">
+            <Link to="/" className="thankyou-logo">
+              <img src="/assets/AUN Logo.svg" alt="AUN Logo" className="thankyou-logo-img" />
+              <span className="thankyou-logo-text">One</span>
+            </Link>
+          </div>
+
+          <div className="thankyou-stats-grid">
+            {stats.map((stat, index) => (
+              <StatCard
+                key={index}
+                value={stat.value}
+                lines={stat.lines}
+                iconPath={stat.iconPath}
+              />
+            ))}
+          </div>
+        </div>
+        <Footer className="thankyou-footer" />
       </main>
-    </GradientBackgroundTailwind>
+    </WizardLayout>
   );
 }
 

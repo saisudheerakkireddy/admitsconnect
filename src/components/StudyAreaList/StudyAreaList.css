@@ -1,69 +1,346 @@
 /* ============================================
    StudyAreaList Component Styles
+   Matching StudyIndustrySelection Design
    ============================================ */
 
-.area-nav {
+/* ============================================
+   MAIN CONTENT CONTAINER
+   ============================================ */
+.area-main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 100%;
+  min-height: calc(100vh - 7.5rem);
+  margin: 0 auto;
+  padding: var(--selection-page-padding-block) var(--selection-page-padding-inline);
+  gap: var(--selection-page-gap);
+}
+
+/* ============================================
+   AREA SECTION
+   ============================================ */
+.area-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+/* ============================================
+   NAVIGATION ROW (Title + Arrows)
+   ============================================ */
+.area-nav-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 63px;
-  padding: 0 27px;
+  width: 100%;
+  max-width: var(--selection-nav-max-width);
+  gap: var(--selection-nav-gap);
+  margin-bottom: 30px;
 }
 
-.area-search {
-  padding: 0 4px;
-  margin-bottom: 20px;
+/* Page Title - Gradient styling */
+.area-page-title {
+  flex: 1;
+  min-width: 0;
+  margin: 0;
+  padding: 0 var(--selection-title-padding-inline);
+
+  font-family: var(--font-primary);
+  font-size: var(--selection-title-size);
+  font-weight: 600;
+  line-height: var(--selection-title-line-height);
+  text-align: center;
+  letter-spacing: var(--tracking-wide);
+
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
-.area-list {
+/* Subtitle showing selected industry */
+.area-subtitle {
+  font-family: 'Poppins', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: black;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.area-subtitle .highlight-text {
+  font-weight: 400;
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ============================================
+   AREA GRID - Same as Industry Grid
+   ============================================ */
+.area-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  width: 100%;
+  max-width: 1200px;
+  padding: 0 20px;
+}
+
+/* ============================================
+   AREA CARD - Same as Industry Card with Gradient Border
+   ============================================ */
+.area-card {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
   gap: 16px;
-  padding: 0 4px;
-  max-width: 350px;
-  margin: 0 auto 62px;
+  padding: 24px 16px;
+  min-height: 140px;
+
+  background: rgba(255, 255, 255, 0.85);
+  /* Use 2px border always to prevent layout shift on hover/select */
+  border: 2px solid rgba(0, 0, 0, 0.06);
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
 
-.area-list-item {
-  width: 100%;
-  height: 28px;
+/* Gradient border on hover */
+.area-card:hover {
+  background: rgba(255, 255, 255, 1);
+  border: 2px solid transparent;
+  background-image: linear-gradient(white, white),
+    linear-gradient(135deg, #EE1113 0%, #7403FA 100%);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+  box-shadow: 0 4px 16px rgba(116, 3, 250, 0.12);
+  transform: translateY(-2px);
+}
+
+.area-card:active {
+  transform: translateY(0) scale(0.98);
+}
+
+/* Gradient border on selected */
+.area-card--selected {
+  background: rgba(255, 255, 255, 1);
+  border: 2px solid transparent;
+  background-image: linear-gradient(white, white),
+    linear-gradient(135deg, #EE1113 0%, #7403FA 100%);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+  box-shadow: 0 4px 16px rgba(116, 3, 250, 0.2);
+}
+
+/* ============================================
+   AREA CARD ICON
+   ============================================ */
+.area-card__icon {
+  width: 56px;
+  height: 56px;
   display: flex;
   align-items: center;
-  padding: 0 19px;
+  justify-content: center;
+}
+
+.area-card__icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* ============================================
+   AREA CARD NAME
+   ============================================ */
+.area-card__name {
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.3;
+  text-align: center;
+  color: #1E417C;
+  margin: 0;
+  max-width: 100%;
+  word-wrap: break-word;
+}
+
+.area-card--selected .area-card__name {
+  color: #1E417C;
+}
+
+/* ============================================
+   DIVIDER
+   ============================================ */
+.area-divider-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: auto;
+}
+
+.area-divider {
+  width: min(85%, 32.5rem);
+  height: 1px;
+  background: var(--gradient-divider);
+}
+
+/* ============================================
+   EMPTY STATE
+   ============================================ */
+.area-empty-state {
+  text-align: center;
+  padding: 4rem 2rem;
+}
+
+.area-empty-state h2 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 24px;
+  font-weight: 600;
+  color: #1E417C;
+  margin-bottom: 1rem;
+}
+
+.area-empty-state p {
+  font-family: 'Poppins', sans-serif;
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 2rem;
+}
+
+.area-back-btn {
+  font-family: 'Poppins', sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  color: white;
+  background: linear-gradient(135deg, #EE1113 0%, #7403FA 100%);
+  border: none;
   border-radius: 30px;
-  background: rgba(255, 255, 255, 0.01);
-  border: 1px solid var(--color-primary-light);
-  backdrop-filter: blur(2.5px);
-  box-shadow: 
-    inset 0px 0px 10px 0px rgba(194, 32, 50, 0.3),
-    inset -1px -2px 3px 0px rgba(194, 32, 50, 0.1),
-    inset 1px 1px 2px 0px rgba(194, 32, 50, 0.2);
+  padding: 14px 32px;
   cursor: pointer;
-  transition: all var(--transition-normal);
+  transition: all 0.2s ease;
 }
 
-.area-list-item:hover {
-  background: rgba(255, 255, 255, 0.9);
+.area-back-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(116, 3, 250, 0.3);
 }
 
-.area-list-item:active {
-  transform: scale(0.98);
+/* ============================================
+   MOBILE RESPONSIVE (< 768px)
+   ============================================ */
+@media (max-width: 767px) {
+  .area-nav-row {
+    margin-bottom: 20px;
+  }
+
+  .area-subtitle {
+    font-size: 14px;
+    margin-bottom: 30px;
+  }
+
+  .area-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    padding: 0 16px;
+  }
+
+  .area-card {
+    padding: 16px 12px;
+    min-height: 120px;
+    gap: 12px;
+    border-radius: 10px;
+  }
+
+  .area-card__icon {
+    width: 44px;
+    height: 44px;
+  }
+
+  .area-card__name {
+    font-size: 12px;
+  }
 }
 
-.area-list-item--selected {
-  background: var(--color-bg-selected);
-  box-shadow: 0 0 0 2px var(--color-primary-light);
+/* ============================================
+   TABLET RESPONSIVE (768px - 1279px)
+   ============================================ */
+@media (min-width: 768px) and (max-width: 1279px) {
+  .area-nav-row {
+    margin-bottom: 25px;
+  }
+
+  .area-subtitle {
+    font-size: 15px;
+    margin-bottom: 35px;
+  }
+
+  .area-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    max-width: 900px;
+  }
+
+  .area-card {
+    padding: 20px 14px;
+    min-height: 130px;
+    gap: 14px;
+  }
+
+  .area-card__icon {
+    width: 50px;
+    height: 50px;
+  }
+
+  .area-card__name {
+    font-size: 13px;
+  }
 }
 
-.area-list-item__text {
-  font-family: var(--font-display);
-  font-size: 8px;
-  font-weight: var(--font-normal);
-  text-align: left;
-  color: var(--color-black);
-}
+/* ============================================
+   DESKTOP RESPONSIVE (1280px+)
+   ============================================ */
+@media (min-width: 1280px) {
+  .area-nav-row {
+    margin-bottom: 35px;
+  }
 
-.area-list-item--selected .area-list-item__text {
-  color: var(--color-primary-light);
-}
+  .area-page-title {
+    font-size: calc(var(--selection-title-size) + 4px);
+  }
 
+  .area-subtitle {
+    font-size: 18px;
+    margin-bottom: 50px;
+  }
+
+  .area-grid {
+    grid-template-columns: repeat(5, 1fr);
+    gap: 24px;
+    max-width: 1200px;
+    padding: 0 40px;
+  }
+
+  .area-card {
+    padding: 28px 20px;
+    min-height: 160px;
+    gap: 18px;
+    border-radius: 14px;
+  }
+
+  .area-card__icon {
+    width: 64px;
+    height: 64px;
+  }
+
+  .area-card__name {
+    font-size: 16px;
+  }
+}

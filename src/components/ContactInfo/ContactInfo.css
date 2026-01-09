@@ -1,0 +1,220 @@
+/* ============================================
+   ContactInfo Component Styles
+   (copied from prior TestPreferences.css to avoid regressions)
+   ============================================ */
+
+.contact-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 30px;
+  width: 100%;
+  max-width: 900px;
+  margin-inline: auto;
+  padding-inline: 40px;
+}
+
+.page-title--highlight {
+  color: #000000;
+  font-weight: 600;
+  font-size: 24px;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.contact-form__description {
+  font-family: var(--font-primary);
+  font-size: 20px;
+  font-weight: var(--font-weight-semibold);
+  text-align: center;
+  line-height: 1.5;
+  width: 100%;
+  background: var(--gradient-text);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.contact-form__fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  width: 100%;
+}
+
+.glass-input--full {
+  width: 100%;
+  border-radius: 50px;
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 16px 24px;
+}
+
+.contact-form__divider {
+  width: 100%;
+  height: 1px;
+  background: #d0d0d0;
+}
+
+.contact-form__consents {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+}
+
+.contact-consent {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+.contact-consent__checkbox {
+  flex-shrink: 0;
+  padding-top: 3px;
+  padding-left: 2px;
+}
+
+.contact-consent__box {
+  width: 20px;
+  height: 20px;
+  border: 1px solid rgba(0, 0, 0, 0.4);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  outline: none;
+}
+
+.contact-consent__box:focus-visible {
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.8), 0 0 0 4px var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+
+
+.contact-consent__box--checked {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+/* Override the SVG stroke to white when checked */
+.contact-consent__box--checked svg path {
+  stroke: white;
+}
+
+.contact-consent__label {
+  font-family: var(--font-primary);
+  font-size: 15px;
+  font-weight: var(--font-weight-medium);
+  color: #000000;
+  line-height: 1.4;
+  width: 100%;
+}
+
+.contact-consent__link {
+  color: #2E23F3;
+  text-decoration: underline;
+  cursor: pointer;
+  font-weight: var(--font-weight-semibold);
+}
+
+
+
+.contact-consent__required {
+  color: #F4303B;
+  font-weight: var(--font-weight-bold);
+  margin-left: 4px;
+}
+
+/* Removed the specific red border for required box to fix inconsistency */
+
+.contact-consent__box--required.contact-consent__box--checked {
+  /* Use standard checked style */
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.contact-submit {
+  height: 44px;
+  width: min(240px, 100%);
+  margin: 0 auto;
+  padding: 0 20px;
+  border-radius: 50px;
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--transition-normal);
+}
+
+.contact-submit:hover:not(:disabled) {
+  background: #C22032;
+  border-color: #C22032;
+  box-shadow: 0 4px 12px rgba(194, 32, 50, 0.3);
+}
+
+.contact-submit:hover:not(:disabled) .contact-submit__text {
+  color: white;
+}
+
+.contact-submit:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.contact-submit__text {
+  font-family: var(--font-primary);
+  font-size: 16px;
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-black);
+}
+
+.contact-divider {
+  width: clamp(280px, 45vw, 520px);
+  max-width: 100%;
+  height: 1px;
+  background: #d0d0d0;
+  margin: 50px auto 32px;
+}
+
+.input-error {
+  border-color: #F4303B !important;
+  background: rgba(244, 48, 59, 0.05) !important;
+}
+
+.error-text {
+  color: #F4303B;
+  font-size: 12px;
+  margin-top: 4px;
+  margin-left: 12px;
+  font-weight: var(--font-weight-medium);
+}
+
+.field-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.submit-error {
+  color: #F4303B;
+  font-size: 14px;
+  text-align: center;
+  margin-top: 10px;
+  font-weight: var(--font-weight-medium);
+}

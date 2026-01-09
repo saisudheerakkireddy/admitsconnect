@@ -5,6 +5,15 @@
    ============================================ */
 
 /* ============================================
+   FONT IMPORTS
+   ============================================ */
+/* Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Comfortaa:wght@400&display=swap');
+
+/* Autowide from CDN Fonts */
+@import url('https://fonts.cdnfonts.com/css/autowide');
+
+/* ============================================
    CSS RESET
    ============================================ */
 *,
@@ -70,85 +79,16 @@ img {
 }
 
 /* ============================================
-   TYPOGRAPHY UTILITIES
+   NOTE: Typography and color utilities are now
+   handled by Tailwind CSS for better tree-shaking
+   and consistency. Use Tailwind classes like:
+   - text-xs, text-sm, text-base, etc.
+   - font-light, font-medium, font-bold, etc.
+   - text-center, text-left, text-right
+   
+   Custom font families are defined in tailwind.config.ts:
+   - font-primary, font-display, font-accent
    ============================================ */
-.text-xs {
-  font-size: var(--text-xs);
-}
-.text-sm {
-  font-size: var(--text-sm);
-}
-.text-base {
-  font-size: var(--text-base);
-}
-.text-md {
-  font-size: var(--text-md);
-}
-.text-lg {
-  font-size: var(--text-lg);
-}
-.text-xl {
-  font-size: var(--text-xl);
-}
-
-.font-light {
-  font-weight: var(--font-light);
-}
-.font-normal {
-  font-weight: var(--font-normal);
-}
-.font-medium {
-  font-weight: var(--font-medium);
-}
-.font-semibold {
-  font-weight: var(--font-semibold);
-}
-.font-bold {
-  font-weight: var(--font-bold);
-}
-
-.font-primary {
-  font-family: var(--font-primary);
-}
-.font-display {
-  font-family: var(--font-display);
-}
-.font-accent {
-  font-family: var(--font-accent);
-}
-
-.text-center {
-  text-align: center;
-}
-.text-left {
-  text-align: left;
-}
-.text-right {
-  text-align: right;
-}
-
-/* ============================================
-   COLOR UTILITIES
-   ============================================ */
-.text-primary {
-  color: var(--color-primary);
-}
-.text-secondary {
-  color: var(--color-secondary);
-}
-.text-muted {
-  color: var(--color-text-muted);
-}
-
-.bg-primary {
-  background-color: var(--color-primary);
-}
-.bg-secondary {
-  background-color: var(--color-secondary);
-}
-.bg-white {
-  background-color: var(--color-white);
-}
 
 /* ============================================
    ACCESSIBILITY

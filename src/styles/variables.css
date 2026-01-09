@@ -5,173 +5,679 @@
    ============================================ */
 
 :root {
-  /* ============================================
+   /* ============================================
      PRIMARY COLORS
      ============================================ */
-  --color-primary: #C22032;
-  --color-primary-light: #EE1113;
-  --color-primary-dark: #9A1A28;
-  --color-primary-hover: #A81C2C;
-  --color-primary-rgb: 194, 32, 50;
+   --color-primary: #C22032;
+   --color-primary-light: #EE1113;
+   --color-primary-dark: #9A1A28;
+   --color-primary-hover: #A81C2C;
+   --color-primary-rgb: 194, 32, 50;
 
-  /* ============================================
+   /* ============================================
      SECONDARY COLORS
      ============================================ */
-  --color-secondary: #1E417C;
-  --color-secondary-light: #2A5299;
-  --color-secondary-dark: #152D57;
-  --color-secondary-rgb: 30, 65, 124;
+   --color-secondary: #1E417C;
+   --color-secondary-light: #2A5299;
+   --color-secondary-dark: #152D57;
+   --color-secondary-rgb: 30, 65, 124;
 
-  /* ============================================
-     PASTEL COLORS (From Figma Design)
+   /* ============================================
+     PASTEL COLORS - Purple Variants
      ============================================ */
-  --color-pastel-pink: #FFE6F0;
-  --color-pastel-pink-rgb: 255, 230, 240;
-  --color-pastel-lavender: #E8D5E8;
-  --color-pastel-lavender-rgb: 232, 213, 232;
-  --color-pastel-cyan: #38D3F0;
-  --color-pastel-cyan-rgb: 56, 211, 240;
-  --color-pastel-cyan-light: #E6FAFF;
-  --color-pastel-mint: #C5F0E8;
-  --color-pastel-mint-rgb: 197, 240, 232;
-  --color-pastel-blush: #FFB4D2;
-  --color-pastel-blush-rgb: 255, 180, 210;
+   --color-pastel-purple-light: #F0E8F5;
+   --color-pastel-purple-base: #E8D6F0;
+   --color-pastel-purple-medium: #DBC9E8;
+   --color-pastel-purple-dark: #D4BBE0;
 
-  /* ============================================
+   /* ============================================
+     PASTEL COLORS - Cyan Variants
+     ============================================ */
+   --color-pastel-cyan-light: #E6F5F8;
+   --color-pastel-cyan-base: #D6F0F5;
+   --color-pastel-cyan-medium: #C8EBF2;
+   --color-pastel-cyan-dark: #BFDFEA;
+
+   /* ============================================
+     PASTEL COLORS - Lavender Variants
+     ============================================ */
+   --color-pastel-lavender-light: #F5F0FA;
+   --color-pastel-lavender-base: #E8DDF5;
+   --color-pastel-lavender-medium: #DDD0F0;
+   --color-pastel-lavender-dark: #D0C0E8;
+
+   /* ============================================
+     BRAND COLORS
+     ============================================ */
+   --color-brand-navy: #1E417C;
+   --color-brand-navy-light: rgba(30, 65, 124, 0.01);
+   --color-brand-red: #EE1113;
+   --color-brand-purple: #7403FA;
+
+   /* ============================================
      NEUTRAL COLORS
      ============================================ */
-  --color-white: #FFFFFF;
-  --color-black: #000000;
-  --color-gray-50: #F9FAFB;
-  --color-gray-100: #F3F4F6;
-  --color-gray-200: #E5E7EB;
-  --color-gray-300: #D1D5DB;
-  --color-gray-400: #9CA3AF;
-  --color-gray-500: #6B7280;
-  --color-gray-600: #4B5563;
-  --color-gray-700: #374151;
-  --color-gray-800: #1F2937;
-  --color-gray-900: #111827;
+   --color-white: #FFFFFF;
+   --color-black: #000000;
+   --color-gray-50: #F9FAFB;
+   --color-gray-100: #F3F4F6;
+   --color-gray-200: #E5E7EB;
+   --color-gray-300: #D1D5DB;
+   --color-gray-400: #9CA3AF;
+   --color-gray-500: #6B7280;
+   --color-gray-600: #4B5563;
+   --color-gray-700: #374151;
+   --color-gray-800: #1F2937;
+   --color-gray-900: #111827;
 
-  /* ============================================
+   /* ============================================
      TEXT COLORS
      ============================================ */
-  --color-text-primary: #333333;
-  --color-text-secondary: #505050;
-  --color-text-muted: #777777;
-  --color-text-light: #555555;
-  --color-text-dark: #444444;
+   --color-text-primary: #333333;
+   --color-text-secondary: #505050;
+   --color-text-muted: #777777;
+   --color-text-light: #555555;
+   --color-text-dark: #444444;
 
-  /* ============================================
+   /* ============================================
      BACKGROUND COLORS
      ============================================ */
-  --color-bg-primary: var(--color-white);
-  --color-bg-secondary: var(--color-gray-50);
-  --color-bg-card: rgba(255, 255, 255, 0.7);
-  --color-bg-card-hover: rgba(255, 255, 255, 0.9);
-  --color-bg-selected: rgba(238, 17, 19, 0.15);
-  --color-bg-glassmorphism: rgba(255, 255, 255, 0.01);
+   --color-bg-primary: var(--color-white);
+   --color-bg-secondary: var(--color-gray-50);
+   --color-bg-card: rgba(255, 255, 255, 0.7);
+   --color-bg-card-hover: rgba(255, 255, 255, 0.9);
+   --color-bg-selected: rgba(238, 17, 19, 0.15);
+   --color-bg-glassmorphism: rgba(30, 65, 124, 0.01);
 
-  /* ============================================
+   /* ============================================
      GRADIENTS
      ============================================ */
-  --gradient-primary: linear-gradient(135deg, #EE1113 0%, #C22032 100%);
-  --gradient-text: linear-gradient(135deg, #EE1113 0%, #9B30FF 100%);
-  --gradient-pastel: linear-gradient(135deg, var(--color-pastel-pink) 0%, var(--color-pastel-cyan-light) 100%);
-  --gradient-divider: linear-gradient(90deg, transparent 0%, #bbb 50%, transparent 100%);
+   --gradient-primary: linear-gradient(161.24deg, #EE1113 0.91%, #7403FA 96.74%);
+   --gradient-text: linear-gradient(161.24deg, #EE1113 0.91%, #7403FA 96.74%);
+   --gradient-pastel: linear-gradient(135deg, var(--color-pastel-purple-light) 0%, var(--color-pastel-cyan-light) 100%);
+   --gradient-divider: linear-gradient(90deg, transparent 0%, #bbb 50%, transparent 100%);
 
-  /* ============================================
-     TYPOGRAPHY - FONT FAMILIES
+   /* ============================================
+     GLASSMORPHISM EFFECTS
      ============================================ */
-  --font-primary: 'Poppins', sans-serif;
-  --font-display: 'Comfortaa', cursive, sans-serif;
-  --font-accent: 'Audiowide', sans-serif;
+   --glass-backdrop-blur: blur(2.5px);
+   --glass-bg: rgba(30, 65, 124, 0.01);
 
-  /* ============================================
+   /* ============================================
+     TYPOGRAPHY - FONT FAMILIES
+     (Audiowide: headings, Poppins: body, Comfortaa: buttons)
+     ============================================ */
+   --font-heading: 'Audiowide', sans-serif;
+   --font-body: 'Poppins', sans-serif;
+   --font-button: 'Comfortaa', cursive, sans-serif;
+   /* Aliases for backward compatibility */
+   --font-primary: 'Poppins', sans-serif;
+   --font-display: 'Comfortaa', cursive, sans-serif;
+   --font-accent: 'Audiowide', sans-serif;
+
+   /* ============================================
      TYPOGRAPHY - FONT SIZES
      ============================================ */
-  --text-xs: 9px;
-  --text-sm: 10px;
-  --text-base: 12px;
-  --text-md: 13px;
-  --text-lg: 15px;
-  --text-xl: 18px;
-  --text-2xl: 24px;
-  --text-3xl: 30px;
+   --text-xs: 9px;
+   --text-sm: 10px;
+   --text-base: 12px;
+   --text-md: 13px;
+   --text-lg: 15px;
+   --text-xl: 18px;
+   --text-2xl: 24px;
+   --text-3xl: 30px;
 
-  /* ============================================
+   /* ============================================
+     FLUID TYPOGRAPHY SCALE (Golden Ratio 1.2)
+     Modern responsive typography using clamp()
+     ============================================ */
+   --type-scale-ratio: 1.2;
+
+   /* Fluid font sizes - scales smoothly across viewports */
+   --type-xs: clamp(0.694rem, 1.2vw, 0.833rem);
+   /* 11px → 13px */
+   --type-sm: clamp(0.833rem, 1.4vw, 1rem);
+   /* 13px → 16px */
+   --type-base: clamp(1rem, 1.6vw, 1.2rem);
+   /* 16px → 19px */
+   --type-md: clamp(1.2rem, 2vw, 1.44rem);
+   /* 19px → 23px */
+   --type-lg: clamp(1.44rem, 2.5vw, 1.728rem);
+   /* 23px → 28px */
+   --type-xl: clamp(1.728rem, 3vw, 2.074rem);
+   /* 28px → 33px */
+   --type-2xl: clamp(2.074rem, 4vw, 2.488rem);
+   /* 33px → 40px */
+
+   /* Selection Page Specific Typography */
+   --selection-title-size: clamp(0.75rem, 2vw, 1.25rem);
+   /* 12px → 20px */
+   --selection-title-weight: 400;
+   --selection-title-line-height: 1.2;
+   --selection-title-padding-inline: clamp(0.5rem, 1.5vw, 1rem);
+   /* 8px → 16px */
+
+   --selection-card-label-size: clamp(0.5625rem, 1.4vw, 0.75rem);
+   /* 9px → 12px */
+   --selection-card-label-weight: 700;
+   --selection-card-label-line-height: 1.2;
+   --selection-card-label-padding: clamp(0.25rem, 0.8vw, 0.5rem);
+   /* 4px → 8px */
+
+   /* ============================================
      TYPOGRAPHY - FONT WEIGHTS
      ============================================ */
-  --font-light: 300;
-  --font-normal: 400;
-  --font-medium: 500;
-  --font-semibold: 600;
-  --font-bold: 700;
+   --font-light: 300;
+   /* Use sparingly */
+   --font-normal: 400;
+   /* Regular text */
+   --font-medium: 500;
+   /* Card titles, labels */
+   --font-semibold: 600;
+   /* Page titles, emphasis */
+   --font-bold: 700;
+   /* Strong emphasis only */
 
-  /* ============================================
+   /* Semantic Weight Aliases */
+   --font-weight-regular: var(--font-normal);
+   --font-weight-medium: var(--font-medium);
+   --font-weight-semibold: var(--font-semibold);
+   --font-weight-bold: var(--font-bold);
+
+   /* ============================================
      TYPOGRAPHY - LINE HEIGHTS
      ============================================ */
-  --leading-none: 1;
-  --leading-tight: 1.25;
-  --leading-snug: 1.375;
-  --leading-normal: 1.5;
-  --leading-relaxed: 1.625;
+   --leading-none: 1;
+   --leading-tight: 1.2;
+   /* Headings */
+   --leading-snug: 1.375;
+   --leading-normal: 1.6;
+   /* Body text - Improved readability */
+   --leading-relaxed: 1.625;
+   --leading-loose: 2;
 
-  /* ============================================
+   /* ============================================
+     TYPOGRAPHY - LETTER SPACING
+     Optical adjustments for better readability
+     ============================================ */
+   --tracking-tighter: -0.05em;
+   --tracking-tight: -0.025em;
+   --tracking-normal: 0;
+   --tracking-wide: 0.025em;
+   --tracking-wider: 0.05em;
+   --tracking-widest: 0.1em;
+
+   /* ============================================
      SPACING
      ============================================ */
-  --space-0: 0;
-  --space-xs: 4px;
-  --space-sm: 8px;
-  --space-md: 12px;
-  --space-lg: 16px;
-  --space-xl: 20px;
-  --space-2xl: 25px;
-  --space-3xl: 35px;
-  --space-4xl: 45px;
+   --space-0: 0;
+   --space-xs: 4px;
+   --space-sm: 8px;
+   --space-md: 12px;
+   --space-lg: 16px;
+   --space-xl: 20px;
+   --space-2xl: 25px;
+   --space-3xl: 35px;
+   --space-4xl: 45px;
 
-  /* ============================================
+   /* ============================================
+     FLUID SPACING TOKENS - Selection Pages
+     Unified spacing system for Country/Industry/Area selection
+     ============================================ */
+
+   /* Vertical Rhythm - Page-level spacing */
+   --selection-page-padding-block: clamp(3rem, 8vh, 6.25rem);
+   /* 48px → 100px */
+   --selection-page-padding-inline: clamp(1.125rem, 3vw, 6.875rem);
+   /* 18px → 110px */
+   --selection-page-gap: clamp(2.5rem, 6vh, 4.375rem);
+   /* 40px → 70px */
+
+   /* Section Spacing - Between major elements */
+   --selection-section-gap: clamp(1.75rem, 4vw, 3.125rem);
+   /* 28px → 50px */
+   --selection-content-gap: clamp(1.125rem, 3vw, 1.875rem);
+   /* 18px → 30px */
+
+   /* Grid Spacing - Item-to-item gaps */
+   --selection-grid-gap-row: clamp(1.125rem, 2.5vh, 1.75rem);
+   /* 18px → 28px */
+   --selection-grid-gap-col: clamp(1rem, 2vw, 1.5rem);
+   /* 16px → 24px */
+
+   /* Card Internal Spacing */
+   --selection-card-padding-block: clamp(0.875rem, 2vh, 1.125rem);
+   /* 14px → 18px */
+   --selection-card-padding-inline: clamp(0.5rem, 1.5vw, 0.75rem);
+   /* 8px → 12px */
+   --selection-card-gap: clamp(0.625rem, 1.5vh, 0.875rem);
+   /* 10px → 14px */
+
+   /* Navigation Row Spacing */
+   --selection-nav-gap: clamp(0.75rem, 2vw, 1.5rem);
+   /* 12px → 24px */
+   --selection-nav-max-width: min(90%, 50rem);
+   /* 800px max */
+
+   /* ============================================
      BORDER RADIUS
      ============================================ */
-  --radius-none: 0;
-  --radius-sm: 4px;
-  --radius-md: 8px;
-  --radius-lg: 12px;
-  --radius-xl: 20px;
-  --radius-2xl: 30px;
-  --radius-full: 9999px;
+   --radius-none: 0;
+   --radius-sm: 4px;
+   --radius-md: 8px;
+   --radius-lg: 12px;
+   --radius-xl: 20px;
+   --radius-2xl: 30px;
+   --radius-full: 9999px;
 
-  /* ============================================
+   /* ============================================
+     BORDERS - Tag Components
+     ============================================ */
+   --border-tag-default: 1px solid rgba(238, 17, 19, 0.15);
+   --border-tag-selected: 2px solid #C22032;
+   --border-tag-hover: 1px solid rgba(238, 17, 19, 0.25);
+
+   /* ============================================
      SHADOWS
      ============================================ */
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-  --shadow-tag-inner: inset 0px 0px 6px rgba(194, 32, 50, 0.15);
-  --shadow-focus: 0 0 0 3px rgba(var(--color-primary-rgb), 0.3);
+   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+   --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+   --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+   --shadow-tag-inner: inset 0px 0px 6px rgba(194, 32, 50, 0.1);
+   --shadow-focus: 0 0 0 3px rgba(var(--color-primary-rgb), 0.3);
 
-  /* ============================================
+   /* Button Inset Shadow (from Figma spec) */
+   --shadow-button-inset: inset 0px 0px 10px 0px rgba(194, 32, 50, 0.3),
+      inset -1px -2px 3px 0px rgba(194, 32, 50, 0.1),
+      inset 1px 1px 2px 0px rgba(194, 32, 50, 0.2);
+
+   /* ============================================
      TRANSITIONS
      ============================================ */
-  --transition-fast: 150ms ease;
-  --transition-normal: 200ms ease;
-  --transition-slow: 300ms ease;
+   --transition-fast: 150ms ease;
+   --transition-normal: 200ms ease;
+   --transition-slow: 300ms ease;
 
-  /* ============================================
+   /* ============================================
      Z-INDEX
      ============================================ */
-  --z-base: 0;
-  --z-above: 10;
-  --z-dropdown: 50;
-  --z-modal: 100;
-  --z-overlay: 200;
+   --z-base: 0;
+   --z-above: 10;
+   --z-dropdown: 50;
+   --z-modal: 100;
+   --z-overlay: 200;
 
-  /* ============================================
+   /* ============================================
      LAYOUT
      ============================================ */
-  --mobile-width: 393px;
-  --content-padding: 20px;
-  --header-padding-top: 35px;
-  --header-padding-bottom: 15px;
+   /*
+    Responsive container system
+
+    - container-narrow: form/wizard steps look best constrained
+    - container-max: wider pages can breathe on desktop
+  */
+   --container-narrow: 720px;
+   --container-max: 1200px;
+
+   /*
+    Keep for backward compatibility: previously the app was designed as a fixed
+    393px mobile frame. We now make it fluid, but leaving the variable avoids
+    breaking any existing references.
+  */
+   --mobile-width: 393px;
+
+   /* Fluid padding scales between small phones and desktop */
+   --content-padding: clamp(16px, 3vw, 32px);
+   --header-padding-top: clamp(20px, 4vw, 35px);
+   --header-padding-bottom: clamp(12px, 2vw, 16px);
+
+   /* ============================================
+     RESPONSIVE GRID SYSTEM - Selection Pages
+     Mobile-first: 3 cols → Tablet: 4 cols → Desktop: 6 cols
+     ============================================ */
+   --selection-grid-columns: 3;
+   --selection-grid-item-min: 5.3125rem;
+   /* 85px */
+   --selection-grid-item-max: 5.9375rem;
+   /* 95px */
+   --selection-grid-max-width: min(95%, 21.25rem);
+   /* 340px mobile */
+
+   /* ============================================
+     VIEWPORT-SPECIFIC DESIGN TOKENS (Figma Extraction)
+     ============================================ */
+
+   /* Gradient angles per viewport */
+   --gradient-angle-mobile: 140.59deg;
+   --gradient-angle-tablet: 161.24deg;
+   --gradient-angle-desktop: 167.47deg;
+   --gradient-angle-footer: 165.84deg;
+
+   /* Viewport-specific gradients */
+   --gradient-mobile: linear-gradient(var(--gradient-angle-mobile), #EE1113 0.91%, #7403FA 96.74%);
+   --gradient-tablet: linear-gradient(var(--gradient-angle-tablet), #EE1113 0.91%, #7403FA 96.74%);
+   --gradient-desktop: linear-gradient(var(--gradient-angle-desktop), #EE1113 0.91%, #7403FA 96.74%);
+   --gradient-footer: linear-gradient(var(--gradient-angle-footer), #EE1113 0.91%, #7403FA 96.74%);
+
+   /* ============================================
+     TAG COMPONENT TOKENS (Mobile-First)
+     ============================================ */
+   --tag-height: 28px;
+   --tag-font-size: 8px;
+   --tag-font-weight: 600;
+   --tag-font-family: var(--font-primary);
+   --tag-padding-x: 16px;
+   --tag-padding-y: 8px;
+   --tag-border-radius: 23px;
+   --tag-line-height: 9px;
+   --tag-gap-x: 10px;
+   --tag-gap-y: 8px;
+   --tag-max-width: 378px;
+
+   /* ============================================
+     HEADER TOKENS (Mobile-First)
+     ============================================ */
+   --header-logo-width: 31px;
+   --header-logo-height: 30px;
+   --header-one-text-size: 14px;
+   --header-profile-icon-size: 11px;
+   --header-menu-icon-width: 14.48px;
+   --header-menu-icon-height: 9.54px;
+   --header-top-padding: 37px;
+   --header-left-padding: 22px;
+
+   /* ============================================
+     TAGLINE TOKENS (Mobile-First)
+     ============================================ */
+   --tagline-font-size: 16px;
+   --tagline-font-weight: 500;
+   --tagline-bold-weight: 700;
+   --tagline-color: #505050;
+   --tagline-max-width: 307px;
+   --subtitle-font-size: 12px;
+   --subtitle-max-width: 307px;
+
+   /* ============================================
+     NEXT BUTTON TOKENS (Mobile-First)
+     ============================================ */
+   --next-btn-width: 72px;
+   --next-btn-height: 24px;
+   --next-btn-font-size: 8px;
+   --next-btn-font-family: var(--font-button);
+   --next-btn-bg-color: #C22032;
+   --next-btn-text-color: #FFFFFF;
+   --next-btn-border-radius: 29px;
+   --next-btn-padding: 10px;
+
+   /* ============================================
+     DIVIDER TOKENS (Mobile-First)
+     ============================================ */
+   --divider-width: 300px;
+   --divider-height: 2px;
+
+   /* ============================================
+     STATS TOKENS (Mobile-First)
+     ============================================ */
+   --stats-grid-cols: 3;
+   --stats-gap-x: 20px;
+   --stats-gap-y: 30px;
+   --stats-icon-size: 24px;
+   --stats-value-font-size: 12px;
+   --stats-value-line-height: 16px;
+   --stats-label-font-size: 12px;
+   --stats-max-width: 100%;
+
+   /* ============================================
+     FOOTER TOKENS (Mobile-First)
+     ============================================ */
+   --footer-link-font-size: 8px;
+   --footer-link-font-weight: 300;
+   --footer-link-gap: 10px;
+   --footer-contact-title-size: 8px;
+   --footer-contact-title-weight: 600;
+   --footer-contact-details-size: 8px;
+   --footer-crafted-font-size: 8px;
+
+   /* ============================================
+     HOME PAGE SPACING TOKENS (Mobile-First)
+     Systematic spacing for MobileHomePage component
+     ============================================ */
+   --home-padding-inline: clamp(1.5rem, 5vw, 10rem);
+   /* 24px → 160px */
+   --home-padding-block: clamp(3rem, 8vh, 6rem);
+   /* 48px → 96px */
+   --home-section-gap: clamp(3rem, 8vh, 6rem);
+   /* 48px → 96px */
+   --home-subsection-gap: clamp(2rem, 5vh, 4rem);
+   /* 32px → 64px */
+   --home-content-gap: clamp(2rem, 4vh, 3.5rem);
+   /* 32px → 56px */
+   --home-footer-gap: clamp(4rem, 10vh, 8rem);
+   /* 64px → 128px */
 }
 
+/* ============================================
+   TABLET VIEWPORT OVERRIDES (768px+)
+   ============================================ */
+@media (min-width: 768px) {
+   :root {
+      /* Gradient angle for tablet */
+      --gradient-primary: var(--gradient-tablet);
+
+      /* Tag tokens - Tablet */
+      --tag-height: 40px;
+      --tag-font-size: 12px;
+      --tag-font-weight: 600;
+      --tag-font-family: var(--font-primary);
+      --tag-border-radius: 30px;
+      --tag-gap-x: 14px;
+      --tag-gap-y: 14px;
+      --tag-max-width: 720px;
+
+      /* Header tokens - Tablet */
+      --header-logo-width: 38px;
+      --header-logo-height: 36px;
+      --header-one-text-size: 16px;
+      --header-profile-icon-size: 15px;
+      --header-menu-icon-width: 15px;
+      --header-menu-icon-height: 10px;
+      --header-top-padding: 39px;
+      --header-left-padding: 39px;
+
+      /* Tagline tokens - Tablet */
+      --tagline-font-size: 16px;
+      --tagline-font-weight: 400;
+      --tagline-color: #000000;
+      --tagline-max-width: 671px;
+      --subtitle-font-size: 16px;
+      --subtitle-max-width: 575px;
+
+      /* Next button - Tablet */
+      --next-btn-width: 138px;
+      --next-btn-height: 37px;
+
+      /* Divider - Tablet */
+      --divider-width: 611px;
+      --divider-height: 4px;
+
+      /* Stats - Tablet */
+      --stats-gap-x: 40px;
+      --stats-gap-y: 30px;
+      --stats-icon-size: 32px;
+      --stats-value-font-size: 15px;
+      --stats-value-line-height: 18px;
+      --stats-max-width: 100%;
+
+      /* Footer - Tablet */
+      --footer-link-font-size: 12px;
+      --footer-link-font-weight: 400;
+      --footer-link-gap: 20px;
+      --footer-contact-title-size: 12px;
+      --footer-contact-details-size: 12px;
+      --footer-crafted-font-size: 15px;
+
+      /* Selection Grid - Tablet */
+      --selection-grid-columns: 4;
+      --selection-grid-item-min: 5.9375rem;
+      /* 95px */
+      --selection-grid-item-max: 6.875rem;
+      /* 110px */
+      --selection-grid-max-width: min(95%, 32.5rem);
+      /* 520px tablet */
+   }
+}
+
+/* ============================================
+   DESKTOP VIEWPORT OVERRIDES (1280px+)
+   ============================================ */
+@media (min-width: 1280px) {
+   :root {
+      /* Gradient angle for desktop */
+      --gradient-primary: var(--gradient-desktop);
+
+      /* Tag tokens - Desktop */
+      --tag-height: 50px;
+      --tag-font-size: 15px;
+      --tag-font-weight: 600;
+      --tag-font-family: var(--font-primary);
+      --tag-line-height: 16px;
+      --tag-gap-x: 16px;
+      --tag-gap-y: 16px;
+      --tag-max-width: 1200px;
+      --tag-max-width: 1530px;
+
+      /* Header tokens - Desktop */
+      --header-logo-width: 69px;
+      --header-logo-height: 66px;
+      --header-one-text-size: 20px;
+      --header-profile-icon-size: 24px;
+      --header-top-padding: 86px;
+      --header-left-padding: 110px;
+
+      /* Tagline tokens - Desktop */
+      --tagline-font-size: 20px;
+      --tagline-bold-weight: 600;
+      --tagline-max-width: 769px;
+      --subtitle-font-size: 20px;
+      --subtitle-max-width: 769px;
+
+      /* Next button - Desktop */
+      --next-btn-font-size: 15px;
+
+      /* Divider - Desktop */
+      --divider-width: 100%;
+
+      /* Stats - Desktop - All 9 in one row */
+      --stats-grid-cols: 9;
+      --stats-gap-x: 20px;
+      --stats-gap-y: 20px;
+      --stats-max-width: 100%;
+
+      /* Footer - Desktop */
+      --footer-link-font-size: 15px;
+      --footer-contact-title-size: 15px;
+      --footer-contact-details-size: 15px;
+
+      /* Selection Grid - Desktop */
+      --selection-grid-columns: 6;
+      --selection-grid-item-min: 6.5625rem;
+      /* 105px */
+      --selection-grid-item-max: 7.5rem;
+      /* 120px */
+      --selection-grid-max-width: min(90%, 52.5rem);
+      /* 840px desktop */
+   }
+}
+
+/* ============================================
+   DARK MODE THEME
+   ============================================ */
+.dark {
+   /* Primary colors remain the same for brand consistency */
+   --color-primary: #EE1113;
+   --color-primary-light: #FF3335;
+   --color-primary-dark: #C22032;
+   --color-primary-hover: #D81517;
+
+   /* Secondary colors adjusted for dark mode */
+   --color-secondary: #4A7BC8;
+   --color-secondary-light: #5A8ED9;
+   --color-secondary-dark: #2A5299;
+
+   /* Pastel colors - darker variants for dark mode */
+   --color-pastel-purple-light: #3D2A4A;
+   --color-pastel-purple-base: #4A3357;
+   --color-pastel-purple-medium: #573D64;
+   --color-pastel-purple-dark: #644771;
+
+   --color-pastel-cyan-light: #2A3F47;
+   --color-pastel-cyan-base: #334B54;
+   --color-pastel-cyan-medium: #3D5761;
+   --color-pastel-cyan-dark: #47636E;
+
+   --color-pastel-lavender-light: #3A2F47;
+   --color-pastel-lavender-base: #473854;
+   --color-pastel-lavender-medium: #544261;
+   --color-pastel-lavender-dark: #614C6E;
+
+   /* Brand colors adjusted */
+   --color-brand-navy: #4A7BC8;
+   --color-brand-navy-light: rgba(74, 123, 200, 0.1);
+   --color-brand-red: #EE1113;
+   --color-brand-purple: #9747FF;
+
+   /* Neutral colors - inverted for dark mode */
+   --color-white: #1A1A1A;
+   --color-black: #FFFFFF;
+   --color-gray-50: #2A2A2A;
+   --color-gray-100: #333333;
+   --color-gray-200: #404040;
+   --color-gray-300: #4D4D4D;
+   --color-gray-400: #666666;
+   --color-gray-500: #808080;
+   --color-gray-600: #999999;
+   --color-gray-700: #B3B3B3;
+   --color-gray-800: #CCCCCC;
+   --color-gray-900: #E5E5E5;
+
+   /* Text colors for dark mode */
+   --color-text-primary: #E5E5E5;
+   --color-text-secondary: #CCCCCC;
+   --color-text-muted: #999999;
+   --color-text-light: #B3B3B3;
+   --color-text-dark: #D4D4D4;
+
+   /* Background colors for dark mode */
+   --color-bg-primary: #1A1A1A;
+   --color-bg-secondary: #2A2A2A;
+   --color-bg-card: rgba(42, 42, 42, 0.7);
+   --color-bg-card-hover: rgba(51, 51, 51, 0.9);
+   --color-bg-selected: rgba(238, 17, 19, 0.25);
+   --color-bg-glassmorphism: rgba(74, 123, 200, 0.05);
+
+   /* Glassmorphism effects */
+   --glass-backdrop-blur: blur(3px);
+   --glass-bg: rgba(42, 42, 42, 0.3);
+
+   /* Borders - adjusted for dark mode */
+   --border-tag-default: 1px solid rgba(238, 17, 19, 0.25);
+   --border-tag-selected: 2px solid #EE1113;
+   --border-tag-hover: 1px solid rgba(238, 17, 19, 0.35);
+
+   /* Shadows - lighter for dark mode */
+   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+   --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4);
+   --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+   --shadow-tag-inner: inset 0px 0px 6px rgba(238, 17, 19, 0.2);
+   --shadow-focus: 0 0 0 3px rgba(238, 17, 19, 0.4);
+
+   --shadow-button-inset: inset 0px 0px 10px 0px rgba(238, 17, 19, 0.4),
+      inset -1px -2px 3px 0px rgba(238, 17, 19, 0.2),
+      inset 1px 1px 2px 0px rgba(238, 17, 19, 0.3);
+
+   /* Gradients remain similar but adjusted */
+   --gradient-primary: linear-gradient(161.24deg, #EE1113 0.91%, #9747FF 96.74%);
+   --gradient-text: linear-gradient(161.24deg, #EE1113 0.91%, #9747FF 96.74%);
+   --gradient-pastel: linear-gradient(135deg, #3D2A4A 0%, #2A3F47 100%);
+   --gradient-divider: linear-gradient(90deg, transparent 0%, #555 50%, transparent 100%);
+}

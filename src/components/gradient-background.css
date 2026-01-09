@@ -2,55 +2,75 @@
  * GradientBackground CSS Utilities
  * 
  * Custom CSS utilities and fallbacks for the gradient background system.
- * Include this file in your project for additional customization options.
+ * Updated to match Figma spec with animated pastel blobs.
  * 
  * For Tailwind CSS v4.x projects, you can import this directly.
  */
 
 /* ============================================================================
-   CSS CUSTOM PROPERTIES (Design Tokens)
+   CSS CUSTOM PROPERTIES (Design Tokens - Updated from Figma spec)
    ============================================================================ */
 
 :root {
-  /* Pastel Variant Colors */
-  --gradient-pastel-start: #E8D5E8;
-  --gradient-pastel-mid: #D5E8E8;
-  --gradient-pastel-end: #C5F0E8;
+  /* Pastel Purple Variants */
+  --blob-purple-light: #F0E8F5;
+  --blob-purple-base: #E8D6F0;
+  --blob-purple-medium: #DBC9E8;
+  --blob-purple-dark: #D4BBE0;
   
-  /* Blob Colors */
-  --blob-cyan: rgba(56, 211, 240, 0.45);
-  --blob-cyan-light: rgba(56, 211, 240, 0.25);
-  --blob-cyan-medium: rgba(56, 211, 240, 0.4);
-  --blob-pink: rgba(255, 150, 200, 0.5);
-  --blob-pink-light: rgba(255, 150, 200, 0.45);
-  --blob-purple: rgba(200, 162, 200, 0.5);
-  --blob-teal: rgba(150, 220, 220, 0.5);
+  /* Pastel Cyan Variants */
+  --blob-cyan-light: #E6F5F8;
+  --blob-cyan-base: #D6F0F5;
+  --blob-cyan-medium: #C8EBF2;
+  --blob-cyan-dark: #BFDFEA;
+  
+  /* Pastel Lavender Variants */
+  --blob-lavender-light: #F5F0FA;
+  --blob-lavender-base: #E8DDF5;
+  --blob-lavender-medium: #DDD0F0;
+  --blob-lavender-dark: #D0C0E8;
   
   /* Blur Values */
   --blur-subtle: 40px;
   --blur-medium: 60px;
-  --blur-strong: 80px;
+  --blur-strong: 90px;
   --blur-heavy: 100px;
   
-  /* Glassmorphism */
-  --glass-bg: rgba(255, 255, 255, 0.7);
+  /* Glassmorphism (from Figma spec) */
+  --glass-bg: rgba(30, 65, 124, 0.01);
+  --glass-backdrop: blur(2.5px);
   --glass-border: rgba(255, 255, 255, 0.3);
   --glass-shadow: rgba(0, 0, 0, 0.1);
+  
+  /* Animation */
+  --blob-animation-duration: 20s;
+  --blob-animation-timing: ease-in-out;
+}
+
+/* ============================================================================
+   ANIMATION KEYFRAMES (Enabled - from Figma spec)
+   ============================================================================ */
+
+@keyframes blobFloat {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  25% {
+    transform: translate(10px, -15px) scale(1.02);
+  }
+  50% {
+    transform: translate(-5px, 10px) scale(0.98);
+  }
+  75% {
+    transform: translate(-10px, -5px) scale(1.01);
+  }
 }
 
 /* ============================================================================
    BASE GRADIENT BACKGROUNDS
    ============================================================================ */
 
-.bg-gradient-pastel {
-  background: linear-gradient(
-    to bottom,
-    var(--gradient-pastel-start) 0%,
-    var(--gradient-pastel-mid) 50%,
-    var(--gradient-pastel-end) 100%
-  );
-}
-
+.bg-gradient-pastel,
 .bg-gradient-white {
   background: #FFFFFF;
 }
@@ -64,50 +84,61 @@
   border-radius: 50%;
   pointer-events: none;
   will-change: transform;
+  animation: blobFloat var(--blob-animation-duration) var(--blob-animation-timing) infinite;
 }
 
-.blob-cyan {
-  background: radial-gradient(circle, var(--blob-cyan) 0%, transparent 70%);
-  filter: blur(var(--blur-medium));
+.blob-purple-base {
+  background: radial-gradient(circle, var(--blob-purple-base) 0%, transparent 70%);
+  filter: blur(var(--blur-heavy));
+  opacity: 0.8;
 }
 
-.blob-pink {
-  background: radial-gradient(circle, var(--blob-pink) 0%, transparent 70%);
+.blob-purple-medium {
+  background: radial-gradient(circle, var(--blob-purple-medium) 0%, transparent 70%);
+  filter: blur(var(--blur-heavy));
+  opacity: 0.8;
+}
+
+.blob-cyan-base {
+  background: radial-gradient(circle, var(--blob-cyan-base) 0%, transparent 70%);
+  filter: blur(var(--blur-heavy));
+  opacity: 0.8;
+}
+
+.blob-cyan-medium {
+  background: radial-gradient(circle, var(--blob-cyan-medium) 0%, transparent 70%);
   filter: blur(var(--blur-strong));
+  opacity: 0.7;
 }
 
-.blob-purple {
-  background: radial-gradient(circle, var(--blob-purple) 0%, transparent 70%);
-  filter: blur(var(--blur-strong));
-}
-
-.blob-teal {
-  background: radial-gradient(circle, var(--blob-teal) 0%, transparent 70%);
-  filter: blur(var(--blur-strong));
-}
+/* Animation delay utilities */
+.blob-delay-0 { animation-delay: 0s; }
+.blob-delay-1 { animation-delay: -5s; }
+.blob-delay-2 { animation-delay: -10s; }
+.blob-delay-3 { animation-delay: -15s; }
 
 /* ============================================================================
-   GLASSMORPHISM UTILITIES
+   GLASSMORPHISM UTILITIES (Updated from Figma spec)
    ============================================================================ */
 
 .glass {
   background: var(--glass-bg);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: var(--glass-backdrop);
+  -webkit-backdrop-filter: var(--glass-backdrop);
   border: 1px solid var(--glass-border);
   box-shadow: 0 4px 30px var(--glass-shadow);
 }
 
 .glass-subtle {
-  background: rgba(255, 255, 255, 0.5);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  background: rgba(30, 65, 124, 0.005);
+  backdrop-filter: blur(1.5px);
+  -webkit-backdrop-filter: blur(1.5px);
 }
 
 .glass-strong {
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
+  background: rgba(30, 65, 124, 0.02);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
 }
 
 /* ============================================================================
@@ -115,7 +146,7 @@
    ============================================================================ */
 
 /* Fallback for browsers that don't support backdrop-filter */
-@supports not (backdrop-filter: blur(16px)) {
+@supports not (backdrop-filter: blur(2.5px)) {
   .glass,
   .glass-subtle,
   .glass-strong {
@@ -124,34 +155,23 @@
 }
 
 /* Fallback for browsers that don't support CSS filter blur */
-@supports not (filter: blur(60px)) {
+@supports not (filter: blur(100px)) {
   .blob-base {
     opacity: 0.3;
   }
   
-  .blob-cyan,
-  .blob-pink,
-  .blob-purple,
-  .blob-teal {
+  .blob-purple-base,
+  .blob-purple-medium,
+  .blob-cyan-base,
+  .blob-cyan-medium {
     filter: none;
     background: radial-gradient(circle, currentColor 0%, transparent 50%);
   }
   
-  .blob-cyan {
-    color: rgb(56, 211, 240);
-  }
-  
-  .blob-pink {
-    color: rgb(255, 150, 200);
-  }
-  
-  .blob-purple {
-    color: rgb(200, 162, 200);
-  }
-  
-  .blob-teal {
-    color: rgb(150, 220, 220);
-  }
+  .blob-purple-base { color: #E8D6F0; }
+  .blob-purple-medium { color: #DBC9E8; }
+  .blob-cyan-base { color: #D6F0F5; }
+  .blob-cyan-medium { color: #C8EBF2; }
 }
 
 /* ============================================================================
@@ -159,16 +179,10 @@
    ============================================================================ */
 
 @media (prefers-reduced-motion: reduce) {
-  .blob-base {
-    will-change: auto;
-  }
-  
-  /* Disable any animations on blobs if added later */
   .blob-base,
-  .blob-cyan,
-  .blob-pink,
-  .blob-purple,
-  .blob-teal {
+  .gradient-blob,
+  .gradient-blob-tw {
+    will-change: auto;
     animation: none !important;
     transition: none !important;
   }
@@ -182,7 +196,7 @@
 @media (max-width: 768px) {
   .blob-base {
     /* Reduce blur on mobile for better performance */
-    filter: blur(40px) !important;
+    filter: blur(60px) !important;
   }
 }
 
@@ -190,43 +204,9 @@
 @media (max-width: 393px) {
   .blob-base {
     /* Further reduce blur on very small screens */
-    filter: blur(30px) !important;
+    filter: blur(40px) !important;
   }
 }
-
-/* ============================================================================
-   OPTIONAL ANIMATION UTILITIES (Static by default, uncomment to enable)
-   ============================================================================ */
-
-/*
-@keyframes blob-float {
-  0%, 100% {
-    transform: translate(0, 0);
-  }
-  25% {
-    transform: translate(10px, -10px);
-  }
-  50% {
-    transform: translate(-5px, 15px);
-  }
-  75% {
-    transform: translate(-15px, -5px);
-  }
-}
-
-.blob-animated {
-  animation: blob-float 20s ease-in-out infinite;
-}
-
-.blob-animated-slow {
-  animation: blob-float 30s ease-in-out infinite;
-}
-
-.blob-animated-delayed {
-  animation: blob-float 25s ease-in-out infinite;
-  animation-delay: -10s;
-}
-*/
 
 /* ============================================================================
    HIGH CONTRAST MODE SUPPORT
@@ -250,7 +230,9 @@
    ============================================================================ */
 
 @media print {
-  .blob-base {
+  .blob-base,
+  .gradient-blob,
+  .gradient-blob-tw {
     display: none;
   }
   
@@ -269,4 +251,3 @@
     background: white !important;
   }
 }
-

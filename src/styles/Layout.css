@@ -8,13 +8,31 @@
    PAGE CONTAINER
    ============================================ */
 .page-container {
-  width: var(--mobile-width);
+  width: 100%;
   max-width: 100%;
   min-height: 100vh;
   margin: 0 auto;
   position: relative;
   overflow-x: hidden;
   overflow-y: auto;
+}
+
+/* Allow full width on large screens - pages can opt into constraints individually */
+@media (min-width: 1400px) {
+  .page-container {
+    max-width: 100%;
+  }
+}
+
+/* Allow pages to opt into a wider layout when needed */
+.page-container--wide {
+  max-width: 100%;
+}
+
+@media (min-width: 1600px) {
+  .page-container--wide {
+    max-width: 1400px;
+  }
 }
 
 /* ============================================
@@ -91,7 +109,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 27px;
+  padding: 0 var(--content-padding);
   margin-bottom: 59px;
 }
 
@@ -100,20 +118,20 @@
    ============================================ */
 .grid-3-col {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: var(--space-xl) var(--space-sm);
   justify-items: center;
 }
 
 .grid-2-col {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: var(--space-lg);
 }
 
 .grid-4-col {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: var(--space-md);
 }
 
@@ -316,16 +334,6 @@
 }
 
 /* ============================================
-   STATS GRID
-   ============================================ */
-.stats-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 30px 5px;
-  justify-items: center;
-}
-
-/* ============================================
    BUTTON CONTAINER
    ============================================ */
 .button-container {
@@ -367,14 +375,46 @@
 }
 
 /* ============================================
+   PAGE WRAPPER - Transparent to show background image
+   ============================================ */
+.page-wrapper {
+  width: 100%;
+  min-height: 100vh;
+  background: transparent;
+}
+
+/* ============================================
    APP WRAPPER
    ============================================ */
 .app-wrapper {
+  width: 100%;
   min-height: 100vh;
   display: flex;
-  align-items: center;
+  align-items: stretch;
   justify-content: center;
-  padding: var(--space-xl) 0;
-  background-color: var(--color-gray-800);
+  /* Ensure consistent breathing room on all sides; previous shorthand set horizontal padding to 0 */
+  padding: clamp(0.5rem, 2vh, 1.25rem) clamp(1rem, 3vw, 2rem);
+  background-color: transparent;
 }
+
+/* Responsive grid improvements for tablet/desktop */
+@media (min-width: 768px) {
+  .grid-2-col {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-xl);
+  }
+
+  .grid-3-col {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-2xl) var(--space-lg);
+  }
+
+  .grid-4-col {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--space-xl);
+  }
+}
+
+/* Keep wizard pages comfortably narrow by default; opt into wider pages with
+   `.page-container--wide` (used for the home/landing experience). */
 

@@ -1,0 +1,126 @@
+/* ============================================
+   RESPONSIVE HEADER (Figma Specs)
+   ============================================ */
+.header-figma {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 37px;
+    padding-bottom: 12px;
+    padding-inline: var(--home-padding-inline);
+    /* ✅ Aligned with main content */
+    width: 100%;
+}
+
+@media (min-width: 768px) {
+    .header-figma {
+        padding-top: 39px;
+        padding-bottom: 16px;
+    }
+}
+
+@media (min-width: 1280px) {
+    .header-figma {
+        padding-top: 86px;
+        padding-bottom: 20px;
+    }
+}
+
+.header-logo-figma {
+    width: 31px;
+    height: 30px;
+    object-fit: contain;
+}
+
+@media (min-width: 768px) {
+    .header-logo-figma {
+        width: 38px;
+        height: 36px;
+    }
+}
+
+@media (min-width: 1280px) {
+    .header-logo-figma {
+        width: 69px;
+        height: 66px;
+    }
+}
+
+.header-one-text-figma {
+    font-family: var(--font-accent);
+    font-size: 14px;
+    font-weight: var(--font-weight-regular);
+    color: var(--color-brand-navy);
+    line-height: normal;
+}
+
+@media (min-width: 768px) {
+    .header-one-text-figma {
+        font-size: 16px;
+    }
+}
+
+@media (min-width: 1280px) {
+    .header-one-text-figma {
+        font-size: 20px;
+    }
+}
+
+.header-profile-icon-figma {
+    width: 11px;
+    height: 11px;
+    object-fit: contain;
+}
+
+@media (min-width: 768px) {
+    .header-profile-icon-figma {
+        width: 15px;
+        height: 15px;
+    }
+}
+
+@media (min-width: 1280px) {
+    .header-profile-icon-figma {
+        width: 24px;
+        height: 24px;
+    }
+}
+
+.header-view-mode-toggle-figma {
+    width: 12px;
+    height: 12px;
+}
+
+@media (min-width: 768px) {
+    .header-view-mode-toggle-figma {
+        width: 16px;
+        height: 16px;
+    }
+}
+
+@media (min-width: 1280px) {
+    .header-view-mode-toggle-figma {
+        width: 24px;
+        height: 24px;
+    }
+}
+
+.header-menu-icon-figma {
+    width: 14.48px;
+    height: 9.54px;
+    object-fit: contain;
+}
+
+@media (min-width: 768px) {
+    .header-menu-icon-figma {
+        width: 15px;
+        height: 10px;
+    }
+}
+
+@media (min-width: 1280px) {
+    .header-menu-icon-figma {
+        width: 20px;
+        height: 13px;
+    }
+}

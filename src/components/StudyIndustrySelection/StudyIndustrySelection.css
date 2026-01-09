@@ -1,77 +1,277 @@
 /* ============================================
    StudyIndustrySelection Component Styles
+   Matching Figma Design - Card Grid Layout
    ============================================ */
 
-.industry-nav {
+/* ============================================
+   MAIN CONTENT CONTAINER
+   ============================================ */
+.industry-main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 100%;
+  min-height: calc(100vh - 7.5rem);
+  margin: 0 auto;
+  padding: var(--selection-page-padding-block) var(--selection-page-padding-inline);
+  gap: var(--selection-page-gap);
+}
+
+/* ============================================
+   INDUSTRY SECTION
+   ============================================ */
+.industry-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+/* ============================================
+   NAVIGATION ROW (Title + Arrows)
+   ============================================ */
+.industry-nav-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 63px;
-  padding: 0 27px;
+  width: 100%;
+  max-width: var(--selection-nav-max-width);
+  gap: var(--selection-nav-gap);
+  margin-bottom: 50px;
 }
 
-.industry-search {
-  padding: 0 20px;
-  margin-bottom: 20px;
+/* Page Title - Gradient styling */
+.industry-page-title {
+  flex: 1;
+  min-width: 0;
+  margin: 0;
+  padding: 0 var(--selection-title-padding-inline);
+
+  font-family: var(--font-primary);
+  font-size: var(--selection-title-size);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--selection-title-line-height);
+  text-align: center;
+  letter-spacing: var(--tracking-wide);
+
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
+/* ============================================
+   INDUSTRY GRID - 5 columns on desktop
+   ============================================ */
 .industry-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px 10px;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  width: 100%;
+  max-width: 1200px;
   padding: 0 20px;
-  margin-bottom: 84px;
 }
 
+/* ============================================
+   INDUSTRY CARD - Figma Style
+   ============================================ */
 .industry-card {
-  width: 95px;
-  height: 101px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  border-radius: 10px;
-  background: rgba(255, 255, 255, 0.01);
-  border: 1px solid var(--color-primary-light);
-  backdrop-filter: blur(2.5px);
-  box-shadow: 
-    inset 0px 0px 10px 0px rgba(194, 32, 50, 0.3),
-    inset -1px -2px 3px 0px rgba(194, 32, 50, 0.1),
-    inset 1px 1px 2px 0px rgba(194, 32, 50, 0.2);
+  gap: 16px;
+  padding: 24px 16px;
+  min-height: 140px;
+
+  background: rgba(255, 255, 255, 0.85);
+  /* Use 2px border always to prevent layout shift on hover/select */
+  border: 2px solid rgba(0, 0, 0, 0.06);
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+
   cursor: pointer;
-  transition: all var(--transition-normal);
+  transition: all 0.2s ease;
 }
 
 .industry-card:hover {
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 1);
+  border: 2px solid transparent;
+  background-image: linear-gradient(white, white),
+    linear-gradient(135deg, #EE1113 0%, #7403FA 100%);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+  box-shadow: 0 4px 16px rgba(116, 3, 250, 0.12);
+  transform: translateY(-2px);
 }
 
 .industry-card:active {
-  transform: scale(0.95);
+  transform: translateY(0) scale(0.98);
 }
 
 .industry-card--selected {
-  background: var(--color-bg-selected);
-  box-shadow: 0 0 0 2px var(--color-primary-light);
+  background: rgba(255, 255, 255, 1);
+  border: 2px solid transparent;
+  background-image: linear-gradient(white, white),
+    linear-gradient(135deg, #EE1113 0%, #7403FA 100%);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+  box-shadow: 0 4px 16px rgba(116, 3, 250, 0.2);
 }
 
+/* ============================================
+   INDUSTRY CARD ICON
+   ============================================ */
 .industry-card__icon {
-  margin-bottom: 8px;
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
+.industry-card__icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.industry-card__icon-placeholder {
+  width: 56px;
+  height: 56px;
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 8px;
+}
+
+/* ============================================
+   INDUSTRY CARD NAME
+   ============================================ */
 .industry-card__name {
-  font-family: var(--font-display);
-  font-size: 8px;
-  font-weight: var(--font-normal);
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  font-weight: var(--font-weight-medium);
+  line-height: 1.3;
   text-align: center;
-  line-height: 1.2;
-  white-space: pre-line;
-  padding: 0 9px;
-  color: var(--color-black);
+  color: #1E417C;
+  margin: 0;
+  max-width: 100%;
+  word-wrap: break-word;
 }
 
 .industry-card--selected .industry-card__name {
-  color: var(--color-primary-light);
+  color: #1E417C;
 }
 
+/* ============================================
+   DIVIDER
+   ============================================ */
+.industry-divider-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: auto;
+}
+
+.industry-divider {
+  width: min(85%, 32.5rem);
+  height: 1px;
+  background: var(--gradient-divider);
+}
+
+/* ============================================
+   MOBILE RESPONSIVE (< 768px)
+   ============================================ */
+@media (max-width: 767px) {
+  .industry-nav-row {
+    margin-bottom: 30px;
+  }
+
+  .industry-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    padding: 0 16px;
+  }
+
+  .industry-card {
+    padding: 16px 12px;
+    min-height: 120px;
+    gap: 12px;
+    border-radius: 10px;
+  }
+
+  .industry-card__icon {
+    width: 44px;
+    height: 44px;
+  }
+
+  .industry-card__name {
+    font-size: 12px;
+  }
+}
+
+/* ============================================
+   TABLET RESPONSIVE (768px - 1279px)
+   ============================================ */
+@media (min-width: 768px) and (max-width: 1279px) {
+  .industry-nav-row {
+    margin-bottom: 40px;
+  }
+
+  .industry-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    max-width: 900px;
+  }
+
+  .industry-card {
+    padding: 20px 14px;
+    min-height: 130px;
+    gap: 14px;
+  }
+
+  .industry-card__icon {
+    width: 50px;
+    height: 50px;
+  }
+
+  .industry-card__name {
+    font-size: 13px;
+  }
+}
+
+/* ============================================
+   DESKTOP RESPONSIVE (1280px+)
+   ============================================ */
+@media (min-width: 1280px) {
+  .industry-nav-row {
+    margin-bottom: 60px;
+  }
+
+  .industry-page-title {
+    font-size: calc(var(--selection-title-size) + 4px);
+  }
+
+  .industry-grid {
+    grid-template-columns: repeat(5, 1fr);
+    gap: 24px;
+    max-width: 1200px;
+    padding: 0 40px;
+  }
+
+  .industry-card {
+    padding: 28px 20px;
+    min-height: 160px;
+    gap: 18px;
+    border-radius: 14px;
+  }
+
+  .industry-card__icon {
+    width: 64px;
+    height: 64px;
+  }
+
+  .industry-card__name {
+    font-size: 16px;
+  }
+}

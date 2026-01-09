@@ -1,144 +1,134 @@
 // Study Area List Screen Component
-// Refactored with separate CSS file
+// Matching Figma Design with card grid layout (same as StudyIndustrySelection)
 
-import { useState } from 'react';
+import { useMemo, useEffect } from 'react';
 import './StudyAreaList.css';
-import { GradientBackgroundTailwind } from '../GradientBackgroundTailwind';
 import { useFormStore } from '../../store/formStore';
 import { useFormNavigation } from '../../hooks/useFormNavigation';
+import { getStudyAreasForIndustry, getIndustryById } from '../../config/studyAreaData';
+import WizardLayout from '../WizardLayout';
+import { LeftArrows, RightArrows } from '../NavigationArrows';
 
-interface StudyAreaOption {
+// Study Area Card with Icon
+interface StudyAreaCardProps {
   id: string;
   name: string;
+  iconPath: string;
+  isSelected: boolean;
+  onSelect: () => void;
 }
 
-const studyAreas: StudyAreaOption[] = [
-  { id: "ai", name: "Artificial Intelligence" },
-  { id: "data-science", name: "Data Science" },
-  { id: "computer-science", name: "Computer Science" },
-  { id: "business-admin", name: "Business Administration" },
-  { id: "engineering", name: "Engineering" },
-  { id: "medicine", name: "Medicine" },
-  { id: "psychology", name: "Psychology" },
-  { id: "economics", name: "Economics" },
-  { id: "marketing", name: "Marketing" },
-  { id: "finance", name: "Finance" },
-];
-
-const StarLogo = () => (
-  <svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M17 0L20.8 11H32.5L23 18L26.8 29L17 22L7.2 29L11 18L1.5 11H13.2L17 0Z" fill="#1E417C"/>
-    <path d="M17 6L19.2 12.5H26L20.4 16.5L22.6 23L17 19L11.4 23L13.6 16.5L8 12.5H14.8L17 6Z" fill="#EE1113"/>
-  </svg>
-);
-
-const ProfileIcon = () => (
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M12 12C14.21 12 16 10.21 16 8C16 5.79 14.21 4 12 4C9.79 4 8 5.79 8 8C8 10.21 9.79 12 12 12ZM12 14C9.33 14 4 15.34 4 18V20H20V18C20 15.34 14.67 14 12 14Z" fill="#333"/>
-  </svg>
-);
-
-const MenuIcon = () => (
-  <svg width="20" height="14" viewBox="0 0 20 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M0 14H20V11.67H0V14ZM0 8.17H20V5.83H0V8.17ZM0 0V2.33H20V0H0Z" fill="#333"/>
-  </svg>
-);
-
-const LeftArrows = () => (
-  <svg width="24" height="12" viewBox="0 0 24 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M7 1L2 6L7 11" stroke="#EE1113" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-    <path d="M14 1L9 6L14 11" stroke="#EE1113" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-    <path d="M21 1L16 6L21 11" stroke="#EE1113" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-  </svg>
-);
-
-const RightArrows = () => (
-  <svg width="24" height="12" viewBox="0 0 24 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M17 11L22 6L17 1" stroke="#EE1113" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-    <path d="M10 11L15 6L10 1" stroke="#EE1113" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-    <path d="M3 11L8 6L3 1" stroke="#EE1113" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-  </svg>
-);
-
-const SearchIcon = () => (
-  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <circle cx="7" cy="7" r="5" stroke="#333" strokeWidth="1.5"/>
-    <path d="M11 11L14 14" stroke="#333" strokeWidth="1.5" strokeLinecap="round"/>
-  </svg>
-);
+const StudyAreaCard = ({ name, iconPath, isSelected, onSelect }: StudyAreaCardProps) => {
+  return (
+    <button
+      className={`area-card ${isSelected ? 'area-card--selected' : ''}`}
+      onClick={onSelect}
+    >
+      <div className="area-card__icon">
+        <img src={iconPath} alt={name} />
+      </div>
+      <span className="area-card__name">{name}</span>
+    </button>
+  );
+};
 
 export default function StudyAreaList() {
-  const { studyArea, setStudyArea } = useFormStore();
-  const { goToNext, goToPrevious, canProceed } = useFormNavigation();
-  const [searchTerm, setSearchTerm] = useState('');
+  const { industry, studyArea, setStudyArea } = useFormStore();
+  const { goToNext, goToPrevious } = useFormNavigation();
 
-  const filteredAreas = studyAreas.filter(area => 
-    area.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  // Get study areas for selected industry
+  const studyAreas = useMemo(() => {
+    if (!industry) return [];
+    return getStudyAreasForIndustry(industry);
+  }, [industry]);
 
-  const handleNext = () => {
-    if (canProceed) goToNext();
+  // Get industry details for display
+  const selectedIndustry = useMemo(() => {
+    if (!industry) return null;
+    return getIndustryById(industry);
+  }, [industry]);
+
+  // Filter areas based on search
+  const filteredAreas = studyAreas;
+
+  // If no industry selected, redirect back
+  useEffect(() => {
+    if (!industry) {
+      console.warn('No industry selected, redirecting to industry selection');
+    }
+  }, [industry]);
+
+  const handleAreaSelect = (areaId: string) => {
+    // Select area and navigate to next page
+    setStudyArea(areaId);
+    goToNext();
   };
 
-  return (
-    <GradientBackgroundTailwind variant="white" className="page-container">
-      <header className="page-header">
-        <div className="page-header__logo">
-          <StarLogo />
-          <span className="page-header__logo-text">One</span>
-        </div>
-        <div className="page-header__actions">
-          <ProfileIcon />
-          <MenuIcon />
-        </div>
-      </header>
+  const handleNext = () => {
+    if (studyArea) goToNext();
+  };
 
-      <main className="page-main">
-        <section>
-          <div className="area-nav">
-            <button className="page-nav-arrow" onClick={goToPrevious}>
+  // Show message if no industry is selected
+  if (!industry || !selectedIndustry) {
+    return (
+      <WizardLayout variant="white" headerVariant="alt">
+        <main className="area-main">
+          <div className="area-empty-state">
+            <h2>No Industry Selected</h2>
+            <p>Please select an industry first to view available study areas.</p>
+            <button onClick={goToPrevious} className="area-back-btn">
+              Go Back to Industry Selection
+            </button>
+          </div>
+        </main>
+      </WizardLayout>
+    );
+  }
+
+  return (
+    <WizardLayout variant="white" headerVariant="alt">
+      <main className="area-main">
+        <section className="area-section">
+          {/* Navigation Row */}
+          <div className="area-nav-row">
+            <button className="nav-arrow-btn nav-arrow-btn--left" onClick={goToPrevious} aria-label="Previous page">
               <LeftArrows />
             </button>
-            <h1 className="page-title">Choose Your Study Area</h1>
-            <button className="page-nav-arrow" onClick={handleNext} disabled={!canProceed}>
+            <h1 className="area-page-title">Choose Your Study Area</h1>
+            <button
+              className="nav-arrow-btn nav-arrow-btn--right"
+              onClick={handleNext}
+              disabled={!studyArea}
+              aria-label="Next page"
+            >
               <RightArrows />
             </button>
           </div>
 
-          <div className="area-search">
-            <div className="search-bar">
-              <div className="search-bar__icon"><SearchIcon /></div>
-              <div className="search-bar__divider" />
-              <input 
-                type="text"
-                placeholder="Search"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="search-bar__input"
-              />
-            </div>
+          {/* Subtitle showing selected industry */}
+          <div className="area-subtitle">
+            Study areas for <span className="highlight-text">{selectedIndustry.name}</span>
           </div>
-        </section>
 
-        <section>
-          <div className="area-list">
+          {/* Study Area Grid - Same as Industry Grid */}
+          <div className="area-grid">
             {filteredAreas.map((area) => (
-              <button 
+              <StudyAreaCard
                 key={area.id}
-                className={`area-list-item ${studyArea === area.id ? 'area-list-item--selected' : ''}`}
-                onClick={() => setStudyArea(area.id)}
-              >
-                <span className="area-list-item__text">{area.name}</span>
-              </button>
+                id={area.id}
+                name={area.name}
+                iconPath={area.iconPath}
+                isSelected={false}
+                onSelect={() => handleAreaSelect(area.id)}
+              />
             ))}
           </div>
         </section>
 
-        <div className="page-divider-container">
-          <div className="page-divider" />
+        <div className="area-divider-container">
+          <div className="area-divider" />
         </div>
       </main>
-    </GradientBackgroundTailwind>
+    </WizardLayout>
   );
 }
-

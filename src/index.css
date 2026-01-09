@@ -1,45 +1,23 @@
+/* ============================================
+   GOOGLE FONTS IMPORT
+   ============================================ */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Comfortaa:wght@400;700&family=Audiowide&display=swap');
+
 @import "tailwindcss";
+@import "./styles/variables.css";
+@import "./styles/components/tags.css";
+@import "./styles/components/buttons.css";
+@import "./styles/components/cards.css";
 
-@font-face {
-  font-family: 'Comfortaa';
-  src: url('https://fonts.gstatic.com/s/comfortaa/v46/1Pt_g8LJRfWJmhDAuUsSQamb1W0lwk4S4WjMPrQVIT9c2c8.woff2') format('woff2');
-  font-weight: 400;
-  font-style: normal;
+/* ============================================
+   GLOBAL STYLES
+   ============================================ */
+:root {
+  --app-zoom: 0.785;
 }
 
-@font-face {
-  font-family: 'Comfortaa';
-  src: url('https://fonts.gstatic.com/s/comfortaa/v46/1Pt_g8LJRfWJmhDAuUsSQamb1W0lwk4S4Y_LPrQVIT9c2c8.woff2') format('woff2');
-  font-weight: 700;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Poppins';
-  src: url('https://fonts.gstatic.com/s/poppins/v21/pxiEyp8kv8JHgFVrFJA.woff2') format('woff2');
-  font-weight: 400;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Poppins';
-  src: url('https://fonts.gstatic.com/s/poppins/v21/pxiByp8kv8JHgFVrLGT9V1s.woff2') format('woff2');
-  font-weight: 600;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Poppins';
-  src: url('https://fonts.gstatic.com/s/poppins/v21/pxiByp8kv8JHgFVrLCz7V1s.woff2') format('woff2');
-  font-weight: 700;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Audiowide';
-  src: url('https://fonts.gstatic.com/s/audiowide/v20/l7gdbjpo0cum0ckerWCdmA.woff2') format('woff2');
-  font-weight: 400;
-  font-style: normal;
+html {
+  zoom: var(--app-zoom);
 }
 
 * {
@@ -48,8 +26,114 @@
   box-sizing: border-box;
 }
 
+.home-content-wrapper {
+  width: 100%;
+  margin: 0 auto;
+  padding-inline: var(--home-padding-inline);
+}
+
+.home-section {
+  margin-bottom: var(--home-section-gap);
+}
+
+.home-section--tags {
+  margin-bottom: var(--home-subsection-gap);
+}
+
+.home-section--footer {
+  margin-top: var(--home-footer-gap);
+}
+
+/* Optional: Glassmorphic content card for enhanced visual hierarchy */
+.home-content-card {
+  max-width: 1600px;
+  margin-inline: auto;
+  margin-block: clamp(0.5rem, 2vh, 1rem);
+  padding: var(--space-xl);
+
+  /* Subtle glassmorphism */
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: clamp(1rem, 2vw, 1.5rem);
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.06),
+    inset 0 1px 1px rgba(255, 255, 255, 0.3);
+}
+
+@media (max-width: 767px) {
+  .home-content-card {
+    margin-inline: 0.5rem;
+    border-radius: 0.75rem;
+    background: rgba(255, 255, 255, 0.15);
+    padding: var(--space-lg);
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1279px) {
+  .home-content-card {
+    margin-inline: 1rem;
+    padding: var(--space-2xl);
+  }
+}
+
 body {
   font-family: 'Poppins', sans-serif;
+  font-weight: var(--font-weight-regular);
+  line-height: var(--leading-normal);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #FFFFFF;
+  color: #333333;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* ============================================
+   VIEWPORT-RESPONSIVE GRADIENT TEXT (Outside @layer for proper specificity)
+   Uses CSS custom properties that change per viewport
+   ============================================ */
+.gradient-text {
+  background: var(--gradient-mobile);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+@media (min-width: 768px) {
+  .gradient-text {
+    background: var(--gradient-tablet);
+  }
+}
+
+@media (min-width: 1280px) {
+  .gradient-text {
+    background: var(--gradient-desktop);
+  }
+}
+
+/* Footer-specific gradient (different angle) */
+.gradient-text-footer {
+  background: var(--gradient-footer);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ============================================
+   TAILWIND CUSTOM UTILITIES
+   ============================================ */
+@layer utilities {
+
+  /* ============================================
+     PAGE CONTAINER
+     ============================================ */
+  .page-container {
+    width: 100%;
+    max-width: 100%;
+    min-height: 100vh;
+    margin: 0 auto;
+    position: relative;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
 }

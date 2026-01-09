@@ -1,0 +1,708 @@
+/* ============================================
+   AdmitsConnect - Unified Card Component System
+   ============================================
+   Consolidates 3 previous implementations:
+   - card components (Cards.css)
+   - wizard-card (WizardCommon.css)
+   - wizard-list-item (WizardCommon.css)
+   
+   Design: Uses CSS variables for design tokens,
+   Tailwind for spacing/layout utilities
+   ============================================ */
+
+/* ============================================
+   BASE CARD
+   ============================================ */
+.card {
+  background-color: var(--color-bg-card);
+  border-radius: var(--radius-md);
+  transition: all var(--transition-normal);
+}
+
+.card-hover:hover {
+  background-color: var(--color-bg-card-hover);
+  box-shadow: var(--shadow-md);
+}
+
+.card-selected {
+  background-color: var(--color-bg-selected);
+  border: 2px solid var(--color-primary-light);
+}
+
+/* ============================================
+   SELECTABLE CARD - Interactive grid card
+   ============================================ */
+.card-selectable {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-md) var(--space-sm);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  background: transparent;
+  border: none;
+  min-width: 80px;
+}
+
+.card-selectable:hover {
+  background: var(--color-primary);
+  box-shadow: var(--shadow-md);
+}
+
+.card-selectable:hover .card-selectable__icon svg path {
+  fill: #FFFFFF;
+  stroke: #FFFFFF;
+}
+
+.card-selectable:hover .card-selectable__name {
+  color: #FFFFFF;
+}
+
+.card-selectable:active {
+  transform: scale(0.95);
+}
+
+.card-selectable--selected {
+  background: var(--color-primary);
+  box-shadow: 0 0 0 2px var(--color-primary);
+}
+
+.card-selectable--selected .card-selectable__icon svg path {
+  fill: #FFFFFF;
+  stroke: #FFFFFF;
+}
+
+.card-selectable--selected .card-selectable__name {
+  color: #FFFFFF;
+}
+
+.card-selectable__icon {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-selectable__icon img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.card-selectable__name {
+  font-family: var(--font-primary);
+  font-size: var(--text-sm);
+  font-weight: var(--font-bold);
+  text-align: center;
+  line-height: normal;
+  white-space: pre-line;
+  color: var(--color-black);
+}
+
+/* ============================================
+   COUNTRY CARD
+   ============================================ */
+.card-country {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-lg) 32px 35px 32px;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  background: transparent;
+  border: none;
+}
+
+.card-country:hover {
+  background: rgba(255, 255, 255, 0.3);
+  box-shadow: var(--shadow-md);
+}
+
+.card-country:active {
+  transform: scale(0.95);
+}
+
+.card-country.selected,
+.card-country--selected {
+  background: var(--color-bg-selected);
+  box-shadow: 0 0 0 2px var(--color-primary-light);
+}
+
+.card-country__flag {
+  width: 57px;
+  height: 54px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-country__flag img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.card-country__name {
+  font-family: var(--font-display);
+  font-size: var(--text-sm);
+  font-weight: var(--font-bold);
+  text-align: center;
+  color: var(--color-black);
+}
+
+.card-country.selected .card-country__name,
+.card-country--selected .card-country__name {
+  color: var(--color-primary-light);
+}
+
+/* ============================================
+   INDUSTRY CARD
+   ============================================ */
+.card-industry {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-lg);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all var(--transition-normal);
+}
+
+.card-industry:hover {
+  transform: translateY(-2px);
+}
+
+.card-industry.selected,
+.card-industry--selected {
+  background: var(--color-bg-selected);
+  border-radius: var(--radius-md);
+}
+
+.card-industry__icon {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-industry__name {
+  font-family: var(--font-display);
+  font-size: var(--text-xs);
+  font-weight: var(--font-bold);
+  text-align: center;
+  color: var(--color-text-primary);
+}
+
+/* ============================================
+   LIST ITEM CARD - For list-based selections
+   ============================================ */
+.card-list {
+  width: 100%;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  padding: 12px 20px;
+  border-radius: var(--radius-full);
+  background: transparent;
+  border: 1px solid var(--color-primary-light);
+  cursor: pointer;
+  transition: all var(--transition-normal);
+}
+
+.card-list:hover {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.card-list:hover .card-list__text {
+  color: #FFFFFF;
+}
+
+.card-list:active {
+  transform: scale(0.98);
+}
+
+.card-list--selected {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px var(--color-primary);
+}
+
+.card-list--selected .card-list__text {
+  color: #FFFFFF;
+}
+
+.card-list__text {
+  font-family: var(--font-primary);
+  font-size: var(--text-sm);
+  font-weight: var(--font-bold);
+  text-align: left;
+  color: var(--color-black);
+}
+
+/* ============================================
+   OPTION CARD
+   ============================================ */
+.card-option {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-md) var(--space-lg);
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-gray-200);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  text-align: center;
+}
+
+.card-option:hover {
+  background: var(--color-bg-card-hover);
+  border-color: var(--color-primary-light);
+}
+
+.card-option.selected,
+.card-option--selected {
+  background: var(--color-bg-selected);
+  border: 2px solid var(--color-primary-light);
+}
+
+.card-option__label {
+  font-family: var(--font-display);
+  font-size: var(--text-sm);
+  font-weight: var(--font-bold);
+  color: var(--color-text-primary);
+}
+
+.card-option.selected .card-option__label,
+.card-option--selected .card-option__label {
+  color: var(--color-primary-light);
+}
+
+/* ============================================
+   FORMAT CARD
+   ============================================ */
+.card-format {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  padding: var(--space-lg);
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-gray-200);
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  transition: all var(--transition-normal);
+}
+
+.card-format:hover {
+  border-color: var(--color-primary-light);
+  box-shadow: var(--shadow-sm);
+}
+
+.card-format.selected,
+.card-format--selected {
+  background: var(--color-bg-selected);
+  border: 2px solid var(--color-primary-light);
+}
+
+.card-format__title {
+  font-family: var(--font-primary);
+  font-size: var(--text-base);
+  font-weight: var(--font-semibold);
+  color: var(--color-text-primary);
+}
+
+.card-format__description {
+  font-family: var(--font-primary);
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+}
+
+/* ============================================
+   STAT CARD
+   ============================================ */
+.card-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 90px;
+}
+
+.card-stat__icon {
+  width: 28px;
+  height: 28px;
+  margin-bottom: var(--space-xs);
+}
+
+.card-stat__value {
+  font-family: var(--font-primary);
+  font-size: var(--text-sm);
+  font-weight: var(--font-semibold);
+  color: var(--color-text-primary);
+  text-align: center;
+}
+
+.card-stat__label {
+  font-family: var(--font-primary);
+  font-size: var(--text-sm);
+  font-weight: var(--font-normal);
+  color: var(--color-text-dark);
+  text-align: center;
+}
+
+/* ============================================
+   BACKWARD COMPATIBILITY ALIASES
+   These provide smooth migration from old class names
+   Can be removed after full migration is complete
+   ============================================ */
+
+/* Legacy: wizard-card -> card-selectable */
+.wizard-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-md) var(--space-sm);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  background: transparent;
+  border: none;
+  min-width: 80px;
+}
+
+.wizard-card:hover {
+  background: #C22032;
+  box-shadow: var(--shadow-md);
+}
+
+.wizard-card:hover .wizard-card__icon svg path {
+  fill: #FFFFFF;
+  stroke: #FFFFFF;
+}
+
+.wizard-card:hover .wizard-card__name {
+  color: #FFFFFF;
+}
+
+.wizard-card:active {
+  transform: scale(0.95);
+}
+
+.wizard-card--selected {
+  background: #C22032;
+  box-shadow: 0 0 0 2px #C22032;
+}
+
+.wizard-card--selected .wizard-card__icon svg path {
+  fill: #FFFFFF;
+  stroke: #FFFFFF;
+}
+
+.wizard-card--selected .wizard-card__name {
+  color: #FFFFFF;
+}
+
+.wizard-card__icon {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.wizard-card__icon img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.wizard-card__name {
+  font-family: var(--font-primary);
+  font-size: var(--text-sm);
+  font-weight: var(--font-bold);
+  text-align: center;
+  line-height: normal;
+  white-space: pre-line;
+  color: var(--color-black);
+}
+
+/* Legacy: wizard-list-item -> card-list */
+.wizard-list-item {
+  width: 100%;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  padding: 12px 20px;
+  border-radius: var(--radius-full);
+  background: transparent;
+  border: 1px solid var(--color-primary-light);
+  cursor: pointer;
+  transition: all var(--transition-normal);
+}
+
+.wizard-list-item:hover {
+  background: #C22032;
+  border-color: #C22032;
+}
+
+.wizard-list-item:hover .wizard-list-item__text {
+  color: #FFFFFF;
+}
+
+.wizard-list-item:active {
+  transform: scale(0.98);
+}
+
+.wizard-list-item--selected {
+  background: #C22032;
+  border-color: #C22032;
+  box-shadow: 0 0 0 2px #C22032;
+}
+
+.wizard-list-item--selected .wizard-list-item__text {
+  color: #FFFFFF;
+}
+
+.wizard-list-item__text {
+  font-family: var(--font-primary);
+  font-size: var(--text-sm);
+  font-weight: var(--font-bold);
+  text-align: left;
+  color: var(--color-black);
+}
+
+/* Legacy: country-card -> card-country */
+.country-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-lg) 32px 35px 32px;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  background: transparent;
+  border: none;
+}
+
+.country-card:hover {
+  background: rgba(255, 255, 255, 0.3);
+  box-shadow: var(--shadow-md);
+}
+
+.country-card:active {
+  transform: scale(0.95);
+}
+
+.country-card.selected {
+  background: var(--color-bg-selected);
+  box-shadow: 0 0 0 2px var(--color-primary-light);
+}
+
+.country-card__flag {
+  width: 57px;
+  height: 54px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.country-card__flag img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.country-card__name {
+  font-family: var(--font-display);
+  font-size: var(--text-sm);
+  font-weight: var(--font-bold);
+  text-align: center;
+  color: var(--color-black);
+}
+
+.country-card.selected .country-card__name {
+  color: var(--color-primary-light);
+}
+
+/* Legacy: industry-card -> card-industry */
+.industry-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-lg);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all var(--transition-normal);
+}
+
+.industry-card:hover {
+  transform: translateY(-2px);
+}
+
+.industry-card.selected {
+  background: var(--color-bg-selected);
+  border-radius: var(--radius-md);
+}
+
+.industry-card__icon {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.industry-card__name {
+  font-family: var(--font-display);
+  font-size: var(--text-xs);
+  font-weight: var(--font-bold);
+  text-align: center;
+  color: var(--color-text-primary);
+}
+
+/* Legacy: option-card -> card-option */
+.option-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-md) var(--space-lg);
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-gray-200);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  text-align: center;
+}
+
+.option-card:hover {
+  background: var(--color-bg-card-hover);
+  border-color: var(--color-primary-light);
+}
+
+.option-card.selected {
+  background: var(--color-bg-selected);
+  border: 2px solid var(--color-primary-light);
+}
+
+.option-card__label {
+  font-family: var(--font-display);
+  font-size: var(--text-sm);
+  font-weight: var(--font-bold);
+  color: var(--color-text-primary);
+}
+
+.option-card.selected .option-card__label {
+  color: var(--color-primary-light);
+}
+
+/* Legacy: format-card -> card-format */
+.format-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  padding: var(--space-lg);
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-gray-200);
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  transition: all var(--transition-normal);
+}
+
+.format-card:hover {
+  border-color: var(--color-primary-light);
+  box-shadow: var(--shadow-sm);
+}
+
+.format-card.selected {
+  background: var(--color-bg-selected);
+  border: 2px solid var(--color-primary-light);
+}
+
+.format-card__title {
+  font-family: var(--font-primary);
+  font-size: var(--text-base);
+  font-weight: var(--font-semibold);
+  color: var(--color-text-primary);
+}
+
+.format-card__description {
+  font-family: var(--font-primary);
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+}
+
+/* Legacy: stat-card -> card-stat */
+.stat-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 90px;
+}
+
+.stat-card__icon {
+  width: 28px;
+  height: 28px;
+  margin-bottom: var(--space-xs);
+}
+
+.stat-card__value {
+  font-family: var(--font-primary);
+  font-size: var(--text-sm);
+  font-weight: var(--font-semibold);
+  color: var(--color-text-primary);
+  text-align: center;
+}
+
+.stat-card__label {
+  font-family: var(--font-primary);
+  font-size: var(--text-sm);
+  font-weight: var(--font-normal);
+  color: var(--color-text-dark);
+  text-align: center;
+}
+
+/* Legacy: list-item -> card-list */
+.list-item {
+  display: flex;
+  align-items: center;
+  padding: var(--space-md) var(--space-lg);
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-gray-200);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--transition-normal);
+}
+
+.list-item:hover {
+  background: var(--color-bg-card-hover);
+  border-color: var(--color-primary-light);
+}
+
+.list-item.selected {
+  background: var(--color-bg-selected);
+  border: 2px solid var(--color-primary-light);
+}
+
+.list-item__text {
+  font-family: var(--font-primary);
+  font-size: var(--text-base);
+  color: var(--color-text-primary);
+}
+
+.list-item.selected .list-item__text {
+  color: var(--color-primary-light);
+  font-weight: var(--font-medium);
+}
+

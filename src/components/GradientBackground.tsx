@@ -29,6 +29,8 @@ export interface BlobConfig {
   opacity: number;
   /** Optional: for elliptical shapes */
   borderRadius?: string;
+  /** Optional: animation delay for staggered float effect */
+  animationDelay?: string;
 }
 
 export interface GradientBackgroundProps {
@@ -51,102 +53,110 @@ export interface GradientBackgroundProps {
 // ============================================================================
 
 /**
- * Variant 1: Pastel Gradient Background
+ * Variant 1: Pastel Gradient Background (Updated from Figma spec)
  * Used on: Home page, Form screens, Thank You page
  * 
- * Base background: linear-gradient(to bottom, #E8D5E8, #D5E8E8, #C5F0E8)
- * Blobs: Purple, Blue, Pink with heavy blur
+ * Base background: white with animated pastel blobs
+ * Blobs: Purple and Cyan with 100px blur, 20s float animation
  */
 const PASTEL_BLOBS: BlobConfig[] = [
   {
-    id: 'pastel-purple-top-right',
-    color: 'rgba(200, 162, 200, 0.5)', // Purple-200 equivalent
-    width: 250,
-    height: 250,
-    top: '75px',
-    right: '-50px',
-    blur: 80,
-    opacity: 0.6,
+    id: 'blob-1-purple-top',
+    color: '#E8D6F0', // pastel-purple-base
+    width: 246,
+    height: 246,
+    top: '13%',
+    left: '26%',
+    blur: 100,
+    opacity: 0.8,
+    animationDelay: '0s',
   },
   {
-    id: 'pastel-cyan-center-left',
-    color: 'rgba(150, 220, 220, 0.5)', // Cyan/teal blob
-    width: 250,
-    height: 250,
-    top: '488px',
-    left: '-50px',
-    blur: 80,
-    opacity: 0.6,
+    id: 'blob-2-cyan-left',
+    color: '#D6F0F5', // pastel-cyan-base
+    width: 376,
+    height: 376,
+    bottom: '16%',
+    left: '0',
+    blur: 100,
+    opacity: 0.8,
+    animationDelay: '-5s',
   },
   {
-    id: 'pastel-pink-small',
-    color: 'rgba(255, 182, 193, 0.4)', // Pink-200 equivalent
-    width: 130,
-    height: 130,
-    top: '70px',
-    left: '14px',
-    blur: 64,
-    opacity: 0.5,
+    id: 'blob-3-cyan-center',
+    color: '#C8EBF2', // pastel-cyan-medium
+    width: 172,
+    height: 172,
+    bottom: '7%',
+    left: '69%',
+    blur: 90,
+    opacity: 0.7,
+    animationDelay: '-10s',
+  },
+  {
+    id: 'blob-4-purple-top-right',
+    color: '#DBC9E8', // pastel-purple-medium
+    width: 376,
+    height: 376,
+    top: '-8%',
+    left: '65%',
+    blur: 100,
+    opacity: 0.8,
+    animationDelay: '-15s',
   },
 ];
 
 /**
- * Variant 2: White Background with Colored Blobs
+ * Variant 2: White Background with Animated Blobs (Updated from Figma spec)
  * Used on: Country Selection, Study Area screens
  * 
  * Base background: #FFFFFF (white)
- * Blobs: Cyan and Pink with medium blur
+ * Uses same blob config as pastel for consistency
  */
 const WHITE_BLOBS: BlobConfig[] = [
   {
-    id: 'white-cyan-top-right',
-    color: 'rgba(56, 211, 240, 0.45)', // Bright cyan
-    width: 280,
-    height: 280,
-    top: '-80px',
-    right: '-60px',
-    blur: 60,
-    opacity: 0.45,
+    id: 'blob-1-purple-top',
+    color: '#E8D6F0', // pastel-purple-base
+    width: 246,
+    height: 246,
+    top: '13%',
+    left: '26%',
+    blur: 100,
+    opacity: 0.8,
+    animationDelay: '0s',
   },
   {
-    id: 'white-pink-left',
-    color: 'rgba(255, 150, 200, 0.5)', // Soft pink
-    width: 320,
-    height: 450,
-    top: '15%',
-    left: '-100px',
-    blur: 80,
-    opacity: 0.5,
+    id: 'blob-2-cyan-left',
+    color: '#D6F0F5', // pastel-cyan-base
+    width: 376,
+    height: 376,
+    bottom: '16%',
+    left: '0',
+    blur: 100,
+    opacity: 0.8,
+    animationDelay: '-5s',
   },
   {
-    id: 'white-cyan-middle-right',
-    color: 'rgba(56, 211, 240, 0.25)', // Light cyan
-    width: 180,
-    height: 180,
-    top: '45%',
-    right: '-40px',
-    blur: 60,
-    opacity: 0.25,
-  },
-  {
-    id: 'white-cyan-bottom',
-    color: 'rgba(56, 211, 240, 0.4)', // Cyan bottom
-    width: 350,
-    height: 350,
-    bottom: '-120px',
-    right: '-40px',
+    id: 'blob-3-cyan-center',
+    color: '#C8EBF2', // pastel-cyan-medium
+    width: 172,
+    height: 172,
+    bottom: '7%',
+    left: '69%',
     blur: 90,
-    opacity: 0.4,
+    opacity: 0.7,
+    animationDelay: '-10s',
   },
   {
-    id: 'white-pink-bottom-left',
-    color: 'rgba(255, 150, 200, 0.45)', // Pink bottom left
-    width: 200,
-    height: 200,
-    bottom: '-50px',
-    left: '-30px',
-    blur: 70,
-    opacity: 0.45,
+    id: 'blob-4-purple-top-right',
+    color: '#DBC9E8', // pastel-purple-medium
+    width: 376,
+    height: 376,
+    top: '-8%',
+    left: '65%',
+    blur: 100,
+    opacity: 0.8,
+    animationDelay: '-15s',
   },
 ];
 
@@ -155,17 +165,13 @@ const WHITE_BLOBS: BlobConfig[] = [
 // ============================================================================
 
 const getBackgroundStyle = (variant: GradientVariant): React.CSSProperties => {
-  switch (variant) {
-    case 'pastel':
-      return {
-        background: 'linear-gradient(to bottom, #E8D5E8 0%, #D5E8E8 50%, #C5F0E8 100%)',
-      };
-    case 'white':
-    default:
-      return {
-        background: '#FFFFFF',
-      };
-  }
+  // Variant is kept for forward-compatibility (future spec differences).
+  // Read it to satisfy `noUnusedParameters` without changing behavior.
+  void variant;
+  // Both variants now use white background with animated blobs
+  return {
+    background: '#FFFFFF',
+  };
 };
 
 const getBlobsForVariant = (variant: GradientVariant): BlobConfig[] => {
@@ -184,9 +190,10 @@ const getBlobsForVariant = (variant: GradientVariant): BlobConfig[] => {
 
 interface GradientBlobProps {
   config: BlobConfig;
+  animate?: boolean;
 }
 
-const GradientBlob: React.FC<GradientBlobProps> = ({ config }) => {
+const GradientBlob: React.FC<GradientBlobProps> = ({ config, animate = true }) => {
   const style: React.CSSProperties = {
     position: 'absolute',
     width: config.width,
@@ -197,14 +204,44 @@ const GradientBlob: React.FC<GradientBlobProps> = ({ config }) => {
     opacity: config.opacity,
     pointerEvents: 'none',
     willChange: 'transform', // Performance optimization
+    // Animation: 20s ease-in-out infinite float
+    animation: animate ? `blobFloat 20s ease-in-out infinite` : 'none',
+    animationDelay: config.animationDelay || '0s',
     ...(config.top && { top: config.top }),
     ...(config.left && { left: config.left }),
     ...(config.right && { right: config.right }),
     ...(config.bottom && { bottom: config.bottom }),
   };
 
-  return <div style={style} aria-hidden="true" data-blob-id={config.id} />;
+  return <div style={style} aria-hidden="true" data-blob-id={config.id} className="gradient-blob" />;
 };
+
+// ============================================================================
+// ANIMATION KEYFRAMES (injected via style tag)
+// ============================================================================
+
+const blobAnimationStyles = `
+@keyframes blobFloat {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  25% {
+    transform: translate(10px, -15px) scale(1.02);
+  }
+  50% {
+    transform: translate(-5px, 10px) scale(0.98);
+  }
+  75% {
+    transform: translate(-10px, -5px) scale(1.01);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gradient-blob {
+    animation: none !important;
+  }
+}
+`;
 
 // ============================================================================
 // MAIN COMPONENT
@@ -228,34 +265,39 @@ export const GradientBackground: React.FC<GradientBackgroundProps> = ({
   };
 
   return (
-    <div style={containerStyle} className={className}>
-      {/* Gradient Blobs Layer */}
-      {showGradient && (
+    <>
+      {/* Inject animation keyframes */}
+      <style>{blobAnimationStyles}</style>
+      
+      <div style={containerStyle} className={className}>
+        {/* Gradient Blobs Layer */}
+        {showGradient && (
+          <div
+            style={{
+              position: 'absolute',
+              inset: 0,
+              pointerEvents: 'none',
+              zIndex: 0,
+            }}
+            aria-hidden="true"
+          >
+            {blobs.map((blob) => (
+              <GradientBlob key={blob.id} config={blob} />
+            ))}
+          </div>
+        )}
+
+        {/* Content Layer */}
         <div
           style={{
-            position: 'absolute',
-            inset: 0,
-            pointerEvents: 'none',
-            zIndex: 0,
+            position: 'relative',
+            zIndex: 10,
           }}
-          aria-hidden="true"
         >
-          {blobs.map((blob) => (
-            <GradientBlob key={blob.id} config={blob} />
-          ))}
+          {children}
         </div>
-      )}
-
-      {/* Content Layer */}
-      <div
-        style={{
-          position: 'relative',
-          zIndex: 10,
-        }}
-      >
-        {children}
       </div>
-    </div>
+    </>
   );
 };
 
