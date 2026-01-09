@@ -168,19 +168,31 @@
      TYPOGRAPHY - FONT WEIGHTS
      ============================================ */
    --font-light: 300;
+   /* Use sparingly */
    --font-normal: 400;
+   /* Regular text */
    --font-medium: 500;
+   /* Card titles, labels */
    --font-semibold: 600;
+   /* Page titles, emphasis */
    --font-bold: 700;
+   /* Strong emphasis only */
+
+   /* Semantic Weight Aliases */
+   --font-weight-regular: var(--font-normal);
+   --font-weight-medium: var(--font-medium);
+   --font-weight-semibold: var(--font-semibold);
+   --font-weight-bold: var(--font-bold);
 
    /* ============================================
      TYPOGRAPHY - LINE HEIGHTS
      ============================================ */
    --leading-none: 1;
-   --leading-solid: 1;
    --leading-tight: 1.2;
+   /* Headings */
    --leading-snug: 1.375;
-   --leading-normal: 1.5;
+   --leading-normal: 1.6;
+   /* Body text - Improved readability */
    --leading-relaxed: 1.625;
    --leading-loose: 2;
 
@@ -352,7 +364,7 @@
      ============================================ */
    --tag-height: 28px;
    --tag-font-size: 8px;
-   --tag-font-weight: 500;
+   --tag-font-weight: 600;
    --tag-font-family: var(--font-primary);
    --tag-padding-x: 16px;
    --tag-padding-y: 8px;
@@ -378,7 +390,7 @@
      TAGLINE TOKENS (Mobile-First)
      ============================================ */
    --tagline-font-size: 16px;
-   --tagline-font-weight: 300;
+   --tagline-font-weight: 500;
    --tagline-bold-weight: 700;
    --tagline-color: #505050;
    --tagline-max-width: 307px;
@@ -455,8 +467,8 @@
       /* Tag tokens - Tablet */
       --tag-height: 40px;
       --tag-font-size: 12px;
-      --tag-font-weight: 400;
-      --tag-font-family: 'Comfortaa', cursive, sans-serif;
+      --tag-font-weight: 600;
+      --tag-font-family: var(--font-primary);
       --tag-border-radius: 30px;
       --tag-gap-x: 14px;
       --tag-gap-y: 14px;
@@ -526,7 +538,7 @@
       /* Tag tokens - Desktop */
       --tag-height: 50px;
       --tag-font-size: 15px;
-      --tag-font-weight: 500;
+      --tag-font-weight: 600;
       --tag-font-family: var(--font-primary);
       --tag-line-height: 16px;
       --tag-gap-x: 16px;

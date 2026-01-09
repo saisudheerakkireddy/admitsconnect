@@ -26,7 +26,7 @@
 .assessment-description {
   font-family: var(--font-primary);
   font-size: 20px;
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
   text-align: center;
   line-height: 1.5;
   flex: 1;
@@ -77,6 +77,12 @@
   flex: 1;
   text-align: left;
   font-size: 16px;
+}
+
+.page-title--highlight {
+  color: #000000;
+  font-weight: var(--font-weight-semibold);
+  font-size: 24px;
 }
 
 .assessment-dropdown__chevron {
@@ -181,7 +187,7 @@
 .score-input__label {
   font-family: var(--font-primary);
   font-size: 12px;
-  font-weight: var(--font-medium);
+  font-weight: var(--font-weight-medium);
   color: var(--color-text-secondary);
   margin: 0;
 }

@@ -49,7 +49,7 @@
 .header-one-text-figma {
     font-family: var(--font-accent);
     font-size: 14px;
-    font-weight: 400;
+    font-weight: var(--font-weight-regular);
     color: var(--color-brand-navy);
     line-height: normal;
 }

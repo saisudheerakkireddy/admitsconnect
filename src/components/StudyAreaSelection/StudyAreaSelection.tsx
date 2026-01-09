@@ -102,17 +102,35 @@ export default function StudyAreaSelection() {
       setStudyLevel('');
     } else {
       setStudyLevel(label);
-      // Scroll to next section if available
-      if (shouldShowDegreeType) {
+
+      // Check if we need to show degree type selection
+      const isDegreeLevel = label === 'Under Graduation' || label === 'Post Graduation';
+
+      if (isDegreeLevel) {
+        // Scroll to next section if available
         setTimeout(() => {
           document.getElementById('degree-section')?.scrollIntoView({ behavior: 'smooth' });
         }, 100);
+      } else {
+        // For other levels, auto-navigate to next step
+        // Small timeout to allow the user to see the selection
+        setTimeout(() => {
+          goToNext();
+        }, 300);
       }
     }
     // Clear degree type when changing study level
     if (degreeType) {
       setDegreeType('');
     }
+  };
+
+  const handleDegreeTypeSelect = (label: string) => {
+    setDegreeType(label);
+    // Auto-navigate to next step after selection
+    setTimeout(() => {
+      goToNext();
+    }, 300);
   };
 
   const handleNext = () => {
@@ -213,7 +231,7 @@ export default function StudyAreaSelection() {
                   key={index}
                   option={option}
                   isSelected={degreeType === option.label}
-                  onSelect={() => setDegreeType(option.label)}
+                  onSelect={() => handleDegreeTypeSelect(option.label)}
                 />
               ))}
             </div>

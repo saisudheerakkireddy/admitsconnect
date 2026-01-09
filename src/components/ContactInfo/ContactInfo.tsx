@@ -2,11 +2,12 @@
 // This component was split out from the prior `TestPreferences` implementation so `/assessment` can exist separately.
 
 import './ContactInfo.css';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useFormStore } from '../../store/formStore';
 import { useFormNavigation } from '../../hooks/useFormNavigation';
 import { submitApplication } from '../../api/services';
 import WizardLayout from '../WizardLayout';
+import validator from 'validator';
 
 const LeftArrow = () => (
   <svg width="5" height="9" viewBox="0 0 5 9" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -26,10 +27,22 @@ const CheckIcon = () => (
   </svg>
 );
 
+interface FormErrors {
+  firstName?: string;
+  lastName?: string;
+  phone?: string;
+  email?: string;
+  terms?: string;
+}
+
 export default function ContactInfo() {
-  const { contact, setContact, getApplicationData, setSubmitting, setSubmitted, setError, isSubmitting } =
+  const { contact, setContact, getApplicationData, setSubmitting, setSubmitted, setError: setGlobalError, isSubmitting, error: globalError } =
     useFormStore();
   const { goToPrevious, goToNext } = useFormNavigation();
+
+  // Local state for inline errors
+  const [errors, setErrors] = useState<FormErrors>({});
+  const [touched, setTouched] = useState<Record<string, boolean>>({});
 
   // Initialize terms consent as checked by default
   useEffect(() => {
@@ -38,19 +51,81 @@ export default function ContactInfo() {
     }
   }, [contact, setContact]);
 
-  const handleSubmit = async () => {
-    if (!contact?.termsConsent) {
-      setError('Please accept the terms and conditions');
-      return;
+  const validateField = (name: string, value: any): string | undefined => {
+    switch (name) {
+      case 'firstName':
+        if (!value) return 'First Name is required';
+        if (!/^[a-zA-Z\s]*$/.test(value)) return 'Only alphabets are allowed';
+        if (value.length > 15) return 'Max 15 characters allowed';
+        return undefined;
+      case 'lastName':
+        if (!value) return 'Last Name is required';
+        if (value.length > 15) return 'Max 15 characters allowed';
+        return undefined;
+      case 'phone':
+        if (!value) return 'Phone Number is required';
+        if (!/^\d{10}$/.test(value)) return 'Phone number must be exactly 10 digits';
+        return undefined;
+      case 'email':
+        if (!value) return 'Email is required';
+        if (!validator.isEmail(value)) return 'Please enter a valid email address';
+        if (!value.endsWith('@gmail.com')) return 'Only Gmail addresses are allowed';
+        return undefined;
+      case 'termsConsent':
+        if (!value) return 'You must accept the terms and conditions';
+        return undefined;
+      default:
+        return undefined;
     }
+  };
 
-    if (!contact?.firstName || !contact?.lastName || !contact?.phone || !contact?.email) {
-      setError('Please fill in all required fields');
+  const handleBlur = (field: string) => {
+    setTouched(prev => ({ ...prev, [field]: true }));
+    const value = field === 'termsConsent' ? contact?.termsConsent : contact?.[field as keyof typeof contact];
+    const error = validateField(field, value);
+    setErrors(prev => ({ ...prev, [field]: error }));
+  };
+
+  const handleChange = (field: string, value: any) => {
+    setContact({ [field]: value });
+
+    // Clear error immediately on change if it was invalid
+    if (errors[field as keyof FormErrors]) {
+      setErrors(prev => ({ ...prev, [field]: undefined }));
+    }
+  };
+
+  const handleSubmit = async () => {
+    // Validate all fields
+    const newErrors: FormErrors = {};
+    let isValid = true;
+
+    const fields = ['firstName', 'lastName', 'phone', 'email', 'termsConsent'];
+    fields.forEach(field => {
+      const value = field === 'termsConsent' ? contact?.termsConsent : contact?.[field as keyof typeof contact];
+      const error = validateField(field, value);
+      if (error) {
+        newErrors[field as keyof FormErrors] = error;
+        isValid = false;
+      }
+    });
+
+    setErrors(newErrors);
+    setTouched({
+      firstName: true,
+      lastName: true,
+      phone: true,
+      email: true,
+      termsConsent: true
+    });
+
+    if (!isValid) {
+      setGlobalError('Please fix the errors above');
       return;
     }
 
     setSubmitting(true);
-    setError(null);
+    setGlobalError(null);
 
     try {
       const applicationData = getApplicationData();
@@ -60,10 +135,10 @@ export default function ContactInfo() {
         setSubmitted(true);
         goToNext();
       } else {
-        setError(response.data.message || 'Submission failed. Please try again.');
+        setGlobalError(response.data.message || 'Submission failed. Please try again.');
       }
     } catch {
-      setError('An error occurred. Please try again.');
+      setGlobalError('An error occurred. Please try again.');
     } finally {
       setSubmitting(false);
     }
@@ -93,34 +168,73 @@ export default function ContactInfo() {
           </p>
 
           <div className="contact-form__fields">
-            <input
-              type="text"
-              placeholder="First Name"
-              value={contact?.firstName || ''}
-              onChange={(e) => setContact({ firstName: e.target.value })}
-              className="glass-input glass-input--full"
-            />
-            <input
-              type="text"
-              placeholder="Last Name"
-              value={contact?.lastName || ''}
-              onChange={(e) => setContact({ lastName: e.target.value })}
-              className="glass-input glass-input--full"
-            />
-            <input
-              type="tel"
-              placeholder="Phone Number"
-              value={contact?.phone || ''}
-              onChange={(e) => setContact({ phone: e.target.value })}
-              className="glass-input glass-input--full"
-            />
-            <input
-              type="email"
-              placeholder="Email ID"
-              value={contact?.email || ''}
-              onChange={(e) => setContact({ email: e.target.value })}
-              className="glass-input glass-input--full"
-            />
+            <div className="field-group">
+              <input
+                type="text"
+                placeholder="First Name"
+                value={contact?.firstName || ''}
+                onChange={(e) => {
+                  const val = e.target.value;
+                  if (/^[a-zA-Z\s]*$/.test(val) && val.length <= 15) {
+                    handleChange('firstName', val);
+                  }
+                }}
+                onBlur={() => handleBlur('firstName')}
+                className={`glass-input glass-input--full ${touched.firstName && errors.firstName ? 'input-error' : ''}`}
+              />
+              {touched.firstName && errors.firstName && <span className="error-text">{errors.firstName}</span>}
+            </div>
+
+            <div className="field-group">
+              <input
+                type="text"
+                placeholder="Last Name"
+                value={contact?.lastName || ''}
+                onChange={(e) => {
+                  const val = e.target.value;
+                  if (val.length <= 15) {
+                    handleChange('lastName', val);
+                  }
+                }}
+                onBlur={() => handleBlur('lastName')}
+                className={`glass-input glass-input--full ${touched.lastName && errors.lastName ? 'input-error' : ''}`}
+              />
+              {touched.lastName && errors.lastName && <span className="error-text">{errors.lastName}</span>}
+            </div>
+
+            <div className="field-group">
+              <input
+                type="tel"
+                placeholder="Phone Number"
+                value={contact?.phone || ''}
+                onChange={(e) => {
+                  const val = e.target.value;
+                  if (/^\d*$/.test(val) && val.length <= 10) {
+                    handleChange('phone', val);
+                  }
+                }}
+                onBlur={() => handleBlur('phone')}
+                className={`glass-input glass-input--full ${touched.phone && errors.phone ? 'input-error' : ''}`}
+              />
+              {touched.phone && errors.phone && <span className="error-text">{errors.phone}</span>}
+            </div>
+
+            <div className="field-group">
+              <input
+                type="email"
+                placeholder="Email ID"
+                value={contact?.email || ''}
+                onChange={(e) => {
+                  const val = e.target.value;
+                  if (val.length <= 30) {
+                    handleChange('email', val);
+                  }
+                }}
+                onBlur={() => handleBlur('email')}
+                className={`glass-input glass-input--full ${touched.email && errors.email ? 'input-error' : ''}`}
+              />
+              {touched.email && errors.email && <span className="error-text">{errors.email}</span>}
+            </div>
           </div>
 
           <div className="contact-form__divider" />
@@ -150,34 +264,49 @@ export default function ContactInfo() {
               <div className="contact-consent__checkbox">
                 <button
                   type="button"
-                  onClick={() => setContact({ termsConsent: !contact?.termsConsent })}
-                  className={`contact-consent__box contact-consent__box--required ${contact?.termsConsent ? 'contact-consent__box--checked' : ''}`}
+                  onClick={() => {
+                    const newValue = !contact?.termsConsent;
+                    setContact({ termsConsent: newValue });
+                    if (newValue) {
+                      setErrors(prev => ({ ...prev, terms: undefined }));
+                    }
+                  }}
+                  className={`contact-consent__box contact-consent__box--required ${contact?.termsConsent ? 'contact-consent__box--checked' : ''} ${touched.termsConsent && errors.terms ? 'input-error' : ''}`}
                   title="This field is required and must be accepted"
                 >
                   {contact?.termsConsent && <CheckIcon />}
                 </button>
               </div>
-              <p
-                className="contact-consent__label"
-                onClick={(e) => {
-                  // Prevent toggle if clicking on links
-                  if ((e.target as HTMLElement).tagName === 'A') return;
-                  setContact({ termsConsent: !contact?.termsConsent });
-                }}
-                style={{ cursor: 'pointer' }}
-              >
-                By registering, you agree to our{' '}
-                <a href="/privacy-policy" className="contact-consent__link">Privacy Statement</a>
-                {' '}and{' '}
-                <a href="/terms-conditions" className="contact-consent__link">Terms and Conditions.</a>
-                {' '}<span className="contact-consent__required">*</span>
-              </p>
+              <div className="flex flex-col w-full">
+                <p
+                  className="contact-consent__label"
+                  onClick={(e) => {
+                    if ((e.target as HTMLElement).tagName === 'A') return;
+                    const newValue = !contact?.termsConsent;
+                    setContact({ termsConsent: newValue });
+                    if (newValue) {
+                      setErrors(prev => ({ ...prev, terms: undefined }));
+                    }
+                  }}
+                  style={{ cursor: 'pointer' }}
+                >
+                  By registering, you agree to our{' '}
+                  <a href="/privacy-policy" className="contact-consent__link">Privacy Statement</a>
+                  {' '}and{' '}
+                  <a href="/terms-conditions" className="contact-consent__link">Terms and Conditions.</a>
+                  {' '}<span className="contact-consent__required">*</span>
+                </p>
+                {touched.termsConsent && errors.terms && <span className="error-text" style={{ marginLeft: 0 }}>{errors.terms}</span>}
+              </div>
             </div>
           </div>
 
-          <button onClick={handleSubmit} disabled={isSubmitting} className="contact-submit">
-            <span className="contact-submit__text">{isSubmitting ? 'Submitting...' : 'Submit'}</span>
-          </button>
+          <div className="flex flex-col items-center">
+            <button onClick={handleSubmit} disabled={isSubmitting} className="contact-submit">
+              <span className="contact-submit__text">{isSubmitting ? 'Submitting...' : 'Submit'}</span>
+            </button>
+            {globalError && <p className="submit-error">{globalError}</p>}
+          </div>
         </div>
 
         <div className="contact-divider" />
@@ -185,5 +314,4 @@ export default function ContactInfo() {
     </WizardLayout>
   );
 }
-
 

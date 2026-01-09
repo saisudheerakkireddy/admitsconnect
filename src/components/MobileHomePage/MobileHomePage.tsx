@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 import { useFormStore } from '../../store/formStore';
 import { useFormNavigation } from '../../hooks/useFormNavigation';
 import Header from '../Header';
+import Footer from '../Footer/Footer';
 import './MobileHomePage.css';
 
 const tags = [
@@ -152,7 +153,7 @@ export default function MobileHomePage() {
           </div>
 
           {/* Next Button - Figma spec: Red pill button with "Next" text */}
-          <div className="flex justify-center mt-[var(--home-content-gap)] mb-[var(--home-content-gap)]">
+          <div className="flex justify-center mt-[5px] mb-[var(--home-content-gap)]">
             <button
               onClick={handleNext}
               aria-label="Continue to next step"
@@ -177,34 +178,13 @@ export default function MobileHomePage() {
           </div>
         </section>
 
-        {/* Footer - Horizontal layout matching Figma design */}
-        <footer className="home-section--footer footer">
-          {/* Links Section - Horizontal on all viewports */}
-          <div className="footer-links">
-            {/* Navigation Links */}
-            <a href="#" className="footer-link-figma">About Us</a>
-            <a href="#" className="footer-link-figma">EXPLORE</a>
-            <a href="#" className="footer-link-figma">AI Student Advisor</a>
-            {/* Legal Links */}
-            <a href="#" className="footer-link-figma">Terms & Conditions</a>
-            <a href="#" className="footer-link-figma">Privacy Policy</a>
-            <a href="#" className="footer-link-figma">Refund Policy</a>
-            <a href="#" className="footer-link-figma">Anti-Fraud Policy</a>
-            <a href="#" className="footer-link-figma">Grievance</a>
-          </div>
 
-          {/* Contact Info - Horizontal layout with "Talking to us is easy:" */}
-          <div className="footer-contact">
-            <p className="footer-contact-title-figma leading-normal">Talking to us is easy:</p>
-            <p className="footer-contact-detail-figma leading-normal">+44 773 45 66688 UK</p>
-            <p className="footer-contact-detail-figma leading-normal">+91 970 45 66688 IN</p>
-            <p className="footer-contact-detail-figma leading-normal">support@applyuninow.com</p>
-          </div>
 
-          {/* Crafted By */}
-          <p className="footer-crafted-figma leading-normal gradient-text-footer">
-            Crafted by AUN Tech Consulting Pvt. Ltd.
-          </p>
+
+
+        {/* Footer - Shared Component */}
+        <footer className="home-section--footer">
+          <Footer />
         </footer>
       </main>
     </div>

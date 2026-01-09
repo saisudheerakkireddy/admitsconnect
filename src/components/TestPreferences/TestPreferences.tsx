@@ -1,7 +1,7 @@
 // Test Preferences (Assessment) Screen Component
 // With conditional score inputs based on test selection
 
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import './TestPreferences.css';
 import { useFormStore } from '../../store/formStore';
 import { useFormNavigation } from '../../hooks/useFormNavigation';
@@ -58,7 +58,7 @@ interface DropdownProps {
 
 const Dropdown = ({ label, value, options, isOpen, onToggle, onSelect }: DropdownProps) => (
   <div className="assessment-dropdown">
-    <button className="glass-pill assessment-dropdown__button" onClick={onToggle}>
+    <button className="glass-pill assessment-dropdown__button" onClick={(e) => { e.stopPropagation(); onToggle(); }}>
       <span className="glass-pill__text">{getLabel(options, value) || label}</span>
       <div className={`assessment-dropdown__chevron ${isOpen ? 'assessment-dropdown__chevron--open' : ''}`}>
         <ChevronDown />
@@ -70,7 +70,8 @@ const Dropdown = ({ label, value, options, isOpen, onToggle, onSelect }: Dropdow
           <button
             key={option.value}
             className="assessment-dropdown__option"
-            onClick={() => {
+            onClick={(e) => {
+              e.stopPropagation();
               onSelect(option.value);
               onToggle();
             }}
@@ -91,24 +92,87 @@ interface ScoreInputProps {
   placeholder?: string;
 }
 
-const ScoreInput = ({ label, value, onChange, placeholder = "Enter score" }: ScoreInputProps) => (
-  <div className="score-input">
-    <label className="score-input__label">{label}</label>
-    <input
-      type="text"
-      className="glass-input"
-      value={value}
-      onChange={(e) => onChange(e.target.value)}
-      placeholder={placeholder}
-    />
-  </div>
-);
+const ScoreInput = ({ label, value, onChange, placeholder = "Enter score" }: ScoreInputProps) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const val = e.target.value;
+
+    // Allow empty value
+    if (val === '') {
+      onChange(val);
+      return;
+    }
+
+    // Allow only digits and one decimal point
+    if (!/^\d*\.?\d*$/.test(val)) return;
+
+    const parts = val.split('.');
+
+    // Case 1: Integer only (no decimal point)
+    if (parts.length === 1) {
+      if (val.length <= 5) {
+        onChange(val);
+      }
+    }
+    // Case 2: Float (has decimal point)
+    else {
+      // Total digits (integer part + fractional part) should be <= 5
+      // Note: We don't count the decimal point itself in the limit, but usually length check includes it.
+      // The requirement is "5 FLOAT -> 12.345". 
+      // "12.345" has length 6. 
+      // Let's stick to the logic: total characters <= 6 (5 digits + 1 dot) OR check digits count.
+      // Reusing logic from RecentAcademicsInfo which seemed to work for user:
+      // "Total digits (integer part + fractional part) should be <= 5"
+
+      const totalDigits = parts[0].length + parts[1].length;
+      if (totalDigits <= 5) {
+        onChange(val);
+      }
+    }
+  };
+
+  return (
+    <div className="score-input">
+      <label className="score-input__label">{label}</label>
+      <input
+        type="text"
+        className="glass-input"
+        value={value}
+        onChange={handleChange}
+        placeholder={placeholder}
+      />
+    </div>
+  );
+};
 
 export default function TestPreferences() {
   const { assessment, setAssessment } = useFormStore();
   const { goToPrevious, goToNext, canProceed } = useFormNavigation();
   const [adaptiveOpen, setAdaptiveOpen] = useState(false);
   const [englishOpen, setEnglishOpen] = useState(false);
+
+  // Refs for click outside detection
+  const adaptiveDropdownRef = useRef<HTMLDivElement>(null);
+  const englishDropdownRef = useRef<HTMLDivElement>(null);
+
+  // Handle click outside to close dropdowns
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      // Close adaptive dropdown if clicked outside
+      if (adaptiveOpen && adaptiveDropdownRef.current && !adaptiveDropdownRef.current.contains(event.target as Node)) {
+        setAdaptiveOpen(false);
+      }
+
+      // Close english dropdown if clicked outside
+      if (englishOpen && englishDropdownRef.current && !englishDropdownRef.current.contains(event.target as Node)) {
+        setEnglishOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [adaptiveOpen, englishOpen]);
 
   // Helper functions for score management
   const getAdaptiveScore = (field: string) => {
@@ -191,7 +255,7 @@ export default function TestPreferences() {
 
           <div className="assessment-fields">
             {/* Adaptive Test Selection */}
-            <div className="assessment-field">
+            <div className="assessment-field" ref={adaptiveDropdownRef}>
               <Dropdown
                 label="Select the Exam"
                 value={assessment?.adaptiveTest || ''}
@@ -226,7 +290,7 @@ export default function TestPreferences() {
             </div>
 
             {/* English Language Test Selection */}
-            <div className="assessment-field">
+            <div className="assessment-field" ref={englishDropdownRef}>
               <Dropdown
                 label="Select the English Proficiency test"
                 value={assessment?.englishLanguageTest || ''}

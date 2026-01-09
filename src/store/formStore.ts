@@ -11,6 +11,7 @@ import type {
   AcademicRecord,
   AdvancedAcademicRecord,
 } from '../api/types';
+import { getRequiredAcademicLevels } from '../utils/constants';
 
 // ============================================
 // Initial State
@@ -307,12 +308,46 @@ export const useFormStore = create<FormState & FormActions>()(
               state.workExperience
             );
           case 7: // Academics - secondary and higher secondary required
-            return !!(
+            const isSecondaryComplete = !!(
               state.academics?.secondary?.year &&
               state.academics?.secondary?.grade &&
-              state.academics?.higherSecondary?.year &&
-              state.academics?.higherSecondary?.grade
+              state.academics?.secondary?.medium
             );
+            const isHigherSecondaryComplete = !!(
+              state.academics?.higherSecondary?.year &&
+              state.academics?.higherSecondary?.grade &&
+              state.academics?.higherSecondary?.medium
+            );
+
+            if (!isSecondaryComplete || !isHigherSecondaryComplete) return false;
+
+            // Check if UG/PG fields are required based on study level
+            const studyLevel = state.studyLevel || '';
+            const requiredLevels = getRequiredAcademicLevels(studyLevel);
+
+            if (requiredLevels.undergrad) {
+              const isUgComplete = !!(
+                state.academics?.undergrad?.degreeType &&
+                state.academics?.undergrad?.startYear &&
+                state.academics?.undergrad?.endYear &&
+                state.academics?.undergrad?.grade &&
+                state.academics?.undergrad?.medium
+              );
+              if (!isUgComplete) return false;
+            }
+
+            if (requiredLevels.postgrad) {
+              const isPgComplete = !!(
+                state.academics?.postgrad?.degreeType &&
+                state.academics?.postgrad?.startYear &&
+                state.academics?.postgrad?.endYear &&
+                state.academics?.postgrad?.grade &&
+                state.academics?.postgrad?.medium
+              );
+              if (!isPgComplete) return false;
+            }
+
+            return true;
           case 8: // Assessment - optional
             return true;
           case 9: // Contact - all fields required

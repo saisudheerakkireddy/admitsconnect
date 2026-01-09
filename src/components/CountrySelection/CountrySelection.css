@@ -39,7 +39,7 @@
 
   font-family: 'Poppins', sans-serif;
   font-size: var(--selection-title-size);
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
   line-height: var(--selection-title-line-height);
   text-align: center;
   letter-spacing: 0;
@@ -137,9 +137,9 @@
 
 /* Country Name */
 .country-card__name {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Poppins';
   font-size: calc(var(--selection-card-label-size) + 2px);
-  font-weight: 600;
+  font-weight: var(--font-weight-medium);
   line-height: var(--selection-card-label-line-height);
   text-align: center;
   color: var(--color-black);

@@ -50,7 +50,7 @@
 
   font-family: var(--font-primary);
   font-size: var(--selection-title-size);
-  font-weight: var(--selection-title-weight);
+  font-weight: 600;
   line-height: var(--selection-title-line-height);
   text-align: center;
   letter-spacing: var(--tracking-wide);
@@ -66,14 +66,17 @@
   font-family: 'Poppins', sans-serif;
   font-size: 16px;
   font-weight: 400;
-  color: #666;
+  color: black;
   text-align: center;
   margin-bottom: 40px;
 }
 
-.area-subtitle strong {
-  color: #1E417C;
-  font-weight: 600;
+.area-subtitle .highlight-text {
+  font-weight: 400;
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 /* ============================================
@@ -99,13 +102,13 @@
   gap: 16px;
   padding: 24px 16px;
   min-height: 140px;
-  
+
   background: rgba(255, 255, 255, 0.85);
   /* Use 2px border always to prevent layout shift on hover/select */
   border: 2px solid rgba(0, 0, 0, 0.06);
   border-radius: 12px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-  
+
   cursor: pointer;
   transition: all 0.2s ease;
 }
@@ -114,8 +117,8 @@
 .area-card:hover {
   background: rgba(255, 255, 255, 1);
   border: 2px solid transparent;
-  background-image: linear-gradient(white, white), 
-                    linear-gradient(135deg, #EE1113 0%, #7403FA 100%);
+  background-image: linear-gradient(white, white),
+    linear-gradient(135deg, #EE1113 0%, #7403FA 100%);
   background-origin: border-box;
   background-clip: padding-box, border-box;
   box-shadow: 0 4px 16px rgba(116, 3, 250, 0.12);
@@ -130,8 +133,8 @@
 .area-card--selected {
   background: rgba(255, 255, 255, 1);
   border: 2px solid transparent;
-  background-image: linear-gradient(white, white), 
-                    linear-gradient(135deg, #EE1113 0%, #7403FA 100%);
+  background-image: linear-gradient(white, white),
+    linear-gradient(135deg, #EE1113 0%, #7403FA 100%);
   background-origin: border-box;
   background-clip: padding-box, border-box;
   box-shadow: 0 4px 16px rgba(116, 3, 250, 0.2);

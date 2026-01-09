@@ -20,7 +20,7 @@ interface StudyAreaCardProps {
 
 const StudyAreaCard = ({ name, iconPath, isSelected, onSelect }: StudyAreaCardProps) => {
   return (
-    <button 
+    <button
       className={`area-card ${isSelected ? 'area-card--selected' : ''}`}
       onClick={onSelect}
     >
@@ -95,9 +95,9 @@ export default function StudyAreaList() {
               <LeftArrows />
             </button>
             <h1 className="area-page-title">Choose Your Study Area</h1>
-            <button 
-              className="nav-arrow-btn nav-arrow-btn--right" 
-              onClick={handleNext} 
+            <button
+              className="nav-arrow-btn nav-arrow-btn--right"
+              onClick={handleNext}
               disabled={!studyArea}
               aria-label="Next page"
             >
@@ -107,18 +107,18 @@ export default function StudyAreaList() {
 
           {/* Subtitle showing selected industry */}
           <div className="area-subtitle">
-            Study areas for <strong>{selectedIndustry.name}</strong>
+            Study areas for <span className="highlight-text">{selectedIndustry.name}</span>
           </div>
 
           {/* Study Area Grid - Same as Industry Grid */}
           <div className="area-grid">
             {filteredAreas.map((area) => (
-              <StudyAreaCard 
+              <StudyAreaCard
                 key={area.id}
                 id={area.id}
                 name={area.name}
                 iconPath={area.iconPath}
-                isSelected={studyArea === area.id}
+                isSelected={false}
                 onSelect={() => handleAreaSelect(area.id)}
               />
             ))}

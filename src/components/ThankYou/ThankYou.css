@@ -27,22 +27,22 @@
 .thankyou-title {
   font-family: var(--font-primary);
   font-size: 32px;
-  font-weight: 600;
-  color: #C22032;
-  /* Fallback */
+  font-weight: var(--font-weight-semibold);
+  margin-bottom: 20px;
+
+  /* Gradient Text */
   background: linear-gradient(90deg, #C22032 0%, #8A2BE2 100%);
-  /* Pink to Purple gradient */
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  margin-bottom: 20px;
+  color: transparent;
 }
 
 .thankyou-message {
   font-family: var(--font-primary);
   font-size: 18px;
-  font-weight: 500;
-  line-height: 1.6;
+  font-weight: var(--font-weight-medium);
+  line-height: var(--leading-normal);
   color: #C22032;
   /* Fallback */
   background: linear-gradient(90deg, #C22032 0%, #8A2BE2 100%);
@@ -53,7 +53,7 @@
 }
 
 .thankyou-message--highlight {
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
   margin-bottom: 60px;
 }
 
@@ -64,7 +64,9 @@
 .thankyou-logo {
   display: flex;
   align-items: flex-end;
-  gap: 8px;
+  gap: 6px;
+  text-decoration: none;
+  cursor: pointer;
 }
 
 .thankyou-logo-img {
@@ -73,11 +75,12 @@
 }
 
 .thankyou-logo-text {
-  font-family: var(--font-primary);
+  font-family: 'Audiowide', sans-serif;
   font-size: 24px;
-  font-weight: 600;
+  font-weight: var(--font-weight-regular);
   color: #1E417C;
-  margin-bottom: 8px;
+  margin-bottom: 0;
+  line-height: 1;
 }
 
 /* Stats Grid */
@@ -123,56 +126,13 @@
 
 .thankyou-stat-value {
   font-size: 14px;
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
   margin: 0;
 }
 
 .thankyou-stat-label {
   font-size: 12px;
-  font-weight: 400;
+  font-weight: var(--font-weight-regular);
   margin: 0;
   line-height: 1.2;
-}
-
-/* Footer */
-.thankyou-footer {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 30px;
-  padding-bottom: 40px;
-  font-family: var(--font-primary);
-  font-size: 12px;
-  color: #000000;
-}
-
-.thankyou-footer-links {
-  display: flex;
-  gap: 40px;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.thankyou-footer-links a {
-  color: #000000;
-  text-decoration: none;
-  font-weight: 500;
-}
-
-.thankyou-footer-contact {
-  display: flex;
-  gap: 30px;
-  flex-wrap: wrap;
-  justify-content: center;
-  font-weight: 500;
-}
-
-.thankyou-contact-label {
-  font-weight: 700;
-}
-
-.thankyou-footer-copyright {
-  font-size: 11px;
-  opacity: 0.8;
 }

@@ -41,8 +41,8 @@
 }
 
 #graduation-section {
-  padding-top: 5px;
-  padding-bottom: 220px;
+  /* padding-top: 5px; */
+  /* padding-bottom: 220px; Removed excessive padding */
 }
 
 
@@ -118,7 +118,7 @@
 
   font-family: 'Poppins', sans-serif;
   font-size: calc(var(--selection-title-size) + 4px);
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
   /* Semibold */
   line-height: var(--selection-title-line-height);
   text-align: center;
@@ -158,7 +158,7 @@
   font-family: 'Poppins', sans-serif;
   font-size: calc(var(--selection-title-size) + 4px);
   /* Match main title size */
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
   /* Semibold */
   text-align: center;
   margin: 0;
@@ -214,7 +214,7 @@
   /* Typography */
   font-family: 'Poppins', sans-serif;
   font-size: 16px;
-  font-weight: 500;
+  font-weight: var(--font-weight-medium);
   line-height: normal;
   text-align: center;
   color: #333333;
@@ -301,7 +301,7 @@
   border: none;
   font-family: 'Poppins', sans-serif;
   font-size: 15px;
-  font-weight: 500;
+  font-weight: var(--font-weight-medium);
   color: #333;
   cursor: pointer;
   transition: background 0.15s ease;

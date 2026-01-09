@@ -124,7 +124,7 @@
 
   font-family: 'Poppins', sans-serif;
   font-size: calc(var(--selection-title-size) + 4px);
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
   line-height: var(--selection-title-line-height);
   text-align: center;
   letter-spacing: 0;
@@ -155,7 +155,7 @@
 .degree-section__title {
   font-family: 'Poppins', sans-serif;
   font-size: calc(var(--selection-title-size) + 4px);
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
   text-align: center;
   line-height: var(--selection-title-line-height);
   letter-spacing: 0;
@@ -200,7 +200,7 @@
   /* Typography - Poppins - INCREASED SIZE */
   font-family: 'Poppins', sans-serif;
   font-size: 16px;
-  font-weight: 400;
+  font-weight: var(--font-weight-medium);
   line-height: normal;
   text-align: center;
   color: #333333;

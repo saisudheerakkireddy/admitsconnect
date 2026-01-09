@@ -1,0 +1,92 @@
+/* ============================================
+   RESPONSIVE FOOTER (Figma Specs)
+   ============================================ */
+.footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+    gap: clamp(1rem, 2vw, 1.75rem);
+    padding-inline: var(--space-lg);
+    padding-bottom: clamp(1.5rem, 3vw, 2.75rem);
+}
+
+.footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 0.75rem 1.75rem;
+    max-width: 1400px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.footer-contact {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem 1.75rem;
+    margin: 0 auto;
+}
+
+.gradient-text-footer {
+    background: linear-gradient(140.59deg, #EE1113 0.91%, #7403FA 96.74%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.footer-crafted-figma {
+    text-align: center;
+    margin: 0;
+}
+
+@media (min-width: 768px) {
+    .footer {
+        padding-bottom: clamp(2rem, 2vw, 3rem);
+    }
+
+    .footer-links {
+        gap: 1rem 2rem;
+    }
+
+    .footer-contact {
+        gap: 0.75rem 2.5rem;
+    }
+}
+
+.footer-link-figma {
+    font-family: var(--font-primary);
+    font-size: var(--footer-link-font-size);
+    font-weight: var(--font-weight-regular);
+    line-height: var(--leading-normal);
+    color: var(--color-black);
+    text-decoration: none;
+    transition: color 150ms ease;
+}
+
+.footer-link-figma:hover {
+    color: var(--color-primary);
+}
+
+.footer-contact-title-figma {
+    font-family: var(--font-primary);
+    font-size: var(--footer-contact-title-size);
+    font-weight: var(--footer-contact-title-weight);
+    color: var(--color-text-primary);
+}
+
+.footer-contact-detail-figma {
+    font-family: var(--font-primary);
+    font-size: var(--footer-contact-details-size);
+    color: var(--color-black);
+}
+
+.footer-crafted-figma {
+    font-family: var(--font-primary);
+    font-size: var(--footer-crafted-font-size);
+}

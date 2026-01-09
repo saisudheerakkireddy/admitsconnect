@@ -1,8 +1,7 @@
 
 
 import './ThankYou.css';
-import { useFormStore } from '../../store/formStore';
-import { useFormNavigation } from '../../hooks/useFormNavigation';
+
 import WizardLayout from '../WizardLayout';
 
 // Stats data matching MobileHomePage
@@ -30,14 +29,11 @@ const StatCard = ({ value, lines, iconPath }: { value: string; lines: string[]; 
   </div>
 );
 
-export default function ThankYou() {
-  const { resetForm } = useFormStore();
-  const { goHome } = useFormNavigation();
+import { Link } from 'react-router-dom';
+import Footer from '../Footer/Footer';
 
-  const handleGoHome = () => {
-    resetForm();
-    goHome();
-  };
+export default function ThankYou() {
+  // handleGoHome removed as it is unused
 
   return (
     <WizardLayout variant="white" headerVariant="default">
@@ -55,10 +51,10 @@ export default function ThankYou() {
           </div>
 
           <div className="thankyou-logo-container">
-            <div className="thankyou-logo">
+            <Link to="/" className="thankyou-logo">
               <img src="/assets/AUN Logo.svg" alt="AUN Logo" className="thankyou-logo-img" />
               <span className="thankyou-logo-text">One</span>
-            </div>
+            </Link>
           </div>
 
           <div className="thankyou-stats-grid">
@@ -72,30 +68,7 @@ export default function ThankYou() {
             ))}
           </div>
         </div>
-
-        <footer className="thankyou-footer">
-          <div className="thankyou-footer-links">
-            <a href="#">About Us</a>
-            <a href="#">EXPLORE</a>
-            <a href="#">AI Student Advisor</a>
-            <a href="#">Terms & Conditions</a>
-            <a href="#">Privacy Policy</a>
-            <a href="#">Refund Policy</a>
-            <a href="#">Anti-Fraud Policy</a>
-            <a href="#">Grievance</a>
-          </div>
-
-          <div className="thankyou-footer-contact">
-            <p className="thankyou-contact-label">Talking to us is easy:</p>
-            <p>+44 773 45 66688 UK</p>
-            <p>+91 970 45 66688 IN</p>
-            <p>support@applyuninow.com</p>
-          </div>
-
-          <p className="thankyou-footer-copyright">
-            Crafted by AUN Tech Consulting Pvt. Ltd.
-          </p>
-        </footer>
+        <Footer className="thankyou-footer" />
       </main>
     </WizardLayout>
   );
