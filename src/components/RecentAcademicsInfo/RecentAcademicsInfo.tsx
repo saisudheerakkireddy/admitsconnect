@@ -1,7 +1,7 @@
 // Recent Academics Info Screen Component
 // Matching Figma Design - "Help us to understand better"
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import './RecentAcademicsInfo.css';
 import { useFormStore } from '../../store/formStore';
 import { useFormNavigation } from '../../hooks/useFormNavigation';

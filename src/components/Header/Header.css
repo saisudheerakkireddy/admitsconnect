@@ -86,24 +86,7 @@
     }
 }
 
-.header-view-mode-toggle-figma {
-    width: 12px;
-    height: 12px;
-}
 
-@media (min-width: 768px) {
-    .header-view-mode-toggle-figma {
-        width: 16px;
-        height: 16px;
-    }
-}
-
-@media (min-width: 1280px) {
-    .header-view-mode-toggle-figma {
-        width: 24px;
-        height: 24px;
-    }
-}
 
 .header-menu-icon-figma {
     width: 14.48px;
