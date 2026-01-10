@@ -18,20 +18,7 @@ const CloseIcon: React.FC<{ className?: string; onClick?: () => void }> = ({ cla
   </svg>
 );
 
-// View Mode Toggle (Light/Dark Mode) - matches Figma specs
-const ViewModeToggle: React.FC<{ className?: string; onClick?: () => void }> = ({ className, onClick }) => (
-  <button
-    className={`relative ${className}`}
-    onClick={onClick}
-    aria-label="Toggle theme"
-  >
-    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
-      {/* Sun icon for light mode */}
-      <circle cx="12" cy="12" r="4" fill="#000" />
-      <path d="M12 1v3M12 20v3M22.5 12h-3M4.5 12h-3M19.778 4.222l-2.121 2.121M6.343 17.657l-2.121 2.121M19.778 19.778l-2.121-2.121M6.343 6.343L4.222 4.222" stroke="#000" strokeWidth="2" strokeLinecap="round" />
-    </svg>
-  </button>
-);
+
 
 interface HeaderProps {
   variant?: 'default' | 'alt';
@@ -39,7 +26,7 @@ interface HeaderProps {
 }
 
 const Header: React.FC<HeaderProps> = ({
-  variant = 'default',
+  variant: _variant = 'default',
   className = ''
 }) => {
   const navigate = useNavigate();
@@ -81,10 +68,7 @@ const Header: React.FC<HeaderProps> = ({
             alt="Profile"
             className="header-profile-icon-figma cursor-pointer"
           />
-          <ViewModeToggle
-            className="header-view-mode-toggle-figma cursor-pointer"
-            onClick={() => {/* TODO: Implement theme toggle */ }}
-          />
+
           {isMenuOpen ? (
             <CloseIcon
               className="header-menu-icon-figma cursor-pointer"

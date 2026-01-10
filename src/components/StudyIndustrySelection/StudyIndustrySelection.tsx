@@ -40,7 +40,7 @@ const IndustryCard = ({ industryId, industryName, isSelected, onSelect }: Indust
 };
 
 export default function StudyIndustrySelection() {
-  const { industry, setIndustry } = useFormStore();
+  const { setIndustry } = useFormStore();
   const { goToNext, goToPrevious, canProceed } = useFormNavigation();
 
   const navigate = useNavigate();
@@ -86,7 +86,6 @@ export default function StudyIndustrySelection() {
               <IndustryCard
                 key={ind.id}
                 industryId={ind.id}
-                industryName={ind.name}
                 industryName={ind.name}
                 isSelected={false} // Disable persistent selection style to avoid "double hover" effect
                 onSelect={() => handleIndustrySelect(ind.id)}
