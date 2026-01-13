@@ -5,7 +5,6 @@ import { useFormStore } from '../../store/formStore';
 import ProfileIconSvg from '../../assets/Header_Icons/Profile icon 1.svg';
 import MenuIconSvg from '../../assets/Header_Icons/Vector.svg';
 
-// Close Icon (for menu close state)
 const CloseIcon: React.FC<{ className?: string; onClick?: () => void }> = ({ className, onClick }) => (
   <svg
     className={className}
@@ -48,7 +47,6 @@ const Header: React.FC<HeaderProps> = ({
         header-figma
         ${className}
       `}>
-        {/* Logo - clickable to go home */}
         <div
           className="flex items-end gap-[6px] cursor-pointer"
           onClick={handleLogoClick}
@@ -61,7 +59,6 @@ const Header: React.FC<HeaderProps> = ({
           <span className="header-one-text-figma">One</span>
         </div>
 
-        {/* Actions */}
         <div className="flex items-center gap-[14px] tablet:gap-[18px] desktop:gap-[24px]">
           <img
             src={ProfileIconSvg}

@@ -1,6 +1,3 @@
-// Intake Year Selection Screen Component
-// Matching Figma Design
-
 import { useState } from 'react';
 import './IntakeYearSelection.css';
 import { useFormStore } from '../../store/formStore';
@@ -12,13 +9,10 @@ interface DurationOption {
   label: string;
 }
 
-// Study durations ordered to match Figma (3-1 layout)
 const studyDurations: DurationOption[] = [
-  // Row 1 (3 items)
   { label: "Undergraduation 3 Years" },
   { label: "Under Graduation 4 Years" },
   { label: "Under Graduation 4+ Years" },
-  // Row 2 (1 item)
   { label: "Diploma" },
 ];
 
@@ -78,7 +72,6 @@ export default function IntakeYearSelection() {
   };
 
   const handleDurationSelect = (label: string) => {
-    // Toggle: if already selected, deselect; otherwise select
     if (studyDuration === label) {
       setStudyDuration('');
     } else {
@@ -90,7 +83,6 @@ export default function IntakeYearSelection() {
     <WizardLayout variant="white" headerVariant="alt">
       <main className="intake-main">
         <section className="intake-section">
-          {/* Navigation Row */}
           <div className="intake-nav-row">
             <button className="nav-arrow-btn nav-arrow-btn--left" onClick={goToPrevious} aria-label="Previous page">
               <LeftArrows />
@@ -106,7 +98,6 @@ export default function IntakeYearSelection() {
             </button>
           </div>
 
-          {/* Dropdowns - Side by side */}
           <div className="intake-dropdowns">
             <Dropdown 
               label="Intake" 

@@ -1,6 +1,7 @@
 // Study Area Data Configuration
 // Maps industries to their study areas with icon paths
 import industryMapping from './industryMapping.json';
+import { getStudyAreaIcon } from '../components/StudyAreaList/StudyAreaIcons';
 
 export interface StudyArea {
   id: string;
@@ -35,11 +36,11 @@ export function getAllIndustries(): Industry[] {
 export function getStudyAreasForIndustry(industryId: string): StudyArea[] {
   const industry = industries.find(ind => ind.id === industryId);
   if (!industry) return [];
-  
-  // Map to full icon paths relative to public directory
+
+  // Map to statically imported icon URLs instead of dynamic paths
   return industry.studyAreas.map(area => ({
     ...area,
-    iconPath: `/src/assets/Industry_Icons/${industry.folderName}/${area.iconPath}`,
+    iconPath: getStudyAreaIcon(industryId, area.id) || '',
   }));
 }
 
@@ -67,9 +68,9 @@ export function getIndustryFolderName(industryId: string): string | undefined {
  */
 export function searchIndustries(searchTerm: string): Industry[] {
   if (!searchTerm) return industries;
-  
+
   const term = searchTerm.toLowerCase();
-  return industries.filter(industry => 
+  return industries.filter(industry =>
     industry.name.toLowerCase().includes(term)
   );
 }
@@ -81,10 +82,10 @@ export function searchIndustries(searchTerm: string): Industry[] {
  */
 export function searchStudyAreas(searchTerm: string): Array<{ industry: Industry; studyArea: StudyArea }> {
   if (!searchTerm) return [];
-  
+
   const term = searchTerm.toLowerCase();
   const results: Array<{ industry: Industry; studyArea: StudyArea }> = [];
-  
+
   industries.forEach(industry => {
     industry.studyAreas.forEach(area => {
       if (area.name.toLowerCase().includes(term)) {
@@ -92,6 +93,6 @@ export function searchStudyAreas(searchTerm: string): Array<{ industry: Industry
       }
     });
   });
-  
+
   return results;
 }

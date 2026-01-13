@@ -1,6 +1,3 @@
-// Study Format Selection Screen Component
-// Matching Figma Design - "Help us to understand better"
-
 import './StudyFormatSelection.css';
 import { useFormStore } from '../../store/formStore';
 import { useFormNavigation } from '../../hooks/useFormNavigation';
@@ -56,7 +53,6 @@ export default function StudyFormatSelection() {
     if (canProceed) goToNext();
   };
 
-  // Toggle handlers
   const handleFormatSelect = (id: string) => {
     setStudyFormat(studyFormat === id ? '' : id);
   };
@@ -76,7 +72,6 @@ export default function StudyFormatSelection() {
   return (
     <WizardLayout variant="white" headerVariant="alt">
       <main className="format-main">
-        {/* Navigation Row */}
         <div className="format-nav-row">
           <button className="nav-arrow-btn nav-arrow-btn--left" onClick={goToPrevious} aria-label="Previous page">
             <LeftArrows />
@@ -93,7 +88,6 @@ export default function StudyFormatSelection() {
         </div>
 
         <div className="format-sections">
-          {/* Study Format */}
           <div className="format-section">
             <h2 className="format-section__title">Choose your study format</h2>
             <div className="format-pills">
@@ -109,7 +103,6 @@ export default function StudyFormatSelection() {
             </div>
           </div>
 
-          {/* Study Attendance Type */}
           <div className="format-section">
             <h2 className="format-section__title">Choose your study attendance type</h2>
             <div className="format-pills">
@@ -125,7 +118,6 @@ export default function StudyFormatSelection() {
             </div>
           </div>
 
-          {/* Budget */}
           <div className="format-section">
             <h2 className="format-section__title">Choose your study budget</h2>
             <div className="format-pills">
@@ -141,7 +133,6 @@ export default function StudyFormatSelection() {
             </div>
           </div>
 
-          {/* Work Experience */}
           <div className="format-section">
             <h2 className="format-section__title">Choose your applicable work experience?</h2>
             <div className="format-pills">

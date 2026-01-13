@@ -51,7 +51,7 @@ export async function captureLeadSupabase(params: { payload: LeadPayload }): Pro
       .single();
 
     if (error || !data?.id) {
-      if (import.meta.env.DEV) console.warn('Supabase lead insert failed', error);
+      console.error('Supabase lead insert failed:', error);
       return {
         ok: false,
         errorCode: 'PROVIDER_ERROR',
@@ -61,7 +61,7 @@ export async function captureLeadSupabase(params: { payload: LeadPayload }): Pro
 
     return { ok: true, id: String(data.id) };
   } catch (e) {
-    if (import.meta.env.DEV) console.warn('Supabase lead capture exception', e);
+    console.error('Supabase lead capture exception:', e);
     return {
       ok: false,
       errorCode: 'PROVIDER_ERROR',
@@ -69,5 +69,3 @@ export async function captureLeadSupabase(params: { payload: LeadPayload }): Pro
     };
   }
 }
-
-

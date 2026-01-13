@@ -1,7 +1,3 @@
-// AdmitsConnect Home Page Component
-// Responsive implementation matching Figma specs (Mobile-first)
-// Breakpoints: Mobile (base) → Tablet (768px) → Desktop (1280px)
-
 import { useEffect } from 'react';
 import { useFormStore } from '../../store/formStore';
 import { useFormNavigation } from '../../hooks/useFormNavigation';
@@ -36,7 +32,6 @@ const tags = [
   "Part-time jobs (in-line to academics / work experience)",
 ];
 
-// Stats data with icon paths from Figma assets
 const stats = [
   { value: "12,000+", lines: ["Students", "Helped"], iconPath: "/assets/icons/stats/Students Helped icon.svg" },
   { value: "3,00,000+", lines: ["Study", "Options"], iconPath: "/assets/icons/stats/Study Options Icon.svg" },
@@ -49,13 +44,6 @@ const stats = [
   { value: "12+", lines: ["Year's", "Experience"], iconPath: "/assets/icons/stats/Years Experience icon.svg" },
 ];
 
-/**
- * TagButton Component
- * Uses CSS custom properties for responsive sizing (defined in variables.css)
- * Mobile: 8px font, 28px height, 23px radius
- * Tablet: 12px font (Comfortaa), 40px height, 30px radius  
- * Desktop: 15px font (Poppins), 50px height, 30px radius
- */
 interface TagButtonProps {
   label: string;
   isSelected: boolean;
@@ -72,12 +60,6 @@ const TagButton = ({ label, isSelected, onToggle }: TagButtonProps) => (
   </button>
 );
 
-/**
- * StatCard Component
- * Uses CSS custom properties for responsive icon and text sizing
- * Mobile: 20px icons, 8px text
- * Tablet/Desktop: 32px icons, 15px text
- */
 interface StatCardProps {
   value: string;
   lines: string[];
@@ -104,10 +86,8 @@ export default function MobileHomePage() {
   const { selectedTags, toggleTag, resetStore } = useFormStore();
   const { goToNext } = useFormNavigation();
 
-  // Reset all form state when homepage mounts
   useEffect(() => {
     resetStore();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleNext = () => {
@@ -116,12 +96,9 @@ export default function MobileHomePage() {
 
   return (
     <div className="page-container">
-      {/* Header - Fully responsive with Figma-aligned padding */}
       <Header variant="default" />
 
-      {/* Main Content - Responsive container */}
       <main className="home-content-wrapper">
-        {/* Tagline Section - Uses systematic spacing */}
         <section className="home-section flex flex-col items-center">
           <p className="tagline-figma mb-6 tablet:mb-[42px]">
             Four Services + One Mission: <strong>Empowering global talent</strong>.
@@ -139,7 +116,6 @@ export default function MobileHomePage() {
           </p>
         </section>
 
-        {/* Tags Section - Uses CSS custom properties for responsive gap/sizing */}
         <section className="home-section home-section--tags">
           <div className="tag-container">
             {tags.map((tag, index) => (
@@ -152,7 +128,6 @@ export default function MobileHomePage() {
             ))}
           </div>
 
-          {/* Next Button - Figma spec: Red pill button with "Next" text */}
           <div className="flex justify-center mt-[5px] mb-[var(--home-content-gap)]">
             <button
               onClick={handleNext}
@@ -164,7 +139,6 @@ export default function MobileHomePage() {
           </div>
         </section>
 
-        {/* Stats Section - Responsive grid: 3 cols mobile/tablet → 9 cols desktop */}
         <section className="home-section">
           <div className="stats-grid-figma">
             {stats.map((stat, index) => (
@@ -178,11 +152,6 @@ export default function MobileHomePage() {
           </div>
         </section>
 
-
-
-
-
-        {/* Footer - Shared Component */}
         <footer className="home-section--footer">
           <Footer />
         </footer>
