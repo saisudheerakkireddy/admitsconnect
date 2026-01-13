@@ -1,9 +1,3 @@
-// API Types and Form Data Interfaces for AdmitsConnect
-
-// ============================================
-// Form Step Data Types
-// ============================================
-
 export interface AcademicRecord {
   year: string;
   grade: string;
@@ -33,7 +27,6 @@ export interface ContactData {
   termsConsent: boolean;
 }
 
-// Adaptive Test Score Structures
 export interface GREScores {
   overall: string;
   verbalReasoning: string;
@@ -48,7 +41,6 @@ export interface GMATScores {
   integratedReasoning: string;
 }
 
-// English Language Test Score Structures
 export interface IELTSTOEFLPTEScores {
   overall: string;
   reading: string;
@@ -72,51 +64,24 @@ export interface AssessmentData {
   englishTestScores?: IELTSTOEFLPTEScores | DETScores;
 }
 
-// ============================================
-// Complete Application Payload
-// ============================================
-
 export interface StudentApplication {
-  // Step 1: Home - Tag Preferences
   selectedTags: string[];
-
-  // Step 2: Country Selection
   country: string;
-
-  // Step 3: Study Level & Degree Type
   studyLevel: string;
   degreeType: string;
-
-  // Step 4: Intake & Duration
   intake: string;
   intakeYear: string;
   studyDuration: string;
-
-  // Step 5: Industry Selection
   industry: string;
-
-  // Step 6: Study Area
   studyArea: string;
-
-  // Step 7: Study Format & Preferences
   studyFormat: string;
   attendanceType: string;
   budget: string;
   workExperience: string;
-
-  // Step 8: Academic Information
   academics: AcademicsData;
-
-  // Step 9: Optional Assessment Information
   assessment?: AssessmentData;
-
-  // Step 10: Contact Information
   contact: ContactData;
 }
-
-// ============================================
-// Form Store State
-// ============================================
 
 export interface FormState extends Partial<StudentApplication> {
   currentStep: number;
@@ -124,10 +89,6 @@ export interface FormState extends Partial<StudentApplication> {
   isSubmitted: boolean;
   error: string | null;
 }
-
-// ============================================
-// API Response Types
-// ============================================
 
 export interface Country {
   name: string;
@@ -174,10 +135,6 @@ export interface StudyDuration {
   label: string;
 }
 
-// ============================================
-// API Response Wrappers
-// ============================================
-
 export interface ApiResponse<T> {
   success: boolean;
   data: T;
@@ -190,33 +147,11 @@ export interface ApiError {
   code?: string;
 }
 
-// ============================================
-// API Endpoints Contract
-// ============================================
-
-/**
- * API Endpoints:
- * 
- * GET  /api/countries       - Fetch available destination countries
- * GET  /api/study-levels    - Fetch study level options
- * GET  /api/degree-types    - Fetch degree type options
- * GET  /api/industries      - Fetch industry options
- * GET  /api/study-areas     - Fetch study areas (can filter by industry)
- * GET  /api/study-formats   - Fetch study format options
- * GET  /api/intakes         - Fetch intake options
- * GET  /api/study-durations - Fetch study duration options
- * POST /api/applications    - Submit complete application
- */
-
 export interface ApplicationSubmitResponse {
   success: boolean;
   applicationId: string;
   message: string;
 }
-
-// ============================================
-// Route Configuration
-// ============================================
 
 export const ROUTES = {
   HOME: '/',
@@ -234,7 +169,6 @@ export const ROUTES = {
 
 export type RoutePath = typeof ROUTES[keyof typeof ROUTES];
 
-// Step order for navigation
 export const STEP_ORDER: RoutePath[] = [
   ROUTES.HOME,
   ROUTES.COUNTRY,

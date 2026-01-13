@@ -1,6 +1,3 @@
-// Recent Academics Info Screen Component
-// Matching Figma Design - "Help us to understand better"
-
 import { useState, useEffect } from 'react';
 import './RecentAcademicsInfo.css';
 import { useFormStore } from '../../store/formStore';
@@ -79,7 +76,6 @@ export default function RecentAcademicsInfo() {
   const { academics, setSecondaryAcademics, setHigherSecondaryAcademics, setUndergradAcademics, setPostgradAcademics, studyLevel } = useFormStore();
   const { goToNext, goToPrevious, canProceed } = useFormNavigation();
 
-  // Determine which fields to show based on study level
   const requiredLevels = getRequiredAcademicLevels(studyLevel || '');
   const showUgFields = requiredLevels.undergrad;
   const showPgFields = requiredLevels.postgrad;
@@ -104,27 +100,22 @@ export default function RecentAcademicsInfo() {
     }
   };
 
-  // Input Sanitization Helpers
   const handleYearChange = (val: string, setter: (val: string) => void) => {
     const sanitized = val.replace(/\D/g, '').slice(0, 4);
     setter(sanitized);
   };
 
   const handleGradeChange = (val: string, setter: (val: string) => void) => {
-    // Allow only digits and one decimal point
     if (!/^\d*\.?\d*$/.test(val)) return;
 
     const parts = val.split('.');
 
-    // Case 1: Integer only (no decimal point)
     if (parts.length === 1) {
       if (val.length <= 3) {
         setter(val);
       }
     }
-    // Case 2: Float (has decimal point)
     else {
-      // Total digits (integer part + fractional part) should be <= 5
       const totalDigits = parts[0].length + parts[1].length;
       if (totalDigits <= 5) {
         setter(val);
@@ -134,20 +125,17 @@ export default function RecentAcademicsInfo() {
 
   const handleBacklogChange = (val: string, setter: (val: number) => void) => {
     if (val === '') {
-      setter(-1); // Handle empty
+      setter(-1);
       return;
     }
-    // Only allow digits
     if (!/^\d+$/.test(val)) return;
 
     const num = parseInt(val, 10);
-    // Only update if valid
     if (num >= 0 && num <= 50) {
       setter(num);
     }
   };
 
-  // Auto-scroll when Schooling section is complete
   useEffect(() => {
     const isSecondaryComplete =
       academics?.secondary?.year &&
@@ -191,10 +179,6 @@ export default function RecentAcademicsInfo() {
     return () => observer.disconnect();
   }, []);
 
-  // Auto-navigate removed to allow "Move Down" behavior (scroll to Graduation)
-  // User will manually click Next after filling all details
-
-  // Handle click outside to close dropdowns
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (openDropdown && !(event.target as Element).closest('.academics-dropdown')) {
@@ -211,7 +195,6 @@ export default function RecentAcademicsInfo() {
   return (
     <WizardLayout variant="white" headerVariant="alt">
       <main className="academics-main">
-        {/* Vertical Stepper */}
         <div className="vertical-stepper">
           <div className="stepper-line">
             <div
@@ -233,9 +216,7 @@ export default function RecentAcademicsInfo() {
           )}
         </div>
 
-        {/* SECTION 1: Schooling (10th & 12th) */}
         <div id="schooling-section" className="academics-scroll-section">
-          {/* Navigation Row */}
           <div className="academics-nav-row">
             <button className="nav-arrow-btn nav-arrow-btn--left" onClick={goToPrevious} aria-label="Previous page">
               <LeftArrows />
@@ -252,7 +233,6 @@ export default function RecentAcademicsInfo() {
           </div>
 
           <div className="academics-form">
-            {/* Secondary School Certificate / 10th */}
             <div className="academics-section">
               <h2 className="academics-section__title">Secondary school certificate / 10th</h2>
               <div className="academics-section__fields">
@@ -285,7 +265,6 @@ export default function RecentAcademicsInfo() {
               </div>
             </div>
 
-            {/* Higher Secondary School Certificate / 12th */}
             <div className="academics-section">
               <h2 className="academics-section__title">Higher Secondary school certificate / 12th</h2>
               <div className="academics-section__fields">
@@ -320,11 +299,9 @@ export default function RecentAcademicsInfo() {
           </div>
         </div>
 
-        {/* SECTION 2: Graduation (UG & PG) */}
         {(showUgFields || showPgFields) && (
           <div id="graduation-section" className="academics-scroll-section">
             <div className="academics-form">
-              {/* Under Graduation */}
               {showUgFields && (
                 <div className="academics-section">
                   <h2 className="academics-section__title">Under Graduation</h2>
@@ -385,7 +362,6 @@ export default function RecentAcademicsInfo() {
                 </div>
               )}
 
-              {/* Post Graduation */}
               {showPgFields && (
                 <div className="academics-section">
                   <h2 className="academics-section__title">Post Graduation</h2>
@@ -447,7 +423,6 @@ export default function RecentAcademicsInfo() {
               )}
             </div>
 
-            {/* Navigation Row for Graduation Section */}
             <div className="academics-nav-row" style={{ marginTop: '2rem' }}>
               <button className="nav-arrow-btn nav-arrow-btn--left" onClick={goToPrevious} aria-label="Previous page">
                 <LeftArrows />

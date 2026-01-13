@@ -1,6 +1,3 @@
-// Study Area Selection Screen Component
-// Refactored with separate CSS file
-
 import './StudyAreaSelection.css';
 import { useFormStore } from '../../store/formStore';
 import { useFormNavigation } from '../../hooks/useFormNavigation';
@@ -13,21 +10,17 @@ interface StudyOption {
   multiline?: boolean;
 }
 
-// Study levels ordered for 5-3 layout (matching Figma design)
 const studyLevels: StudyOption[] = [
-  // Row 1 (5 items)
   { label: "Post Graduation" },
   { label: "Under Graduation" },
   { label: "Summer Programs" },
   { label: "Diploma" },
   { label: "Pre Masters" },
-  // Row 2 (3 items)
   { label: "DBA (Doctorate of Business Administration)" },
   { label: "PhD (Doctor of Philosophy)" },
   { label: "UG - Integrated" },
 ];
 
-// Degree types for Under Graduation (Bachelor's degrees)
 const undergradDegreeTypes: StudyOption[] = [
   { label: "BSC - Bachelor of Science" },
   { label: "BA - Bachelor of Arts" },
@@ -40,7 +33,6 @@ const undergradDegreeTypes: StudyOption[] = [
   { label: "Joint Programs" },
 ];
 
-// Degree types for Post Graduation (Master's degrees)
 const postgradDegreeTypes: StudyOption[] = [
   { label: "MSc - Master of Science" },
   { label: "M.Ph - Master of Philosophy" },
@@ -86,10 +78,8 @@ export default function StudyAreaSelection() {
   const { goToNext, goToPrevious, canProceed } = useFormNavigation();
   const [activeStep, setActiveStep] = useState(0);
 
-  // Determine if degree type selection should be shown
   const shouldShowDegreeType = studyLevel === 'Under Graduation' || studyLevel === 'Post Graduation';
 
-  // Get appropriate degree types based on study level
   const degreeTypes = studyLevel === 'Under Graduation'
     ? undergradDegreeTypes
     : studyLevel === 'Post Graduation'
@@ -97,29 +87,23 @@ export default function StudyAreaSelection() {
       : [];
 
   const handleStudyLevelSelect = (label: string) => {
-    // Toggle: if already selected, deselect; otherwise select
     if (studyLevel === label) {
       setStudyLevel('');
     } else {
       setStudyLevel(label);
 
-      // Check if we need to show degree type selection
       const isDegreeLevel = label === 'Under Graduation' || label === 'Post Graduation';
 
       if (isDegreeLevel) {
-        // Scroll to next section if available
         setTimeout(() => {
           document.getElementById('degree-section')?.scrollIntoView({ behavior: 'smooth' });
         }, 100);
       } else {
-        // For other levels, auto-navigate to next step
-        // Small timeout to allow the user to see the selection
         setTimeout(() => {
           goToNext();
         }, 300);
       }
     }
-    // Clear degree type when changing study level
     if (degreeType) {
       setDegreeType('');
     }
@@ -127,7 +111,6 @@ export default function StudyAreaSelection() {
 
   const handleDegreeTypeSelect = (label: string) => {
     setDegreeType(label);
-    // Auto-navigate to next step after selection
     setTimeout(() => {
       goToNext();
     }, 300);
@@ -139,7 +122,6 @@ export default function StudyAreaSelection() {
     }
   };
 
-  // Intersection Observer for active step
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -170,7 +152,6 @@ export default function StudyAreaSelection() {
   return (
     <WizardLayout variant="white" headerVariant="alt">
       <main className="study-main">
-        {/* Vertical Stepper */}
         <div className="vertical-stepper">
           <div className="stepper-line">
             <div
@@ -193,7 +174,6 @@ export default function StudyAreaSelection() {
         </div>
 
         <section id="study-level-section" className="study-level-section">
-          {/* Navigation Row - Same structure as CountrySelection */}
           <div className="study-nav-row">
             <button className="nav-arrow-btn nav-arrow-btn--left" onClick={goToPrevious} aria-label="Previous page">
               <LeftArrows />
@@ -209,7 +189,6 @@ export default function StudyAreaSelection() {
             </button>
           </div>
 
-          {/* Study Level Pills - 5-3 layout */}
           <div className="study-pills-container">
             {studyLevels.map((option, index) => (
               <PillButton

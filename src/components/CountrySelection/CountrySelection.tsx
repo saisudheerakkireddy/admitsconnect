@@ -1,6 +1,3 @@
-// Country Selection Screen Component
-// Viewport-responsive design with consistent navigation
-
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './CountrySelection.css';
@@ -39,7 +36,6 @@ const countries: Country[] = [
   { name: "Spain", flagUrl: "/assets/icons/flags/Spain.svg" },
 ];
 
-// Country Card Component
 interface CountryCardProps {
   country: Country;
   isSelected: boolean;
@@ -69,14 +65,12 @@ export default function CountrySelection() {
   const { goToPrevious, canProceed } = useFormNavigation();
   const navigate = useNavigate();
 
-  // Reset country selection when entering this page
   useEffect(() => {
     setCountry('');
   }, [setCountry]);
 
   const handleCountrySelect = (countryName: string) => {
     setCountry(countryName);
-    // Navigate directly to next page in one click
     navigate(ROUTES.STUDY_LEVEL);
   };
 
@@ -89,7 +83,6 @@ export default function CountrySelection() {
   return (
     <WizardLayout variant="white" headerVariant="alt">
       <main className="country-main">
-        {/* Navigation Row with Title and Arrows - Consistent styling */}
         <div className="country-nav-row">
           <button className="nav-arrow-btn nav-arrow-btn--left" onClick={goToPrevious} aria-label="Previous page">
             <LeftArrows />
@@ -105,7 +98,6 @@ export default function CountrySelection() {
           </button>
         </div>
 
-        {/* Country Grid - Viewport responsive (3-6 columns) */}
         <div className="country-grid">
           {countries.map((c, index) => (
             <CountryCard 
@@ -117,7 +109,6 @@ export default function CountrySelection() {
           ))}
         </div>
 
-        {/* Bottom Divider - Responsive width */}
         <div className="country-divider-container">
           <div className="country-divider" />
         </div>
